@@ -119,6 +119,7 @@ With Hugo set up and deployed, I can now focus on what matters — sharing techn
 
 ## Related resources
 
+- [Repository for this website](https://github.com/nexo-tech/nexo-tech.github.io)
 - [Hugo quick start](https://gohugo.io/getting-started/quick-start/#publish-the-site)
 - [Configuring DNS settings for GitHub Pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#dns-records-for-your-custom-domain)
 - [Cactus theme for Hugo](https://themes.gohugo.io/themes/hugo-theme-cactus/)
