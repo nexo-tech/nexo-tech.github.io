@@ -9,7 +9,7 @@
   {{ end }}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ if .IsPage }} {{ .Title }} | {{ end }}{{ .Site.Title }}</title>
+  <title>{{ if .IsPage }} {{ .Title }} | {{ end }}{{ default .Site.Title .Site.Params.Title }}</title>
   <link rel = 'canonical' href = '{{ .Permalink }}'>
   {{ with .Site.Params.MetaDescription }}<meta name="description" content="{{ . }}">{{ end }}
   {{ with .Site.Author }}<meta name="author" content="{{ . }}">{{ end }}

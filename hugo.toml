@@ -13,6 +13,7 @@ colortheme = "classic"
 worksFor = "Early-stage startup"
 jobTitle = "Lead Software Engineer"
 author = "Oleg Pustovit"
+title = "Oleg Pustovit – Technical Blog on Scalable Systems, Startups & Engineering"
 
 
 [[params.social]]
@@ -41,13 +42,8 @@ name = "All posts"
 url = "/posts"
 weight = 2
 
-# [[menu.main]]
-# name = "Tags"
-# url = "/tags"
-# weight = 3
-
 [[menu.main]]
 name = "Privacy"
 url = "/privacy-policy"
-weight = 4
+weight = 3
 
