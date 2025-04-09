@@ -6,10 +6,15 @@ params:
 title: Deploying a Hugo Blog to GitHub Pages with Actions
 weight: 10
 tags:
-  - hugo
-  - github-pages
-  - deployment
-  - blogging
+  - oracle-cloud
+  - free-tier
+  - cloud-vm
+  - arm64
+  - web-development
+  - remote-server
+  - firewall
+  - ssh
+  - devops
 ---
 
 ![Image title](frame.png)
