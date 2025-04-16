@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nexo.sh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            spacing: {
+              30: "7.5rem",
+              40: "10rem",
+            },
+            gridTemplateColumns: {
+              10: "repeat(10, minmax(0, 1fr))",
+            },
+            colors: {
+              primary: "#0F00E6",
+              bg: "#F5F5F5",
+            },
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .terminal-text {
+        position: relative;
+        font-family: "Inter", monospace;
+        display: inline-block;
+      }
+
+      .terminal-container {
+        min-height: 200px; /* Add fixed height to prevent layout shifts */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .cursor {
+        position: relative;
+        display: inline-block;
+        width: 3px;
+        height: 54px;
+        background-color: #0f00e6;
+        animation: blink 1s step-end infinite;
+        vertical-align: text-bottom;
+        margin-left: 4px;
+      }
+
+      @keyframes blink {
+        from,
+        to {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .hidden-text {
+        visibility: hidden;
+        height: 0;
+        position: absolute;
+      }
+
+      .sidebar-text {
+        opacity: 0;
+      }
+
+      .sidebar-text span {
+        display: inline;
+      }
+
+      .service-card {
+        opacity: 0;
+        transform: translateY(30px);
+        /* padding-top: 0.75rem; */
+      }
+
+      .service-card h3 {
+        letter-spacing: -0.01em;
+        font-weight: 600;
+      }
+
+      .service-card p {
+        letter-spacing: 0.01em;
+        line-height: 1.6;
+      }
+
+      .tech-item {
+        opacity: 0;
+        transform: translateY(10px);
+        /* transition: all 0.3s ease; */
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      .tech-item.primary {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .tech-item.secondary {
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      .tech-item.tertiary {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .tech-item {
+        /* padding: 1.5rem; */
+        /* border-radius: 12px; */
+        /* text-align: center; */
+        color: #0F00E6;
+        cursor: pointer;
+      }
+
+
+      .services-header {
+        overflow: hidden;
+      }
+
+      .services-header h2 {
+        transform: translateY(100%);
+      }
+
+      .services-tagline {
+        overflow: hidden;
+      }
+
+      .services-tagline p {
+        transform: translateY(100%);
+      }
+
+      .nav-item.active::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #0f00e6;
+        margin-top: 4px;
+      }
+
+      .section {
+        min-height: 100vh;
+        padding-top: 80px;
+      }
+
+      .service-number {
+        font-size: 2.5rem;
+        line-height: 1;
+        opacity: 0.7;
+        font-weight: 200;
+        letter-spacing: -0.02em;
+      }
+
+      .tech-stack {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        width: 100%;
+        padding: 2rem 0;
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 0.15rem;
+        margin-top: 1rem;
+        padding: 0 2rem;
+      }
+
+      .tech-item {
+        opacity: 0;
+        transform: translateY(10px);
+        /* transition: all 0.2s ease; */
+        color: #0F00E6;
+        /* text-align: center; */
+        /* padding: 0.1rem; */
+        cursor: pointer;
+        font-size: 0.6rem;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        /* aspect-ratio: 1; */
+        display: flex;
+        align-items: center;
+        /* justify-content: center; */
+      }
+
+      .tech-item:hover {
+        /* transform: scale(1.1); */
+        z-index: 10;
+        font-weight: 600;
+        font-size: 20px;
+      }
+
+      .tech-item.primary {
+        font-size: 0.7rem;
+        font-weight: 600;
+        opacity: 1;
+      }
+
+      .tech-item.secondary {
+        font-size: 0.65rem;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+
+      .tech-item.tertiary {
+        font-size: 0.6rem;
+        font-weight: 400;
+        opacity: 0.7;
+      }
+
+      .tech-stack h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.03em;
+        padding: 0 2rem;
+      }
+    </style>
+  </head>
+  <body class="bg-bg min-h-screen font-inter">
+    <!-- Header -->
+    <header class="mx-40 pt-8 fixed top-0 left-0 right-0 z-50 bg-bg">
+      <nav class="flex justify-between items-center">
+        <a href="/" class="text-md font-semibold text-primary">[nexo.sh]</a>
+        <div class="space-x-8">
+          <a
+            href="#services"
+            class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold"
+            >/services</a
+          >
+          <a
+            href="/collaborate"
+            class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold"
+            >/collaborate</a
+          >
+          <a
+            href="/writings"
+            class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold"
+            >/writings</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="section mx-40 mt-24 pt-32">
+      <div class="grid grid-cols-10 gap-30">
+        <!-- Main Heading - Spans 6 columns -->
+        <div class="col-span-6">
+          <div class="text-5xl font-bold leading-tight text-primary">
+            <div class="terminal-container">
+              <span id="terminal-line1" class="terminal-text"></span>
+              <span id="terminal-line2" class="terminal-text"></span><br />
+              <span id="terminal-line3" class="terminal-text"></span>
+              <span class="cursor"></span>
+            </div>
+            <!-- Hidden text for SEO and backup -->
+            <h1 class="hidden-text">
+              Built MVPs. Led teams. Survived funding drama.
+            </h1>
+          </div>
+        </div>
+
+        <!-- Side Text - Spans 4 columns -->
+        <div class="col-span-4">
+          <p
+            id="sidebar-text"
+            class="sidebar-text text-xl text-primary leading-relaxed font-light"
+          >
+            <span class="text-scramble">Technical leadership for </span>
+            <span class="font-bold">startups</span
+            ><span class="text-scramble">, </span>
+            <span class="font-bold">scale-ups</span
+            ><span class="text-scramble"
+              >, and founders who are tired of duct tape disguised as code. From
+              AI prototypes to
+            </span>
+            <span class="font-bold">production-grade</span>
+            <span class="text-scramble"> systems, it's handled.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-16 relative">
+        <a
+          href="/contact"
+          class="inline-flex items-center text-xl font-semibold group text-primary hover:text-primary/80 transition-colors absolute bottom-0"
+        >
+          Need technical firepower? Let's talk
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 ml-2 transform group-hover:translate-x-1 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section mx-40 pt-32">
+      <!-- Section Header -->
+      <div class="grid grid-cols-10 gap-30 mb-20">
+        <div class="col-span-4 services-header">
+          <h2 class="text-5xl font-bold text-primary">Services</h2>
+        </div>
+        <div class="col-span-6 services-tagline">
+          <p class="text-2xl text-primary font-light">
+            > I do useful things. For money.
+          </p>
+        </div>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid grid-cols-10 gap-x-30 gap-y-20">
+        <!-- MVP Development -->
+        <div class="col-span-3 service-number text-left text-lg pr-8">01</div>
+        <div class="col-span-7 service-card">
+          <h3 class="text-2xl font-bold mb-4 text-primary mt-0">MVP Development</h3>
+          <p class="text-lg text-primary/80 font-light">
+            End-to-end product buildout with scalable architecture.
+          </p>
+        </div>
+
+        <!-- Fractional CTO -->
+        <div class="col-span-3 service-number text-left text-lg pr-8">02</div>
+        <div class="col-span-7 service-card">
+          <h3 class="text-2xl font-bold mb-4 text-primary">Fractional CTO</h3>
+          <p class="text-lg text-primary/80 font-light">
+            Architecture, team building, and technical roadmap planning.
+          </p>
+        </div>
+
+        <!-- Code Reviews / Audits -->
+        <div class="col-span-3 service-number text-left text-lg pr-8">03</div>
+        <div class="col-span-7 service-card">
+          <h3 class="text-2xl font-bold mb-4 text-primary">
+            Code Reviews / Audits
+          </h3>
+          <p class="text-lg text-primary/80 font-light">
+            Deep technical analysis to prevent those 3 AM production issues.
+          </p>
+        </div>
+
+        <!-- Hiring / Team Building -->
+        <div class="col-span-3 service-number text-left text-lg pr-8">04</div>
+        <div class="col-span-7 service-card">
+          <h3 class="text-2xl font-bold mb-4 text-primary">
+            Hiring / Team Building
+          </h3>
+          <p class="text-lg text-primary/80 font-light">
+            Building high-performance engineering teams that actually ship.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="mt-32 tech-stack">
+        <h3 class="text-primary">> tech stack</h3>
+        <div class="tech-grid" id="tech-grid">
+          <!-- Tech items will be populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Register GSAP plugins
+        gsap.registerPlugin(TextPlugin, ScrollTrigger);
+
+        // Set initial state for terminal animation
+        gsap.set("#terminal-line1", { text: "", opacity: 1 });
+        gsap.set("#terminal-line2", { text: "", opacity: 1 });
+        gsap.set("#terminal-line3", { text: "", opacity: 1 });
+
+        // Create a sequence with the typing animation
+        const timeline = gsap.timeline({ delay: 0.5 });
+
+        // First line with code-like symbols appearing before the actual text
+        timeline
+          .to("#terminal-line1", {
+            duration: 0.1,
+            text: "> _",
+            ease: "none",
+          })
+          .to("#terminal-line1", {
+            duration: 0.2,
+            text: "> init.sequence()",
+            ease: "none",
+          })
+          .to("#terminal-line1", {
+            duration: 0.1,
+            text: "> init.sequence() // success",
+            ease: "none",
+          })
+          .to(
+            "#terminal-line1",
+            {
+              duration: 0.5,
+              text: "Built MVPs. ",
+              ease: "none",
+            },
+            "+=0.5"
+          )
+
+          // Second line (now part of first line)
+          .to(
+            "#terminal-line2",
+            {
+              duration: 0.1,
+              text: "> _",
+              ease: "none",
+            },
+            "+=0.3"
+          )
+          .to("#terminal-line2", {
+            duration: 0.2,
+            text: "> team.lead()",
+            ease: "none",
+          })
+          .to("#terminal-line2", {
+            duration: 0.1,
+            text: "> team.lead() // deployed",
+            ease: "none",
+          })
+          .to(
+            "#terminal-line2",
+            {
+              duration: 0.5,
+              text: "Led teams.",
+              ease: "none",
+            },
+            "+=0.5"
+          )
+
+          // Third line
+          .to(
+            "#terminal-line3",
+            {
+              duration: 0.1,
+              text: "> _",
+              ease: "none",
+            },
+            "+=0.3"
+          )
+          .to("#terminal-line3", {
+            duration: 0.2,
+            text: "> funding.crisis()",
+            ease: "none",
+          })
+          .to("#terminal-line3", {
+            duration: 0.1,
+            text: "> funding.crisis() // resolved",
+            ease: "none",
+          })
+          .to(
+            "#terminal-line3",
+            {
+              duration: 0.7,
+              text: "Survived funding drama.",
+              ease: "none",
+            },
+            "+=0.5"
+          )
+          // After main animation completes, start the sidebar text animation
+          .call(startSidebarAnimation);
+
+        // Text scramble effect
+        class TextScramble {
+          constructor(el) {
+            this.el = el;
+            this.chars = "!<>-_\\/[]{}—=+*^?#_abcdefghijklmnopqrstuvwxyz";
+            this.update = this.update.bind(this);
+          }
+
+          setText(newText) {
+            const oldText = this.el.innerText;
+            const length = Math.max(oldText.length, newText.length);
+            const promise = new Promise((resolve) => (this.resolve = resolve));
+            this.queue = [];
+
+            for (let i = 0; i < length; i++) {
+              const from = oldText[i] || "";
+              const to = newText[i] || "";
+              const start = Math.floor(Math.random() * 40);
+              const end = start + Math.floor(Math.random() * 40);
+              this.queue.push({ from, to, start, end });
+            }
+
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.update();
+            return promise;
+          }
+
+          update() {
+            let output = "";
+            let complete = 0;
+
+            for (let i = 0, n = this.queue.length; i < n; i++) {
+              let { from, to, start, end, char } = this.queue[i];
+
+              if (this.frame >= end) {
+                complete++;
+                output += to;
+              } else if (this.frame >= start) {
+                if (!char || Math.random() < 0.28) {
+                  char = this.randomChar();
+                  this.queue[i].char = char;
+                }
+                output += `<span class="text-primary/70">${char}</span>`;
+              } else {
+                output += from;
+              }
+            }
+
+            this.el.innerHTML = output;
+
+            if (complete === this.queue.length) {
+              this.resolve();
+            } else {
+              this.frameRequest = requestAnimationFrame(this.update);
+              this.frame++;
+            }
+          }
+
+          randomChar() {
+            return this.chars[Math.floor(Math.random() * this.chars.length)];
+          }
+        }
+
+        function startSidebarAnimation() {
+          // First make the sidebar visible
+          gsap.to("#sidebar-text", { opacity: 1, duration: 0.5 });
+
+          // Get all scramble elements
+          const elements = document.querySelectorAll(".text-scramble");
+          const instances = Array.from(elements).map(
+            (el) => new TextScramble(el)
+          );
+
+          // Animate all elements simultaneously
+          instances.forEach((instance, index) => {
+            const el = elements[index];
+            const originalText = el.textContent;
+            instance.setText(originalText);
+          });
+        }
+
+        // Services section animations
+        function initServicesAnimations() {
+          // Animate section header
+          gsap.to(".services-header h2", {
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".services-header",
+              start: "top 80%",
+            },
+          });
+
+          // Animate tagline
+          gsap.to(".services-tagline p", {
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".services-tagline",
+              start: "top 80%",
+            },
+          });
+
+          // Animate service cards
+          gsap.to(".service-card", {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".service-card",
+              start: "top 85%",
+            },
+          });
+
+          // Animate tech stack items
+          gsap.to(".tech-item", {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".tech-item",
+              start: "top 90%",
+            },
+          });
+        }
+
+        // Navigation highlight
+        function initNavHighlight() {
+          const sections = document.querySelectorAll("section");
+          const navItems = document.querySelectorAll(".nav-item");
+
+          window.addEventListener("scroll", () => {
+            let current = "";
+
+            sections.forEach((section) => {
+              const sectionTop = section.offsetTop;
+              const sectionHeight = section.clientHeight;
+
+              if (pageYOffset >= sectionTop - 300) {
+                current = section.getAttribute("id");
+              }
+            });
+
+            navItems.forEach((item) => {
+              item.classList.remove("active");
+              if (item.getAttribute("href").includes(current)) {
+                item.classList.add("active");
+              }
+            });
+          });
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: "smooth",
+            });
+          });
+        });
+
+        // Load and render tech stack
+        async function loadTechStack() {
+          try {
+            const response = await fetch('tech-stack.json');
+            const data = await response.json();
+            const techGrid = document.getElementById('tech-grid');
+            
+            // Combine all tech items
+            const allTech = [
+              ...data.primary.map(tech => ({ tech, type: 'primary' })),
+              ...data.secondary.map(tech => ({ tech, type: 'secondary' })),
+              ...data.tertiary.map(tech => ({ tech, type: 'tertiary' }))
+            ];
+
+            // Shuffle the array for a more organic look
+            allTech.sort(() => Math.random() - 0.5);
+
+            // Create and append tech items
+            allTech.forEach(({ tech, type }) => {
+              const div = document.createElement('div');
+              div.className = `tech-item ${type}`;
+              div.textContent = tech.toLowerCase();
+              techGrid.appendChild(div);
+            });
+
+            // // Animate tech items with staggered delay
+            // gsap.to(".tech-item", {
+            //   opacity: 1,
+            //   y: 0,
+            //   duration: 0.3,
+            //   stagger: {
+            //     amount: 1,
+            //     from: "random"
+            //   },
+            //   ease: "power2.out",
+            //   scrollTrigger: {
+            //     trigger: ".tech-stack",
+            //     start: "top 80%",
+            //   }
+            // });
+          } catch (error) {
+            console.error('Error loading tech stack:', error);
+          }
+        }
+
+        // Initialize animations after page load
+        initServicesAnimations();
+        initNavHighlight();
+        loadTechStack();
+      });
+    </script>
+  </body>
+</html>
