@@ -125,18 +125,70 @@
 
       .tech-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 0.15rem;
+        margin-top: 1rem;
+        padding: 0 2rem;
       }
 
       .tech-item {
-        /* padding: 1.5rem; */
-        /* border-radius: 12px; */
-        /* text-align: center; */
+        opacity: 0;
+        transform: translateY(10px);
         color: #0F00E6;
         cursor: pointer;
+        font-size: 0.6rem;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        text-transform: lowercase;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        position: relative;
       }
 
+      .tech-item:hover {
+        z-index: 10;
+        font-weight: 600;
+      }
+
+      .tech-item:hover::after {
+        content: attr(data-tech);
+        position: absolute;
+        font-size: 20px;
+        white-space: nowrap;
+        background: #F5F5F5;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .tech-item.primary {
+        font-size: 0.7rem;
+        font-weight: 600;
+        opacity: 1;
+      }
+
+      .tech-item.secondary {
+        font-size: 0.65rem;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+
+      .tech-item.tertiary {
+        font-size: 0.6rem;
+        font-weight: 400;
+        opacity: 0.7;
+      }
+
+      .tech-stack h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.03em;
+        padding: 0 2rem;
+      }
 
       .services-header {
         overflow: hidden;
@@ -180,64 +232,6 @@
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         width: 100%;
         padding: 2rem 0;
-      }
-
-      .tech-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-        gap: 0.15rem;
-        margin-top: 1rem;
-        padding: 0 2rem;
-      }
-
-      .tech-item {
-        opacity: 0;
-        transform: translateY(10px);
-        /* transition: all 0.2s ease; */
-        color: #0F00E6;
-        /* text-align: center; */
-        /* padding: 0.1rem; */
-        cursor: pointer;
-        font-size: 0.6rem;
-        line-height: 1;
-        letter-spacing: -0.02em;
-        text-transform: lowercase;
-        /* aspect-ratio: 1; */
-        display: flex;
-        align-items: center;
-        /* justify-content: center; */
-      }
-
-      .tech-item:hover {
-        /* transform: scale(1.1); */
-        z-index: 10;
-        font-weight: 600;
-        font-size: 20px;
-      }
-
-      .tech-item.primary {
-        font-size: 0.7rem;
-        font-weight: 600;
-        opacity: 1;
-      }
-
-      .tech-item.secondary {
-        font-size: 0.65rem;
-        font-weight: 500;
-        opacity: 0.9;
-      }
-
-      .tech-item.tertiary {
-        font-size: 0.6rem;
-        font-weight: 400;
-        opacity: 0.7;
-      }
-
-      .tech-stack h3 {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-        letter-spacing: -0.03em;
-        padding: 0 2rem;
       }
     </style>
   </head>
@@ -694,6 +688,7 @@
               const div = document.createElement('div');
               div.className = `tech-item ${type}`;
               div.textContent = tech.toLowerCase();
+              div.setAttribute('data-tech', tech.toLowerCase());
               techGrid.appendChild(div);
             });
 
