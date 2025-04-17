@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Header scroll handling
   const header = document.querySelector('header');
-  const introductionSection = document.querySelector('#introduction');
   
   window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
@@ -451,6 +450,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Dark mode transition and reveal animation
   const body = document.body;
+  const introductionSection = document.querySelector('#introduction');
+  const techStackSection = document.querySelector('#tech-stack');
   
   // Create a ScrollTrigger for the introduction section
   gsap.to(body, {
@@ -472,6 +473,33 @@ document.addEventListener("DOMContentLoaded", function () {
       onLeaveBack: () => {
         body.classList.remove('dark-mode');
         gsap.to('.introduction-reveal', {
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          ease: "power3.in"
+        });
+      }
+    }
+  });
+  gsap.to(body, {
+    scrollTrigger: {
+      trigger: techStackSection,
+      start: "top 60%",
+      end: "top 20%",
+      onEnter: () => {
+        body.classList.remove('dark-mode');
+        // Animate the introduction content
+        gsap.to('.tech-stack-reveal', {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          stagger: 0.2
+        });
+      },
+      onLeaveBack: () => {
+        body.classList.add('dark-mode');
+        gsap.to('.tech-stack-reveal', {
           opacity: 0,
           y: 50,
           duration: 0.8,
