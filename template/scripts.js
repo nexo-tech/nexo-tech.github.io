@@ -2,6 +2,21 @@ document.addEventListener("DOMContentLoaded", function () {
   // Register GSAP plugins
   gsap.registerPlugin(TextPlugin, ScrollTrigger);
 
+  // Header scroll handling
+  const header = document.querySelector('header');
+  const introductionSection = document.querySelector('#introduction');
+  
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const introductionTop = introductionSection.offsetTop;
+    
+    if (scrollPosition >= introductionTop - 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
   // Set initial state for terminal animation
   gsap.set("#terminal-line1", { text: "", opacity: 1 });
   gsap.set("#terminal-line2", { text: "", opacity: 1 });
@@ -433,6 +448,38 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error loading tech stack:", error);
     }
   }
+
+  // Dark mode transition and reveal animation
+  const body = document.body;
+  
+  // Create a ScrollTrigger for the introduction section
+  gsap.to(body, {
+    scrollTrigger: {
+      trigger: introductionSection,
+      start: "top 60%",
+      end: "top 20%",
+      onEnter: () => {
+        body.classList.add('dark-mode');
+        // Animate the introduction content
+        gsap.to('.introduction-reveal', {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          stagger: 0.2
+        });
+      },
+      onLeaveBack: () => {
+        body.classList.remove('dark-mode');
+        gsap.to('.introduction-reveal', {
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          ease: "power3.in"
+        });
+      }
+    }
+  });
 
   // Initialize animations after page load
   initServicesAnimations();
