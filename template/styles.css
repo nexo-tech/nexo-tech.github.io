@@ -8,6 +8,10 @@
   --header-bg-dark: rgba(0, 0, 0, 0.95);
 }
 
+.bg-text-dark {
+  background-color: var(--color-text-dark);
+}
+
 .terminal-text {
   position: relative;
   font-family: "Inter", monospace;
