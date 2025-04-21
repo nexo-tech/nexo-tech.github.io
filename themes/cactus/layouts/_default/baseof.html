@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
 {{ partial "head.html" . }}
-<body class="max-width mx-auto px3 ltr">
-  <div class="content index py4">
+<body class="bg-bg min-h-screen font-inter">
 
     {{ partial "header.html" . }}
 
@@ -11,10 +10,8 @@
 
     {{ partial "footer.html" . }}
 
-  </div>
 </body>
 
 <link rel="stylesheet" href={{ "lib/font-awesome/css/all.min.css" | relURL }}>
-<script src={{ "lib/jquery/jquery.min.js" | relURL }}></script>
-<script src={{ "js/main.js" | relURL }}></script>
+<script src={{ "js/x2/scripts.js" | relURL }} type="text/javascript"></script>
 </html>

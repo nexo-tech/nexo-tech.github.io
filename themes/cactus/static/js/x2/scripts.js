@@ -408,7 +408,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       items.forEach((item, index) => {
         // Different noise inputs for each item
-        time += 1 * 0.0005;
+        if (!mousePos.isInsideRect) {
+          time += 1 * 0.0005;
+        }
 
         const x = (index % 24) - time / 2;
         const y = index / 24 + time;
@@ -450,7 +452,7 @@ document.addEventListener("DOMContentLoaded", function () {
     animateTechStack();
 
     try {
-      const response = await fetch("tech-stack.json");
+      const response = await fetch("js/x2/tech-stack.json");
       const data = await response.json();
       const techGrid = document.getElementById("tech-grid");
 
