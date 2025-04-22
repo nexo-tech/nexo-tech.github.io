@@ -6,7 +6,7 @@ copyright = "Oleg Pustovit"
 
 [params]
 rss = true
-description = "I’m a Lead Software Engineer at an early-stage startup, focused on building scalable infrastructure with Kubernetes, Go, and GraphQL. I have a strong background in system design, GPU programming, and computer graphics, and have led multiple startups from 0 to 1 through MVP development. This site is a collection of my technical write-ups, startup lessons, and occasional experiments in software engineering."
+description = "I'm a Lead Software Engineer at an early-stage startup, focused on building scalable infrastructure with Kubernetes, Go, and GraphQL. I have a strong background in system design, GPU programming, and computer graphics, and have led multiple startups from 0 to 1 through MVP development. This site is a collection of my technical write-ups, startup lessons, and occasional experiments in software engineering."
 metaDescription = "Technical blog by Oleg Pustovit, covering scalable infrastructure, MVPs, Kubernetes, Go, GraphQL, and startup engineering lessons."
 metaKeywords = "Software Engineering, Kubernetes, Go, GraphQL, Startups, MVP, System Design, Tech Blog, Oleg Pustovit"
 colortheme = "classic"
@@ -594,3 +594,7 @@ tertiary = [
     "physijs.js",
     "oimo.js",
 ]
+
+[params.writingsGrid]
+columns = 3  # Number of columns in the grid (can be 3, 4, 5, etc.)
+postsToShow = 6  # Number of posts to display in the grid
