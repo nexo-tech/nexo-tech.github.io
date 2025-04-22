@@ -51,6 +51,9 @@ name = "Privacy"
 url = "/privacy-policy"
 weight = 3
 
+[params.introduction]
+title = "Oleg Pustovit"
+description = "I'm a Lead Software Engineer at an early-stage startup, focused on building scalable infrastructure with Kubernetes, Go, and GraphQL. I have a strong background in system design, GPU programming, and computer graphics, and have led multiple startups from 0 to 1 through MVP development. This site is a collection of my technical write-ups, startup lessons, and occasional experiments in software engineering."
 
 [[params.services]]
 title = "MVP Development"
@@ -82,6 +85,21 @@ value = "Users first, tech stack second"
 
 [[params.aboutMe.values]]
 value = "Continuous learning and adaptation"
+
+[[params.aboutMe.timeline]]
+year = "2022"
+description = "Independent Consulting"
+subtext = "Helping startups build and scale their tech."
+
+[[params.aboutMe.timeline]]
+year = "2020"
+description = "First Startup Success"
+subtext = "Led development of a SaaS platform from 0 to 10k users."
+
+[[params.aboutMe.timeline]]
+year = "2018"
+description = "Building a SaaS platform"
+subtext = "Discovered the joy of building things people actually use."
 
 
 [params.skills]

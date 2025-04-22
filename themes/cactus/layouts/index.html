@@ -77,19 +77,15 @@
           class="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg"
         ></div>
         <h2 class="text-6xl lg:text-8xl font-bold relative z-10 leading-none">
-          Oleg<br />Pustovit
+          {{- $parts := split .Site.Params.introduction.title " " }} {{ index
+          $parts 0}}<br />{{ index $parts 1}}
         </h2>
       </div>
 
       <!-- Introduction Text -->
       <div class="lg:col-span-6">
         <p class="text-lg lg:text-xl leading-relaxed">
-          I'm a Lead Software Engineer at an early-stage startup, focused on
-          building scalable infrastructure with Kubernetes, Go, and GraphQL. I
-          have a strong background in system design, GPU programming, and
-          computer graphics, and have led multiple startups from 0 to 1 through
-          MVP development. This site is a collection of my technical write-ups,
-          startup lessons, and occasional experiments in software engineering.
+          {{ .Site.Params.introduction.description }}
         </p>
       </div>
     </div>
@@ -235,67 +231,36 @@
         <div class="space-y-8 relative">
           <!-- Continuous vertical line that spans all entries -->
           <div
-            class="absolute left-[-1px] top-[6px] bottom-0 w-[2px] bg-primary/20"
+            class="absolute left-[-1px] top-[6px] bottom-0 w-[1px] bg-primary/20"
           ></div>
-          <!-- 2022 -->
-          <div class="relative pl-8">
-            <div
-              class="absolute left-[-3px] top-[6px] w-[6px] h-[6px] rounded-full bg-primary"
-            ></div>
-            <div class="text-xl font-bold text-primary mb-2">2022</div>
-            <div class="text-lg font-semibold text-primary mb-2">
-              Independent Consulting
+          <!-- Timeline -->
+          <div>
+            <div class="space-y-8 relative">
+              <!-- Continuous vertical line that spans all entries -->
+              <div
+                class="absolute left-[-1px] top-[6px] bottom-0 w-[1px] bg-primary/20"
+              ></div>
+              {{ range .Site.Params.aboutMe.timeline }}
+              <div class="relative pl-8">
+                <div
+                  class="absolute left-[-3.5px] top-[6px] w-[6px] h-[6px] rounded-full bg-primary"
+                ></div>
+                <div class="text-xl font-bold text-primary mb-2">{{ .year }}</div>
+                <div class="text-lg font-semibold text-primary mb-2">
+                  {{ .description }}
+                </div>
+                <p class="text-primary/80">
+                  {{ .subtext }}
+                </p>
+              </div>
+              {{ end }}
             </div>
-            <p class="text-primary/80">
-              Helping startups build and scale their tech.
-            </p>
-          </div>
-          <!-- 2020 -->
-          <div class="relative pl-8">
-            <div
-              class="absolute left-[-3px] top-[6px] w-[6px] h-[6px] rounded-full bg-primary"
-            ></div>
-            <div class="text-xl font-bold text-primary mb-2">2020</div>
-            <div class="text-lg font-semibold text-primary mb-2">
-              First Startup Success
-            </div>
-            <p class="text-primary/80">
-              Led development of a SaaS platform from 0 to 10k users.
-            </p>
-          </div>
-          <!-- 2018 -->
-          <div class="relative pl-8">
-            <div
-              class="absolute left-[-3px] top-[6px] w-[6px] h-[6px] rounded-full bg-primary"
-            ></div>
-            <div class="text-xl font-bold text-primary mb-2">2018</div>
-            <div class="text-lg font-semibold text-primary mb-2">
-              Started Web Development
-            </div>
-            <p class="text-primary/80">
-              Discovered the joy of building things people actually use.
-            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  // Animate about me section
-  gsap.from(".about-me-reveal", {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    scrollTrigger: {
-      trigger: ".about-me-reveal",
-      start: "top 80%",
-      end: "top 20%",
-      scrub: 1,
-    },
-  });
-</script>
 
 {{if false }}
 <section id="about">

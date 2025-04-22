@@ -594,6 +594,19 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
+  // Animate about me section
+  gsap.from(".about-me-reveal", {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".about-me-reveal",
+      start: "top 80%",
+      end: "top 20%",
+      scrub: 1,
+    },
+  });
+
   // Initialize animations after page load
   initServicesAnimations();
   initNavHighlight();
