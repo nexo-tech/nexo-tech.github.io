@@ -3,7 +3,7 @@ name: Build and Deploy Hugo
 on:
   push:
     branches:
-      - main  # or your default branch
+      - dev
 
 jobs:
   deploy:
