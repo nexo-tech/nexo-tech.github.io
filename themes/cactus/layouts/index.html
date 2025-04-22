@@ -185,11 +185,97 @@
       });
     </script>
 
+    <!-- About Me Section -->
+    <section id="about-me" class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 about-me-reveal">
+      <!-- Section Header -->
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30 mb-20">
+        <div class="lg:col-span-4">
+          <h2 class="text-4xl lg:text-5xl font-bold text-primary">About Me</h2>
+        </div>
+        <div class="lg:col-span-6">
+          <p class="text-xl lg:text-2xl text-primary font-light">
+            > bridging vision and execution
+          </p>
+        </div>
+      </div>
 
+      <!-- Two Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <!-- Column 1: Main Content -->
+        <div class="space-y-16">
+          <!-- Main Description -->
+          <div>
+            <p class="text-lg lg:text-xl text-primary/80 leading-relaxed">
+              I transform complex technical challenges into elegant, scalable solutions. With a background in both design and development, I bridge the gap between vision and execution.
+            </p>
+          </div>
 
+          <!-- Values -->
+          <div>
+            <h3 class="text-2xl font-bold text-primary mb-8">Values</h3>
+            <div class="space-y-4">
+              <div class="bg-primary/5 p-6 rounded-lg">
+                <p class="text-primary font-medium">Clean, maintainable code over quick hacks</p>
+              </div>
+              <div class="bg-primary/5 p-6 rounded-lg">
+                <p class="text-primary font-medium">Clear communication above all</p>
+              </div>
+              <div class="bg-primary/5 p-6 rounded-lg">
+                <p class="text-primary font-medium">Users first, tech stack second</p>
+              </div>
+              <div class="bg-primary/5 p-6 rounded-lg">
+                <p class="text-primary font-medium">Continuous learning and adaptation</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <!-- Column 2: Timeline -->
+        <div>
+          <h3 class="text-2xl font-bold text-primary mb-8 lg:mt-0 mt-8">Timeline</h3>
+          <div class="space-y-12">
+            <!-- 2022 -->
+            <div class="relative pl-8 border-l-2 border-primary/20">
+              <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary"></div>
+              <div class="text-xl font-bold text-primary mb-2">2022</div>
+              <div class="text-lg font-semibold text-primary mb-2">Independent Consulting</div>
+              <p class="text-primary/80">Helping startups build and scale their tech.</p>
+            </div>
+            <!-- 2020 -->
+            <div class="relative pl-8 border-l-2 border-primary/20">
+              <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary"></div>
+              <div class="text-xl font-bold text-primary mb-2">2020</div>
+              <div class="text-lg font-semibold text-primary mb-2">First Startup Success</div>
+              <p class="text-primary/80">Led development of a SaaS platform from 0 to 10k users.</p>
+            </div>
+            <!-- 2018 -->
+            <div class="relative pl-8 border-l-2 border-primary/20">
+              <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary"></div>
+              <div class="text-xl font-bold text-primary mb-2">2018</div>
+              <div class="text-lg font-semibold text-primary mb-2">Started Web Development</div>
+              <p class="text-primary/80">Discovered the joy of building things people actually use.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-{{if false }}
+    <script>
+      // Animate about me section
+      gsap.from(".about-me-reveal", {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        scrollTrigger: {
+          trigger: ".about-me-reveal",
+          start: "top 80%",
+          end: "top 20%",
+          scrub: 1,
+        },
+      });
+    </script>
+
+    {{if false }}
 <section id="about">
   {{ if isset .Site.Params "description" }}
     {{ .Site.Params.description | $.Page.RenderString }}
