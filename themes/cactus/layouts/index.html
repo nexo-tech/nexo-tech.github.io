@@ -199,61 +199,65 @@
         </div>
       </div>
 
-      <!-- Two Column Layout -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <!-- Column 1: Main Content -->
-        <div class="space-y-16">
-          <!-- Main Description -->
+      <!-- Full Width Introduction -->
+      <div class="mb-24">
+        <p class="text-xl lg:text-2xl text-primary/80 leading-relaxed max-w-[800px]">
+          I transform complex technical challenges into elegant, scalable solutions. With a background in both design and development, I bridge the gap between vision and execution.
+        </p>
+      </div>
+
+      <!-- Two Column Layout with Separator -->
+      <div class="relative">
+        <!-- Top Separator Line -->
+        <div class="absolute top-0 left-0 right-0 h-px bg-primary/20"></div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 pt-16">
+          <!-- Column 1: Values -->
           <div>
-            <p class="text-lg lg:text-xl text-primary/80 leading-relaxed">
-              I transform complex technical challenges into elegant, scalable solutions. With a background in both design and development, I bridge the gap between vision and execution.
-            </p>
+            <h3 class="text-2xl font-bold text-primary mb-12">Values</h3>
+            <div class="space-y-8">
+              <div class="group">
+                <p class="text-lg text-primary font-medium group-hover:text-primary/80 transition-colors">Clean, maintainable code over quick hacks</p>
+              </div>
+              <div class="group">
+                <p class="text-lg text-primary font-medium group-hover:text-primary/80 transition-colors">Clear communication above all</p>
+              </div>
+              <div class="group">
+                <p class="text-lg text-primary font-medium group-hover:text-primary/80 transition-colors">Users first, tech stack second</p>
+              </div>
+              <div class="group">
+                <p class="text-lg text-primary font-medium group-hover:text-primary/80 transition-colors">Continuous learning and adaptation</p>
+              </div>
+            </div>
           </div>
 
-          <!-- Values -->
+          <!-- Column 2: Timeline -->
           <div>
-            <h3 class="text-2xl font-bold text-primary mb-8">Values</h3>
-            <div class="space-y-4">
-              <div class="bg-primary/5 p-6 rounded-lg">
-                <p class="text-primary font-medium">Clean, maintainable code over quick hacks</p>
+            <h3 class="text-2xl font-bold text-primary mb-12">Timeline</h3>
+            <div class="space-y-8 relative">
+              <!-- Continuous vertical line that spans all entries -->
+              <div class="absolute left-[-1px] top-[6px] bottom-0 w-[2px] bg-primary/20"></div>
+              <!-- 2022 -->
+              <div class="relative pl-8">
+                <div class="absolute left-[-3px] top-[6px] w-[6px] h-[6px] rounded-full bg-primary"></div>
+                <div class="text-xl font-bold text-primary mb-2">2022</div>
+                <div class="text-lg font-semibold text-primary mb-2">Independent Consulting</div>
+                <p class="text-primary/80">Helping startups build and scale their tech.</p>
               </div>
-              <div class="bg-primary/5 p-6 rounded-lg">
-                <p class="text-primary font-medium">Clear communication above all</p>
+              <!-- 2020 -->
+              <div class="relative pl-8">
+                <div class="absolute left-[-3px] top-[6px] w-[6px] h-[6px] rounded-full bg-primary"></div>
+                <div class="text-xl font-bold text-primary mb-2">2020</div>
+                <div class="text-lg font-semibold text-primary mb-2">First Startup Success</div>
+                <p class="text-primary/80">Led development of a SaaS platform from 0 to 10k users.</p>
               </div>
-              <div class="bg-primary/5 p-6 rounded-lg">
-                <p class="text-primary font-medium">Users first, tech stack second</p>
+              <!-- 2018 -->
+              <div class="relative pl-8">
+                <div class="absolute left-[-3px] top-[6px] w-[6px] h-[6px] rounded-full bg-primary"></div>
+                <div class="text-xl font-bold text-primary mb-2">2018</div>
+                <div class="text-lg font-semibold text-primary mb-2">Started Web Development</div>
+                <p class="text-primary/80">Discovered the joy of building things people actually use.</p>
               </div>
-              <div class="bg-primary/5 p-6 rounded-lg">
-                <p class="text-primary font-medium">Continuous learning and adaptation</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Column 2: Timeline -->
-        <div>
-          <h3 class="text-2xl font-bold text-primary mb-8 lg:mt-0 mt-8">Timeline</h3>
-          <div class="space-y-12">
-            <!-- 2022 -->
-            <div class="relative pl-8 border-l-2 border-primary/20">
-              <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary"></div>
-              <div class="text-xl font-bold text-primary mb-2">2022</div>
-              <div class="text-lg font-semibold text-primary mb-2">Independent Consulting</div>
-              <p class="text-primary/80">Helping startups build and scale their tech.</p>
-            </div>
-            <!-- 2020 -->
-            <div class="relative pl-8 border-l-2 border-primary/20">
-              <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary"></div>
-              <div class="text-xl font-bold text-primary mb-2">2020</div>
-              <div class="text-lg font-semibold text-primary mb-2">First Startup Success</div>
-              <p class="text-primary/80">Led development of a SaaS platform from 0 to 10k users.</p>
-            </div>
-            <!-- 2018 -->
-            <div class="relative pl-8 border-l-2 border-primary/20">
-              <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary"></div>
-              <div class="text-xl font-bold text-primary mb-2">2018</div>
-              <div class="text-lg font-semibold text-primary mb-2">Started Web Development</div>
-              <p class="text-primary/80">Discovered the joy of building things people actually use.</p>
             </div>
           </div>
         </div>
