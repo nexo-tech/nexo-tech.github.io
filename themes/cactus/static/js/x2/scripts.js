@@ -156,6 +156,8 @@ class TextScramble {
   }
 }
 
+// document.querySelectorAll(".scrambled-text").forEach(wrapTextNodes);
+
 // Scramble text
 function wrapTextNodes(el) {
   const frag = document.createDocumentFragment();
