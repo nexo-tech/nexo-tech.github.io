@@ -1,4 +1,108 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Scramble text
+  function wrapTextNodes(el) {
+    const frag = document.createDocumentFragment();
+    el.childNodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const span = document.createElement("span");
+        span.className = "text-scramble";
+        span.textContent = node.textContent;
+        frag.appendChild(span);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const span = document.createElement("span");
+        span.className = "font-bold";
+        span.textContent = node.textContent;
+        frag.appendChild(span);
+      }
+    });
+    el.innerHTML = "";
+    el.appendChild(frag);
+  }
+
+  document.querySelectorAll(".scrambled-text").forEach(wrapTextNodes);
+
+  // Text scramble effect
+  class TextScramble {
+    constructor(el) {
+      this.el = el;
+      this.chars = "!<>-_\\/[]{}—=+*^?#_abcdefghijklmnopqrstuvwxyz";
+      this.update = this.update.bind(this);
+    }
+
+    setText(newText) {
+      const oldText = this.el.innerText;
+      const length = Math.max(oldText.length, newText.length);
+      const promise = new Promise((resolve) => (this.resolve = resolve));
+      this.queue = [];
+
+      for (let i = 0; i < length; i++) {
+        const from = oldText[i] || "";
+        const to = newText[i] || "";
+        const start = Math.floor(Math.random() * 40);
+        const end = start + Math.floor(Math.random() * 40);
+        this.queue.push({ from, to, start, end });
+      }
+
+      cancelAnimationFrame(this.frameRequest);
+      this.frame = 0;
+      this.update();
+      return promise;
+    }
+
+    update() {
+      let output = "";
+      let complete = 0;
+
+      for (let i = 0, n = this.queue.length; i < n; i++) {
+        let { from, to, start, end, char } = this.queue[i];
+
+        if (this.frame >= end) {
+          complete++;
+          output += to;
+        } else if (this.frame >= start) {
+          if (!char || Math.random() < 0.28) {
+            char = this.randomChar();
+            this.queue[i].char = char;
+          }
+          output += `<span class="text-primary/70">${char}</span>`;
+        } else {
+          output += from;
+        }
+      }
+
+      this.el.innerHTML = output;
+
+      if (complete === this.queue.length) {
+        this.resolve();
+      } else {
+        this.frameRequest = requestAnimationFrame(this.update);
+        this.frame++;
+      }
+    }
+
+    randomChar() {
+      return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+  }
+
+  function startSidebarAnimation() {
+    // First make the sidebar visible
+    gsap.to(".scrambled-text", { opacity: 1, duration: 0.5 });
+
+    // Get all scramble elements
+    const elements = document.querySelectorAll(".text-scramble");
+    const instances = Array.from(elements).map((el) => new TextScramble(el));
+
+    // Animate all elements simultaneously
+    instances.forEach((instance, index) => {
+      const el = elements[index];
+      const originalText = el.textContent;
+      instance.setText(originalText);
+    });
+  }
+
+  // End Scramble text
+
   // Register GSAP plugins
   gsap.registerPlugin(TextPlugin, ScrollTrigger);
 
@@ -112,86 +216,6 @@ document.addEventListener("DOMContentLoaded", function () {
     )
     // After main animation completes, start the sidebar text animation
     .call(startSidebarAnimation);
-
-  // Text scramble effect
-  class TextScramble {
-    constructor(el) {
-      this.el = el;
-      this.chars = "!<>-_\\/[]{}—=+*^?#_abcdefghijklmnopqrstuvwxyz";
-      this.update = this.update.bind(this);
-    }
-
-    setText(newText) {
-      const oldText = this.el.innerText;
-      const length = Math.max(oldText.length, newText.length);
-      const promise = new Promise((resolve) => (this.resolve = resolve));
-      this.queue = [];
-
-      for (let i = 0; i < length; i++) {
-        const from = oldText[i] || "";
-        const to = newText[i] || "";
-        const start = Math.floor(Math.random() * 40);
-        const end = start + Math.floor(Math.random() * 40);
-        this.queue.push({ from, to, start, end });
-      }
-
-      cancelAnimationFrame(this.frameRequest);
-      this.frame = 0;
-      this.update();
-      return promise;
-    }
-
-    update() {
-      let output = "";
-      let complete = 0;
-
-      for (let i = 0, n = this.queue.length; i < n; i++) {
-        let { from, to, start, end, char } = this.queue[i];
-
-        if (this.frame >= end) {
-          complete++;
-          output += to;
-        } else if (this.frame >= start) {
-          if (!char || Math.random() < 0.28) {
-            char = this.randomChar();
-            this.queue[i].char = char;
-          }
-          output += `<span class="text-primary/70">${char}</span>`;
-        } else {
-          output += from;
-        }
-      }
-
-      this.el.innerHTML = output;
-
-      if (complete === this.queue.length) {
-        this.resolve();
-      } else {
-        this.frameRequest = requestAnimationFrame(this.update);
-        this.frame++;
-      }
-    }
-
-    randomChar() {
-      return this.chars[Math.floor(Math.random() * this.chars.length)];
-    }
-  }
-
-  function startSidebarAnimation() {
-    // First make the sidebar visible
-    gsap.to("#sidebar-text", { opacity: 1, duration: 0.5 });
-
-    // Get all scramble elements
-    const elements = document.querySelectorAll(".text-scramble");
-    const instances = Array.from(elements).map((el) => new TextScramble(el));
-
-    // Animate all elements simultaneously
-    instances.forEach((instance, index) => {
-      const el = elements[index];
-      const originalText = el.textContent;
-      instance.setText(originalText);
-    });
-  }
 
   // Services section animations
   function initServicesAnimations() {
@@ -452,8 +476,9 @@ document.addEventListener("DOMContentLoaded", function () {
     animateTechStack();
 
     try {
-      const response = await fetch("js/x2/tech-stack.json");
-      const data = await response.json();
+      const data = JSON.parse(
+        document.getElementById("skills-data").textContent
+      );
       const techGrid = document.getElementById("tech-grid");
 
       // Combine all tech items
