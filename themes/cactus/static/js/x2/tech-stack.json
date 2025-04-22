@@ -1,8 +1,0 @@
-{
-  "primary": [
-    "React", "Node.js", "TypeScript", "AWS", "Python", "Go", "Kubernetes", "Docker",
-    "PostgreSQL", "Redis", "GraphQL", "Next.js", "Rust", "Java", "Swift", "Kotlin"
-  ],
-  "secondary": [],
-  "tertiary": []
-} 

@@ -68,6 +68,21 @@ description = "Deep technical analysis to prevent those 3 AM production issues."
 title = "Hiring / Team Building"
 description = "Building high-performance engineering teams that actually ship."
 
+[params.aboutMe]
+text = "I transform complex technical challenges into elegant, scalable solutions. With a background in both design and development, I bridge the gap between vision and execution."
+
+[[params.aboutMe.values]]
+value = "Clean, maintainable code over quick hacks"
+
+[[params.aboutMe.values]]
+value = "Clear communication above all"
+
+[[params.aboutMe.values]]
+value = "Users first, tech stack second"
+
+[[params.aboutMe.values]]
+value = "Continuous learning and adaptation"
+
 
 [params.skills]
 primary = [

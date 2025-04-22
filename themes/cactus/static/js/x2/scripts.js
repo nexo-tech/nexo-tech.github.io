@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".typewriter").forEach((el) => {
+    const full = el.textContent.trim(); // grab full text
+    el.textContent = ""; // clear it
+    gsap.to(el, {
+      scrollTrigger: {
+        trigger: el,
+        start: "top 80%", // fire when it scrolls into view
+        end: "top 20%", // when to reverse
+        toggleActions: "play reverse restart reverse", // play on enter, reverse on leave
+      },
+      duration: full.length * 0.025, // ~50ms per char
+      text: full, // type to this
+      ease: "none",
+    });
+  });
+
   // Scramble text
   function wrapTextNodes(el) {
     const frag = document.createDocumentFragment();
@@ -409,7 +425,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Animation state
     let noise = new PerlinNoise();
     let time = 0;
-    let animationFrameId;
 
     const mousePos = { x: 0, y: 0, isInsideRect: false };
     document.addEventListener("mousemove", (e) => {
