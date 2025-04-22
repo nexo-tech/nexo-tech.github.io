@@ -425,12 +425,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Animation state
     let noise = new PerlinNoise();
     let time = 0;
+    let animationFrameId = null;
 
     const mousePos = { x: 0, y: 0, isInsideRect: false };
     document.addEventListener("mousemove", (e) => {
       document.querySelectorAll("#tech-grid").forEach((item) => {
-        // set mousePos X Y coordinates that are relative to the item from the global x,y coordinates
-        // make sure scroll is taken into account
         const rect = item.getBoundingClientRect();
         mousePos.x = e.clientX - rect.left;
         mousePos.y = e.clientY - rect.top;
@@ -442,11 +441,10 @@ document.addEventListener("DOMContentLoaded", function () {
         mousePos.y += 100;
       });
     });
+
     function animateTechStack() {
       const items = document.querySelectorAll(".tech-item");
-
       items.forEach((item, index) => {
-        // Different noise inputs for each item
         if (!mousePos.isInsideRect) {
           time += 1 * 0.0005;
         }
@@ -454,41 +452,57 @@ document.addEventListener("DOMContentLoaded", function () {
         const x = (index % 24) - time / 2;
         const y = index / 24 + time;
 
-        // Get noise value (-1 to 1)
         let noiseValue = noise.noise(x * 0.1, y * 0.1, 0);
+        noiseValue = Math.max(0, Math.min(0.7, noiseValue));
+        noiseValue = Math.pow(noiseValue * 4 + 0.1, 2);
 
-        // Clamp and increase contrast
-        noiseValue = Math.max(0, Math.min(0.7, noiseValue)); // Clamp between -1 and 1
-        noiseValue = Math.pow(noiseValue * 4 + 0.1, 2); // Increase contrast by cubing the value
-
-        // create proximity map to mousePos
         const proximity = Math.sqrt(
           (mousePos.x - item.offsetLeft) ** 2 +
             (mousePos.y - item.offsetTop) ** 2
         );
 
-        // scale proximity to 0-1
         const proximityScale =
           1 - Math.max(0, Math.min(1, Math.pow(proximity / 120, 5)));
 
-        // console.log(proximity, mousePos);
-
-        // Clamp between 0 and 1
         let scale = Math.max(0, Math.min(1, noiseValue));
-
-        // apply proximity to scale using max 1
         scale = mousePos.isInsideRect
           ? Math.max(scale * 0.5, proximityScale)
           : scale;
 
-        // Apply scale transform
         item.style.transform = `translateY(10px) scale(${scale})`;
       });
 
       animationFrameId = requestAnimationFrame(animateTechStack);
     }
 
-    animateTechStack();
+    // Create ScrollTrigger for tech stack animation
+    ScrollTrigger.create({
+      trigger: "#tech-grid",
+      start: "top bottom",
+      end: "bottom top",
+      onEnter: () => {
+        if (!animationFrameId) {
+          animationFrameId = requestAnimationFrame(animateTechStack);
+        }
+      },
+      onLeave: () => {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      },
+      onEnterBack: () => {
+        if (!animationFrameId) {
+          animationFrameId = requestAnimationFrame(animateTechStack);
+        }
+      },
+      onLeaveBack: () => {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      },
+    });
 
     try {
       const data = JSON.parse(
