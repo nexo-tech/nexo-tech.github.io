@@ -562,6 +562,22 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
+  // hero section need to have body with orange mode
+  const heroSection = document.querySelector("#hero");
+  gsap.to(body, { 
+    scrollTrigger: {
+      trigger: heroSection,
+      start: "top 100%",
+      end: "top 20%",
+      onEnter: () => {
+        body.classList.add("orange-mode");
+      },
+      onLeaveBack: () => {
+        body.classList.remove("orange-mode");
+      },
+    },
+  });
+
   gsap.to(body, {
     scrollTrigger: {
       trigger: techStackSection,
