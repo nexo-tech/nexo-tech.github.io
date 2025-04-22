@@ -279,49 +279,22 @@
     </div>
   </div>
 
-  <!-- Blog Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-{{ .Site.Params.writingsGrid.columns | default 3 }} gap-8">
+  <!-- Writings List -->
+  <div class="space-y-0">
     {{ $mainPosts := (sort (where site.RegularPages "Type" "in" site.Params.mainSections) "Date" "desc") }}
-    {{ $postsToShow := .Site.Params.writingsGrid.postsToShow | default 6 }}
-    {{ range first $postsToShow $mainPosts }}
-    <article class="blog-card group">
-      <div class="relative overflow-hidden rounded-lg">
-        {{ if .Params.image }}
-        <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
-        {{ end }}
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-6">
-          <time datetime="{{ .Date }}" class="text-sm text-white/80">{{ .Date.Format "January 2, 2006" }}</time>
-          <h3 class="text-xl font-bold text-white mt-2">
-            <a href="{{ .Permalink }}" class="hover:text-primary/80 transition-colors">
-              {{ .Title }}
-            </a>
-          </h3>
-        </div>
-      </div>
-      <div class="mt-4">
-        <p class="text-primary/80">{{ .Summary | truncate 150 }}</p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          {{ range .Params.tags }}
-          <span class="text-sm text-primary/60">{{ . }}</span>
-          {{ end }}
-        </div>
+    {{ range $mainPosts }}
+    <article class="writing-item group py-8 border-b border-primary/10 last:border-0">
+      <div class="grid grid-cols-[200px_1fr] gap-4">
+        <time datetime="{{ .Date }}" class="text-lg text-primary/60">{{ .Date.Format "January 2, 2006" }}</time>
+        <h3 class="text-2xl font-bold text-primary group-hover:text-primary/80 transition-colors">
+          <a href="{{ .Permalink }}" class="block">
+            {{ .Title }}
+          </a>
+        </h3>
       </div>
     </article>
     {{ end }}
   </div>
-
-  <!-- View All Button -->
-  {{ if gt (len $mainPosts) $postsToShow }}
-  <div class="mt-12 text-center">
-    <a href="/posts" class="inline-flex items-center text-lg font-semibold text-primary hover:text-primary/80 transition-colors">
-      View all writings
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-      </svg>
-    </a>
-  </div>
-  {{ end }}
 </section>
 
 {{if false }}
