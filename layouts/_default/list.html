@@ -1,30 +1,48 @@
 {{ define "main"}}
-<div id="archive">
-  <ul class="post-list">
+<div class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pb-24 pt-48">
+  <div class="mb-16">
+    <h1 class="text-4xl lg:text-5xl font-bold text-primary mb-8">{{ .Title }}</h1>
+    {{ if .Description }}
+    <p class="text-xl text-primary/80 font-light">{{ .Description }}</p>
+    {{ end }}
+  </div>
 
   {{ $pages := .Paginator.Pages }}
   {{ if .Site.Params.showAllPostsArchive }}
     {{ $pages = .Pages }}
   {{ end }}
+  
+  <div class="archive-content min-h-[500px]">
+    {{ range (sort $pages "Date" "desc") }}
+      {{ $pageYear := (.Date.Format "2006") }}
+      {{ if (ne $pageYear ($.Scratch.Get "year")) }}
+        {{ $.Scratch.Set "year" $pageYear }}
+        <div class="year-divider">
+          <h2 class="text-3xl font-bold text-primary mt-12 mb-6 pb-2 border-b border-gray-100">{{ $pageYear }}</h2>
+        </div>
+      {{ end }}
+      <article class="post-item mb-8 hover:translate-x-1 transition-transform duration-200">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6">
+          <time datetime="{{ time .Date }}" class="text-sm text-primary/60 font-medium whitespace-nowrap">
+            {{ .Date.Format (.Site.Params.dateFormat | default "Jan 02, 2006") }}
+          </time>
+          <h3 class="text-xl font-medium">    
+            <a href="{{ .Permalink }}" class="text-primary hover:text-primary/80 no-underline">
+              {{ if .Title }}{{ .Title }}{{ else }}Untitled{{ end }}
+            </a>
+          </h3>
+        </div>
+        {{ if .Params.description }}
+        <p class="text-primary/70 text-base mt-2 ml-0 sm:ml-[112px]">{{ .Params.description }}</p>
+        {{ end }}
+      </article>
+    {{ end }}
+  </div>
 
-  {{ range (sort $pages "Date" "desc") }}
-    {{ $pageYear := (.Date.Format "2006") }}
-    {{ if (ne $pageYear ($.Scratch.Get "year")) }}
-    {{ $.Scratch.Set "year" $pageYear }}
-    <h2>{{ $pageYear }}</h2>
-    {{ end }}
-    <li class="post-item">
-      <div class="meta">
-        <time datetime="{{ time .Date }}" itemprop="datePublished">{{ .Date.Format (.Site.Params.dateFormat | default "2006-01-02") }}</time>
-      </div>
-      <span>    
-        <a class="" href="{{ .Permalink }}">{{ if .Title }} {{ .Title }} {{ else }} Untitled {{ end }}</a>
-      </span>
-    </li>
-    {{ end }}
-  </ul>
   {{ if eq .Site.Params.showAllPostsArchive false }}
-    {{ partial "pagination.html" . }}
+    <div class="mt-16">
+      {{ partial "pagination.html" . }}
+    </div>
   {{ end }}
 </div>
 {{ end }}

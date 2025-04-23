@@ -579,6 +579,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  const sep = document.querySelector(".service-separator");
+  if (sep) {
+    // Animate service separators
+    gsap.utils.toArray(".service-separator").forEach((separator, index) => {
+      const line = separator.querySelector(".separator-line");
+      gsap.fromTo(
+        line,
+        { width: "0%" },
+        {
+          width: "100%",
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: separator,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1,
+          },
+        }
+      );
+    });
+  }
+
   // hero section need to have body with orange mode
   const heroSection = document.querySelector("#hero");
   if (heroSection) {
