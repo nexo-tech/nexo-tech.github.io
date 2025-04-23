@@ -522,8 +522,43 @@ document.addEventListener("DOMContentLoaded", function () {
       const targetId = this.getAttribute("href");
       const targetElement = document.querySelector(targetId);
 
+      if (!targetElement) {
+        return;
+      }
+
+      // Get the element's position accounting for transforms
+      const getVisualOffset = (element) => {
+        const rect = element.getBoundingClientRect();
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        return rect.top + scrollTop;
+      };
+
+      // For parallaxed elements, check if they're in a container
+      const isParallaxed =
+        targetElement.classList.contains("collaborate-reveal") ||
+        targetElement.parentElement.classList.contains("collaborate-reveal");
+
+      // Calculate the target position
+      let targetPosition = getVisualOffset(targetElement);
+
+      // For the collaborate section specifically, adjust position
+      if (targetId === "#collaborate") {
+        // Get the parent container position if it exists
+        const blueContainer = targetElement.closest(".bg-blue-600");
+        if (blueContainer) {
+          targetPosition = getVisualOffset(blueContainer);
+        }
+
+        // Account for header height (assuming 80px header)
+        targetPosition -= 190;
+      } else {
+        // Default offset for other sections
+        targetPosition -= 80;
+      }
+
       window.scrollTo({
-        top: targetElement.offsetTop,
+        top: targetPosition,
         behavior: "smooth",
       });
     });
