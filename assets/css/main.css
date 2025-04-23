@@ -8,11 +8,18 @@
 @import "./markdown.css";
 @import "./highlight.css";
 
-
 .highlight .chroma {
   @apply py-2 px-4;
 }
 
 td.lntd:first-child {
   @apply w-10;
+}
+
+html body header.in-blue-section {
+  backdrop-filter: none !important;
+  @apply bg-blue-600 ;
+  .text-primary {
+    @apply text-white;
+  }
 }

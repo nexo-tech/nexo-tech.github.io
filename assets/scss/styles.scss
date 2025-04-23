@@ -29,7 +29,7 @@ body {
 }
 
 .text-orange {
-  color: var(--color-text-orange) !important;
+  color: var(--color-text-orange);
 }
 
 .hidden-text {
@@ -47,11 +47,11 @@ body {
   
   &.orange-mode {
     .terminal-text, .terminal-container {
-      color: var(--color-text-orange) !important;
+      color: var(--color-text-orange);
     }
 
     header .text-primary, .scrambled-text {
-      color: var(--color-primary) !important;
+      color: var(--color-primary);
     }
 
     .cursor {
@@ -98,7 +98,7 @@ header {
   backdrop-filter: blur(10px);
   
   .text-primary {
-    color: var(--color-text-light) !important;
+    color: var(--color-text-light);
     transition: color 0.8s ease;
   }
 }

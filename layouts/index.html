@@ -386,4 +386,34 @@
     }
   });
 </script>
+
+<script>
+  // Header color change when entering blue collaborate section
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      // Create a GSAP ScrollTrigger for the header color change
+      ScrollTrigger.create({
+        trigger: document.getElementById("collaborate"), //".bg-blue-600",
+        start: "bottom 100%", // When the top of the blue section reaches 10% from the top
+        end: "bottom 10%", // When the bottom of the blue section reaches 10% from the top
+        onEnter: () => {
+          const header = document.getElementById("main-header");
+          header.classList.add("in-blue-section");
+        },
+        onLeave: () => {
+          const header = document.getElementById("main-header");
+          header.classList.remove("in-blue-section");
+        },
+        onEnterBack: () => {
+          const header = document.getElementById("main-header");
+          header.classList.add("in-blue-section");
+        },
+        onLeaveBack: () => {
+          const header = document.getElementById("main-header");
+          header.classList.remove("in-blue-section");
+        }
+      });
+    }
+  });
+</script>
 {{end}}
