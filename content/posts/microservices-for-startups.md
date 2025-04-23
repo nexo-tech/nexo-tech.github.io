@@ -17,17 +17,13 @@ tags:
   - theme-customization
 ---
 
-**Why splitting your codebase too early can quietly destroy your team’s velocity — and what to do instead.**
-
----
+> Why splitting your codebase too early can quietly destroy your team’s velocity — and what to do instead.
 
 When you're building a startup, your number one job is to ship: ship features, ship experiments, ship value to users. Architecture matters — but the wrong architecture, especially premature microservices, can quietly choke your momentum.
 
 I've seen this firsthand leading backend efforts at early-stage companies. A well-meaning "clean architecture" plan can morph into a graveyard of half-finished services, broken local setups, and slow, demoralized teams.
 
-Let's dig into why microservices are often the wrong move early on, where they *do* make sense, and how to structure your startup's systems for speed and survival.
-
----
+Let's dig into why microservices are often the wrong move early on, where they _do_ make sense, and how to structure your startup's systems for speed and survival.
 
 ## Monoliths Are Not the Enemy
 
@@ -42,9 +38,7 @@ Monoliths are easier to deploy, test, debug, and reason about. They let your tin
 
 At a fintech startup I worked with, a single Node.js monolith supported tens of thousands of users and millions in transaction volume before any serious talk of splitting arose. When we did extract a service, it was because of real scaling needs — not theoretical purity.
 
-The problem isn't the monolith. It's bad modularization *inside* the monolith.
-
----
+The problem isn't the monolith. It's bad modularization _inside_ the monolith.
 
 ## Where Microservices Go Wrong (Especially Early On)
 
@@ -62,9 +56,7 @@ At one startup, I watched a team split authentication and user profile managemen
 
 **Reality:** Business logic doesn't always map neatly to service boundaries. Premature separation creates more fragility than safety.
 
-**Tip:** Wait until operational *or scaling pain* forces a split — not "architectural elegance."
-
----
+**Tip:** Wait until operational _or scaling pain_ forces a split — not "architectural elegance."
 
 ### 2. Repository and Infrastructure Sprawl
 
@@ -76,11 +68,9 @@ Every new service brings:
 
 For a three-person engineering team, this is brutal. Context switching across repos and tooling becomes a silent tax on every feature you ship.
 
-At one project I advised, keeping all services in a single monorepo with shared utilities, linters, and deploy tooling saved *months* of friction. The team could focus on shipping, not yak-shaving infra.
+At one project I advised, keeping all services in a single monorepo with shared utilities, linters, and deploy tooling saved _months_ of friction. The team could focus on shipping, not yak-shaving infra.
 
 **Tip:** Default to a single repo. Delay repo splits until team scaling (not code scaling) demands it.
-
----
 
 ### 3. Local Development Becomes Painful
 
@@ -92,11 +82,9 @@ Early projects often suffer from:
 - Obsolete dependencies
 - OS-specific hacks (hello, Linux-only setups)
 
-I've seen greenfield projects where new engineers spent *days* wrestling local setups. In some cases, onboarding became "install WSL2," "fix broken Makefiles," "debug weird container sharing bugs."
+I've seen greenfield projects where new engineers spent _days_ wrestling local setups. In some cases, onboarding became "install WSL2," "fix broken Makefiles," "debug weird container sharing bugs."
 
 **Tip:** Make it easy. `git clone && make run` should get you 90% of the way.
-
----
 
 ### 4. Technology Mismatch
 
@@ -108,8 +96,6 @@ Not every language shines in a microservice architecture.
 At an early-stage SaaS company, switching critical backend services from Python to Go dramatically simplified our CI/CD pipelines and reduced cold start times.
 
 **Tip:** Choose tools that fit your operational reality, not just your team's initial comfort.
-
----
 
 ### 5. Hidden Complexity: Communication and Monitoring
 
@@ -123,13 +109,11 @@ Microservices introduce an invisible web of needs:
 
 In a monolith, a bug might be a simple stack trace. In a distributed system, it's "why does service A fail when B’s deployment lags C by 30 seconds?"
 
-**Tip:** Understand that distributed systems *aren't free.* They're a commitment to a whole new class of engineering challenges.
+**Tip:** Understand that distributed systems _aren't free._ They're a commitment to a whole new class of engineering challenges.
 
----
+## When Microservices _Do_ Make Sense
 
-## When Microservices *Do* Make Sense
-
-There *are* cases where microservices genuinely help:
+There _are_ cases where microservices genuinely help:
 
 - **Workload Isolation:** e.g., an S3-triggered image resizing service, fully self-contained.
 - **Divergent Scalability Needs:** e.g., GPU-heavy inference server separate from lightweight web APIs.
@@ -137,11 +121,9 @@ There *are* cases where microservices genuinely help:
 
 When the operational realities diverge significantly, it can be cleaner and safer to split.
 
-At one company, we separated heavy data processing cron jobs from the main API server to avoid memory contention and unexpected crashes. It worked because we had a *clear operational boundary*, not because it "looked cleaner."
+At one company, we separated heavy data processing cron jobs from the main API server to avoid memory contention and unexpected crashes. It worked because we had a _clear operational boundary_, not because it "looked cleaner."
 
 **Tip:** Services should be split based on **operational boundaries**, not just code organization.
-
----
 
 ## Practical Guidance for Startups
 
@@ -151,19 +133,16 @@ If you're shipping your first product, here's the playbook I'd recommend:
 - **Single repo.** Simplifies CI, dependency management, onboarding.
 - **Dead-simple local setup.** Make `make run` work. If it takes more, document it.
 - **Invest early in CI/CD.** Tests and automation are cheaper early than trying to retrofit stability later.
-- **Split surgically.** Only split when you can *prove* it solves a real, painful scaling problem.
+- **Split surgically.** Only split when you can _prove_ it solves a real, painful scaling problem.
 
 And above all: **optimize for developer velocity.**
 
 Velocity is your startup’s oxygen. Premature microservices leak that oxygen slowly — until one day, you can't breathe.
 
----
-
 # Conclusion
 
 Premature microservices are a tax your startup can’t afford. Stay simple. Stay pragmatic. Stay alive.
 
-When you *truly* outgrow your monolith, you’ll be able to split services with confidence — because you’ll be solving real problems, not imaginary ones.
+When you _truly_ outgrow your monolith, you’ll be able to split services with confidence — because you’ll be solving real problems, not imaginary ones.
 
 **Before reaching for microservices, ask yourself: _What's the simplest system that could work today?_**
-

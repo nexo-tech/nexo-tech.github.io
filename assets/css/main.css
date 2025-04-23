@@ -1,8 +1,8 @@
 @import "tailwindcss";
-@source "hugo_stats.json";
-
 @theme {
   --color-primary: #2b2b2b;
+  --color-orange2: #f52626;
 }
 
+@source "hugo_stats.json";
 @import "./markdown.css";

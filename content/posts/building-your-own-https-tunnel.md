@@ -13,8 +13,6 @@ tags:
 
 > TL;DR: I built a lightweight, self-hosted HTTP tunnel that turns `localhost` into a public **HTTPS** URL. No paid plans, no secret black boxes. Just one Go binary, Caddy with wildcard TLS, and a $0/month Oracle Cloud VM. [GitHub repo](https://github.com/<your-handle>/caddy-tunnel)
 
----
-
 ## Why I Built It
 
 My development workflow lives mostly on a free Oracle Cloud VM: SSH, Neovim, tmux—the usual hacker starter pack. I tried many ways to easily expose my local apps for testing webhooks, sharing demos, and collaborating with friends.
@@ -28,8 +26,6 @@ I wanted **full control**, **zero vendor lock-in**, and **wildcard HTTPS certifi
 Thus: a 300-line Go server, a single WebSocket multiplexed with [yamux](https://github.com/hashicorp/yamux), and Caddy configured with Cloudflare DNS for automatic wildcard TLS.
 
 The result is a frictionless tunnel that costs $0/month, survives webhook storms, and gives you your own little "ngrok clone" that you fully own.
-
----
 
 ## Architecture Overview
 
@@ -48,8 +44,6 @@ The result is a frictionless tunnel that costs $0/month, survives webhook storms
 - Streams proxy through WebSocket to `localhost` on your laptop.
 - **Caddy** handles HTTPS with wildcard certificates issued in seconds.
 
----
-
 ## How It Works
 
 - **WebSocket** keeps the session alive and multiplexes requests using **yamux**.
@@ -58,8 +52,6 @@ The result is a frictionless tunnel that costs $0/month, survives webhook storms
 - **Single binary** Go server and client; easy to compile and deploy.
 
 The entire tunnel lives inside a WebSocket, allowing it to survive NAT, firewalls, and awkward corporate Wi-Fi without extra networking magic.
-
----
 
 ## Setup Guide (Copy/Paste Ready)
 
@@ -87,18 +79,14 @@ make up/caddy
 
 You can now point GitHub, Stripe, or whatever webhook you’re testing to your live HTTPS URL. No more "Connection refused" sadness.
 
----
-
 ## Engineering Highlights
 
-| Component | Purpose |
-| :--- | :--- |
-| **yamux** | Multiplex HTTP streams over a single TCP/WebSocket connection. |
-| **WebSocket** | Works seamlessly through proxies and NAT; fewer moving parts than raw TCP tunneling. |
-| **Wildcard TLS** | Fast and automatic SSL certs for all subdomains; no manual renewal. |
-| **HTTP Hijack** | Directly stream request/response bytes without re-encoding at the HTTP layer. |
-
----
+| Component        | Purpose                                                                              |
+| :--------------- | :----------------------------------------------------------------------------------- |
+| **yamux**        | Multiplex HTTP streams over a single TCP/WebSocket connection.                       |
+| **WebSocket**    | Works seamlessly through proxies and NAT; fewer moving parts than raw TCP tunneling. |
+| **Wildcard TLS** | Fast and automatic SSL certs for all subdomains; no manual renewal.                  |
+| **HTTP Hijack**  | Directly stream request/response bytes without re-encoding at the HTTP layer.        |
 
 ## Security Notes
 
@@ -106,15 +94,11 @@ You can now point GitHub, Stripe, or whatever webhook you’re testing to your l
 - Use scoped Cloudflare tokens limited to DNS editing.
 - No DoS protections yet; PRs are welcome.
 
----
-
 ## What's Next
 
 - JWT-signed handshakes and revocation list.
 - Native gRPC transport (experimenting with ALPN multiplexing).
 - Prometheus metrics for tunnel traffic.
-
----
 
 ## Where to Find It
 
@@ -125,5 +109,3 @@ You can now point GitHub, Stripe, or whatever webhook you’re testing to your l
 If this saves you a billable hour or two, I'd appreciate a ⭐—and if you're building your own indie hacker stack, I'd love to hear how you use it!
 
 Cheers!
-
-
