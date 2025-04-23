@@ -2,7 +2,7 @@
 <section class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-32">
   <article class="markdown post mt-16" itemscope itemtype="http://schema.org/BlogPosting">
     <!-- Post Header -->
-    <header class="mb-16">
+    <header class="mb-10 border-b border-primary/10 pb-4">
       <h1 class="text-4xl lg:text-5xl font-bold text-primary mb-8" itemprop="name headline">
         {{ .Title }}
       </h1>
@@ -28,42 +28,11 @@
             <span class="mx-2">•</span>
             <span>Updated: <time datetime="{{ .Lastmod }}" itemprop="dateModified">{{ .Lastmod.Format $dataFormat }}</time></span>
           {{ end }}
-        </div>
-        
-        <!-- Read Time -->
-        {{ $showReadTime := .Site.Params.showReadTime | default false }}
-        {{if $showReadTime}}
-        <div class="flex items-center">
-          <span class="mr-2">•</span>
-          {{ $readTime := math.Round (div (countwords .Content) 220.0) }}
-          <span>{{ $readTime }} min read</span>
-        </div>
-        {{ end }}
-      </div>
-      
-      <!-- Categories and Tags -->
-      <div class="mt-6 flex flex-wrap gap-4">
-        <!-- Categories -->
-        {{ if gt .Params.categories 0 }}
-        <div class="flex flex-wrap gap-2">
-          {{ range $index, $value := .Params.categories }}
-          <a href="{{ "/categories/" | relLangURL }}{{ $value | urlize }}" class="px-3 py-1 rounded-full bg-primary/5 text-primary hover:bg-primary/10 transition-colors text-sm">
-            {{ $value }}
-          </a>
+          {{if .Params.author}}
+          <span class="mx-2">•</span>
+          <span>{{.Params.author}}</span>
           {{ end }}
         </div>
-        {{ end }}
-        
-        <!-- Tags -->
-        {{ if gt .Params.tags 0 }}
-        <div class="flex flex-wrap gap-2">
-          {{ range $index, $value := .Params.tags }}
-          <a href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" class="text-orange hover:text-orange-600 transition-colors text-sm">
-            #{{ $value }}
-          </a>
-          {{ end }}
-        </div>
-        {{ end }}
       </div>
     </header>
     
@@ -79,6 +48,19 @@
     <div class="prose prose-lg max-w-none text-primary/90" itemprop="articleBody">
       {{ .Content }}
     </div>
+    
+    <!-- Tags Section -->
+    {{ if gt .Params.tags 0 }}
+    <div class="mt-12 mb-8">
+      <div class="flex flex-wrap gap-2">
+        {{ range $index, $value := .Params.tags }}
+        <a href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" class="text-orange hover:text-orange-600 transition-colors text-sm">
+          #{{ $value }}
+        </a>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
     
     <!-- Post Footer -->
     <div class="mt-16 pt-8 border-t border-primary/10">

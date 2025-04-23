@@ -17,8 +17,6 @@ Go isn't usually the first language you think of when it comes to "lazy" program
 
 In this post, I'll show you how to build infinite streams in Go, with a few practical examples. No monads required.
 
----
-
 ## A Basic Infinite Stream
 
 Let's start by building an infinite stream of positive integers. In Go, channels are the natural way to represent lazily computed sequences.
@@ -54,8 +52,6 @@ Test it:
 ```go
 fmt.Println(Take(10, Ints())) // [1 2 3 4 5 6 7 8 9 10]
 ```
-
----
 
 ## Mapping over Streams
 
@@ -131,8 +127,6 @@ fmt.Println(math.Exp(2))
 
 Should be close!
 
----
-
 ## Streams of Fibonacci Numbers
 
 Another classic lazy list example is Fibonacci numbers.
@@ -156,8 +150,6 @@ Test it:
 ```go
 fmt.Println(Take(10, Fibonacci())) // [0 1 1 2 3 5 8 13 21 34]
 ```
-
----
 
 ## Finding Right Triangles with a Perimeter of 24
 
@@ -236,11 +228,9 @@ func main() {
 }
 ```
 
----
-
 ## Backpressure and Buffered Channels
 
-One important difference between Go channels and something like Haskell's lists or Python generators is that channels *block* when nobody is reading from them. This can be good (it enforces some natural flow control) but it also means you need to think about backpressure explicitly.
+One important difference between Go channels and something like Haskell's lists or Python generators is that channels _block_ when nobody is reading from them. This can be good (it enforces some natural flow control) but it also means you need to think about backpressure explicitly.
 
 If the consumer is slower than the producer, the producer will pause. If that's undesirable, you can add buffering:
 
@@ -249,8 +239,6 @@ ch := make(chan int, 100) // buffered channel with 100 slots
 ```
 
 This lets the producer get ahead a little bit, smoothing out minor hiccups in consumer speed.
-
----
 
 ## Memoization
 
@@ -274,8 +262,6 @@ func MemoizeStream(in <-chan int) (<-chan int, func() []int) {
 
 Now you can keep a history of values if needed.
 
----
-
 ## Closing Thoughts
 
 When I work on my projects, I usually lean on Go's strengths: simplicity, concurrency, reliability. Laziness isn't "idiomatic Go" the way it is in Haskell, but Go's primitives are flexible enough that you can borrow these ideas when they actually help.
@@ -283,4 +269,3 @@ When I work on my projects, I usually lean on Go's strengths: simplicity, concur
 Not everything needs to be clever. Often, the simple boring way wins.
 
 Happy streaming!
-
