@@ -253,7 +253,7 @@ async function loadTechStack() {
       const proximityScale =
         1 - Math.max(0, Math.min(1, Math.pow(proximity / 120, 5)));
 
-      let scale = Math.max(0, Math.min(1, noiseValue));
+      let scale = 1 - Math.max(0, Math.min(1, noiseValue));
       scale = mousePos.isInsideRect
         ? Math.max(scale * 0.5, proximityScale)
         : scale;
