@@ -212,6 +212,10 @@ function startScrambledTextAnimation() {
 
 // Load and render tech stack
 async function loadTechStack() {
+  const techGrid = document.getElementById("tech-grid");
+  if (!techGrid) {
+    return;
+  }
   // Animation state
   let noise = new PerlinNoise();
   let time = 0;
@@ -318,27 +322,26 @@ async function loadTechStack() {
   } catch (error) {
     console.error("Error loading tech stack:", error);
   }
+
+  // Animate tech stack items
+  gsap.to(".tech-item", {
+    opacity: 1,
+    y: 0,
+    duration: 0.5,
+    stagger: 0.1,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".tech-item",
+      start: "top 90%",
+    },
+  });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".typewriter").forEach(setupTypewriter);
-  document.querySelectorAll(".scrambled-text").forEach(wrapTextNodes);
-  // Register GSAP plugins
-  gsap.registerPlugin(TextPlugin, ScrollTrigger);
-
-  // Header scroll handling
-  const header = document.querySelector("header");
-  window.addEventListener("scroll", () => {
-    const scrollPosition = window.scrollY;
-    const introductionTop = introductionSection.offsetTop;
-
-    if (scrollPosition >= introductionTop - 100) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
-  });
-
+function doHeroAnimations() {
+  const terminalLine1 = document.querySelector("#terminal-line1");
+  if (!terminalLine1) {
+    return;
+  }
   // Set initial state for terminal animation
   gsap.set("#terminal-line1", { text: "", opacity: 1 });
   gsap.set("#terminal-line2", { text: "", opacity: 1 });
@@ -435,83 +438,81 @@ document.addEventListener("DOMContentLoaded", function () {
     )
     // After main animation completes, start the sidebar text animation
     .call(startScrambledTextAnimation);
+}
 
-  // Services section animations
-  function initServicesAnimations() {
-    // Animate section header
-    gsap.to(".services-header h2", {
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".services-header",
-        start: "top 80%",
-      },
-    });
-
-    // Animate tagline
-    gsap.to(".services-tagline p", {
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".services-tagline",
-        start: "top 80%",
-      },
-    });
-
-    // Animate service cards
-    gsap.to(".service-card", {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".service-card",
-        start: "top 85%",
-      },
-    });
-
-    // Animate tech stack items
-    gsap.to(".tech-item", {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: 0.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".tech-item",
-        start: "top 90%",
-      },
-    });
+// Services section animations
+function initServicesAnimations() {
+  const el = document.querySelector(".services-header h2");
+  if (!el) {
+    return;
   }
+  // Animate section header
+  gsap.to(".services-header h2", {
+    y: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".services-header",
+      start: "top 80%",
+    },
+  });
 
-  // Navigation highlight
-  function initNavHighlight() {
-    const sections = document.querySelectorAll("section");
-    const navItems = document.querySelectorAll(".nav-item");
+  // Animate tagline
+  gsap.to(".services-tagline p", {
+    y: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".services-tagline",
+      start: "top 80%",
+    },
+  });
 
-    window.addEventListener("scroll", () => {
-      let current = "";
+  // Animate service cards
+  gsap.to(".service-card", {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".service-card",
+      start: "top 85%",
+    },
+  });
+}
 
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
+// Navigation highlight
+function initNavHighlight() {
+  const sections = document.querySelectorAll("section");
+  const navItems = document.querySelectorAll(".nav-item");
 
-        if (pageYOffset >= sectionTop - 300) {
-          current = section.getAttribute("id");
-        }
-      });
+  window.addEventListener("scroll", () => {
+    let current = "";
 
-      navItems.forEach((item) => {
-        item.classList.remove("active");
-        if (item.getAttribute("href").includes(current)) {
-          item.classList.add("active");
-        }
-      });
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+
+      if (pageYOffset >= sectionTop - 300) {
+        current = section.getAttribute("id");
+      }
     });
-  }
+
+    navItems.forEach((item) => {
+      item.classList.remove("active");
+      if (item.getAttribute("href").includes(current)) {
+        item.classList.add("active");
+      }
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".typewriter").forEach(setupTypewriter);
+  document.querySelectorAll(".scrambled-text").forEach(wrapTextNodes);
+  // Register GSAP plugins
+  gsap.registerPlugin(TextPlugin, ScrollTrigger);
 
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -531,94 +532,119 @@ document.addEventListener("DOMContentLoaded", function () {
   // Dark mode transition and reveal animation
   const body = document.body;
   const introductionSection = document.querySelector("#introduction");
-  const techStackSection = document.querySelector("#tech-stack");
 
-  // Create a ScrollTrigger for the introduction section
-  gsap.to(body, {
-    scrollTrigger: {
-      trigger: introductionSection,
-      start: "top 60%",
-      end: "top 20%",
-      onEnter: () => {
-        body.classList.add("dark-mode");
-        // Animate the introduction content
-        gsap.to(".introduction-reveal", {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: "power3.out",
-          stagger: 0.2,
-        });
+  // Header scroll handling
+  const header = document.querySelector("header");
+  if (header && introductionSection) {
+    window.addEventListener("scroll", () => {
+      const scrollPosition = window.scrollY;
+      const introductionTop = introductionSection.offsetTop;
+
+      if (scrollPosition >= introductionTop - 100) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+  }
+
+  if (introductionSection) {
+    // Create a ScrollTrigger for the introduction section
+    gsap.to(body, {
+      scrollTrigger: {
+        trigger: introductionSection,
+        start: "top 60%",
+        end: "top 20%",
+        onEnter: () => {
+          body.classList.add("dark-mode");
+          // Animate the introduction content
+          gsap.to(".introduction-reveal", {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            stagger: 0.2,
+          });
+        },
+        onLeaveBack: () => {
+          body.classList.remove("dark-mode");
+          gsap.to(".introduction-reveal", {
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            ease: "power3.in",
+          });
+        },
       },
-      onLeaveBack: () => {
-        body.classList.remove("dark-mode");
-        gsap.to(".introduction-reveal", {
-          opacity: 0,
-          y: 50,
-          duration: 0.8,
-          ease: "power3.in",
-        });
-      },
-    },
-  });
+    });
+  }
 
   // hero section need to have body with orange mode
   const heroSection = document.querySelector("#hero");
-  gsap.to(body, { 
-    scrollTrigger: {
-      trigger: heroSection,
-      start: "top 100%",
-      end: "top 20%",
-      onEnter: () => {
-        body.classList.add("orange-mode");
+  if (heroSection) {
+    gsap.to(body, {
+      scrollTrigger: {
+        trigger: heroSection,
+        start: "top 100%",
+        end: "top 20%",
+        onEnter: () => {
+          body.classList.add("orange-mode");
+        },
+        onLeaveBack: () => {
+          body.classList.remove("orange-mode");
+        },
       },
-      onLeaveBack: () => {
-        body.classList.remove("orange-mode");
-      },
-    },
-  });
+    });
+  }
 
-  gsap.to(body, {
-    scrollTrigger: {
-      trigger: techStackSection,
-      start: "top 60%",
-      end: "top 20%",
-      onEnter: () => {
-        body.classList.remove("dark-mode");
-        // Animate the introduction content
-        gsap.to(".tech-stack-reveal", {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: "power3.out",
-          stagger: 0.2,
-        });
+  const techStackSection = document.querySelector("#tech-stack");
+  if (techStackSection) {
+    gsap.to(body, {
+      scrollTrigger: {
+        trigger: techStackSection,
+        start: "top 60%",
+        end: "top 20%",
+        onEnter: () => {
+          body.classList.remove("dark-mode");
+          // Animate the introduction content
+          gsap.to(".tech-stack-reveal", {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            stagger: 0.2,
+          });
+        },
+        onLeaveBack: () => {
+          body.classList.add("dark-mode");
+          gsap.to(".tech-stack-reveal", {
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            ease: "power3.in",
+          });
+        },
       },
-      onLeaveBack: () => {
-        body.classList.add("dark-mode");
-        gsap.to(".tech-stack-reveal", {
-          opacity: 0,
-          y: 50,
-          duration: 0.8,
-          ease: "power3.in",
-        });
+    });
+  }
+
+  const aboutMeReveal = document.querySelector(".about-me-reveal");
+  if (aboutMeReveal) {
+    // Animate about me section
+    gsap.from(".about-me-reveal", {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: ".about-me-reveal",
+        start: "top 80%",
+        end: "top 20%",
+        scrub: 1,
       },
-    },
-  });
+    });
+  }
 
-  // Animate about me section
-  gsap.from(".about-me-reveal", {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    scrollTrigger: {
-      trigger: ".about-me-reveal",
-      start: "top 80%",
-      end: "top 20%",
-      scrub: 1,
-    },
-  });
-
+  doHeroAnimations();
   // Initialize animations after page load
   initServicesAnimations();
   initNavHighlight();

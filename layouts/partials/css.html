@@ -11,7 +11,9 @@
     {{ $scssOptions := (dict "targetPath" "css/styles.scss" "outputStyle" "compressed" "enableSourceMap" "true") }}
     {{ $scssStyles := resources.Get "scss/styles.scss" | resources.ExecuteAsTemplate "scss/style.scss" . | css.Sass $scssOptions }}
     
-    {{ $combinedStyles := slice $tailwindCSS $scssStyles | resources.Concat "css/combined.css" }}
+    {{ $syntaxCSS := resources.Get "css/syntax.css" | resources.ExecuteAsTemplate "css/syntax.css" . }}
+    
+    {{ $combinedStyles := slice $tailwindCSS $scssStyles $syntaxCSS | resources.Concat "css/combined.css" }}
     
     {{ if hugo.IsProduction }}
       {{ $finalStyles := $combinedStyles | fingerprint "sha512" }}

@@ -1,0 +1,119 @@
+/* Syntax Highlighting - Light Minimal Theme */
+
+/* Base container */
+.highlight {
+  @apply my-4 overflow-hidden;
+}
+
+/* Code blocks */
+.highlight pre {
+  @apply p-4 m-0 overflow-x-auto font-mono text-sm leading-relaxed border-0;
+}
+
+/* Base styling for all code elements */
+.chroma {
+  @apply bg-white text-gray-800;
+}
+
+/* Line number styling */
+.chroma .lnt, 
+.chroma .ln {
+  @apply mr-3 pl-1 text-gray-400 select-none border-r border-gray-100;
+}
+
+/* Token color classes - minimalist monochrome with slight accents */
+.chroma .k, 
+.chroma .kd, 
+.chroma .kn,
+.chroma .kp,
+.chroma .kr,
+.chroma .kt {
+  @apply text-gray-800 font-medium; /* Keywords */
+}
+
+.chroma .n,
+.chroma .na,
+.chroma .nb,
+.chroma .bp,
+.chroma .nc,
+.chroma .no,
+.chroma .nd,
+.chroma .ni,
+.chroma .ne,
+.chroma .nf,
+.chroma .fm,
+.chroma .nl,
+.chroma .nn,
+.chroma .nx,
+.chroma .py {
+  @apply text-gray-700; /* Names */
+}
+
+.chroma .s, 
+.chroma .sa, 
+.chroma .sb, 
+.chroma .sc, 
+.chroma .dl, 
+.chroma .sd, 
+.chroma .s2, 
+.chroma .se, 
+.chroma .sh, 
+.chroma .si, 
+.chroma .sx, 
+.chroma .sr, 
+.chroma .s1, 
+.chroma .ss {
+  @apply text-gray-600; /* Strings */
+}
+
+.chroma .m, 
+.chroma .mb, 
+.chroma .mf, 
+.chroma .mh, 
+.chroma .mi, 
+.chroma .mo,
+.chroma .il {
+  @apply text-gray-700; /* Numbers */
+}
+
+.chroma .c, 
+.chroma .ch, 
+.chroma .cm, 
+.chroma .c1, 
+.chroma .cs, 
+.chroma .cp, 
+.chroma .cpf {
+  @apply text-gray-400 italic; /* Comments */
+}
+
+.chroma .o, 
+.chroma .ow {
+  @apply text-gray-600; /* Operators */
+}
+
+.chroma .p,
+.chroma .pi {
+  @apply text-gray-700; /* Punctuation */
+}
+
+/* Other syntax elements */
+.chroma .gd {
+  @apply bg-red-50 text-red-800; /* Deleted */
+}
+
+.chroma .gi {
+  @apply bg-green-50 text-green-800; /* Inserted */
+}
+
+.chroma .gu {
+  @apply text-gray-500; /* Generic.Subheading */
+}
+
+.chroma .gt {
+  @apply text-red-600; /* Generic.Traceback */
+}
+
+/* Ensure code blocks don't overflow */
+.code-content {
+  @apply overflow-x-auto;
+} 

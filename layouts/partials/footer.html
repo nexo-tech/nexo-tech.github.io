@@ -10,7 +10,7 @@
         <div class="justify-self-center md:justify-self-start">
           <a
             href="#"
-            class="group flex items-center text-white/70 hover:text-white transition-colors"
+            class="group flex items-center text-white/70 hover:text-white transition-colors back-to-top"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -166,5 +166,17 @@
         });
       });
     });
+    
+    // Back to top functionality
+    const backToTopButton = document.querySelector('.back-to-top');
+    if (backToTopButton) {
+      backToTopButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
   });
 </script>

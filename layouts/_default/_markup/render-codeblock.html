@@ -1,6 +1,6 @@
 {{- $label := print .Type " code snippet" -}}
-<figure class="relative my-8  border-gray-200 overflow-hidden" role="figure" aria-label="{{- $label | plainify -}}">
-  <div class="flex items-center justify-between px-1 py-2 border-b border-gray-200">
+<figure class="relative my-8 border border-gray-100 overflow-hidden" role="figure" aria-label="{{- $label | plainify -}}">
+  <div class="flex items-center justify-between px-3 py-2 border-b border-gray-100">
     {{- with .Attributes.title -}}
     <div class="text-sm font-bold text-gray-700">{{ . }}</div>
     {{- else -}}
@@ -32,7 +32,7 @@
   </div>
   <div class="overflow-x-auto">
     {{- with transform.HighlightCodeBlock . -}} 
-    <div class="code-content font-mono text-sm leading-relaxed">{{ .Wrapped }}</div>
+    {{ .Wrapped }}
     {{- end -}}
   </div>
 </figure>
