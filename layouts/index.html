@@ -279,15 +279,19 @@
   </div>
 </section>
 <!-- Collaborate Section -->
+ <div class="bg-blue-600 "
+ 
+ >
 <section
   id="collaborate"
-  class="bg-blue-600 text-white section w-full mx-auto px-4 sm:px-6 lg:px-8 pt-32 collaborate-reveal"
+  class="bg-blue-600 text-white section w-full mx-auto px-4 sm:px-6 lg:px-8 pt-32 collaborate-reveal relative overflow-hidden"
 >
-  <div class="max-w-[1078px] mx-auto">
+  <div class="collaborate-parallax absolute inset-0" style="transform: translateZ(0);"></div>
+  <div class="max-w-[1078px] mx-auto relative z-10">
     <!-- Section Header -->
     <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30 mb-20">
       <div class="lg:col-span-10">
-        <h2 class="text-4xl lg:text-5xl font-bold">Let's Build Something</h2>
+        <h2 class="text-4xl lg:text-5xl font-bold collaborate-title">Let's Build Something</h2>
       </div>
     </div>
 
@@ -350,4 +354,36 @@
     </div>
   </div>
 </section>
+</div>
+
+<script>
+  // Parallax effect for collaborate section
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      // Main parallax effect for the collaborate section
+      gsap.to(".collaborate-parallax", {
+        scrollTrigger: {
+          trigger: "#collaborate",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+        y: "30%",
+        ease: "none",
+      });
+      
+      // Content parallax effect (slower)
+      gsap.to("#collaborate", {
+        scrollTrigger: {
+          trigger: "#collaborate",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+        y: "-400px",
+        ease: "none",
+      });
+    }
+  });
+</script>
 {{end}}
