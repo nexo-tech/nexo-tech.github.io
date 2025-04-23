@@ -1,94 +1,170 @@
 <div class="relative">
-<footer class="w-full bg-black text-white pt-2 footer-reveal overflow-hidden">
-  <!-- Full width container -->
-  <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 relative">
-    <!-- Top Row with Navigation and Info -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 items-center border-white/20 footer-info">
-      <!-- Left: Back to Top -->
-      <div class="justify-self-center md:justify-self-start">
-        <a href="#" class="group flex items-center text-white/70 hover:text-white transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 transform group-hover:-translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-          </svg>
-          <span>Back to top</span>
-        </a>
+  <footer class="w-full bg-black text-white pt-2 footer-reveal overflow-hidden">
+    <!-- Full width container -->
+    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <!-- Top Row with Navigation and Info -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 items-center border-white/20 footer-info"
+      >
+        <!-- Left: Back to Top -->
+        <div class="justify-self-center md:justify-self-start">
+          <a
+            href="#"
+            class="group flex items-center text-white/70 hover:text-white transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 mr-2 transform group-hover:-translate-y-1 transition-transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 10l7-7m0 0l7 7m-7-7v18"
+              />
+            </svg>
+            <span>Back to top</span>
+          </a>
+        </div>
+
+        <!-- Center: Copyright -->
+        <div class="justify-self-center text-center text-white/70">
+          <span>Copyright © Oleg Pustovit {{ now.Format "2006" }}</span>
+        </div>
+
+        <!-- Right: Timezone -->
+        <div
+          class="justify-self-center md:justify-self-end text-center md:text-right text-white/70"
+        >
+          <span>{{ .Site.Params.location }} {{ now.Format "15:04 MST" }}</span>
+        </div>
       </div>
-      
-      <!-- Center: Copyright -->
-      <div class="justify-self-center text-center text-white/70">
-        <span>Copyright © Oleg Pustovit {{ now.Format "2006" }}</span>
-      </div>
-      
-      <!-- Right: Timezone -->
-      <div class="justify-self-center md:justify-self-end text-center md:text-right text-white/70">
-        <span>{{ .Site.Params.location }} {{ now.Format "15:04 MST" }}</span>
+
+      <!-- Bottom Row with Brand -->
+      <div class="text-center brand-container overflow-hidden">
+        <div class="brand-reveal">
+          <div class="flex gap-8 flex-wrap justify-center items-center">
+            <a
+              href="/"
+              class="inline-block text-7xl md:text-8xl lg:text-9xl font-black tracking-tight text-white hover:text-white/90 transition-colors mr-2 md:mr-4 lg:mr-6"
+            >
+              <span class="font-light text-white/40">follow</span>
+              <span class="brand-text">[nexo]</span>
+              <span class="font-light text-white/40">on</span>
+            </a>
+
+            {{ with .Site.Params.social }} {{ range . }} {{if not (eq .name
+            "email") }}
+            <div class="social-icon mt-6">
+              <a
+                href="{{ .link }}"
+                target="_blank"
+                rel="noopener"
+                class="text-white hover:text-primary transition-colors"
+              >
+                <i
+                  class="fa-brands fa-{{.name}} text-5xl md:text-6xl lg:text-7xl"
+                ></i>
+              </a>
+            </div>
+            {{end}} {{ end }} {{ end }}
+          </div>
+          <style>
+            .social-icon a {
+              display: inline-block;
+              transition: transform 0.2s ease-in-out;
+            }
+            .social-icon a:hover {
+              transform: scale(1.1);
+            }
+          </style>
+        </div>
       </div>
     </div>
-    
-    <!-- Bottom Row with Brand -->
-    <div class="text-center brand-container overflow-hidden">
-      <div class="brand-reveal">
-        <a href="/" class="inline-block text-7xl md:text-8xl lg:text-9xl font-black tracking-tight text-white hover:text-white/90 transition-colors">
-          <span class="block brand-text">[nexo]</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
-<div class="h-[50px] bg-black absolute bottom-0 left-0 w-full"></div>
+  </footer>
+  <div class="h-[50px] bg-black absolute bottom-0 left-0 w-full"></div>
 </div>
 <script>
   // Footer parallax and reveal animations
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener("DOMContentLoaded", function () {
     // Only run if GSAP and ScrollTrigger are loaded
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
       // Parallax effect for the footer
-      gsap.to('.footer-reveal', {
+      gsap.to(".footer-reveal", {
         scrollTrigger: {
-          trigger: '.footer-reveal',
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: true
+          trigger: ".footer-reveal",
+          start: "top bottom",
+          end: "bottom bottom",
+          scrub: true,
         },
         y: -50,
-        ease: 'none'
+        ease: "none",
       });
-      
+
       // Animate the info section
-      gsap.from('.footer-info', {
+      gsap.from(".footer-info", {
         scrollTrigger: {
-          trigger: '.footer-reveal',
-          start: 'top 80%',
-          toggleActions: 'play none none none'
+          trigger: ".footer-reveal",
+          start: "top 80%",
+          toggleActions: "play none none none",
         },
         y: 30,
         opacity: 0,
-        duration: 0.8
+        duration: 0.8,
       });
-      
-      // Slide in the brand from right to left
-      gsap.fromTo('.brand-text', 
-        { 
-          x: '250px',  // Start position (off-screen to the right)
-          // opacity: 0
+
+      // Slide in the brand and social icons from right to left
+      gsap.fromTo(
+        ".brand-reveal .flex",
+        {
+          x: "250px", // Start position (off-screen to the right)
+          opacity: 0,
         },
         {
           scrollTrigger: {
-            trigger: '.brand-container',
-            start: 'top 90%',
-            end: 'top 50%',
-            scrub: 0.6,    // Smooth scrubbing effect tied to scroll
-            toggleActions: 'play none none reverse',
+            trigger: ".brand-container",
+            start: "top 90%",
+            end: "top 50%",
+            scrub: 0.6, // Smooth scrubbing effect tied to scroll
+            toggleActions: "play none none reverse",
           },
-          x: '0px',      // End position (centered)
-          // opacity: 1,
+          x: "-250px", // End position (centered)
+          opacity: 1,
           duration: 1.5,
-          ease: 'power2.out'
+          ease: "power2.out",
         }
       );
-      
-      // Log for debugging
-      console.log("Animation initialized for .brand-text");
     }
+  });
+</script>
+
+<script>
+  // Code block copy functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.code-copy button');
+    
+    copyButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const copyContainer = this.closest('.code-copy');
+        const textArea = copyContainer.querySelector('textarea');
+        const notification = copyContainer.querySelector('.code-copied');
+        
+        // Copy text to clipboard
+        navigator.clipboard.writeText(textArea.value).then(() => {
+          // Show notification
+          notification.style.opacity = '1';
+          
+          // Hide notification after 1.5 seconds
+          setTimeout(() => {
+            notification.style.opacity = '0';
+          }, 1500);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+      });
+    });
   });
 </script>

@@ -6,3 +6,13 @@
 
 @source "hugo_stats.json";
 @import "./markdown.css";
+@import "./highlight.css";
+
+
+.highlight .chroma {
+  @apply py-2 px-4;
+}
+
+td.lntd:first-child {
+  @apply w-10;
+}

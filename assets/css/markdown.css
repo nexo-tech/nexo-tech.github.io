@@ -84,7 +84,7 @@
   }
   
   /* Code blocks */
-  pre {
+  /* pre {
     @apply p-4 rounded-lg bg-primary/5 overflow-x-auto text-sm my-6;
   }
   
@@ -94,7 +94,7 @@
   
   pre code {
     @apply bg-transparent p-0 text-primary/80;
-  }
+  } */
   
   /* Tables */
   table {
@@ -162,9 +162,6 @@
 }
 
 /* Custom for syntax highlighting */
-.highlight {
-  @apply my-6 rounded-lg overflow-hidden;
-}
 
 /* Support for common markdown components */
 .markdown sup {
