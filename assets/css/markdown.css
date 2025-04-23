@@ -1,0 +1,249 @@
+/* 
+ * Markdown Content Styling
+ * Based on Tailwind Typography with custom tweaks
+ */
+
+.markdown {
+  @apply max-w-none text-primary/90;
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans font-bold text-primary leading-tight mt-12 mb-6;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl tracking-tight mb-8;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl border-b border-primary/10 pb-2;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  
+  h6 {
+    @apply text-base md:text-lg text-primary/80 uppercase tracking-wider;
+  }
+  
+  /* Paragraphs and basic text */
+  p {
+    @apply text-lg leading-normal mb-6 text-primary/80;
+  }
+  
+  strong {
+    @apply font-bold text-primary;
+  }
+  
+  em {
+    @apply italic;
+  }
+  
+  /* Lists */
+  ul, ol {
+    @apply mb-6 ml-6 text-lg text-primary/80;
+  }
+  
+  ul {
+    @apply list-disc;
+  }
+  
+  ol {
+    @apply list-decimal;
+  }
+  
+  li {
+    @apply mb-2 leading-normal;
+  }
+  
+  li > ul, li > ol {
+    @apply mt-2 mb-0;
+  }
+  
+  /* Blockquotes */
+  blockquote {
+    @apply pl-4 py-1 border-l-4 border-primary/30 bg-primary/5 italic my-6 text-primary/70;
+  }
+  
+  blockquote p {
+    @apply text-lg;
+  }
+  
+  /* Links */
+  a {
+    @apply text-primary font-medium underline decoration-primary/30 underline-offset-2 hover:decoration-primary transition-all;
+  }
+  
+  /* Code blocks */
+  pre {
+    @apply p-4 rounded-lg bg-primary/5 overflow-x-auto text-sm my-6;
+  }
+  
+  code {
+    @apply font-mono text-sm px-1.5 py-0.5 rounded bg-primary/5 text-primary/90;
+  }
+  
+  pre code {
+    @apply bg-transparent p-0 text-primary/80;
+  }
+  
+  /* Tables */
+  table {
+    @apply w-full mb-6 text-left border-collapse;
+  }
+  
+  table th {
+    @apply font-bold p-3 bg-primary/5 border-b-2 border-primary/10 text-primary;
+  }
+  
+  table td {
+    @apply p-3 border-b border-primary/10 text-primary/80;
+  }
+  
+  table tr:hover td {
+    @apply bg-primary/5;
+  }
+  
+  /* Images */
+  img {
+    @apply max-w-full h-auto rounded-lg my-6 mx-auto;
+  }
+  
+  figure {
+    @apply my-8;
+  }
+  
+  figcaption {
+    @apply text-center text-sm text-primary/60 mt-2;
+  }
+  
+  /* Horizontal rule */
+  hr {
+    @apply my-10 border-t border-primary/20;
+  }
+  
+  /* Extras */
+  .footnotes {
+    @apply mt-12 pt-8 border-t border-primary/20 text-sm text-primary/70;
+  }
+  
+  .footnotes p {
+    @apply text-base;
+  }
+  
+  /* Typography utilities */
+  .lead {
+    @apply text-xl font-normal text-primary/70 mb-6;
+  }
+  
+  /* Responsive adjustments for better mobile reading */
+  @media (max-width: 640px) {
+    p, ul, ol, li {
+      @apply text-base;
+    }
+    
+    blockquote p {
+      @apply text-base;
+    }
+    
+    .lead {
+      @apply text-lg;
+    }
+  }
+}
+
+/* Custom for syntax highlighting */
+.highlight {
+  @apply my-6 rounded-lg overflow-hidden;
+}
+
+/* Support for common markdown components */
+.markdown sup {
+  @apply text-xs align-super;
+}
+
+.markdown sub {
+  @apply text-xs align-sub;
+}
+
+.markdown abbr {
+  @apply border-b border-dotted border-primary/30 cursor-help;
+}
+
+/* Callout boxes */
+.markdown .callout {
+  @apply p-4 my-6 rounded-lg border-l-4;
+}
+
+.markdown .callout.info {
+  @apply bg-blue-50 border-blue-500 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200 dark:border-blue-500;
+}
+
+.markdown .callout.warning {
+  @apply bg-amber-50 border-amber-500 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 dark:border-amber-500;
+}
+
+.markdown .callout.danger {
+  @apply bg-red-50 border-red-500 text-red-800 dark:bg-red-900/30 dark:text-red-200 dark:border-red-500;
+}
+
+/* Table of contents */
+.markdown .toc {
+  @apply p-4 bg-primary/5 rounded-lg my-6;
+}
+
+.markdown .toc ul {
+  @apply list-none ml-0;
+}
+
+.markdown .toc li {
+  @apply mb-1 text-base;
+}
+
+.markdown .toc a {
+  @apply no-underline hover:underline;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .markdown {
+    @apply text-gray-300;
+  }
+  
+  .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+    @apply text-white;
+  }
+  
+  .markdown p, .markdown li {
+    @apply text-gray-300;
+  }
+  
+  .markdown code {
+    @apply bg-gray-800;
+  }
+  
+  .markdown pre {
+    @apply bg-gray-800;
+  }
+  
+  .markdown blockquote {
+    @apply bg-gray-800/50 border-gray-600;
+  }
+  
+  .markdown table th {
+    @apply bg-gray-800;
+  }
+  
+  .markdown table tr:hover td {
+    @apply bg-gray-800/50;
+  }
+}

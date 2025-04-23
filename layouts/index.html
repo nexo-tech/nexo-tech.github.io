@@ -228,20 +228,20 @@
       <!-- Column 2: Timeline -->
       <div>
         <h3 class="text-2xl font-bold text-primary mb-12">Timeline</h3>
-        <div class="space-y-8 relative">
+        <div class="relative">
           <!-- Continuous vertical line that spans all entries -->
           <div
             class="absolute left-[-1px] top-[6px] bottom-0 w-[1px] bg-primary/20"
           ></div>
           <!-- Timeline -->
-          <div>
-            <div class="space-y-8 relative">
+          <div >
+            <!-- <div class="space-y-8 relative"> -->
               <!-- Continuous vertical line that spans all entries -->
               <div
                 class="absolute left-[-1px] top-[6px] bottom-0 w-[1px] bg-primary/20"
               ></div>
               {{ range .Site.Params.aboutMe.timeline }}
-              <div class="relative pl-8">
+              <div class="relative mb-8 pl-8">
                 <div
                   class="absolute left-[-3.5px] top-[6px] w-[6px] h-[6px] rounded-full bg-primary"
                 ></div>

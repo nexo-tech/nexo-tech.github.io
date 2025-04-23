@@ -2,16 +2,15 @@
  * Main Theme Variables
  */
 :root {
-  --color-primary: #2b2b2b;
   --color-primary-blue: #0f00e6;
+  --color-text-light-blue: #0f00e6;
+  --color-text-orange: #f52626;
   --color-bg-light: #f5f5f5;
   --color-bg-dark: #000;
   --color-text-light: #2b2b2b;
-  --color-text-light-blue: #0f00e6;
   --color-text-dark: #fff;
   --header-bg-light: rgba(245, 245, 245, 0.95);
   --header-bg-dark: rgba(0, 0, 0, 0.95);
-  --color-text-orange: #f52626;
 }
 
 /* 
@@ -35,7 +34,6 @@ body {
   transition: background-color 0.8s ease;
   
   &.orange-mode {
-
     .terminal-text, .terminal-container {
       color: var(--color-text-orange) !important;
     }
@@ -227,7 +225,6 @@ header {
  * Tech Stack
  */
 .tech-stack {
-  background-color: var(--color-bg-light) !important;
   position: relative;
   z-index: 1;
   padding: 4rem 0 8rem 0;
@@ -239,7 +236,6 @@ header {
     left: -100vw;
     right: -100vw;
     bottom: 0;
-    background-color: var(--color-bg-light);
     z-index: -1;
   }
   

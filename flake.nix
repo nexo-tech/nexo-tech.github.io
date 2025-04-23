@@ -13,9 +13,10 @@
       devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.hugo
-          pkgs.tailwindcss
+          pkgs.bun
         ];
         shellHook = ''
+          bun install
           exec fish
         '';
       };

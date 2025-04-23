@@ -1,0 +1,16 @@
+{
+  "name": "nexo-tech.github.io",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.4",
+    "@types/bun": "latest",
+    "tailwindcss": "^4.1.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "caniuse-lite": "^1.0.30001715"
+  }
+}

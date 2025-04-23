@@ -3,3 +3,4 @@ public
 resources/_gen
 asserts/jsconfig.json
 hugo_stats.json
+node_modules
