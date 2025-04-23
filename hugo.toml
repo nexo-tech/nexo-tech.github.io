@@ -1,7 +1,7 @@
 baseURL = 'https://nexo.sh/'
 languageCode = 'en-us'
 title = 'nexo blog'
-theme = "cactus"
+# theme = "cactus"
 copyright = "Oleg Pustovit"
 
 [params]

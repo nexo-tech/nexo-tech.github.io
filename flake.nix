@@ -13,6 +13,7 @@
       devShells.default = pkgs.mkShell {
         buildInputs = [
           pkgs.hugo
+          pkgs.tailwindcss
         ];
         shellHook = ''
           exec fish
