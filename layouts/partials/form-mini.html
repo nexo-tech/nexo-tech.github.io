@@ -1,0 +1,112 @@
+<section class="w-full mx-auto max-w-[1078px] mt-12 text-primary">
+  <form
+    action="https://app.kit.com/forms/7961988/subscriptions"
+    class="seva-form formkit-form w-full"
+    method="post"
+    data-sv-form="7961988"
+    data-uid="842da55da6"
+    data-format="inline"
+    data-version="5"
+  >
+    <!-- Title and Subtitle -->
+    <div class="mb-6">
+      <h3 class="text-2xl font-bold font-helvetica mb-2">Join the Newsletter</h3>
+      <p class="text-lg text-primary/80 font-helvetica">Get the latest technical deep dives and startup insights.</p>
+    </div>
+
+    <!-- Form Fields -->
+    <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+      <!-- Email Field -->
+      <div class="formkit-field flex-1">
+        <input
+          class="w-full text-xl font-bold bg-transparent border-b-2 border-primary focus:outline-none focus:border-primary/80 py-2 font-helvetica"
+          name="email_address"
+          aria-label="Email Address"
+          placeholder="Email Address"
+          required
+          type="email"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="text-xl font-bold bg-primary text-white px-6 py-2 hover:bg-primary/90 transition-colors duration-200 font-helvetica whitespace-nowrap"
+      >
+        <span class="flex items-center justify-center">
+          <span class="formkit-spinner hidden mr-2">
+            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+                fill="none"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </span>
+          <span>Subscribe</span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Error Messages -->
+    <ul
+      class="formkit-alert formkit-alert-error hidden mt-4 bg-red-50 border border-red-200 rounded-lg p-4 text-red-600"
+    ></ul>
+  </form>
+
+  <script>
+    // Form submission handling
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector(".seva-form");
+      const errorList = form.querySelector(".formkit-alert-error");
+      const submitButton = form.querySelector('button[type="submit"]');
+      const spinner = submitButton.querySelector(".formkit-spinner");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // Show loading state
+        submitButton.disabled = true;
+        spinner.classList.remove("hidden");
+        errorList.classList.add("hidden");
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.ok) {
+            // Show success message
+            form.innerHTML = `
+            <div class="text-center">
+              <p class="text-xl text-primary/80">Thanks for subscribing! Check your email to confirm.</p>
+            </div>
+          `;
+          } else {
+            throw new Error("Subscription failed");
+          }
+        } catch (error) {
+          // Show error message
+          errorList.classList.remove("hidden");
+          errorList.innerHTML =
+            "<li>Something went wrong. Please try again.</li>";
+        } finally {
+          // Reset loading state
+          submitButton.disabled = false;
+          spinner.classList.add("hidden");
+        }
+      });
+    });
+  </script>
+</section>
