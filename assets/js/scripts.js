@@ -293,26 +293,26 @@ function initNavHighlight() {
 // Animate About Me section numbers
 function animateAboutMeNumbers() {
   const numbers = document.querySelectorAll('.number-slide');
-  
+  const values = document.querySelectorAll('.values-section');
   numbers.forEach((number, index) => {
     // Set initial position (below the border)
-    gsap.set(number, { y: '100%' });
+    gsap.set(number, { y: '110%' });
     
     // Create ScrollTrigger for each number
     ScrollTrigger.create({
-      trigger: number,
-      start: 'top 80%',
+      trigger: values,
+      start: 'top 60%',
       onEnter: () => {
         gsap.to(number, {
           y: '0%',
-          duration: 0.8,
+          duration: 1.2,
           ease: 'power2.out',
-          delay: index * 0.1 // Stagger the animations
+          delay: index * 0.1, // Stagger the animations
         });
       },
       onLeaveBack: () => {
         gsap.to(number, {
-          y: '100%',
+          y: '110%',
           duration: 0.5,
           ease: 'power2.in'
         });
