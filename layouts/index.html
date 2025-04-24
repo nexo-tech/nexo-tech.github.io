@@ -18,7 +18,7 @@
   class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center"
 >
   <div class="w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30">
+    <div class="grid grid-cols-1 lg:grid-cols-10 gap-0">
       <!-- Main Heading - Spans 6 columns -->
       <div class="lg:col-span-6">
         <div class="text-4xl lg:text-5xl font-bold leading-tight text-primary">
@@ -77,31 +77,31 @@
   class="w-full bg-black text-white py-32 introduction-reveal"
 >
   <div class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30">
+    <div class="grid grid-cols-1 lg:grid-cols-11 gap-0">
       <!-- Name Block -->
-      <div  class="lg:col-span-4 relative">
+      <div class="lg:col-span-5 relative flex flex-col justify-center">
         <div id="introduction-name"
           class="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg"
         ></div>
-        <h2 class="text-6xl lg:text-8xl font-bold relative z-10 leading-none">
+        <h2 class="text-10xl text-right p-4 lg:text-8xl font-bold relative z-10 leading-none">
           {{- $parts := split .Site.Params.introduction.title " " }} {{ index
           $parts 0}}<br />{{ index $parts 1}}
         </h2>
       </div>
 
       <!-- Introduction Text -->
-      <div class="lg:col-span-6 flex flex-col gap-8">
+      <div class="lg:col-span-6 flex flex-col gap-8 py-24 overflow-hidden pl-36">
         <p class="text-lg lg:text-xl leading-relaxed">
           Lead Software Engineer specializing in scalable infrastructure for
-          early-stage startups. I’ve taken multiple products from zero to MVP—hands-on
+          early-stage startups. I've taken multiple products from zero to MVP—hands-on
           with Kubernetes, Go, GraphQL, and the rest of the modern cloud jungle.
         </p>
         <p class="text-lg lg:text-xl leading-relaxed">
           This site shares lessons from the buildout trenches: system design patterns,
           startup engineering strategies, and practical technical write-ups.
         </p>
-        <p class="text-lg lg:text-xl leading-relaxed font-bold">
-          Interested in co-founding opportunities and long-term technical leadership for teams solving real problems at scale.
+        <p class="text-lg lg:text-xl leading-relaxed ">
+          Interested in <span class="font-bold">co-founding opportunities</span> and <span class="font-bold">long-term technical leadership</span> for teams solving real problems at scale.
         </p>
       </div>
     </div>
@@ -114,7 +114,7 @@
   class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-32"
 >
   <!-- Section Header -->
-  <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30 mb-20">
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-20">
     <div class="lg:col-span-4 services-header">
       <h2 class="text-4xl lg:text-5xl font-bold text-primary">Services</h2>
     </div>
@@ -172,7 +172,7 @@
   class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 about-me-reveal"
 >
   <!-- Section Header -->
-  <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30 mb-20">
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-20">
     <div class="lg:col-span-4">
       <h2 class="text-4xl lg:text-5xl font-bold text-primary">About Me</h2>
     </div>
@@ -264,7 +264,7 @@
   class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 writings-reveal"
 >
   <!-- Section Header -->
-  <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30 mb-20">
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-20">
     <div class="lg:col-span-4">
       <h2 class="text-4xl lg:text-5xl font-bold text-primary">Writings</h2>
     </div>
@@ -308,7 +308,7 @@
     <div class="collaborate-parallax absolute inset-0" style="transform: translateZ(0);"></div>
     <div class="max-w-[1078px] mx-auto relative z-10">
       <!-- Section Header -->
-      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30 mb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-20">
         <div class="lg:col-span-10">
           <h2 class="text-4xl lg:text-5xl font-bold collaborate-title">Let's Build Something</h2>
         </div>
