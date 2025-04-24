@@ -1,0 +1,127 @@
+<section class="w-full mx-auto max-w-[1078px] px-4 sm:px-6 lg:px-8">
+  <form
+    action="https://app.kit.com/forms/7961988/subscriptions"
+    class="seva-form formkit-form w-full"
+    method="post"
+    data-sv-form="7961988"
+    data-uid="842da55da6"
+    data-format="inline"
+    data-version="5"
+    data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":true,"url":"https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
+  >
+    <!-- Hero Section -->
+    <div class="relative py-12 px-6 md:px-8 text-center overflow-hidden">
+      <!-- Background with subtle gradient -->
+      <div class="absolute inset-0 from-primary/20 to-primary/5"></div>
+
+      <!-- Content -->
+      <div class="relative z-10">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 font-helvetica">
+          Join our newsletter
+        </h2>
+        <p class="text-lg font-light font-helvetica">
+          Receive tips and tricks on how to lorum ipsum.
+        </p>
+      </div>
+    </div>
+
+    <!-- Form Fields -->
+    <div class="p-6 md:p-8">
+      <!-- Error Messages -->
+      <ul
+        class="formkit-alert formkit-alert-error hidden mb-6 bg-red-50 border border-red-200 rounded-lg p-4 text-red-600"
+      ></ul>
+
+      <!-- Fields Container -->
+      <div class="space-y-6">
+        <!-- Email Field -->
+        <div class="formkit-field">
+          <input
+            class="w-full px-4 py-3 text-base text-gray-700 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-helvetica"
+            name="email_address"
+            aria-label="Email Address"
+            placeholder="Email Address"
+            required
+            type="email"
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full px-6 py-3 bg-primary font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-200 font-helvetica"
+        >
+          <span class="flex items-center justify-center">
+            <span class="formkit-spinner hidden mr-2">
+              <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  fill="none"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            </span>
+            <span>Send it my way!</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <script>
+    // Form submission handling
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector(".seva-form");
+      const errorList = form.querySelector(".formkit-alert-error");
+      const submitButton = form.querySelector('button[type="submit"]');
+      const spinner = submitButton.querySelector(".formkit-spinner");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // Show loading state
+        submitButton.disabled = true;
+        spinner.classList.remove("hidden");
+        errorList.classList.add("hidden");
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.ok) {
+            // Show success message
+            form.innerHTML = `
+            <div class="p-8 text-center">
+              <h3 class="text-xl font-bold text-primary mb-4">Success!</h3>
+              <p class="text-gray-600">Now check your email to confirm your subscription.</p>
+            </div>
+          `;
+          } else {
+            throw new Error("Subscription failed");
+          }
+        } catch (error) {
+          // Show error message
+          errorList.classList.remove("hidden");
+          errorList.innerHTML =
+            "<li>Something went wrong. Please try again.</li>";
+        } finally {
+          // Reset loading state
+          submitButton.disabled = false;
+          spinner.classList.add("hidden");
+        }
+      });
+    });
+  </script>
+</section>
