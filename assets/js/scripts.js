@@ -1,6 +1,7 @@
 import "./anchor-scroll.js";
 import { loadTechStack } from "./tech-stack.js";
 import { smoothScrollTo } from "./scroll-utils.js";
+import { addDotBg } from "./dot-matrix-animation.js";
 
 // Text scramble effect
 class TextScramble {
@@ -323,6 +324,19 @@ function animateAboutMeNumbers() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  const introductionName = document.querySelector("#introduction-name");
+  if (introductionName) {
+    addDotBg(introductionName, {
+      animationSpeed: 1,
+      dotSize: 1.5,
+      colors: [
+        [255, 255, 255],
+        // [255, 92, 246],
+      ],
+      opacities: [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
+    });
+  }
+
   document.querySelectorAll(".typewriter").forEach(setupTypewriter);
   document.querySelectorAll(".scrambled-text").forEach(wrapTextNodes);
   // Register GSAP plugins
