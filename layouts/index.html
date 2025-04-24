@@ -18,9 +18,9 @@
       <div class="lg:col-span-6">
         <div class="text-4xl lg:text-5xl font-bold leading-tight text-primary">
           <div class="terminal-container">
-            <span id="terminal-line1" class="terminal-text"></span>
-            <span id="terminal-line2" class="terminal-text"></span><br />
-            <span id="terminal-line3" class="terminal-text"></span>
+            <span id="terminal-line1" class="terminal-text whitespace-nowrap">Built MVPs.</span>
+            <span id="terminal-line2" class="terminal-text whitespace-nowrap">Led teams.</span>
+            <span id="terminal-line3" class="terminal-text whitespace-nowrap">Survived funding drama.</span>
             <span class="cursor"></span>
           </div>
           <!-- Hidden text for SEO and backup -->
@@ -41,7 +41,7 @@
     </div>
 
     <!-- CTA Section -->
-    <div class="mt-16 relative">
+    <div class="mt-16 relative h-12">
       <a
         href="/contact"
         class="inline-flex items-center text-lg lg:text-xl font-semibold group text-primary hover:text-primary/80 transition-colors absolute bottom-0"
@@ -193,7 +193,9 @@
         <div class="space-y-8">
           {{ range $index, $item := .Site.Params.aboutMe.values }}
           <div class="group">
-            <p class="my-3 text-5xl font-bold text-primary/80">0{{ $index }}</p>
+            <div class="relative h-16 overflow-hidden">
+              <p class="my-3 text-5xl font-bold text-primary/80 absolute bottom-0 left-0 number-slide">0{{ $index }}</p>
+            </div>
             <div class="h-px bg-primary/20"></div>
             <p
               class="text-xl text-primary group-hover:text-primary/80 transition-colors"

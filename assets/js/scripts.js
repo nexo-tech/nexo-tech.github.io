@@ -153,13 +153,13 @@ function doHeroAnimations() {
       "#terminal-line1",
       {
         duration: 0.5,
-        text: "Built MVPs. ",
+        text: "Built MVPs.",
         ease: "none",
       },
       "+=0.5"
     )
 
-    // Second line (now part of first line)
+    // Second line
     .to(
       "#terminal-line2",
       {
@@ -285,6 +285,37 @@ function initNavHighlight() {
       item.classList.remove("active");
       if (item.getAttribute("href").includes(current)) {
         item.classList.add("active");
+      }
+    });
+  });
+}
+
+// Animate About Me section numbers
+function animateAboutMeNumbers() {
+  const numbers = document.querySelectorAll('.number-slide');
+  
+  numbers.forEach((number, index) => {
+    // Set initial position (below the border)
+    gsap.set(number, { y: '100%' });
+    
+    // Create ScrollTrigger for each number
+    ScrollTrigger.create({
+      trigger: number,
+      start: 'top 80%',
+      onEnter: () => {
+        gsap.to(number, {
+          y: '0%',
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: index * 0.1 // Stagger the animations
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(number, {
+          y: '100%',
+          duration: 0.5,
+          ease: 'power2.in'
+        });
       }
     });
   });
@@ -470,4 +501,5 @@ document.addEventListener("DOMContentLoaded", function () {
   initServicesAnimations();
   initNavHighlight();
   loadTechStack();
+  animateAboutMeNumbers();
 });
