@@ -28,3 +28,7 @@ html body .in-blue-section {
     }
   }
 }
+
+#tech-hover-text {
+  color: var(--color-text-orange);
+}

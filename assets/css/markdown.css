@@ -209,38 +209,3 @@
 .markdown .toc a {
   @apply no-underline hover:underline;
 }
-
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .markdown {
-    @apply text-gray-300;
-  }
-  
-  .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
-    @apply text-white;
-  }
-  
-  .markdown p, .markdown li {
-    @apply text-gray-300;
-  }
-  
-  .markdown code {
-    @apply bg-gray-800;
-  }
-  
-  .markdown pre {
-    @apply bg-gray-800;
-  }
-  
-  .markdown blockquote {
-    @apply bg-gray-800/50 border-gray-600;
-  }
-  
-  .markdown table th {
-    @apply bg-gray-800;
-  }
-  
-  .markdown table tr:hover td {
-    @apply bg-gray-800/50;
-  }
-}

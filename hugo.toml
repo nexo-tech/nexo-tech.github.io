@@ -58,8 +58,8 @@ name = "x-twitter"
 link = "https://x.com/nexo_v1"
 
 [[params.social]]
-name = "behance"
-link = "https://www.behance.net/crystalboxes"
+name = "linkedin"
+link = "https://www.linkedin.com/in/nexo-tech/"
 
 [[menu.main]]
 name = "Home"
