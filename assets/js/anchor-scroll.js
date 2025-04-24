@@ -1,26 +1,5 @@
-// Function to get the visual offset of an element
-function getVisualOffset(element) {
-  const rect = element.getBoundingClientRect();
-  return window.scrollY + rect.top;
-}
-
+import { smoothScrollTo } from "./scroll-utils.js";
 // Function to smoothly scroll to a target element
-async function smoothScrollTo(targetElement) {
-  if (!targetElement) {
-    return;
-  }
-
-  // Try multiple times to account for any dynamic content or parallax effects
-  for (let i = 0; i < 10; i++) {
-    let targetPosition = getVisualOffset(targetElement);
-    window.scrollTo({
-      top: targetPosition,
-      behavior: "smooth",
-    });
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
-}
-
 // Handle anchor links on page load
 document.addEventListener("DOMContentLoaded", () => {
   // Only execute on home page

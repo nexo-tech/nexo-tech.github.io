@@ -1,4 +1,10 @@
 {{ define "main" }}
+<style>
+  /* need to have smooth scroll behavior on this page */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
 <script type="application/json" id="skills-data">
   {
     "primary": {{ .Site.Params.skills.primary  }},
@@ -85,9 +91,18 @@
       </div>
 
       <!-- Introduction Text -->
-      <div class="lg:col-span-6">
+      <div class="lg:col-span-6 flex flex-col gap-4">
         <p class="text-lg lg:text-xl leading-relaxed">
-          {{ .Site.Params.introduction.description }}
+          Lead Software Engineer specializing in scalable infrastructure for
+          early-stage startups. I’ve taken multiple products from zero to MVP—hands-on
+          with Kubernetes, Go, GraphQL, and the rest of the modern cloud jungle.
+        </p>
+        <p class="text-lg lg:text-xl leading-relaxed">
+          This site shares lessons from the buildout trenches: system design patterns,
+          startup engineering strategies, and practical technical write-ups.
+        </p>
+        <p class="text-lg lg:text-xl leading-relaxed font-bold">
+          Interested in co-founding opportunities and long-term technical leadership for teams solving real problems at scale.
         </p>
       </div>
     </div>
@@ -116,7 +131,7 @@
     <!-- MVP Development -->
     {{ range $index, $service := .Site.Params.services }}
     <div
-      class="lg:col-span-3 text-primary text-left text-lg pr-8 text-[2.5rem] leading-none opacity-70 font-extralight tracking-tight"
+      class="lg:col-span-3 text-primary text-left text-lg pr-8 text-md leading-none opacity-70 font-extralight tracking-tight"
     >
       <div class="mt-1">0{{ add $index 1 }}</div>
     </div>

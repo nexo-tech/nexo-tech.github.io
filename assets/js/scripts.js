@@ -1,5 +1,6 @@
 import "./anchor-scroll.js";
 import { loadTechStack } from "./tech-stack.js";
+import { smoothScrollTo } from "./scroll-utils.js";
 
 // Text scramble effect
 class TextScramble {
@@ -292,31 +293,31 @@ function initNavHighlight() {
 
 // Animate About Me section numbers
 function animateAboutMeNumbers() {
-  const numbers = document.querySelectorAll('.number-slide');
-  const values = document.querySelectorAll('.values-section');
+  const numbers = document.querySelectorAll(".number-slide");
+  const values = document.querySelectorAll(".values-section");
   numbers.forEach((number, index) => {
     // Set initial position (below the border)
-    gsap.set(number, { y: '110%' });
-    
+    gsap.set(number, { y: "110%" });
+
     // Create ScrollTrigger for each number
     ScrollTrigger.create({
       trigger: values,
-      start: 'top 60%',
+      start: "top 60%",
       onEnter: () => {
         gsap.to(number, {
-          y: '0%',
+          y: "0%",
           duration: 1.2,
-          ease: 'power2.out',
+          ease: "power2.out",
           delay: index * 0.1, // Stagger the animations
         });
       },
       onLeaveBack: () => {
         gsap.to(number, {
-          y: '110%',
+          y: "110%",
           duration: 0.5,
-          ease: 'power2.in'
+          ease: "power2.in",
         });
-      }
+      },
     });
   });
 }
@@ -339,22 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Get the element's position accounting for transforms
-      const getVisualOffset = (element) => {
-        const rect = element.getBoundingClientRect();
-        const scrollTop =
-          window.pageYOffset || document.documentElement.scrollTop;
-        return rect.top + scrollTop;
-      };
-
-      for (let i = 0; i < 10; i++) {
-        let targetPosition = getVisualOffset(targetElement);
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth",
-        });
-        await new Promise((resolve) => setTimeout(resolve, 100));
-      }
+      await smoothScrollTo(targetElement);
     });
   });
 
