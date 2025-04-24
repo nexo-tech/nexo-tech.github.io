@@ -29,6 +29,6 @@ html body .in-blue-section {
   }
 }
 
-#tech-hover-text {
+#tech-hover-text, .orange-text {
   color: var(--color-text-orange);
 }

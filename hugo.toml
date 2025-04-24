@@ -602,24 +602,15 @@ tertiary = [
   "xphysics.js",
   "physijs.js",
   "oimo.js",
-  "p2.js",
-  "planck.js",
-  "cannon.js",
-  "ammo.js",
-  "physx.js",
-  "havok.js",
-  "bullet.js",
-  "ode.js",
-  "newton.js",
-  "tokamak.js",
-  "jolt.js",
-  "react-physics.js",
-  "rapier.js",
-  "xphysics.js",
-  "physijs.js",
-  "oimo.js",
 ]
 
 [params.writingsGrid]
 columns = 3     # Number of columns in the grid (can be 3, 4, 5, etc.)
 postsToShow = 6 # Number of posts to display in the grid
+
+[params.forms.newsletter]
+action = "https://app.kit.com/forms/7961988/subscriptions"
+formId = "7961988"
+uid = "842da55da6"
+format = "inline"
+version = "5"

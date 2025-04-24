@@ -1,12 +1,13 @@
 <section class="w-full mx-auto max-w-[1078px] mt-12 text-primary">
   <form
-    action="https://app.kit.com/forms/7961988/subscriptions"
+    action="{{ .Site.Params.forms.newsletter.action }}"
     class="seva-form formkit-form w-full"
     method="post"
-    data-sv-form="7961988"
-    data-uid="842da55da6"
-    data-format="inline"
-    data-version="5"
+    data-sv-form="{{ .Site.Params.forms.newsletter.formId }}"
+    data-uid="{{ .Site.Params.forms.newsletter.uid }}"
+    data-format="{{ .Site.Params.forms.newsletter.format }}"
+    data-version="{{ .Site.Params.forms.newsletter.version }}"
+    data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":true,"url":"https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
   >
     <!-- Title and Subtitle -->
     <div class="mb-6">

@@ -52,7 +52,7 @@
     <!-- Tags Section -->
     {{ if gt .Params.tags 0 }}
     <div class="mt-12 mb-8">
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-2 opacity-70">
         {{ range $index, $value := .Params.tags }}
         <a href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" class="text-orange hover:text-orange-600 transition-colors text-sm">
           #{{ $value }}
@@ -67,9 +67,9 @@
     
     <!-- Post Footer -->
     <div class="mt-16 pt-8 border-primary/10">
-      <div class="flex flex-col md:flex-row justify-between gap-8">
+      <div class="grid grid-cols-3 gap-8">
         <!-- Previous Post -->
-        <div>
+        <div class="col-span-1">
           {{ with .PrevInSection }}
           <span class="block text-sm text-primary/60 mb-2">Previous</span>
           <a href="{{ .Permalink }}" class="text-lg font-medium text-primary hover:text-primary/80 transition-colors">
@@ -78,8 +78,13 @@
           {{ end }}
         </div>
         
+        <!-- Vertical Separator -->
+        <div class="col-span-1 flex justify-center">
+          <div class="h-full w-px bg-primary/10"></div>
+        </div>
+        
         <!-- Next Post -->
-        <div class="text-right">
+        <div class="col-span-1 text-right">
           {{ with .NextInSection }}
           <span class="block text-sm text-primary/60 mb-2">Next</span>
           <a href="{{ .Permalink }}" class="text-lg font-medium text-primary hover:text-primary/80 transition-colors">
