@@ -360,18 +360,6 @@
   // Parallax effect for collaborate section
   document.addEventListener("DOMContentLoaded", function() {
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-      // Main parallax effect for the collaborate section
-      gsap.to(".collaborate-parallax", {
-        scrollTrigger: {
-          trigger: "#collaborate",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-        y: "30%",
-        ease: "none",
-      });
-      
       // Content parallax effect (slower)
       gsap.to("#collaborate", {
         scrollTrigger: {
@@ -394,8 +382,9 @@
       // Create a GSAP ScrollTrigger for the header color change
       ScrollTrigger.create({
         trigger: document.getElementById("collaborate"), //".bg-blue-600",
-        start: "bottom 100%", // When the top of the blue section reaches 10% from the top
+        start: "top 5%", // When the top of the blue section reaches 10% from the top
         end: "bottom 10%", // When the bottom of the blue section reaches 10% from the top
+        markers: true,
         onEnter: () => {
           const header = document.getElementById("main-header");
           header.classList.add("in-blue-section");

@@ -85,11 +85,15 @@
       </div>
     </div>
   </footer>
-  <div class="h-[250px] bg-black absolute bottom-0 left-0 w-full"></div>
+  <div id="after-footer" class="bg-black absolute bottom-0 left-0 w-full"></div>
 </div>
 <script>
   // Footer parallax and reveal animations
   document.addEventListener("DOMContentLoaded", function () {
+    const hero = document.getElementById("hero");
+    const afterFooter = document.getElementById("after-footer");
+    afterFooter.style.height = (hero ? 250 : 50) + "px";
+    
     // Only run if GSAP and ScrollTrigger are loaded
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
       // Parallax effect for the footer
@@ -100,7 +104,7 @@
           end: "bottom bottom",
           scrub: true,
         },
-        y: -250,
+        y: hero ? -250 : -50,
         ease: "none",
       });
 
@@ -120,7 +124,7 @@
       gsap.fromTo(
         ".brand-reveal .flex",
         {
-          x: "150px", // Start position (off-screen to the right)
+          x: hero ? undefined : "150px", // Start position (off-screen to the right)
           opacity: 0,
         },
         {
@@ -132,7 +136,7 @@
             markers: false,
             scrub: 0.6,
           },
-          x: "0px", // End position (centered)
+          x: hero ? undefined : "0px", // End position (centered)
           opacity: 1,
           duration: 1,
           ease: "power2.out",
