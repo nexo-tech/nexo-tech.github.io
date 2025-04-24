@@ -1,3 +1,5 @@
+import './anchor-scroll.js';
+
 // Perlin Noise implementation
 class PerlinNoise {
   constructor() {
