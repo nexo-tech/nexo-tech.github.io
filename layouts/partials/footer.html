@@ -93,7 +93,7 @@
     const hero = document.getElementById("hero");
     const afterFooter = document.getElementById("after-footer");
     afterFooter.style.height = (hero ? 250 : 50) + "px";
-    
+
     // Only run if GSAP and ScrollTrigger are loaded
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
       // Parallax effect for the footer
@@ -107,18 +107,6 @@
         y: hero ? -250 : -50,
         ease: "none",
       });
-
-      // // Animate the info section
-      // gsap.from(".footer-info", {
-      //   scrollTrigger: {
-      //     trigger: ".footer-reveal",
-      //     start: "top 80%",
-      //     toggleActions: "play none none none",
-      //   },
-      //   y: 30,
-      //   opacity: 0,
-      //   duration: 0.8,
-      // });
 
       // Slide in the brand and social icons from right to left
       gsap.fromTo(

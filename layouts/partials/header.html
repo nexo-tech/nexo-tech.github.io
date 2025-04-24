@@ -10,12 +10,12 @@
       >
       <div class="space-x-4 sm:space-x-8">
         <a
-          href="/#services"
+          href="{{ if .IsHome }}#services{{ else }}/#services{{ end }}"
           class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
           >/services</a
         >
         <a
-          href="/#collaborate"
+          href="{{ if .IsHome }}#collaborate{{ else }}/#collaborate{{ end }}"
           class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
           >/collaborate</a
         >
