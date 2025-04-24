@@ -1,54 +1,30 @@
-{{if false}}
-<header id="header">
-  <a href="{{ .Site.BaseURL }}">
-  {{ if (isset .Site.Params "gravatar") }}
-    <div id="logo" style="background-image: url(https://www.gravatar.com/avatar/{{ md5 .Site.Params.gravatar }}?s=100&d=identicon)"></div>
-  {{ else if (isset .Site.Params "logo") }}
-    <div id="logo" style="background-image: url({{ .Site.Params.logo | absURL }})"></div>
-  {{ else }}
-    <div id="logo" style="background-image: url({{ "images/logo.png" | absURL }})"></div>
-  {{ end}}
-  <div id="title">
-    <h1>{{ .Site.Title }}</h1>
-  </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x" aria-hidden="true"></i></a>
-      </li>
-      {{ range .Site.Menus.main }}
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-      {{ end }}
-    </ul>
-  </div>
-</header>
-
-{{end}}
-
 <!-- Header -->
-<header
-  id="main-header"
-  class="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
->
-  <nav class="flex justify-between items-center">
-    <a href="/" class="text-md font-semibold text-primary header-text">[nexo.sh]</a>
-    <div class="space-x-4 sm:space-x-8">
-      <a
-        href="/#services"
-        class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
-        >/services</a
+<div id="header-wrapper" class="w-full flex justify-center">
+  <header
+    id="main-header"
+    class="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 right-0 z-50 transition-colors duration-300"
+  >
+    <nav class="flex justify-between items-center">
+      <a href="/" class="text-md font-semibold text-primary header-text"
+        >[nexo.sh]</a
       >
-      <a
-        href="/#collaborate"
-        class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
-        >/collaborate</a
-      >
-      <a
-        href="/posts"
-        class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
-        >/writings</a
-      >
-    </div>
-  </nav>
-</header>
+      <div class="space-x-4 sm:space-x-8">
+        <a
+          href="/#services"
+          class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
+          >/services</a
+        >
+        <a
+          href="/#collaborate"
+          class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
+          >/collaborate</a
+        >
+        <a
+          href="/posts"
+          class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
+          >/writings</a
+        >
+      </div>
+    </nav>
+  </header>
+</div>

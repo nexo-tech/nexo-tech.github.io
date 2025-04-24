@@ -279,81 +279,79 @@
   </div>
 </section>
 <!-- Collaborate Section -->
- <div class="bg-blue-600 "
- 
- >
-<section
-  id="collaborate"
-  class="bg-blue-600 text-white section w-full mx-auto px-4 sm:px-6 lg:px-8 pt-32 collaborate-reveal relative overflow-hidden"
->
-  <div class="collaborate-parallax absolute inset-0" style="transform: translateZ(0);"></div>
-  <div class="max-w-[1078px] mx-auto relative z-10">
-    <!-- Section Header -->
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30 mb-20">
-      <div class="lg:col-span-10">
-        <h2 class="text-4xl lg:text-5xl font-bold collaborate-title">Let's Build Something</h2>
-      </div>
-    </div>
-
-    <!-- Two Column Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16">
-      <!-- Open To Column -->
-      <div>
-        <h3 class="text-2xl font-bold mb-6">Open To:</h3>
-        <ul class="space-y-4">
-          <li class="flex items-start">
-            <span class="mr-2 font-mono">&gt;</span>
-            <span class="text-lg">Joining early-stage startups</span>
-          </li>
-          <li class="flex items-start">
-            <span class="mr-2 font-mono">&gt;</span>
-            <span class="text-lg">Consulting for equity + cash</span>
-          </li>
-          <li class="flex items-start">
-            <span class="mr-2 font-mono">&gt;</span>
-            <span class="text-lg"
-              >Long-term engagements with stable funding</span
-            >
-          </li>
-        </ul>
+ <div class="bg-blue-600" id="collaborate-wrapper">
+  <section
+    id="collaborate"
+    class="bg-blue-600 text-white section w-full mx-auto px-4 sm:px-6 lg:px-8 pt-32 collaborate-reveal relative overflow-hidden"
+  >
+    <div class="collaborate-parallax absolute inset-0" style="transform: translateZ(0);"></div>
+    <div class="max-w-[1078px] mx-auto relative z-10">
+      <!-- Section Header -->
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30 mb-20">
+        <div class="lg:col-span-10">
+          <h2 class="text-4xl lg:text-5xl font-bold collaborate-title">Let's Build Something</h2>
+        </div>
       </div>
 
-      <!-- Won't Do Column -->
-      <div>
-        <h3 class="text-2xl font-bold mb-6">Won't Do:</h3>
-        <ul class="space-y-4">
-          <li class="flex items-start">
-            <span class="mr-2 font-mono">&gt;</span>
-            <span class="text-lg">Work "for exposure"</span>
-          </li>
-          <li class="flex items-start">
-            <span class="mr-2 font-mono">&gt;</span>
-            <span class="text-lg">Fix your crypto scam dApp</span>
-          </li>
-          <li class="flex items-start">
-            <span class="mr-2 font-mono">&gt;</span>
-            <span class="text-lg">Join 12-founder teams with no product</span>
-          </li>
-        </ul>
+      <!-- Two Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16">
+        <!-- Open To Column -->
+        <div>
+          <h3 class="text-2xl font-bold mb-6">Open To:</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <span class="mr-2 font-mono">&gt;</span>
+              <span class="text-lg">Joining early-stage startups</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-2 font-mono">&gt;</span>
+              <span class="text-lg">Consulting for equity + cash</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-2 font-mono">&gt;</span>
+              <span class="text-lg"
+                >Long-term engagements with stable funding</span
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Won't Do Column -->
+        <div>
+          <h3 class="text-2xl font-bold mb-6">Won't Do:</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <span class="mr-2 font-mono">&gt;</span>
+              <span class="text-lg">Work "for exposure"</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-2 font-mono">&gt;</span>
+              <span class="text-lg">Fix your crypto scam dApp</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-2 font-mono">&gt;</span>
+              <span class="text-lg">Join 12-founder teams with no product</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- separator-->
+      <div class="h-[2px] bg-white"></div>
+      <!-- Contact Section -->
+      <div class="mt-16">
+        <h3 class="text-2xl font-bold mb-6">Contact</h3>
+        <p class="text-xl mb-6">
+          No spam, no "quick calls," no vague ideas. Be real.
+        </p>
+        <a
+          href="mailto:oleg@nexo.sh"
+          class="text-2xl font-bold hover:text-primary/80 transition-colors"
+          >oleg@nexo.sh</a
+        >
       </div>
     </div>
-
-    <!-- separator-->
-    <div class="h-[2px] bg-white"></div>
-    <!-- Contact Section -->
-    <div class="mt-16">
-      <h3 class="text-2xl font-bold mb-6">Contact</h3>
-      <p class="text-xl mb-6">
-        No spam, no "quick calls," no vague ideas. Be real.
-      </p>
-      <a
-        href="mailto:oleg@nexo.sh"
-        class="text-2xl font-bold hover:text-primary/80 transition-colors"
-        >oleg@nexo.sh</a
-      >
-    </div>
-  </div>
-</section>
+  </section>
 </div>
 
 <script>
@@ -381,24 +379,24 @@
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
       // Create a GSAP ScrollTrigger for the header color change
       ScrollTrigger.create({
-        trigger: document.getElementById("collaborate"), //".bg-blue-600",
-        start: "top 5%", // When the top of the blue section reaches 10% from the top
+        trigger: document.getElementById("collaborate-wrapper"), //".bg-blue-600",
+        start: "top 200px", // When the top of the blue section reaches 10% from the top
         end: "bottom 10%", // When the bottom of the blue section reaches 10% from the top
         markers: true,
         onEnter: () => {
-          const header = document.getElementById("main-header");
+          const header = document.getElementById("header-wrapper");
           header.classList.add("in-blue-section");
         },
         onLeave: () => {
-          const header = document.getElementById("main-header");
+          const header = document.getElementById("header-wrapper");
           header.classList.remove("in-blue-section");
         },
         onEnterBack: () => {
-          const header = document.getElementById("main-header");
+          const header = document.getElementById("header-wrapper");
           header.classList.add("in-blue-section");
         },
         onLeaveBack: () => {
-          const header = document.getElementById("main-header");
+          const header = document.getElementById("header-wrapper");
           header.classList.remove("in-blue-section");
         }
       });

@@ -5,6 +5,7 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.4",
     "@types/bun": "latest",
+    "nodemon": "^3.1.10",
     "tailwindcss": "^4.1.4"
   },
   "peerDependencies": {

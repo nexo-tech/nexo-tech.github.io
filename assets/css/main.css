@@ -16,10 +16,15 @@ td.lntd:first-child {
   @apply w-10;
 }
 
-html body header.in-blue-section {
-  backdrop-filter: none !important;
-  @apply bg-blue-600 ;
-  .text-primary {
-    @apply text-white;
+#header-wrapper {
+  @apply fixed top-0 left-0 z-20;
+}
+html body .in-blue-section {
+  @apply bg-blue-600;
+  header {
+    backdrop-filter: none !important;
+    .text-primary {
+      @apply text-white;
+    }
   }
 }
