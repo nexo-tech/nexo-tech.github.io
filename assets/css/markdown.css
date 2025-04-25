@@ -109,10 +109,6 @@
     @apply p-3 border-b border-primary/10 text-primary/80;
   }
   
-  table tr:hover td {
-    @apply bg-primary/5;
-  }
-  
   /* Images */
   img {
     @apply max-w-full h-auto rounded-lg my-6 mx-auto;

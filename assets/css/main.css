@@ -12,6 +12,12 @@
   @apply py-2 px-4;
 }
 
+
+.highlight div.chroma {
+  @apply bg-white/50;
+}
+
+
 td.lntd:first-child {
   @apply w-10;
 }

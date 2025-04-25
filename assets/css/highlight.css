@@ -1,7 +1,6 @@
 /* Generated using: hugo gen chromastyles --style=github */
 
 /* Background */ .bg { background-color:#fff; }
-/* PreWrapper */ .chroma { background-color:#fff; }
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err { color:#f6f8fa;background-color:#82071e }
 /* CodeLine */ .chroma .cl {  }
