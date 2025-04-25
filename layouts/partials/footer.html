@@ -34,7 +34,9 @@
         <div class="justify-self-center text-center text-white/70">
           <span>Copyright © {{ .Site.Copyright }} {{ now.Format "2006" }}</span>
           <span class="mx-2">|</span>
-          <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="/privacy-policy" class="hover:text-white transition-colors"
+            >Privacy Policy</a
+          >
         </div>
 
         <!-- Right: Timezone -->
@@ -90,108 +92,3 @@
   </footer>
   <div id="after-footer" class="bg-black absolute bottom-0 left-0 w-full"></div>
 </div>
-<script>
-  // Footer parallax and reveal animations
-  document.addEventListener("DOMContentLoaded", function () {
-    const hero = document.getElementById("hero");
-    const afterFooter = document.getElementById("after-footer");
-    afterFooter.style.height = (hero ? 250 : 50) + "px";
-
-    // Only run if GSAP and ScrollTrigger are loaded
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-      // Parallax effect for the footer
-      gsap.to(".footer-reveal", {
-        scrollTrigger: {
-          trigger: ".footer-reveal",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: true,
-        },
-        y: hero ? -250 : -50,
-        ease: "none",
-      });
-
-      // Slide in the brand and social icons from right to left
-      gsap.fromTo(
-        ".brand-reveal .flex",
-        {
-          x: hero ? undefined : "150px", // Start position (off-screen to the right)
-          opacity: 0,
-        },
-        {
-          scrollTrigger: {
-            trigger: ".brand-container",
-            start: "top 90%",
-            end: "bottom bottom",
-            toggleActions: "play none none none",
-            scrub: 0.6,
-          },
-          x: hero ? undefined : "0px", // End position (centered)
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-        }
-      );
-    }
-
-    // Update Kyiv time
-    function updateKyivTime() {
-      const options = {
-        timeZone: 'Europe/Kyiv',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZoneName: 'short'
-      };
-      const now = new Date();
-      const kyivTime = now.toLocaleTimeString('en-US', options);
-      document.querySelector('.kyiv-time').textContent = ` ${kyivTime}`;
-    }
-
-    // Update time immediately and then every minute
-    updateKyivTime();
-    setInterval(updateKyivTime, 60000);
-  });
-</script>
-
-<script>
-  // Code block copy functionality
-  document.addEventListener("DOMContentLoaded", function () {
-    const copyButtons = document.querySelectorAll(".code-copy button");
-
-    copyButtons.forEach((button) => {
-      button.addEventListener("click", function () {
-        const copyContainer = this.closest(".code-copy");
-        const textArea = copyContainer.querySelector("textarea");
-        const notification = copyContainer.querySelector(".code-copied");
-
-        // Copy text to clipboard
-        navigator.clipboard
-          .writeText(textArea.value)
-          .then(() => {
-            // Show notification
-            notification.style.opacity = "1";
-
-            // Hide notification after 1.5 seconds
-            setTimeout(() => {
-              notification.style.opacity = "0";
-            }, 1500);
-          })
-          .catch((err) => {
-            console.error("Failed to copy: ", err);
-          });
-      });
-    });
-
-    // Back to top functionality
-    const backToTopButton = document.querySelector(".back-to-top");
-    if (backToTopButton) {
-      backToTopButton.addEventListener("click", function (e) {
-        e.preventDefault();
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      });
-    }
-  });
-</script>

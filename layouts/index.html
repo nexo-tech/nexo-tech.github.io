@@ -100,7 +100,7 @@
       </div>
       <div class="lg:col-span-3" ></div>
       <!-- Introduction Text -->
-      <div class="lg:col-span-8 flex flex-col gap-8 py-24 overflow-hidden parallax-text">
+      <div class="lg:col-span-8 flex flex-col gap-8 py-24 overflow-hidden intro-parallax-text">
         <p class="text-lg lg:text-xl leading-relaxed">
           Lead Software Engineer specializing in scalable infrastructure for
           early-stage startups. I've taken multiple products from zero to MVP—hands-on
@@ -386,119 +386,4 @@
     </div>
   </section>
 </div>
-
-<script>
-  // Parallax effect for collaborate section
-  document.addEventListener("DOMContentLoaded", function() {
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-      // Content parallax effect (slower)
-      gsap.to("#collaborate", {
-        scrollTrigger: {
-          trigger: "#collaborate",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-        y: "-400px",
-        ease: "none",
-      });
-    }
-  });
-</script>
-
-<script>
-  // Header color change when entering blue collaborate section
-  document.addEventListener("DOMContentLoaded", function() {
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-
-     {
-      const el = document.querySelector(".typewriter-big");
-      const full = el.textContent.trim(); // grab full text
-      el.textContent = ""; // clear it
-      gsap.to(el, {
-        scrollTrigger: {
-          trigger: document.getElementById("collaborate-wrapper"),
-          start: "top 40%", // fire when it scrolls into view
-          toggleActions: "play reverse restart reverse", // play on enter, reverse on leave
-          markers: true,
-        },
-        duration: full.length * 0.025, // ~50ms per char
-        text: full, // type to this
-        ease: "none",
-      });
-    }
-
-
-      // Create a GSAP ScrollTrigger for the header color change
-      ScrollTrigger.create({
-        trigger: document.getElementById("collaborate-wrapper"), //".bg-blue-600",
-        start: "top 200px", // When the top of the blue section reaches 10% from the top
-        end: "bottom 10%", // When the bottom of the blue section reaches 10% from the top
-        onEnter: () => {
-          const header = document.getElementById("header-wrapper");
-          header.classList.add("in-blue-section");
-        },
-        onLeave: () => {
-          const header = document.getElementById("header-wrapper");
-          header.classList.remove("in-blue-section");
-        },
-        onEnterBack: () => {
-          const header = document.getElementById("header-wrapper");
-          header.classList.add("in-blue-section");
-        },
-        onLeaveBack: () => {
-          const header = document.getElementById("header-wrapper");
-          header.classList.remove("in-blue-section");
-        }
-      });
-    }
-  });
-</script>
-
-<script>
-  // Name slide animation
-  document.addEventListener("DOMContentLoaded", function() {
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-      const nameParts = document.querySelectorAll('.name-slide');
-      
-      gsap.fromTo(nameParts, 
-        {
-          x: '120%',
-          opacity: 0
-        },
-        {
-          scrollTrigger: {
-            trigger: '.name-slide-container',
-            start: 'top 80%',
-            end: 'top 40%',
-            scrub: 1,
-            toggleActions: 'play none none reverse',
-          },
-          x: '0%',
-          opacity: 1,
-          stagger: 0.1,
-          ease: 'power2.out'
-        }
-      );
-    }
-  });
-</script>
-
-<script>
-  // Parallax effect for introduction text
-  document.addEventListener("DOMContentLoaded", function() {
-    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-      gsap.fromTo(".parallax-text", {y: "-20%"}, {
-        scrollTrigger: {
-          trigger: ".parallax-text",
-          start: "top 40%",
-          end: "bottom 80%",
-          scrub: 1,
-        },
-        y: "0%", // Moves slower than scroll
-        ease: "none"
-      });
-    }
-  });
-</script>
 {{end}}

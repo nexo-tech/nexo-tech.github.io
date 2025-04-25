@@ -40,6 +40,197 @@ function setupTypewriter(el) {
   });
 }
 
+function moreScrollTriggers() {
+  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+    // Content parallax effect (slower)
+    gsap.to("#collaborate", {
+      scrollTrigger: {
+        trigger: "#collaborate",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+      y: "-400px",
+      ease: "none",
+    });
+
+    {
+      const el = document.querySelector(".typewriter-big");
+      const full = el.textContent.trim(); // grab full text
+      el.textContent = ""; // clear it
+      gsap.to(el, {
+        scrollTrigger: {
+          trigger: document.getElementById("collaborate-wrapper"),
+          start: "top 40%", // fire when it scrolls into view
+          toggleActions: "play reverse restart reverse", // play on enter, reverse on leave
+        },
+        duration: full.length * 0.025, // ~50ms per char
+        text: full, // type to this
+        ease: "none",
+      });
+    }
+
+    // Create a GSAP ScrollTrigger for the header color change
+    ScrollTrigger.create({
+      trigger: document.getElementById("collaborate-wrapper"), //".bg-blue-600",
+      start: "top 200px", // When the top of the blue section reaches 10% from the top
+      end: "bottom 10%", // When the bottom of the blue section reaches 10% from the top
+      onEnter: () => {
+        const header = document.getElementById("header-wrapper");
+        header.classList.add("in-blue-section");
+      },
+      onLeave: () => {
+        const header = document.getElementById("header-wrapper");
+        header.classList.remove("in-blue-section");
+      },
+      onEnterBack: () => {
+        const header = document.getElementById("header-wrapper");
+        header.classList.add("in-blue-section");
+      },
+      onLeaveBack: () => {
+        const header = document.getElementById("header-wrapper");
+        header.classList.remove("in-blue-section");
+      },
+    });
+
+    const nameParts = document.querySelectorAll(".name-slide");
+
+    gsap.fromTo(
+      nameParts,
+      {
+        x: "120%",
+        opacity: 0,
+      },
+      {
+        scrollTrigger: {
+          trigger: ".name-slide-container",
+          start: "top 80%",
+          end: "top 40%",
+          scrub: 1,
+          toggleActions: "play none none reverse",
+        },
+        x: "0%",
+        opacity: 1,
+        stagger: 0.1,
+        ease: "power2.out",
+      }
+    );
+
+    gsap.fromTo(
+      ".intro-parallax-text",
+      { y: "-20%" },
+      {
+        scrollTrigger: {
+          trigger: ".intro-parallax-text",
+          start: "top 40%",
+          end: "bottom 80%",
+          scrub: 1,
+        },
+        y: "0%", // Moves slower than scroll
+        ease: "none",
+      }
+    );
+  }
+}
+
+function runFooterAnimations() {
+  const hero = document.getElementById("hero");
+  const afterFooter = document.getElementById("after-footer");
+  afterFooter.style.height = (hero ? 250 : 50) + "px";
+
+  // Only run if GSAP and ScrollTrigger are loaded
+  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+    // Parallax effect for the footer
+    gsap.to(".footer-reveal", {
+      scrollTrigger: {
+        trigger: ".footer-reveal",
+        start: "top bottom",
+        end: "bottom bottom",
+        scrub: true,
+      },
+      y: hero ? -250 : -50,
+      ease: "none",
+    });
+
+    // Slide in the brand and social icons from right to left
+    gsap.fromTo(
+      ".brand-reveal .flex",
+      {
+        x: hero ? undefined : "150px", // Start position (off-screen to the right)
+        opacity: 0,
+      },
+      {
+        scrollTrigger: {
+          trigger: ".brand-container",
+          start: "top 90%",
+          end: "bottom bottom",
+          toggleActions: "play none none none",
+          scrub: 0.6,
+        },
+        x: hero ? undefined : "0px", // End position (centered)
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+      }
+    );
+  }
+
+  // Update Kyiv time
+  function updateKyivTime() {
+    const options = {
+      timeZone: "Europe/Kyiv",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZoneName: "short",
+    };
+    const now = new Date();
+    const kyivTime = now.toLocaleTimeString("en-US", options);
+    document.querySelector(".kyiv-time").textContent = ` ${kyivTime}`;
+  }
+
+  // Update time immediately and then every minute
+  updateKyivTime();
+  setInterval(updateKyivTime, 60000);
+
+  const copyButtons = document.querySelectorAll(".code-copy button");
+
+  copyButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const copyContainer = this.closest(".code-copy");
+      const textArea = copyContainer.querySelector("textarea");
+      const notification = copyContainer.querySelector(".code-copied");
+
+      // Copy text to clipboard
+      navigator.clipboard
+        .writeText(textArea.value)
+        .then(() => {
+          // Show notification
+          notification.style.opacity = "1";
+
+          // Hide notification after 1.5 seconds
+          setTimeout(() => {
+            notification.style.opacity = "0";
+          }, 1500);
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+        });
+    });
+  });
+
+  // Back to top functionality
+  const backToTopButton = document.querySelector(".back-to-top");
+  if (backToTopButton) {
+    backToTopButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  }
+}
+
 // Services section animations
 function initServicesAnimations() {
   const el = document.querySelector(".services-header h2");
@@ -318,4 +509,6 @@ document.addEventListener("DOMContentLoaded", function () {
   initNavHighlight();
   loadTechStack();
   animateAboutMeNumbers();
+  moreScrollTriggers();
+  runFooterAnimations();
 });
