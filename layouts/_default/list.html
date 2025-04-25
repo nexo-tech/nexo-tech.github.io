@@ -1,46 +1,52 @@
 {{ define "main"}}
-<section class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-16">
-  <div class="w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-4 lg:gap-30">
-      <!-- Main Heading - Spans 6 columns -->
-      <div class="lg:col-span-6">
-        <div class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-primary">
-          {{ .Title }}
-        </div>
-      </div>
-
-      <!-- Side Text - Spans 4 columns -->
-      <div class="lg:col-span-4 mt-4 lg:mt-0">
-        <p class="text-base sm:text-lg lg:text-xl text-primary leading-relaxed font-light">
-          {{ .Description }}
-        </p>
-      </div>
+<section class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-32 writings-reveal">
+  <!-- Section Header -->
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-12 sm:mb-20">
+    <div class="lg:col-span-4">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">{{ .Title }}</h1>
     </div>
-
-    <!-- Posts Grid -->
-    <div class="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-      {{ range .Pages }}
-      <article class="flex flex-col">
-        <a href="{{ .RelPermalink }}" class="group">
-          <h2 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-primary/80 transition-colors">
-            {{ .Title }}
-          </h2>
-          <p class="mt-2 text-base sm:text-lg text-primary/60">
-            {{ .Description }}
-          </p>
-          <div class="mt-4 text-sm text-primary/40">
-            {{ .Date.Format "January 2, 2006" }}
-          </div>
-        </a>
-      </article>
-      {{ end }}
+    <div class="lg:col-span-6 mt-4 lg:mt-0">
+      <p class="typewriter text-lg sm:text-xl lg:text-2xl text-primary font-light">
+        {{ if .Description }}
+          > {{ .Description }}
+        {{ else }}
+          > thoughts, ideas, and learnings
+        {{ end }}
+      </p>
     </div>
   </div>
-</section>
 
-{{ if eq .Site.Params.showAllPostsArchive false }}
-<div class="mt-16">
-  {{ partial "pagination.html" . }}
-</div>
-{{ end }}
+  <!-- Get all years -->
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ $groups := $pages.GroupByDate "2006" }}
+
+  <!-- Writings List by Year -->
+  <div class="space-y-8">
+    {{ range $groups }}
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-primary mb-8">{{ .Key }}</h2>
+      <div class="space-y-0">
+        {{ range .Pages }}
+        <article class="writing-item group py-8 border-b border-primary/10 last:border-0">
+          <div class="flex flex-col sm:grid sm:grid-cols-[200px_1fr] gap-2 sm:gap-4">
+            <time datetime="{{ .Date }}" class="text-sm sm:text-lg text-primary/60 order-1 sm:order-none">
+              {{ .Date.Format "January 2, 2006" }}
+            </time>
+            <h3 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-primary/80 transition-colors order-2 sm:order-none">
+              <a href="{{ .Permalink }}" class="block">{{ .Title }}</a>
+            </h3>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  {{ if eq .Site.Params.showAllPostsArchive false }}
+  <div class="mt-16">
+    {{ partial "pagination.html" . }}
+  </div>
+  {{ end }}
+</section>
 {{ end }}
