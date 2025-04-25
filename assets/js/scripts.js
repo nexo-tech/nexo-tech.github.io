@@ -96,7 +96,7 @@ function setupTypewriter(el) {
     scrollTrigger: {
       trigger: el,
       start: "top 80%", // fire when it scrolls into view
-      end: "top 20%", // when to reverse
+      end: "top 0%", // when to reverse
       toggleActions: "play reverse restart reverse", // play on enter, reverse on leave
     },
     duration: full.length * 0.025, // ~50ms per char

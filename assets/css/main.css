@@ -32,3 +32,7 @@ html body .in-blue-section {
 #tech-hover-text, .orange-text {
   color: var(--color-text-orange);
 }
+
+.hover\:orange-text:hover {
+  color: var(--color-text-orange);
+}

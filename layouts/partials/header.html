@@ -20,7 +20,7 @@
           >/collaborate</a
         >
         <a
-          href="/posts"
+          href="{{ if .IsHome }}#writings{{ else }}/posts{{ end }}"
           class="nav-item text-primary hover:text-primary/80 transition-colors font-semibold header-text"
           >/writings</a
         >
