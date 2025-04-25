@@ -218,7 +218,7 @@
           {{ range $index, $item := .Site.Params.aboutMe.values }}
           <div class="group">
             <div class="relative h-16 overflow-hidden">
-              <p class="my-3 text-5xl font-bold text-primary/80 absolute bottom-0 left-0 number-slide">0{{ $index }}</p>
+              <p class="my-3 text-5xl font-bold text-primary/80 absolute bottom-0 left-0 number-slide">0{{ add $index 1 }}</p>
             </div>
             <div class="h-px bg-primary/20"></div>
             <p

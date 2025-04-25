@@ -1,18 +1,9 @@
 {{ define "main"}}
-<section class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-32 writings-reveal">
+<section class="min-h-screen w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-48 sm:pt-48 writings-reveal">
   <!-- Section Header -->
-  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-12 sm:mb-20">
-    <div class="lg:col-span-4">
+  <div class="grid grid-cols-1 lg:grid-cols-10 border-b border-primary/40 pb-8 gap-0 sm:mb-12">
+    <div class="lg:col-span-10">
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">{{ .Title }}</h1>
-    </div>
-    <div class="lg:col-span-6 mt-4 lg:mt-0">
-      <p class="typewriter text-lg sm:text-xl lg:text-2xl text-primary font-light">
-        {{ if .Description }}
-          > {{ .Description }}
-        {{ else }}
-          > thoughts, ideas, and learnings
-        {{ end }}
-      </p>
     </div>
   </div>
 
@@ -24,7 +15,7 @@
   <div class="space-y-8">
     {{ range $groups }}
     <div class="mb-16">
-      <h2 class="text-2xl font-bold text-primary mb-8">{{ .Key }}</h2>
+      <h2 class="text-2xl mb-2 font-bold text-primary">{{ .Key }}</h2>
       <div class="space-y-0">
         {{ range .Pages }}
         <article class="writing-item group py-8 border-b border-primary/10 last:border-0">

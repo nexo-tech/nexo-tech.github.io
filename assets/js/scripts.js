@@ -331,15 +331,15 @@ function animateAboutMeNumbers() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  runFooterAnimations();
+  moreScrollTriggers();
+
   const introductionName = document.querySelector("#introduction-name");
   if (introductionName) {
     addDotBg(introductionName, {
       animationSpeed: 1,
       dotSize: 1.5,
-      colors: [
-        [255, 255, 255],
-        // [255, 92, 246],
-      ],
+      colors: [[255, 255, 255]],
       opacities: [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
     });
   }
@@ -509,6 +509,4 @@ document.addEventListener("DOMContentLoaded", function () {
   initNavHighlight();
   loadTechStack();
   animateAboutMeNumbers();
-  moreScrollTriggers();
-  runFooterAnimations();
 });
