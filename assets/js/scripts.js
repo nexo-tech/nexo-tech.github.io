@@ -119,7 +119,7 @@ function animateAboutMeNumbers() {
     // Create ScrollTrigger for each number
     ScrollTrigger.create({
       trigger: values,
-      start: "top 60%",
+      start: "top 80%",
       onEnter: () => {
         gsap.to(number, {
           y: "0%",

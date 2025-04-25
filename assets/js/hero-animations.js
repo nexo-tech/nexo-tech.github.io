@@ -82,100 +82,143 @@ export function doHeroAnimations() {
   if (!terminalLine1) {
     return;
   }
+
+  // Check if we've shown the long animation in the last 24 hours
+  const lastAnimationTime = localStorage.getItem('lastHeroAnimation');
+  const now = new Date().getTime();
+  // 3 minutes
+  const target = 3 * 60 * 1000;
+  const shouldShowLongAnimation = !lastAnimationTime || (now - parseInt(lastAnimationTime)) > target;
+
   // Set initial state for terminal animation
   gsap.set("#terminal-line1", { text: "", opacity: 1 });
   gsap.set("#terminal-line2", { text: "", opacity: 1 });
   gsap.set("#terminal-line3", { text: "", opacity: 1 });
 
-  // Create a sequence with the typing animation
-  const timeline = gsap.timeline({ delay: 0.5 });
+  if (shouldShowLongAnimation) {
+    // Long animation sequence
+    const timeline = gsap.timeline({ delay: 0.5 });
 
-  // First line with code-like symbols appearing before the actual text
-  timeline
-    .to("#terminal-line1", {
-      duration: 0.1,
-      text: "> _",
-      ease: "none",
-    })
-    .to("#terminal-line1", {
-      duration: 0.2,
-      text: "> init.sequence()",
-      ease: "none",
-    })
-    .to("#terminal-line1", {
-      duration: 0.1,
-      text: "> init.sequence() // success",
-      ease: "none",
-    })
-    .to(
-      "#terminal-line1",
-      {
-        duration: 0.5,
+    // First line with code-like symbols appearing before the actual text
+    timeline
+      .to("#terminal-line1", {
+        duration: 0.1,
+        text: "> _",
+        ease: "none",
+      })
+      .to("#terminal-line1", {
+        duration: 0.2,
+        text: "> init.sequence()",
+        ease: "none",
+      })
+      .to("#terminal-line1", {
+        duration: 0.1,
+        text: "> init.sequence() // success",
+        ease: "none",
+      })
+      .to(
+        "#terminal-line1",
+        {
+          duration: 0.5,
+          text: "Built MVPs.",
+          ease: "none",
+        },
+        "+=0.5"
+      )
+
+      // Second line
+      .to(
+        "#terminal-line2",
+        {
+          duration: 0.1,
+          text: "> _",
+          ease: "none",
+        },
+        "+=0.3"
+      )
+      .to("#terminal-line2", {
+        duration: 0.2,
+        text: "> team.lead()",
+        ease: "none",
+      })
+      .to("#terminal-line2", {
+        duration: 0.1,
+        text: "> team.lead() // deployed",
+        ease: "none",
+      })
+      .to(
+        "#terminal-line2",
+        {
+          duration: 0.5,
+          text: "Led teams.",
+          ease: "none",
+        },
+        "+=0.5"
+      )
+
+      // Third line
+      .to(
+        "#terminal-line3",
+        {
+          duration: 0.1,
+          text: "> _",
+          ease: "none",
+        },
+        "+=0.3"
+      )
+      .to("#terminal-line3", {
+        duration: 0.2,
+        text: "> funding.crisis()",
+        ease: "none",
+      })
+      .to("#terminal-line3", {
+        duration: 0.1,
+        text: "> funding.crisis() // resolved",
+        ease: "none",
+      })
+      .to(
+        "#terminal-line3",
+        {
+          duration: 0.7,
+          text: "Survived funding drama.",
+          ease: "none",
+        },
+        "+=0.5"
+      )
+      // After main animation completes, start the sidebar text animation
+      .call(startScrambledTextAnimation);
+
+    // Store the time of this animation
+    localStorage.setItem('lastHeroAnimation', now.toString());
+  } else {
+    // Short animation sequence
+    const timeline = gsap.timeline({ delay: 0.2 });
+
+    // Show all lines immediately with a slight stagger
+    timeline
+      .to("#terminal-line1", {
+        duration: 0.3,
         text: "Built MVPs.",
         ease: "none",
-      },
-      "+=0.5"
-    )
-
-    // Second line
-    .to(
-      "#terminal-line2",
-      {
-        duration: 0.1,
-        text: "> _",
-        ease: "none",
-      },
-      "+=0.3"
-    )
-    .to("#terminal-line2", {
-      duration: 0.2,
-      text: "> team.lead()",
-      ease: "none",
-    })
-    .to("#terminal-line2", {
-      duration: 0.1,
-      text: "> team.lead() // deployed",
-      ease: "none",
-    })
-    .to(
-      "#terminal-line2",
-      {
-        duration: 0.5,
-        text: "Led teams.",
-        ease: "none",
-      },
-      "+=0.5"
-    )
-
-    // Third line
-    .to(
-      "#terminal-line3",
-      {
-        duration: 0.1,
-        text: "> _",
-        ease: "none",
-      },
-      "+=0.3"
-    )
-    .to("#terminal-line3", {
-      duration: 0.2,
-      text: "> funding.crisis()",
-      ease: "none",
-    })
-    .to("#terminal-line3", {
-      duration: 0.1,
-      text: "> funding.crisis() // resolved",
-      ease: "none",
-    })
-    .to(
-      "#terminal-line3",
-      {
-        duration: 0.7,
-        text: "Survived funding drama.",
-        ease: "none",
-      },
-      "+=0.5"
-    )
-    // After main animation completes, start the sidebar text animation
-    .call(startScrambledTextAnimation);
+      })
+      .to(
+        "#terminal-line2",
+        {
+          duration: 0.3,
+          text: "Led teams.",
+          ease: "none",
+        },
+        "-=0.1"
+      )
+      .to(
+        "#terminal-line3",
+        {
+          duration: 0.3,
+          text: "Survived funding drama.",
+          ease: "none",
+        },
+        "-=0.1"
+      )
+      .call(startScrambledTextAnimation);
+  }
 }
