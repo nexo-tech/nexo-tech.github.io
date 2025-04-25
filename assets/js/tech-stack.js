@@ -94,7 +94,7 @@ class PerlinNoise {
   }
 }
 
-export async function loadTechStack() {
+export async function loadTechStack(rows = 20, cols = 24) {
   const techGrid = document.getElementById("tech-grid");
   const techHoverText = document.getElementById("tech-hover-text");
   if (!techGrid) {
@@ -129,8 +129,8 @@ export async function loadTechStack() {
         time += 1 * 0.0005;
       }
 
-      const x = (index % 24) - time / 2;
-      const y = index / 24 + time;
+      const x = (index % cols) - time / 2;
+      const y = index / cols + time;
 
       let noiseValue = noise.noise(x * 0.1, y * 0.1, 0);
       noiseValue = Math.max(0, Math.min(0.7, noiseValue));
@@ -194,6 +194,13 @@ export async function loadTechStack() {
       ...data.tertiary.map((tech) => ({ tech, type: "tertiary" })),
     ];
 
+    // if amount of all tech is less than rows * cols, fill the remaining items with random tech from allTech
+    if (allTech.length < rows * cols) {
+      const remainingItems = rows * cols - allTech.length;
+      const randomTech = allTech.sort(() => Math.random() - 0.5);
+      allTech.push(...randomTech.slice(0, remainingItems));
+    }
+
     // Shuffle the array for a more organic look
     allTech.sort(() => Math.random() - 0.5);
 
@@ -203,38 +210,38 @@ export async function loadTechStack() {
       div.className = `tech-item ${type}`;
       div.textContent = tech.toLowerCase();
       div.setAttribute("data-tech", tech.toLowerCase());
-      
+
       // Add hover events with debouncing
       div.addEventListener("mouseenter", () => {
         if (currentHoveredItem === div) return;
         currentHoveredItem = div;
-        
+
         clearTimeout(hoverTimeout);
         hoverTimeout = setTimeout(() => {
           gsap.to(techHoverText, {
             duration: 0.3,
             opacity: 1,
             text: `> ${tech.toLowerCase()}`,
-            ease: "power2.out"
+            ease: "power2.out",
           });
         }, 50);
       });
-      
+
       div.addEventListener("mouseleave", () => {
         if (currentHoveredItem !== div) return;
         currentHoveredItem = null;
-        
+
         clearTimeout(hoverTimeout);
         hoverTimeout = setTimeout(() => {
           gsap.to(techHoverText, {
             duration: 0.3,
             opacity: 0,
             text: "",
-            ease: "power2.out"
+            ease: "power2.out",
           });
         }, 50);
       });
-      
+
       techGrid.appendChild(div);
     });
   } catch (error) {
