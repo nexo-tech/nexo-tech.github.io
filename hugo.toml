@@ -1,3 +1,36 @@
+baseURL = 'https://nexo.sh/'
+languageCode = 'en-us'
+title = 'nexo blog'
+copyright = "Oleg Pustovit"
+
+[services]
+  [services.googleAnalytics]
+    id = 'G-82NPJKSTQK'
+
+[markup]
+[markup.highlight]
+noClasses = false
+style = 'catppuccin-latte'
+lineNos = true
+
+
+[build]
+[build.buildStats]
+enable = true
+[[build.cachebusters]]
+source = 'assets/notwatching/hugo_stats\.json'
+target = 'css'
+[[build.cachebusters]]
+source = '(postcss|tailwind)\.config\.js'
+target = 'css'
+[module]
+[[module.mounts]]
+source = 'assets'
+target = 'assets'
+[[module.mounts]]
+disableWatch = true
+source = 'hugo_stats.json'
+target = 'assets/notwatching/hugo_stats.json'
 
 
 [params]
@@ -15,7 +48,6 @@ title = "Oleg Pustovit – Technical Blog on Scalable Systems, Startups & Engine
 cta = "Need technical firepower? Let's talk"
 sidebarText = "Technical leadership for **startups**, **scale-ups**, and **founders** who are tired of duct tape disguised as code. From **AI prototypes** to **production-grade** systems, it's handled."
 
-
 [[params.social]]
 name = "github"
 link = "https://github.com/nexo-tech"
@@ -31,7 +63,6 @@ link = "https://x.com/nexo_v1"
 [[params.social]]
 name = "linkedin"
 link = "https://www.linkedin.com/in/nexo-tech/"
-
 
 [params.introduction]
 title = "Oleg Pustovit"

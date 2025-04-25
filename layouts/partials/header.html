@@ -2,26 +2,26 @@
 <div id="header-wrapper" class="w-full flex justify-center">
   <header
     id="main-header"
-    class="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 right-0 z-50 transition-colors duration-300"
+    class="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 right-0 z-50 transition-colors duration-300"
   >
-    <nav class="flex justify-between items-center">
-      <a href="/" class="text-md font-semibold text-primary header-text"
+    <nav class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
+      <a href="/" class="text-base sm:text-md font-semibold text-primary header-text"
         >[nexo.sh]</a
       >
-      <div class="space-x-4 sm:space-x-8">
+      <div class="flex flex-wrap gap-2 sm:gap-4 sm:space-x-4 sm:space-x-8">
         <a
           href="{{ if .IsHome }}#services{{ else }}/#services{{ end }}"
-          class="nav-item text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
+          class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
           >/services</a
         >
         <a
           href="{{ if .IsHome }}#collaborate{{ else }}/#collaborate{{ end }}"
-          class="nav-item text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
+          class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
           >/collaborate</a
         >
         <a
           href="{{ if .IsHome }}#writings{{ else }}/posts{{ end }}"
-          class="nav-item text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
+          class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
           >/writings</a
         >
       </div>

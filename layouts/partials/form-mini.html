@@ -1,4 +1,4 @@
-<section class="w-full mx-auto max-w-[1078px] mt-12 text-primary">
+<section class="w-full mx-auto max-w-[1078px] mt-8 sm:mt-12 text-primary">
   <form
     action="{{ .Site.Params.forms.newsletter.action }}"
     class="seva-form formkit-form w-full"
@@ -10,17 +10,17 @@
     data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":true,"url":"https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
   >
     <!-- Title and Subtitle -->
-    <div class="mb-6">
-      <h3 class="text-2xl font-bold font-helvetica mb-2">Join the Newsletter</h3>
-      <p class="text-lg text-primary/80 font-helvetica">Get the latest technical deep dives and startup insights.</p>
+    <div class="mb-4 sm:mb-6">
+      <h3 class="text-xl sm:text-2xl font-bold font-helvetica mb-2">Join the Newsletter</h3>
+      <p class="text-base sm:text-lg text-primary/80 font-helvetica">Get the latest technical deep dives and startup insights.</p>
     </div>
 
     <!-- Form Fields -->
-    <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-end">
       <!-- Email Field -->
-      <div class="formkit-field flex-1">
+      <div class="formkit-field flex-1 w-full">
         <input
-          class="w-full text-xl font-bold bg-transparent border-b-2 border-primary focus:outline-none focus:border-primary/80 py-2 font-helvetica"
+          class="w-full text-lg sm:text-xl font-bold bg-transparent border-b-2 border-primary focus:outline-none focus:border-primary/80 py-2 font-helvetica"
           name="email_address"
           aria-label="Email Address"
           placeholder="Email Address"
@@ -32,11 +32,11 @@
       <!-- Submit Button -->
       <button
         type="submit"
-        class="text-xl font-bold bg-primary text-white px-6 py-2 hover:bg-primary/90 transition-colors duration-200 font-helvetica whitespace-nowrap"
+        class="w-full sm:w-auto text-lg sm:text-xl font-bold bg-primary text-white px-4 sm:px-6 py-2 hover:bg-primary/90 transition-colors duration-200 font-helvetica whitespace-nowrap"
       >
         <span class="flex items-center justify-center">
           <span class="formkit-spinner hidden mr-2">
-            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+            <svg class="animate-spin h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24">
               <circle
                 class="opacity-25"
                 cx="12"
@@ -60,7 +60,7 @@
 
     <!-- Error Messages -->
     <ul
-      class="formkit-alert formkit-alert-error hidden mt-4 bg-red-50 border border-red-200 rounded-lg p-4 text-red-600"
+      class="formkit-alert formkit-alert-error hidden mt-3 sm:mt-4 bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4 text-red-600"
     ></ul>
   </form>
 

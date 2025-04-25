@@ -1,39 +1,42 @@
 {{ define "main" }}
 <section class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-32">
-  <article class="markdown post mt-16" itemscope itemtype="http://schema.org/BlogPosting">
-    <!-- Post Header -->
-    <header class="mb-10 border-b border-primary/10 pb-4">
-      <h1 class="text-4xl lg:text-5xl font-bold text-primary mb-8" itemprop="name headline">
-        {{ .Title }}
-      </h1>
-    </header>
-    
-    <!-- Table of Contents -->
-    {{ if .Site.Params.tocInline }}
-    <div class="prose mx-auto mb-16 p-6 rounded-lg bg-primary/5">
-      <h2 class="text-xl font-bold text-primary mb-4">Table of Contents</h2>
-      {{ .TableOfContents }}
-    </div>
-    {{ end }}
-    
-    <!-- Post Content -->
-    <div class="prose prose-lg max-w-none text-primary/90" itemprop="articleBody">
-      {{ .Content }}
-    </div>
-    
-    <!-- Tags Section -->
-    {{ if gt .Params.tags 0 }}
-    <div class="mt-12 mb-8">
-      <div class="flex flex-wrap gap-2 opacity-70">
-        {{ range $index, $value := .Params.tags }}
-        <a href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" class="text-orange hover:text-orange-600 transition-colors text-sm">
-          #{{ $value }}
-        </a>
+  <article class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-16">
+    <div class="w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-10 gap-4 lg:gap-30">
+        <!-- Main Content - Spans 6 columns -->
+        <div class="lg:col-span-6">
+          <div class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-primary">
+            {{ .Title }}
+          </div>
+        </div>
+
+        <!-- Side Text - Spans 4 columns -->
+        <div class="lg:col-span-4 mt-4 lg:mt-0">
+          <p class="text-base sm:text-lg lg:text-xl text-primary leading-relaxed font-light">
+            {{ .Description }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Article Content -->
+      <div class="mt-8 sm:mt-12 prose prose-lg sm:prose-xl max-w-none">
+        {{ .Content }}
+      </div>
+
+      <!-- Article Metadata -->
+      <div class="mt-8 sm:mt-12 text-sm sm:text-base text-primary/60">
+        <p>Published on {{ .Date.Format "January 2, 2006" }}</p>
+        {{ if .Params.tags }}
+        <div class="mt-2 flex flex-wrap gap-2">
+          {{ range .Params.tags }}
+          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="text-primary/60 hover:text-primary">
+            #{{ . }}
+          </a>
+          {{ end }}
+        </div>
         {{ end }}
       </div>
     </div>
-    {{ end }}
-
   </article>
 </section>
 

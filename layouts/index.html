@@ -20,10 +20,10 @@
   class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center"
 >
   <div class="w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-30">
+    <div class="grid grid-cols-1 lg:grid-cols-10 gap-4 lg:gap-30">
       <!-- Main Heading - Spans 6 columns -->
       <div class="lg:col-span-6">
-        <div class="text-4xl lg:text-5xl font-bold leading-tight text-primary">
+        <div class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-primary">
           <div class="terminal-container">
             <span id="terminal-line1" class="terminal-text whitespace-nowrap">Built MVPs.</span>
             <span id="terminal-line2" class="terminal-text whitespace-nowrap">Led teams.</span>
@@ -38,9 +38,9 @@
       </div>
 
       <!-- Side Text - Spans 4 columns -->
-      <div class="lg:col-span-4">
+      <div class="lg:col-span-4 mt-4 lg:mt-0">
         <p
-          class="scrambled-text sidebar-text text-lg lg:text-xl text-primary leading-relaxed font-light"
+          class="scrambled-text sidebar-text text-base sm:text-lg lg:text-xl text-primary leading-relaxed font-light"
         >
           {{ .Site.Params.hero.sidebarText | markdownify }}
         </p>
@@ -48,15 +48,15 @@
     </div>
 
     <!-- CTA Section -->
-    <div class="relative h-12">
+    <div class="relative h-12 mt-8">
       <a
         href="#collaborate"
-        class="inline-flex items-center text-lg lg:text-xl font-semibold group text-primary hover:text-primary/80 transition-colors absolute bottom-0"
+        class="inline-flex items-center text-base sm:text-lg lg:text-xl font-semibold group text-primary hover:text-primary/80 transition-colors absolute bottom-0"
       >
         {{ .Site.Params.hero.cta }}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 ml-2 transform group-hover:translate-x-1 transition-transform"
+          class="h-5 w-5 sm:h-6 sm:w-6 ml-2 transform group-hover:translate-x-1 transition-transform"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -121,15 +121,15 @@
 <!-- Services Section -->
 <section
   id="services"
-  class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-32"
+  class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-32"
 >
   <!-- Section Header -->
-  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-20">
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-12 sm:mb-20">
     <div class="lg:col-span-4 services-header">
-      <h2 class="text-4xl lg:text-5xl font-bold text-primary">Services</h2>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">Services</h2>
     </div>
-    <div class="lg:col-span-6 services-tagline">
-      <p class="typewriter text-xl lg:text-2xl text-primary font-light">
+    <div class="lg:col-span-6 services-tagline mt-4 lg:mt-0">
+      <p class="typewriter text-lg sm:text-xl lg:text-2xl text-primary font-light">
         > I do useful things. For money.
       </p>
     </div>
@@ -163,12 +163,12 @@
 </section>
 <section
   id="tech-stack"
-  class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 tech-stack-reveal overflow-hidden hidden md:block"
+  class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-32 tech-stack-reveal overflow-hidden hidden md:block"
 >
   <!-- Tech Stack -->
-  <div class="mt-16 lg:mt-32 tech-stack">
-    <div class="lg:col-span-4 mb-8">
-      <h2 class="text-4xl lg:text-5xl font-bold text-primary">> tech stack <span id="tech-hover-text" class="text-primary/60"></span></h2>
+  <div class="mt-8 sm:mt-16 lg:mt-32 tech-stack">
+    <div class="lg:col-span-4 mb-6 sm:mb-8">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">> tech stack <span id="tech-hover-text" class="text-primary/60"></span></h2>
     </div>
     <div class="tech-grid" id="tech-grid">
       <!-- Tech items will be populated by JavaScript -->
@@ -179,15 +179,15 @@
 <!-- About Me Section -->
 <section
   id="about-me"
-  class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 about-me-reveal"
+  class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-32 about-me-reveal"
 >
   <!-- Section Header -->
-  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-20">
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-12 sm:mb-20">
     <div class="lg:col-span-4">
-      <h2 class="text-4xl lg:text-5xl font-bold text-primary">About Me</h2>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">About Me</h2>
     </div>
-    <div class="lg:col-span-6">
-      <p class="typewriter text-xl lg:text-2xl text-primary font-light">
+    <div class="lg:col-span-6 mt-4 lg:mt-0">
+      <p class="typewriter text-lg sm:text-xl lg:text-2xl text-primary font-light">
         > bridging vision and execution
       </p>
     </div>
@@ -271,15 +271,15 @@
 <!-- Blog Writings Grid Section -->
 <section
   id="writings"
-  class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 writings-reveal"
+  class="section w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-32 writings-reveal"
 >
   <!-- Section Header -->
-  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-20">
+  <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 mb-12 sm:mb-20">
     <div class="lg:col-span-4">
-      <a href="/posts" class="text-4xl lg:text-5xl text-primary font-bold hover:orange-text hover:underline">Writings</a>
+      <a href="/posts" class="text-3xl sm:text-4xl lg:text-5xl text-primary font-bold hover:orange-text hover:underline">Writings</a>
     </div>
-    <div class="lg:col-span-6">
-      <p class="typewriter text-xl lg:text-2xl text-primary font-light">
+    <div class="lg:col-span-6 mt-4 lg:mt-0">
+      <p class="typewriter text-lg sm:text-xl lg:text-2xl text-primary font-light">
         > thoughts, ideas, and learnings
       </p>
     </div>

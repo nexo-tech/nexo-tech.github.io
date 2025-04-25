@@ -1,48 +1,46 @@
 {{ define "main"}}
-<div class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pb-24 pt-48">
-  <div class="mb-16">
-    <h1 class="text-4xl lg:text-5xl font-bold text-primary mb-8">{{ .Title }}</h1>
-    {{ if .Description }}
-    <p class="text-xl text-primary/80 font-light">{{ .Description }}</p>
-    {{ end }}
-  </div>
-
-  {{ $pages := .Paginator.Pages }}
-  {{ if .Site.Params.showAllPostsArchive }}
-    {{ $pages = .Pages }}
-  {{ end }}
-  
-  <div class="archive-content min-h-[500px]">
-    {{ range (sort $pages "Date" "desc") }}
-      {{ $pageYear := (.Date.Format "2006") }}
-      {{ if (ne $pageYear ($.Scratch.Get "year")) }}
-        {{ $.Scratch.Set "year" $pageYear }}
-        <div class="year-divider">
-          <h2 class="text-3xl font-bold text-primary mt-12 mb-6 pb-2 border-b border-gray-100">{{ $pageYear }}</h2>
+<section class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-16">
+  <div class="w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-10 gap-4 lg:gap-30">
+      <!-- Main Heading - Spans 6 columns -->
+      <div class="lg:col-span-6">
+        <div class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-primary">
+          {{ .Title }}
         </div>
-      {{ end }}
-      <article class="post-item mb-8 hover:translate-x-1 transition-transform duration-200">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-6">
-          <time datetime="{{ time .Date }}" class="text-sm text-primary/60 font-medium whitespace-nowrap">
-            {{ .Date.Format (.Site.Params.dateFormat | default "Jan 02, 2006") }}
-          </time>
-          <h3 class="text-xl font-medium">    
-            <a href="{{ .Permalink }}" class="text-primary hover:text-primary/80 no-underline">
-              {{ if .Title }}{{ .Title }}{{ else }}Untitled{{ end }}
-            </a>
-          </h3>
-        </div>
-        {{ if .Params.description }}
-        <p class="text-primary/70 text-base mt-2 ml-0 sm:ml-[112px]">{{ .Params.description }}</p>
-        {{ end }}
-      </article>
-    {{ end }}
-  </div>
+      </div>
 
-  {{ if eq .Site.Params.showAllPostsArchive false }}
-    <div class="mt-16">
-      {{ partial "pagination.html" . }}
+      <!-- Side Text - Spans 4 columns -->
+      <div class="lg:col-span-4 mt-4 lg:mt-0">
+        <p class="text-base sm:text-lg lg:text-xl text-primary leading-relaxed font-light">
+          {{ .Description }}
+        </p>
+      </div>
     </div>
-  {{ end }}
+
+    <!-- Posts Grid -->
+    <div class="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      {{ range .Pages }}
+      <article class="flex flex-col">
+        <a href="{{ .RelPermalink }}" class="group">
+          <h2 class="text-xl sm:text-2xl font-bold text-primary group-hover:text-primary/80 transition-colors">
+            {{ .Title }}
+          </h2>
+          <p class="mt-2 text-base sm:text-lg text-primary/60">
+            {{ .Description }}
+          </p>
+          <div class="mt-4 text-sm text-primary/40">
+            {{ .Date.Format "January 2, 2006" }}
+          </div>
+        </a>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{ if eq .Site.Params.showAllPostsArchive false }}
+<div class="mt-16">
+  {{ partial "pagination.html" . }}
 </div>
+{{ end }}
 {{ end }}
