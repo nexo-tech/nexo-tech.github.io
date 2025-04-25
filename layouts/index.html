@@ -379,7 +379,7 @@
         {{ $email := (index (where .Site.Params.social "name" "email") 0).link }}
         <a
           href="mailto:{{ $email }}"
-          class="typewriter text-4xl sm:text-6xl lg:text-8xl font-bold hover:underline transition-colors break-all"
+          class="typewriter-big text-4xl sm:text-6xl lg:text-8xl font-bold hover:underline transition-colors break-all"
           >> {{ $email }}</a
         >
       </div>
@@ -410,6 +410,25 @@
   // Header color change when entering blue collaborate section
   document.addEventListener("DOMContentLoaded", function() {
     if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+
+     {
+      const el = document.querySelector(".typewriter-big");
+      const full = el.textContent.trim(); // grab full text
+      el.textContent = ""; // clear it
+      gsap.to(el, {
+        scrollTrigger: {
+          trigger: document.getElementById("collaborate-wrapper"),
+          start: "top 40%", // fire when it scrolls into view
+          toggleActions: "play reverse restart reverse", // play on enter, reverse on leave
+          markers: true,
+        },
+        duration: full.length * 0.025, // ~50ms per char
+        text: full, // type to this
+        ease: "none",
+      });
+    }
+
+
       // Create a GSAP ScrollTrigger for the header color change
       ScrollTrigger.create({
         trigger: document.getElementById("collaborate-wrapper"), //".bg-blue-600",
