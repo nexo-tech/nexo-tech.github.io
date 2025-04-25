@@ -41,7 +41,8 @@
         <div
           class="justify-self-center md:justify-self-end text-center md:text-right text-white/70"
         >
-          <span>{{ .Site.Params.location }} {{ now.Format "15:04 MST" }}</span>
+          <span class="location">{{ .Site.Params.location }}</span>
+          <span class="kyiv-time"></span>
         </div>
       </div>
 
@@ -132,6 +133,23 @@
         }
       );
     }
+
+    // Update Kyiv time
+    function updateKyivTime() {
+      const options = {
+        timeZone: 'Europe/Kyiv',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short'
+      };
+      const now = new Date();
+      const kyivTime = now.toLocaleTimeString('en-US', options);
+      document.querySelector('.kyiv-time').textContent = ` ${kyivTime}`;
+    }
+
+    // Update time immediately and then every minute
+    updateKyivTime();
+    setInterval(updateKyivTime, 60000);
   });
 </script>
 
