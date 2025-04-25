@@ -3,6 +3,10 @@ languageCode = 'en-us'
 title = 'nexo blog'
 copyright = "Oleg Pustovit"
 
+[services]
+  [services.googleAnalytics]
+    id = 'G-82NPJKSTQK'
+
 [markup]
 [markup.highlight]
 noClasses = false

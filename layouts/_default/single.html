@@ -1,12 +1,58 @@
 {{ define "main" }}
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-<!-- TODO: gallery -->
-  <div class="content" itemprop="articleBody">
-  {{ if (eq .Type "search") }}
-    <!-- TODO: search https://gohugo.io/tools/search/ -->
-  {{ else }}
-    {{ .Content }}
-  {{ end }}
-  </div>
-</article>
+<section class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-32">
+  <article class="markdown post mt-16" itemscope itemtype="http://schema.org/BlogPosting">
+    <!-- Post Header -->
+    <header class="mb-10 border-b border-primary/10 pb-4">
+      <h1 class="text-4xl lg:text-5xl font-bold text-primary mb-8" itemprop="name headline">
+        {{ .Title }}
+      </h1>
+    </header>
+    
+    <!-- Table of Contents -->
+    {{ if .Site.Params.tocInline }}
+    <div class="prose mx-auto mb-16 p-6 rounded-lg bg-primary/5">
+      <h2 class="text-xl font-bold text-primary mb-4">Table of Contents</h2>
+      {{ .TableOfContents }}
+    </div>
+    {{ end }}
+    
+    <!-- Post Content -->
+    <div class="prose prose-lg max-w-none text-primary/90" itemprop="articleBody">
+      {{ .Content }}
+    </div>
+    
+    <!-- Tags Section -->
+    {{ if gt .Params.tags 0 }}
+    <div class="mt-12 mb-8">
+      <div class="flex flex-wrap gap-2 opacity-70">
+        {{ range $index, $value := .Params.tags }}
+        <a href="{{ "/tags/" | relLangURL }}{{ $value | urlize }}" class="text-orange hover:text-orange-600 transition-colors text-sm">
+          #{{ $value }}
+        </a>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+
+  </article>
+</section>
+
+<!-- MathJax Support -->
+{{ $mathjax := false }}
+{{ if isset .Params "mathjax" }}
+  {{ $mathjax = .Params.mathjax }}
+{{ else if isset .Site.Params "mathjax" }}
+  {{ $mathjax = .Site.Params.mathjax }}
+{{ end }}
+{{ if $mathjax }}
+<script>
+  MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+{{ end }}
 {{ end }}

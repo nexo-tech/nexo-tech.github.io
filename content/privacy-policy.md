@@ -1,34 +1,48 @@
-# Privacy Policy
+# **Privacy Policy**
 
-Effective Date: **2025-04-06**
+**Effective Date: 2025-04-25**  
 
-Your privacy is important to me. This blog is a personal, non-commercial website focused on publishing technical content. I am committed to maintaining a simple, privacy-respecting experience for all visitors.
+Your privacy is important to me. This blog is a personal, non-commercial website focused on publishing technical content. I aim to maintain a privacy-respecting experience for all visitors, while also gaining insights to improve the content and performance of the site.
 
 This policy outlines what data is (and is not) collected when you visit this site.
 
-## 1. Information I Do Not Collect
+## **1. Information I Collect**
 
-This site does not collect or store any personal information from its visitors. Specifically:
-- No analytics tools (e.g., Google Analytics, Plausible, etc.) are used.
-- No tracking cookies are set.
-- No user accounts, comment systems, or forms are present.
-- No behavioral tracking is performed.
+This site uses Google Analytics to collect anonymized usage data. This may include:
 
-I do not knowingly collect any personally identifiable information (PII) about you.
+- Pages visited
+- Duration of visits
+- Browser and device type
+- Referral sources
+- General geographic location (e.g., country or region)
 
-## 2. Hosting and Passive Data
+Google Analytics uses cookies to collect this information. These cookies help me understand how visitors interact with the site so I can improve content and usability. You can learn more about how Google collects and processes data [here](https://policies.google.com/technologies/partner-sites).
+
+## **2. Information I Do Not Collect**
+
+This site does **not**:
+
+- Use any other analytics tools aside from Google Analytics
+- Contain user accounts, comment systems, or forms
+- Collect personal information like names, emails, or other identifiers directly
+
+I do not knowingly collect any personally identifiable information (PII) about you beyond what is provided via Google Analytics.
+
+## **3. Hosting and Passive Data**
 
 This site is hosted via GitHub Pages. As part of normal web server operations, GitHub Pages may log standard technical information such as your IP address, browser type, and access times. These server logs are managed by GitHub and are subject to GitHub’s Privacy Statement. I do not have direct access to or use this information.
 
-## 3. Third-Party Content
+## **4. Third-Party Content**
 
-At this time, this site does not embed or load third-party resources that track user activity (e.g., external scripts, ad networks, social media widgets). If this changes in the future, this policy will be updated accordingly.
+Aside from Google Analytics, this site does not embed or load third-party resources that track user activity (e.g., ad networks, social media widgets). If this changes in the future, this policy will be updated accordingly.
 
-## 4. Your Rights
+## **5. Your Rights**
 
-As no personal data is collected or stored by this site, there is no information to modify, access, or delete. If you have concerns or questions about your privacy while using this site, feel free to reach out using the contact information below.
-⸻
-## 5. Contact
+You can opt out of Google Analytics tracking using browser add-ons like the [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout/). Because no other personal data is collected or stored by this site, there is no additional information to modify, access, or delete.
+
+If you have concerns or questions about your privacy while using this site, feel free to reach out using the contact information below.
+
+## **6. Contact**
 
 If you have any questions about this privacy policy, you may contact me at:
 
@@ -36,7 +50,7 @@ If you have any questions about this privacy policy, you may contact me at:
 
 📍 Zagreb, Croatia
 
-## 6. Policy Updates
+## **7. Policy Updates**
 
 This privacy policy may be updated from time to time. Any changes will be reflected on this page with a revised effective date.
 
