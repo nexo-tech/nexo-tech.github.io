@@ -78,15 +78,15 @@
   class="w-full bg-black text-white py-32 introduction-reveal"
 >
   <div class="w-full max-w-[1078px] mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-10 gap-0">
+    <div class="grid grid-cols-1 lg:grid-cols-20 gap-0">
       <!-- Name Block -->
-      <div class="lg:col-span-4 relative flex flex-col justify-center overflow-hidden">
+      <div class="lg:col-span-9 relative flex flex-col justify-center overflow-hidden">
         <div id="introduction-name"
           class="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg"
         ></div>
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 rounded-lg"></div>
         <div class="name-slide-container relative z-10 mt-[-50px]">
-          <h2 class="text-10xl text-right p-4 lg:text-8xl font-bold leading-none">
+          <h2 class="text-5xl text-right lg:text-8xl font-bold leading-none">
             {{- $parts := split .Site.Params.introduction.title " " }}
             <span class="name-part block">
               <span class="name-slide inline-block">{{ index $parts 0}}</span>
@@ -97,10 +97,9 @@
           </h2>
         </div>
       </div>
-      <div class="lg:col-span-1" ></div>
-      <div class="lg:col-span-1" ></div>
+      <div class="lg:col-span-3" ></div>
       <!-- Introduction Text -->
-      <div class="lg:col-span-4 flex flex-col gap-8 py-24 overflow-hidden parallax-text">
+      <div class="lg:col-span-8 flex flex-col gap-8 py-24 overflow-hidden parallax-text">
         <p class="text-lg lg:text-xl leading-relaxed">
           Lead Software Engineer specializing in scalable infrastructure for
           early-stage startups. I've taken multiple products from zero to MVP—hands-on
