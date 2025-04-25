@@ -112,20 +112,24 @@ value = "Users first, tech stack second"
 value = "Continuous learning and adaptation"
 
 [[params.aboutMe.timeline]]
-year = "2022"
-description = "Independent Consulting"
-subtext = "Helping startups build and scale their tech."
+year = "2025"
+description = "Tech Leadership & Advisory"
+subtext = "Guiding early-stage startups as a technical lead and consultant."
 
 [[params.aboutMe.timeline]]
-year = "2020"
-description = "First Startup Success"
-subtext = "Led development of a SaaS platform from 0 to 10k users."
+year = "2023"
+description = "From Engineer to Lead"
+subtext = "Led development across multiple SaaS platforms, managing teams and architecting full-stack systems."
+
+[[params.aboutMe.timeline]]
+year = "2021"
+description = "Rapid Growth in Engineering"
+subtext = "Joined as intern, promoted to lead within 18 months. Delivered MVPs in Node.js, React, and AWS."
 
 [[params.aboutMe.timeline]]
 year = "2018"
-description = "Building a SaaS platform"
-subtext = "Discovered the joy of building things people actually use."
-
+description = "Creative Foundations"
+subtext = "Explored design and freelance work before fully transitioning into software engineering."
 
 [params.skills]
 primary = [
