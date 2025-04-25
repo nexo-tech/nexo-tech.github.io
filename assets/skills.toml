@@ -1,0 +1,477 @@
+
+[skills]
+primary = [
+  "React",
+  "Node.js",
+  "TypeScript",
+  "AWS",
+  "Python",
+  "Go",
+  "Kubernetes",
+  "Docker",
+  "PostgreSQL",
+  "Redis",
+  "GraphQL",
+  "Next.js",
+  "Rust",
+  "Java",
+  "Swift",
+  "Kotlin",     # no
+]
+secondary = [
+  "MongoDB",
+  "MySQL",
+  "Cassandra",              # no
+  "Elasticsearch",
+  "RabbitMQ",
+  "Kafka",
+  "WebSocket",
+  "gRPC",
+  "TensorFlow",             # no
+  "PyTorch",                # no
+  "OpenCV",
+  "Pandas",
+  "NumPy",
+  "Scikit-learn",           # no
+  "Django",
+  "Flask",
+  "FastAPI",
+  "Spring Boot",            # no
+  "Gin",
+  "Echo",
+  "Actix",
+  "Rocket",                 # no
+  "Vue.js",
+  "Angular",
+  "Svelte",
+  "Solid", # no
+  "Qwik",                   # no
+  "Astro",                  # no
+  "Remix",
+  "Nuxt",
+  "Tailwind CSS",
+  "Styled Components",
+  "Sass",
+  "Less",
+  "PostCSS",
+  "Bootstrap",
+  "Material UI",
+  "Chakra UI",              # no
+  "Ant Design",
+  "Framer Motion",
+  "Three.js",
+  "D3.js",
+  "Jest",
+  "Cypress",
+  "Playwright",
+  "Vitest",
+  "Mocha",
+  "Chai",
+  "Sinon",                  # no
+  "JUnit",                  # no
+  "Terraform",
+  "Ansible",
+  "Puppet",                 # no
+  "Chef",                   # no
+  "Prometheus",
+  "Grafana",
+  "ELK Stack",
+  "GitHub Actions",
+  "GitLab CI",
+  "Jenkins",
+  "CircleCI",               # no
+  "ArgoCD",
+  "Flux",
+  "Helm",
+  "Istio",                  # no
+  "Linkerd",                # no
+  "Envoy",                  # no
+  "Nginx",
+  "Apache",
+  "Caddy",
+  "Traefik",                # no
+  "Prisma",
+  "TypeORM",
+  "Sequelize",
+  "Mongoose",
+  "SQLAlchemy",
+  "Hibernate",              # no
+  "Storybook",
+  "Sentry",
+  "Datadog",
+  "New Relic",              # no
+  "LogRocket",              # no
+  "Amplitude",              # no
+  "Stripe",
+  "PayPal",
+  "Square",                 # no
+  "Plaid",                  # no
+  "Twilio",
+  "SendGrid",
+  "Mailchimp",
+  "Firebase",
+  "Supabase",
+  "Appwrite",               # no
+  "Hasura",
+  "Sanity",                 # no
+  "Contentful",             # no
+  "WebRTC",
+  "WebGL",
+  "WebAssembly",
+  "WebAuthn",               # no
+  "WebSocket",
+  "WebTransport",           # no
+  "PWA",
+  "Service Workers",
+  "IndexedDB",
+  "Web Storage",
+  "Web Crypto",
+  "Web Components",
+  "Shadow DOM",
+  "Custom Elements",
+  "HTML Templates",
+  "CSS Grid",
+  "CSS Flexbox",
+  "CSS Variables",
+  "CSS Animations",
+  "CSS Transitions",
+  "Webpack",
+  "Vite",
+  "Rollup",
+  "Parcel",
+  "ESBuild",
+  "SWC",
+  "Babel",
+  "ESLint",
+  "Prettier",
+  "Stylelint",              # no
+  "Husky",
+  "lint-staged",            # no
+  "Commitlint",             # no
+  "Jira",
+  "Trello",
+  "Asana",
+  "Monday",                 # no
+  "ClickUp",
+  "Notion",
+  "Confluence",
+  "Figma",
+  "Sketch",
+  "Adobe XD",
+  "InVision",               # no
+  "Zeplin",                 # no
+  "Abstract",               # no
+  "VS Code",
+  "IntelliJ",
+  "WebStorm",
+  "Sublime Text",
+  "Vim",
+  "Neovim",
+  "Git",
+  "Mercurial",
+  "SVN",                    # no
+  "Perforce",               # no
+  "Plastic SCM",            # no
+  "Fossil",                 # no
+  "Linux",
+  "macOS",
+  "Windows",
+  "BSD",                    # no
+  "Solaris",                # no
+  "AIX",                    # no
+  "HP-UX",                  # no
+  "ARM",                    # no
+  "x86",                    # no
+  "RISC-V",                 # no
+  "MIPS",                   # no
+  "PowerPC",                # no
+  "SPARC",                  # no
+  "Itanium",                # no
+  "TCP/IP",                 # no
+  "HTTP/2",
+  "HTTP/3",
+  "QUIC",                   # no
+  "gRPC",
+  "GraphQL",
+  "REST",
+  "OAuth",
+  "OpenID",                 # no
+  "SAML",                   # no
+  "JWT",
+  "OIDC",                   # no
+  "LDAP",                   # no
+  "Kerberos",               # no
+  "AES",
+  "RSA",
+  "ECC",                    # no
+  "SHA",
+  "HMAC",
+  "PBKDF2",                 # no
+  "Argon2",                 # no
+  "TLS",
+  "SSL",
+  "IPSec",                  # no
+  "WireGuard",              # no
+  "OpenVPN",
+  "SSH",
+  "SFTP",                   # no
+  "DNS",
+  "DHCP",                   # no
+  "NTP",                    # no
+  "SNMP",                   # no
+  "SMTP",
+  "IMAP",                   # no
+  "POP3",                   # no
+  "CDN",
+  "Edge Computing",
+  "Serverless",
+  "Microservices",
+  "Monolith",
+  "Event Sourcing",         # no
+  "CQRS",                   # no
+  "DDD",
+  "TDD",
+  "BDD",
+  "Clean Architecture",
+  "SOLID",
+  "DRY",
+  "KISS",
+  "YAGNI",
+  "GRASP",                  # no
+  "Design Patterns",
+  "Agile",
+  "Scrum",
+  "Kanban",
+  "XP",                     # no
+  "Lean",
+  "SAFe",                   # no
+  "DevOps",
+  "CI/CD",
+  "GitOps",
+  "Infrastructure as Code",
+  "Configuration as Code",
+  "Observability",
+  "Telemetry",
+  "Tracing",
+  "Logging",
+  "Monitoring",
+  "Performance",
+  "Security",
+  "Accessibility",
+  "SEO",
+  "Analytics",
+  "Machine Learning",
+  "Deep Learning",          # no
+  "Computer Vision",
+  "NLP",                    # no
+  "Blockchain",             # no
+  "Cryptography",
+  "Quantum Computing",      # no
+  "IoT",
+  "AR",
+  "VR",
+  "MR",
+  "XR",
+  "WebXR",
+  "Unity",
+  "Unreal Engine",
+  "Game Development",       # no
+  "Mobile Development",
+  "Desktop Development",
+  "Cloud Computing",
+  "Edge Computing",
+  "Fog Computing",          # no
+  "Grid Computing",         # no
+  "Distributed Systems",
+  "High Availability",
+  "Fault Tolerance",
+  "Resilience",
+  "Scalability",
+  "Performance",
+  "Security",
+  "Privacy",
+  "Compliance",             # no
+  "GDPR",                   # no
+  "CCPA",                   # no
+  "HIPAA",                  # no
+  "SOC 2",                  # no
+  "ISO 27001",              # no
+  "PCI DSS",                # no
+]
+tertiary = [
+  "Alpine.js",         # no
+  "Stimulus",          # no
+  "Hotwire",           # no
+  "Turbo",
+  "Strada",            # no
+  "Cable Ready",       # no
+  "Phoenix",           # no
+  "LiveView",          # no
+  "Absinthe",          # no
+  "Ecto",              # no
+  "Nerves",            # no
+  "Broadway",          # no
+  "Elixir",            # no
+  "Erlang",            # no
+  "OTP",               # no
+  "BEAM",              # no
+  "Mnesia",            # no
+  "Riak",              # no
+  "CouchDB",           # no
+  "Riak",              # no
+  "Couchbase",         # no
+  "DynamoDB",
+  "DocumentDB",
+  "Cosmos DB",         # no
+  "FaunaDB",           # no
+  "Neo4j",
+  "ArangoDB",
+  "OrientDB",          # no
+  "JanusGraph",        # no
+  "Dgraph",            # no
+  "TigerGraph",        # no
+  "TimescaleDB",       # no
+  "InfluxDB",          # no
+  "Prometheus",
+  "VictoriaMetrics",   # no
+  "Thanos",            # no
+  "Loki",
+  "Grafana",
+  "Kibana",
+  "Elastic",
+  "OpenSearch",
+  "MeiliSearch",       # no
+  "Algolia",
+  "Typesense",         # no
+  "Zinc",              # no
+  "Qdrant",            # no
+  "Milvus",            # no
+  "Weaviate",          # no
+  "Pinecone",
+  "Chroma",            # no
+  "Faiss",             # no
+  "Annoy",             # no
+  "Hnswlib",           # no
+  "NMSLIB",            # no
+  "Jina",              # no
+  "Haystack",          # no
+  "LangChain",
+  "LlamaIndex",
+  "AutoGPT",
+  "BabyAGI",           # no
+  "GPT-4",
+  "Claude",
+  "PaLM",
+  "LLaMA",
+  "Falcon",            # no
+  "Mistral",           # no
+  "Mixtral",           # no
+  "Stable Diffusion",
+  "DALL-E",
+  "Midjourney",
+  "SDXL",
+  "ControlNet",        # no
+  "LoRA",
+  "DreamBooth",        # no
+  "Textual Inversion", # no
+  "Hypernetworks",     # no
+  "AUTOMATIC1111",     # no
+  "ComfyUI",           # no
+  "InvokeAI",          # no
+  "Fooocus",           # no
+  "SD.Next",           # no
+  "Kohya",             # no
+  "TensorRT",          # no
+  "ONNX",              # no
+  "OpenVINO",          # no
+  "Core ML",           # no
+  "ML Kit",            # no
+  "MediaPipe",         # no
+  "TensorFlow Lite",   # no
+  "PyTorch Mobile",    # no
+  "TFLite",            # no
+  "ONNX Runtime",      # no
+  "TVM",               # no
+  "IREE",              # no
+  "XLA",               # no
+  "JAX",               # no
+  "Flax",              # no
+  "Haiku",             # no
+  "Trax",              # no
+  "Sonnet",
+  "Optax",             # no
+  "Chex",              # no
+  "RLax",              # no
+  "Acme",              # no
+  "Dopamine",          # no
+  "Ray",               # no
+  "RLLib",             # no
+  "Stable Baselines",  # no
+  "CleanRL",           # no
+  "Tianshou",          # no
+  "PettingZoo",        # no
+  "Gymnasium",         # no
+  "Procgen",           # no
+  "MinAtar",           # no
+  "ALE",               # no
+  "Retro",             # no
+  "VizDoom",           # no
+  "DeepMind Lab",      # no
+  "Unity ML-Agents",   # no
+  "Godot RL",          # no
+  "Mujoco",            # no
+  "PyBullet",          # no
+  "DART",              # no
+  "ODE",               # no
+  "Box2D",
+  "Chipmunk",          # no
+  "Matter.js",         # no
+  "P2.js",
+  "Planck.js",         # no
+  "Cannon.js",
+  "Ammo.js",
+  "PhysX",
+  "Havok",
+  "Bullet",
+  "ODE",
+  "Newton",
+  "Tokamak",
+  "Jolt",
+  "React Physics",
+  "Rapier",            # no
+  "XPhysics",          # no
+  "Physijs",           # no
+  "Oimo.js",           # no
+  "p2.js",
+  "planck.js",         # no
+  "cannon.js",
+  "ammo.js",
+  "physx.js",
+  "havok.js",
+  "bullet.js",
+  "ode.js",            # no
+  "newton.js",         # no
+  "tokamak.js",        # no
+  "jolt.js",           # no
+  "react-physics.js",
+  "rapier.js",         # no
+  "xphysics.js",       # no
+  "physijs.js",        # no
+  "oimo.js",           # no
+  "p2.js",             # no
+  "planck.js",         # no
+  "cannon.js",         # no
+  "ammo.js",           # no
+  "physx.js",          # no
+  "havok.js",          # no
+  "bullet.js",         # no
+  "ode.js",            # no
+  "newton.js",         # no
+  "tokamak.js",        # no
+  "jolt.js",           # no
+  "react-physics.js",  # no
+  "rapier.js",         # no
+  "xphysics.js",       # no
+  "physijs.js",        # no
+  "oimo.js",           # no
+]

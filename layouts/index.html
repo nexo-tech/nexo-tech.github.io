@@ -6,10 +6,11 @@
   }
 </style>
 <script type="application/json" id="skills-data">
+  {{ $skills := resources.Get "skills.toml" | transform.Unmarshal }}
   {
-    "primary": {{ .Site.Params.skills.primary  }},
-    "secondary": {{ .Site.Params.skills.secondary  }},
-    "tertiary": {{ .Site.Params.skills.tertiary  }}
+    "primary": {{ $skills.skills.primary  }},
+    "secondary": {{ $skills.skills.secondary  }},
+    "tertiary": {{ $skills.skills.tertiary  }}
   }
 </script>
 
@@ -376,10 +377,11 @@
         <p class="text-xl mb-4">
           No spam, no "quick calls," no vague ideas. Be real.
         </p>
+        {{ $email := (index (where .Site.Params.social "name" "email") 0).link }}
         <a
-          href="mailto:oleg@nexo.sh"
+          href="mailto:{{ $email }}"
           class="typewriter text-8xl font-bold hover:underline transition-colors"
-          >> oleg@nexo.sh</a
+          >> {{ $email }}</a
         >
       </div>
     </div>
