@@ -21,11 +21,11 @@ My development workflow lives mostly on a free Oracle Cloud VM: SSH, Neovim, tmu
 - **Cloudflare Tunnel**? Closed source, and a bit heavier to set up (Cloudflare account, Zero Trust dashboard, connector configs).
 - **Self-hosting other tunnels**? Often complex, heavyweight, or missing automatic HTTPS.
 
-I wanted **full control**, **zero vendor lock-in**, and **wildcard HTTPS certificates** — without paying or managing unnecessary infrastructure.
+I wanted **full control**, **zero vendor lock-in**, and **wildcard HTTPS certificates** — without paying or managing unnecessary infrastructure. 
 
 Thus: a 300-line Go server, a single WebSocket multiplexed with [yamux](https://github.com/hashicorp/yamux), and Caddy configured with Cloudflare DNS for automatic wildcard TLS.
 
-The result is a frictionless tunnel that costs $0/month, survives webhook storms, and gives you your own little "ngrok clone" that you fully own.
+The result is a frictionless tunnel that costs $0/month, survives webhook storms, and gives you your own little "ngrok clone" that you fully own that you fully own with no session timeouts or vendor dependencies.
 
 ## Architecture Overview
 
@@ -34,7 +34,7 @@ The result is a frictionless tunnel that costs $0/month, survives webhook storms
 - **Client** connects to `/tunnel` endpoint on the VM.
 - Receives a **random 8-character subdomain** (e.g., `ab12cd34.tunnel.example.com`).
 - **Each HTTP request** from browsers becomes a **new yamux stream**.
-- Streams proxy through WebSocket to `localhost` on your laptop.
+- Streams proxy through WebSocket to `localhost` on your local machine.
 - **Caddy** handles HTTPS with wildcard certificates issued in seconds.
 
 ## How It Works
@@ -44,14 +44,16 @@ The result is a frictionless tunnel that costs $0/month, survives webhook storms
 - **Hijack** incoming HTTP connections to stream them directly without re-encoding.
 - **Single binary** Go server and client; easy to compile and deploy.
 
-The entire tunnel lives inside a WebSocket, allowing it to survive NAT, firewalls, and awkward corporate Wi-Fi without extra networking magic.
+WebSocket tunneling avoids the need for raw TCP passthrough, surviving corporate firewalls and Wi-Fi restrictions.
 
 ## Setup Guide
 
 ### Prerequisites
 
+You will need: 
+
 - a domain name (`example.com`)
-- VM — could be a free-tier VM from AWS. Etc. I use a [free Oracle VM](https://nexo.sh/posts/setup-oracle-vm/) because it has more generous spects
+- VM — could be a free-tier VM such as AWS Free Tier, Oracle Cloud Free Tier, or similar. I use a [free Oracle VM](https://nexo.sh/posts/setup-oracle-vm/) because it has more generous specs.
 - go (to build the app)
 
 ### Server and application setup 
@@ -86,26 +88,7 @@ The next step would be generating API key on CloudFlare that allows creating SSL
 Create a Caddyfile (or use the one from the repository):
 
 ```
-{$TUNNEL_SERVER_DOMAIN_NAME} {
-	tls {
-		dns cloudflare {env.CF_API_TOKEN}
-	}
-	log {
-		output stdout
-		format console
-		level DEBUG
-	}
-	reverse_proxy localhost:3000 {
-		header_up Host {http.request.host}
-		header_up X-Real-IP {http.request.remote}
-		header_up X-Forwarded-For {http.request.remote}
-		header_up X-Forwarded-Proto {http.request.scheme}
-		header_up Connection {http.request.header.Connection}
-		header_up Upgrade {http.request.header.Upgrade}
-	}
-}
-
-*.{$DOMAIN} {
+*.{$DOMAIN}, {$TUNNEL_SERVER_DOMAIN_NAME} {
 	tls {
 		dns cloudflare {env.CF_API_TOKEN}
 	}
@@ -113,7 +96,7 @@ Create a Caddyfile (or use the one from the repository):
 }
 ```
 
-I used environment variables to put cloudflare token as CF_API_TOKEN and domains. Unfortunately default caddy installation doesn't support cloudflare api integration for DNS management, we must build own caddy and that is possible via their `xcaddy` build tool. Once xcaddy is installed, use command `make build/caddy` to setup the app.
+I used environment variables to put cloudflare token as CF_API_TOKEN and domains. Since Caddy's default build doesn't include Cloudflare DNS support, we'll need to build a custom Caddy binary with the DNS plugin via `xcaddy`. Once xcaddy is installed, use command `make build/caddy` to setup the app.
 
 After that you can run Caddy and start testing:
 
@@ -123,7 +106,7 @@ sudo -E ./caddy run --config ./Caddyfile
 
 ### Connecting to server
 
-Now start your localhost app (e.g. django) on port 8080. And you can initiate the tunnel connection:
+Now start your localhost app (e.g. Django) on port 8080. And you can initiate the tunnel connection:
 
 ```
 ./microtunnel --server-url wss://example.com/tunnel --port 8080
