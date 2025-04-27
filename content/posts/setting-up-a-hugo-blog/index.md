@@ -17,7 +17,7 @@ tags:
   - devops
 ---
 
-![Image title](frame.png)
+![Image title](frame.jpg)
 
 After years of building software and writing technical documentation, I decided to create a blog to share my experience and help others on similar journeys. This article walks through how I set up my technical blog, aimed at those new to blogging or Hugo.
 

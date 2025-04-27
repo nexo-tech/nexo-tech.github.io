@@ -14,7 +14,7 @@
 
 
 .highlight div.chroma {
-  @apply bg-white/50;
+  @apply bg-white;
 }
 
 

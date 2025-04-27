@@ -6,24 +6,16 @@
   >
     <nav class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
       <a href="/" class="text-base sm:text-md font-semibold text-primary header-text"
-        >[nexo.sh]</a
+        >{{ if .IsHome }}{{ .Site.Params.header.homeTitle }}{{ else }}{{ .Site.Params.header.title }}{{ end }}</a
       >
       <div class="flex flex-wrap gap-2 sm:gap-4 sm:space-x-4 sm:space-x-8">
+        {{ range .Site.Params.header.items }}
         <a
-          href="{{ if .IsHome }}#services{{ else }}/#services{{ end }}"
+          href="{{ if $.IsHome }}{{ .homeHref }}{{ else }}{{ .href }}{{ end }}"
           class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
-          >/services</a
+          >/{{ .text }}</a
         >
-        <a
-          href="{{ if .IsHome }}#collaborate{{ else }}/#collaborate{{ end }}"
-          class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
-          >/collaborate</a
-        >
-        <a
-          href="{{ if .IsHome }}#writings{{ else }}/posts{{ end }}"
-          class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
-          >/writings</a
-        >
+        {{ end }}
       </div>
     </nav>
   </header>
