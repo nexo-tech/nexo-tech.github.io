@@ -1,23 +1,18 @@
 ---
 date: 2025-04-09T04:14:54-08:00
-draft: false
 params:
   author: Oleg Pustovit
 title: How to Set Up a Free Oracle Cloud VM for Web Development (2025 Guide)
 weight: 10
 tags:
-  - hugo
-  - github-pages
-  - static-site-generator
-  - dev-blog
-  - git-workflow
-  - caddy
-  - reverse-proxy
-  - technical-writing
-  - theme-customization
+  - oracle-cloud
+  - vm
+  - web-development
+  - firewall
+  - devops
 ---
 
-![](splash.png)
+![image title](splash.jpg)
 
 As a web developer, having access to a persistent, virtual machine in the cloud is often useful for testing and development. While many cloud-based providers offer limited free tiers (e.g. AWS, GCP, or Azure), Oracle Cloud stands out by providing a true "always free" cloud VM.
 
