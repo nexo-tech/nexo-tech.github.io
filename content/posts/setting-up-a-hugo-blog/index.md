@@ -1,23 +1,20 @@
 ---
 date: 2025-04-06T04:14:54-08:00
-draft: false
 params:
   author: Oleg Pustovit
 title: Deploying a Hugo Blog to GitHub Pages with Actions
 weight: 10
 tags:
-  - oracle-cloud
-  - free-tier
-  - cloud-vm
-  - arm64
-  - web-development
-  - remote-server
-  - firewall
-  - ssh
+  - hugo
   - devops
+  - github-actions
+  - static-site-generator
+  - blog
+  - caddy
+  - theme-customization
 ---
 
-![Image title](frame.png)
+![Image title](frame.jpg)
 
 After years of building software and writing technical documentation, I decided to create a blog to share my experience and help others on similar journeys. This article walks through how I set up my technical blog, aimed at those new to blogging or Hugo.
 

@@ -88,7 +88,7 @@ Site runs locally at `http://localhost:1313` with hot reloading enabled.
 
 ## 🛠 Customization
 
-### `config.toml`
+### `hugo.toml`
 
 Adjust global settings:
 
@@ -126,7 +126,7 @@ Then open a PR. Clear, concise, reviewed, merged.
 
 ## 📄 License
 
-MIT — do what you want, just don’t break the internet.
+MIT — do what you want, just don't break the internet.
 
 ---
 
