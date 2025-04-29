@@ -87,7 +87,7 @@ The next step is generating an API key on Cloudflare that allows creating SSL ce
 
 Create a Caddyfile (or use the one from the repository):
 
-```
+```Caddyfile
 *.{$DOMAIN}, {$TUNNEL_SERVER_DOMAIN_NAME} {
 	tls {
 		dns cloudflare {env.CF_API_TOKEN}
@@ -100,7 +100,7 @@ I used environment variables to pass the Cloudflare token (CF_API_TOKEN) and dom
 
 After that you can run Caddy and start testing:
 
-```
+```sh
 sudo -E ./caddy run --config ./Caddyfile
 ```
 
@@ -108,7 +108,7 @@ sudo -E ./caddy run --config ./Caddyfile
 
 Now, start your localhost app (e.g. Django) on port 8080, then initiate the tunnel connection:
 
-```
+```sh
 ./microtunnel --server-url wss://example.com/tunnel --port 8080
 ```
 
