@@ -9,6 +9,9 @@ tags:
   - go
   - caddy
   - hacks
+  - side-project
+  - ssl
+  - websocket
 ---
 
 > TL;DR: I built a lightweight, self-hosted HTTP tunnel that turns `localhost` into a public **HTTPS** URL. No paid plans, no secret black boxes. Just one Go binary, Caddy with wildcard TLS, and a $0/month Oracle Cloud VM. [GitHub repo](https://github.com/nexo-tech/microtunnel)
