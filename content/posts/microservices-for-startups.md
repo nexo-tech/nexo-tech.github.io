@@ -44,35 +44,40 @@ People often times point out that it's hard to make monoliths scalable, but it's
 
 ### 1. Arbitrary Service Boundaries
 
-In theory, you often times see suggestions on splitting the 
-
-In theory, it sounds clean: split your app into "User Service," "Billing Service," "Notifications Service," and so on.
-
-In practice, you often end up with:
+In theory, you often times see suggestions on splitting the your applications by business logic domain — users service, products service, orders service and so on.
+In practice you often end-up with:
 
 - Shared databases
 - Cross-service calls for simple workflows
 - Coupling disguised as "separation"
 
-At one startup, I watched a team split authentication and user profile management into separate services... then burn months stitching them back together when latency, outages, and coordination costs ballooned.
+At one project, I watched a team separating user, authentication and authorization into separate services which led to deployment complexity and difficulties in service coordination for any API operation they were building. 
 
-**Reality:** Business logic doesn't always map neatly to service boundaries. Premature separation creates more fragility than safety.
+In reality, business logic doesn't directly map to service boundaries. Premature separation can make the system more fragile and often times difficult to introduce changes quickly.
 
-**Tip:** Wait until operational _or scaling pain_ forces a split — not "architectural elegance."
+A good idea would be identifying scaling bottlenecks and focusing resources on separating them — purely on pragmatic basis, not because it's an "elegant" architectural approach.
 
 ### 2. Repository and Infrastructure Sprawl
 
-Every new service brings:
+When working on the application, typically a next set of things is important:
 
-- A new repository
-- A new CI/CD pipeline
-- Separate linting, testing, monitoring setups
+- Code style consisitency (linting)
+- testing infrastructure, including integration testing
+- local environment configuration
+- Documentation
+- CI/CD configuration
 
-For a three-person engineering team, this is brutal. Context switching across repos and tooling becomes a silent tax on every feature you ship.
+When dealing with microservices, you need to multiply those requirements by the number of services. If your project is structured as a monorepo, you can simplify your life with having a central CI/CD configuration (when working with GitHub Actions or GitLab CI). Some teams separate microservices into separate repositories which makes way harder to maintain the code consistency and the same set of configurations without extra effort or tools.
 
-At one project I advised, keeping all services in a single monorepo with shared utilities, linters, and deploy tooling saved _months_ of friction. The team could focus on shipping, not yak-shaving infra.
+For a three-person team, this is brutal. Context switching across repositories and tooling adds up to the development time of every feature that is shipped. 
 
-**Tip:** Default to a single repo. Delay repo splits until team scaling (not code scaling) demands it.
+#### Mitigating issues by using monorepos and single programming language
+
+There are various ways to mitigate this problem. But the biggest important thing is for early project — keeping your code in monorepo. This ensures that there's a single version of code that exists on prod and it's much easier to coordinate code reviews for smaller teams. 
+
+Node.js community has nice tooling for dealing with monorepos. E.g. `nx` — provides various scripts and infrastructure to cache node.js builds and have various utilities that fascilitate code consistency in terms of setting up tests with `jest` and linters. Other one, which I've been using lately — `turbopack`, looks simpler than `nx` but provides a fast way to build and run your code in development mode. Of course, there are disadvantages in those like dealing with large amount of dependencies that some of your microservices introduce and sometimes it gets pretty difficult to reason with which version should each version work.
+
+When developing `go`-based microservices, a good idea early in the development to use a single go workspace with `replace` directive in `go.mod`. Eventually, as the software scales, it's possible to effortlessly separate go modules into separate repositories. 
 
 ### 3. Local Development Becomes Painful
 
@@ -84,9 +89,11 @@ Early projects often suffer from:
 - Obsolete dependencies
 - OS-specific hacks (hello, Linux-only setups)
 
-I've seen greenfield projects where new engineers spent _days_ wrestling local setups. In some cases, onboarding became "install WSL2," "fix broken Makefiles," "debug weird container sharing bugs."
+In my experience, when I received projects from past development teams, they were often times developed for single operating system. Some devs preferred building on macOS and never bothered supporting their shell scripts on Windows. In my past teams, I had engineers working on windows machines and often times it required rewriting shell scripts or fully understand and reverse engineer the process of getting local environent running. While frustrating in may sound, it teaches a valuable lesson on how important it is to get the damn code running on the laptop.
 
-**Tip:** Make it easy. `git clone && make run` should get you 90% of the way.
+Other time, I received a microservice-based project fully developed by a single guy who adopted workflow of running docker containers mounted to local file system. Of course, you pay little price for running processes as containers when your computer runs linux. But it brought, a lot of pain in onboarding a front-end developer using an old Windows laptop, who had to run 10 Docker containers to see the UI. This was disgusting. As a quick hack, I had to build a custom node.js based proxy that acted as nginx simply to emulate Docker-based setup with no containers (except databases).
+
+**Tip:** ideally, aim for `git clone <repo> && make up` to have the project running locally. If it's not possible, then maintaining an up-to-date README file with instructions for windows/macOS/linux is a must. Nowadays, there are some programming languages and toolchains that don't work well on Windows (like Ocaml), but modern widely popular stack runs just fine on every widely used operating system, there's no excuse of limiting your local setup to a single operating system, except your laziness.
 
 ### 4. Technology Mismatch
 
@@ -94,10 +101,13 @@ Not every language shines in a microservice architecture.
 
 - **Node.js and Python:** Great for rapid iteration, but managing build artifacts, dependency versions, and runtime consistency across services gets painful fast.
 - **Go:** Compiles to static binaries, fast build times, low operational overhead. More natural fit when splitting is truly needed.
+- **Common Lisp** (adding here just for fun): is pretty uncommon even for building unix-like binaries
 
-At an early-stage SaaS company, switching critical backend services from Python to Go dramatically simplified our CI/CD pipelines and reduced cold start times.
+It's very important to pick the right technical stack early on. If you look for performance, maybe look for JVM and it's ecosystem and ability to deploy artifacts at scale and run them in microservice-based architectures. If you do very fast iterations and prototype stuff more without worrying about scaling the thing your code/deployment infrastructure — you're good with something like Python.
 
-**Tip:** Choose tools that fit your operational reality, not just your team's initial comfort.
+It's quite often for teams to realise that there are big issues with their choice of technology that wasn't apparent initialy, and they had to pay the price of rebuilding the back-end in a different programming language (like [those guys](https://blog.khanacademy.org/go-services-one-goliath-project/?utm_source=blog.quastor.org&utm_medium=referral&utm_campaign=khan-academy-s-migration-from-python-to-go) were forced to do something about Python 2 codebase and eventually went with Go).
+
+But on contrary, if you really need you can bridge multiple programming languages with protocols like gRPC or async message communication. And it's often the way to go about things. When you get to the point that you want to enrich your feature set with Machine Learning functionality or ETL-based jobs, you would just separately build your ML-based infrastructure in Python, due to its rich ecosystem of domain-specific libraries, that naturally any other programming language lacks. But such decisions should be done when there's enough head count to justify this venture, otherwise the small team will be eternally drawn in endless complexity of bridging multiple software stacks together.
 
 ### 5. Hidden Complexity: Communication and Monitoring
 
@@ -109,7 +119,10 @@ Microservices introduce an invisible web of needs:
 - Distributed tracing
 - Centralized logging and alerting
 
-In a monolith, a bug might be a simple stack trace. In a distributed system, it's "why does service A fail when B’s deployment lags C by 30 seconds?"
+In a monolith, a bug might be a simple stack trace. In a distributed system, it's "why does service A fail when B’s deployment lags C by 30 seconds?" 
+You would have to thoughroughly invest into your observability stack. To do it "properly", it requires instrumenting your applications in specific ways, e.g. integrating OpenTelemetry to support tracing, or rely on your cloud provider's tools like AWS XRay if you go with complex serverless system. But at this point, you have to completely shift your focus from application code towards building complex monitoring infrastructure that would track whether your microservice architecture **actually works** on production.
+
+Of course some of the observability instrumentation is needed to be performed on monolith apps, but it's way simpler than doing that in terms of number of services in a consistent way.
 
 **Tip:** Understand that distributed systems _aren't free._ They're a commitment to a whole new class of engineering challenges.
 
