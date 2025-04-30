@@ -19,30 +19,32 @@ tags:
 
 > Why splitting your codebase too early can quietly destroy your team’s velocity — and what to do instead.
 
-When you're building a startup, your number one job is to ship: ship features, ship experiments, ship value to users. Architecture matters — but the wrong architecture, especially premature microservices, can quietly choke your momentum.
+When you are building a startup, the most important thing is an ability to quickly iterate and ship features and value to the end-users. This is where foundational architecture of your startup plays a big role, additionally things like your techincal stack, choice of programming language also adds up to your teams' development velocity. The wrong architecture, especially premature microservices, can substantially hurt the productivity and contribute to missed goals in delivering software.
 
-I've seen this firsthand leading backend efforts at early-stage companies. A well-meaning "clean architecture" plan can morph into a graveyard of half-finished services, broken local setups, and slow, demoralized teams.
+I've had this experience when working on greenfield projects for early-stage startups, where questionable decisions were made in terms of software architecture that led to having half-finished services, over-engineered and broken local setups, and demoralized teams who struggle maintaining unnecessary complexity.
 
-Let's dig into why microservices are often the wrong move early on, where they _do_ make sense, and how to structure your startup's systems for speed and survival.
+Let's look into why microservices are the wrong move early on, where they "do" make sense, and how to structure your startup's systems for speed and survival.
 
 ## Monoliths Are Not the Enemy
 
-If you're building a SaaS product today — even a "simple" database wrapper like a MySQL-backed app — complexity arrives faster than you expect. Features multiply, data models evolve, and business rules shift under your feet.
+If you're building some SaaS product, even a simple SQL database wrapper eventually may bring a lot of internal complexity in the way your business logic works, additionally you can get to various integrations and background tasks that let transform one set data to another.
 
-But even as your app grows messy, monoliths still work. Especially at the start.
+With time, sometimes unnecessary features, it's inevitable that your app my grow messy. What good about monolithic application is, they still work. While being a single process, single codebase with internal dependencies, your team can still focus on the most critical things:
 
-Monoliths are easier to deploy, test, debug, and reason about. They let your tiny team focus on the two most critical things:
-
-- **Delivering customer value**
 - **Staying alive**
+- **Delivering customer value**
 
-At a fintech startup I worked with, a single Node.js monolith supported tens of thousands of users and millions in transaction volume before any serious talk of splitting arose. When we did extract a service, it was because of real scaling needs — not theoretical purity.
+The biggest advantage of monoliths are their simplicity in the deployment. Generally, such projects are built around existing frameworks — it could be Django for Python, ASP.Net for C#, Nest.js for Node.js apps, etc. When sticking to monolithic architecture, you get the biggest advantage to fancy microservices — a wide support of the open source community and project maintainers who primarily designed those frameworks to work as a single process, monolithic app.
 
-The problem isn't the monolith. It's bad modularization _inside_ the monolith.
+At one real-estate startup I worked with, a small Laravel app that was initially built as a basic dashboard to manage deals by real-estate agents grown into large suite of features that handled managing gigabytes of documents, integrating dozens of third party services while still being a basic PHP-based stack on Apache. The team followed set of best practices Laravel community established, and were quite successful in massively expanding the feature set of application while maintaining the business needs and expectations. The app worked fine without decoupling it into separate services and introducing potentially unnecessary accedental complexity.
+
+People often times point out that it's hard to make monoliths scalable, but it's bad modularization _inside_ the monolith that may bring such problems.
 
 ## Where Microservices Go Wrong (Especially Early On)
 
 ### 1. Arbitrary Service Boundaries
+
+In theory, you often times see suggestions on splitting the 
 
 In theory, it sounds clean: split your app into "User Service," "Billing Service," "Notifications Service," and so on.
 
