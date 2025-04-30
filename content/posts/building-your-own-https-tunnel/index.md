@@ -159,9 +159,4 @@ At this scale and level of abstraction, most edge cases (like frame buffering or
 
 ## Where to Find It
 
-- Code: [GitHub →](https://github.com/nexo-tech/microtunnel) (MIT license)
-- Instant install: `go install github.com/nexo-tech/microtunnel/cmd/...@latest`
-
-If this saves you a billable hour or two, I'd appreciate a ⭐.
-
-Cheers!
+Code: [GitHub →](https://github.com/nexo-tech/microtunnel) (MIT license)
