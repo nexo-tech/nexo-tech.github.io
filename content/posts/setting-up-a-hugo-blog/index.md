@@ -4,6 +4,8 @@ params:
   author: Oleg Pustovit
 title: Deploying a Hugo Blog to GitHub Pages with Actions
 weight: 10
+images:
+  - frame.jpg
 tags:
   - hugo
   - devops
