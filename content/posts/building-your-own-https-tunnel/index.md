@@ -5,6 +5,8 @@ params:
   author: Oleg Pustovit
 title: "Build Your Own HTTPS Tunnel in 300 Lines of Go"
 weight: 10
+images:
+  - og-arch-diagram.png
 tags:
   - go
   - caddy

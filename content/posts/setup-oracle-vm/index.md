@@ -4,6 +4,8 @@ params:
   author: Oleg Pustovit
 title: How to Set Up a Free Oracle Cloud VM for Web Development (2025 Guide)
 weight: 10
+images:
+  - splash.jpg
 tags:
   - oracle-cloud
   - vm
