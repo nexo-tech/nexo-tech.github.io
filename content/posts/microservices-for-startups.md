@@ -36,16 +36,30 @@ With time, sometimes unnecessary features, it's inevitable that your app may gro
 
 The biggest advantage of monoliths is their simplicity in deployment. Generally, such projects are built around existing frameworks — it could be Django for Python, ASP.Net for C#, Nest.js for Node.js apps, etc. When sticking to monolithic architecture, you get the biggest advantage over fancy microservices — a wide support of the open source community and project maintainers who primarily designed those frameworks to work as a single process, monolithic app.
 
-At one real-estate startup I worked with, a small Laravel app that was initially built as a basic dashboard to manage deals by real-estate agents grew into a large suite of features that handled managing gigabytes of documents, integrating dozens of third-party services while still being a basic PHP-based stack on Apache. The team followed the set of best practices the Laravel community established, and were quite successful in massively expanding the feature set of the application while maintaining the business needs and expectations. The app worked fine without decoupling it into separate services and introducing potentially unnecessary accidental complexity.
+At one real-estate startup where I led front-end team and occasionally consulted backend team on technologies they could use for complex features, a small Laravel app that was initially built as a basic dashboard to manage deals by real-estate agents grew into a large suite of features that handled managing gigabytes of documents, integrating dozens of third-party services while still being a basic PHP-based stack on Apache. The team followed the set of best practices the Laravel community established, and were quite successful in massively expanding the feature set of the application while maintaining the business needs and expectations. The app worked fine without decoupling it into separate services and introducing potentially unnecessary accidental complexity. This echoes what others have written — like Basecamp’s take on the [“Majestic Monolith”](https://signalvnoise.com/svn3/the-majestic-monolith/), which lays out why simplicity is a superpower early on.
 
 People often point out that it's hard to make monoliths scalable, but it's bad modularization _inside_ the monolith that may bring such problems.
 
 ## Where Microservices Go Wrong (Especially Early On)
 
+Before diving into specific pitfalls, here’s what you’re actually signing up for when introducing microservices prematurely:
+
+**Microservices Early On: What You’re Paying For**
+
+| Pain Point               | Real-World Manifestation                               | Developer Cost                     |
+| ------------------------ | ------------------------------------------------------ | ---------------------------------- |
+| Deployment Complexity    | Orchestrating 5+ services for a single feature         | Hours lost per release             |
+| Local Dev Fragility      | Docker sprawl, broken scripts, platform-specific hacks | Slow onboarding, frequent breakage |
+| CI/CD Duplication        | Multiple pipelines with duplicated logic               | Extra toil per service             |
+| Cross-Service Coupling   | "Decoupled" services tightly linked by shared state    | Slower changes, coordination tax   |
+| Observability Overhead   | Distributed tracing, logging, monitoring               | Weeks to instrument properly       |
+| Test Suite Fragmentation | Tests scattered across services                        | Brittle tests, low confidence      |
+
+Then we get into the most common anti-patterns…
+
 ### 1. Arbitrary Service Boundaries
 
-In theory, you often see suggestions on splitting your applications by business logic domain — users service, products service, orders service, and so on.
-In practice, you often end up with:
+In theory, you often see suggestions on splitting your applications by business logic domain — users service, products service, orders service, and so on. This often borrows from Domain-Driven Design or Clean Architecture concepts — which make sense at scale, but in early-stage products, they can ossify structure prematurely, before you've even validated your product's shape. You end up with:
 
 - Shared databases
 - Cross-service calls for simple workflows
@@ -75,7 +89,7 @@ For a three-person team, this is brutal. Context switching across repositories a
 
 There are various ways to mitigate this problem. But the biggest important thing is for an early project — keeping your code in a monorepo. This ensures that there's a single version of code that exists on prod, and it's much easier to coordinate code reviews for smaller teams.
 
-Node.js community has nice tooling for dealing with monorepos. E.g. `nx` — provides various scripts and infrastructure to cache Node.js builds and has various utilities that facilitate code consistency in terms of setting up tests with `jest` and linters. Another one, which I've been using lately — `turbopack`, looks simpler than `nx` but provides a fast way to build and run your code in development mode. Of course, there are disadvantages in those, like dealing with a large amount of dependencies that some of your microservices introduce, and sometimes it gets pretty difficult to reason with which version should each version work.
+If you're going with Node.js, I recommend starting with `nx` or `turborepo` — they abstract away a lot of boilerplate for monorepos, including CI caching (when done right) and build orchestration. The setups they offer play nicely in creating a frictionless typescript environment, where your subprojects are mapped as libraries in es6 imports. Quality of life improvements like that buy back velocity without requiring custom scripts. Of course, there are disadvantages in tools, like dealing with a large amount of dependencies that some of your microservices introduce, and sometimes it gets pretty difficult to reason with which version should each version work. CI/CD setup may be complex as well, you may have to think about creative ways of caching your large dependency tree or maybe experiment with newer and faster package managers like `bun`. But overall in many cases that trade off may worth it — setting up reliable build setup for typescript that involves multiple sub-projects may be not fun and those tools elegantly solve it.
 
 When developing `go`-based microservices, a good idea early in the development is to use a single ` go` workspace with the `replace` directive in `go.mod`. Eventually, as the software scales, it's possible to effortlessly separate ` go` modules into separate repositories.
 
@@ -89,11 +103,11 @@ Early projects often suffer from:
 - Obsolete dependencies
 - OS-specific hacks (hello, Linux-only setups)
 
-In my experience, when I received projects from past development teams, they were often developed for a single operating system. Some devs preferred building on macOS and never bothered supporting their shell scripts on Windows. In my past teams, I had engineers working on Windows machines, and often it required rewriting shell scripts or fully understanding and reverse engineering the process of getting the local environment running. While frustrating in many ways, it teaches a valuable lesson on how important it is to get the damn code running on the laptop.
+In my experience, when I received projects from past development teams, they were often developed for a single operating system. Some devs preferred building on macOS and never bothered supporting their shell scripts on Windows. In my past teams, I had engineers working on Windows machines, and often it required rewriting shell scripts or fully understanding and reverse engineering the process of getting the local environment running. With time, we standardized environment setup across dev OSes to reduce onboarding friction — a small investment that saved hours per new engineer. While frustrating in many ways, it teaches a valuable lesson on how important it is to get the code running on any laptop your new developer may be using.
 
-Other time, I received a microservice-based project fully developed by a single guy who adopted the workflow of running Docker containers mounted to a local file system. Of course, you pay a little price for running processes as containers when your computer runs Linux. But it brought a lot of pain in onboarding a front-end developer using an old Windows laptop, who had to run 10 Docker containers to see the UI. This was disgusting. As a quick hack, I had to build a custom Node.js-based proxy that acted as an Nginx simply to emulate a Docker-based setup with no containers (except databases).
+Other time, I received a microservice-based project fully developed by a single guy who adopted the workflow of running Docker containers mounted to a local file system. Of course, you pay a little price for running processes as containers when your computer runs Linux. But it brought a lot of pain in onboarding a front-end developer using an old Windows laptop, who had to run 10 Docker containers to see the UI. This created a major friction point during onboarding. We quickly hacked together a proxy in Node.js to simulate the nginx-based Docker-based setup with no containers — a temporary fix that underscored how brittle the environment had become.
 
-**Tip:** Ideally, aim for `git clone <repo> && make up` to have the project running locally. If it's not possible, then maintaining an up-to-date README file with instructions for Windows/macOS/Linux is a must. Nowadays, there are some programming languages and toolchains that don't work well on Windows (like OCaml), but the modern widely popular stack runs just fine on every widely used operating system; there's no excuse for limiting your local setup to a single operating system, except for your laziness.
+**Tip:** Ideally, aim for `git clone <repo> && make up` to have the project running locally. If it's not possible, then maintaining an up-to-date README file with instructions for Windows/macOS/Linux is a must. Nowadays, there are some programming languages and toolchains that don't work well on Windows (like OCaml), but the modern widely popular stack runs just fine on every widely used operating system; by limiting your local setup to a single operating system, it's often a symptom of under-investment in DX.
 
 ### 4. Technology Mismatch
 
@@ -139,9 +153,11 @@ Despite the mentioned difficulties with microservices, there are times where ser
 - **Divergent Scalability Needs:** — Imagine you are building an AI product. One part of the system (**web API**) that triggers ML workloads and shows past results isn't resource intensive, it's lightweight, because it interacts mostly with the database. On the contrary, ML model runs on GPUs is actually heavy to run and requires special machines with GPU support with additional configuration. By splitting these parts of the application into separate services running on different machines, you can scale them independently.
 - **Different Runtime Requirements:** — Let’s say you've got some legacy part of code written in C++. You have 2 choices — magically convert it to your core programming language or find ways to integrate it with a codebase. Depending on the complexity of that legacy app, you would have to write glue code, implementing additional networking/protocols to establish interactions with that service, but the bottom line is — you will likely have to separate this app as a separate service due to runtime incompatibilities. I would say even more, you could write your main app in C++ as well, but because of different compiler configurations and library dependencies, you wouldn't be able to easily compile things together as a single binary.
 
+Large-scale engineering orgs have wrestled with similar challenges. For instance, Uber's engineering team [documented their shift to a domain-oriented microservice architecture](https://www.uber.com/en-HR/blog/microservice-architecture/) — not out of theoretical purity, but in response to real complexity across teams and scaling boundaries. Their post is a good example of how microservices can work when you have the organizational maturity and operational overhead to support them.
+
 At one project, that also happens to be a real-estate one, we had code from a previous team that runs Python-based analytics workloads that loads data into MS-SQL db, we found that it would be a waste to build on top of it a Django app. The code had different runtime dependencies and was pretty self-isolated, so we just kept it as a separate thing and came back to it when something broke. This worked for us even for a small team, because this analytics generation service was a part that required rare changes or maintenance.
 
-**Tip:** Services should be split based on **operational boundaries**, not just code organization.
+**Split only when a component hits a scaling cliff** — for example, async workloads, divergent runtime constraints, or painful release cadence mismatches. Otherwise, lean on modularity _inside_ a monolith.
 
 ## Practical Guidance for Startups
 
