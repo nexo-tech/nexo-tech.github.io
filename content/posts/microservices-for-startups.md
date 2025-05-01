@@ -1,5 +1,5 @@
 ---
-date: 2025-04-16T04:14:54-08:00
+date: 2025-05-01T04:14:54-08:00
 draft: true
 params:
   author: Oleg Pustovit
@@ -51,7 +51,7 @@ In practice you often end-up with:
 - Cross-service calls for simple workflows
 - Coupling disguised as "separation"
 
-At one project, I watched a team separating user, authentication and authorization into separate services which led to deployment complexity and difficulties in service coordination for any API operation they were building. 
+At one project, I watched a team separating user, authentication and authorization into separate services which led to deployment complexity and difficulties in service coordination for any API operation they were building.
 
 In reality, business logic doesn't directly map to service boundaries. Premature separation can make the system more fragile and often times difficult to introduce changes quickly.
 
@@ -69,15 +69,15 @@ When working on the application, typically a next set of things is important:
 
 When dealing with microservices, you need to multiply those requirements by the number of services. If your project is structured as a monorepo, you can simplify your life with having a central CI/CD configuration (when working with GitHub Actions or GitLab CI). Some teams separate microservices into separate repositories which makes way harder to maintain the code consistency and the same set of configurations without extra effort or tools.
 
-For a three-person team, this is brutal. Context switching across repositories and tooling adds up to the development time of every feature that is shipped. 
+For a three-person team, this is brutal. Context switching across repositories and tooling adds up to the development time of every feature that is shipped.
 
 #### Mitigating issues by using monorepos and single programming language
 
-There are various ways to mitigate this problem. But the biggest important thing is for early project — keeping your code in monorepo. This ensures that there's a single version of code that exists on prod and it's much easier to coordinate code reviews for smaller teams. 
+There are various ways to mitigate this problem. But the biggest important thing is for early project — keeping your code in monorepo. This ensures that there's a single version of code that exists on prod and it's much easier to coordinate code reviews for smaller teams.
 
 Node.js community has nice tooling for dealing with monorepos. E.g. `nx` — provides various scripts and infrastructure to cache node.js builds and have various utilities that fascilitate code consistency in terms of setting up tests with `jest` and linters. Other one, which I've been using lately — `turbopack`, looks simpler than `nx` but provides a fast way to build and run your code in development mode. Of course, there are disadvantages in those like dealing with large amount of dependencies that some of your microservices introduce and sometimes it gets pretty difficult to reason with which version should each version work.
 
-When developing `go`-based microservices, a good idea early in the development to use a single go workspace with `replace` directive in `go.mod`. Eventually, as the software scales, it's possible to effortlessly separate go modules into separate repositories. 
+When developing `go`-based microservices, a good idea early in the development to use a single go workspace with `replace` directive in `go.mod`. Eventually, as the software scales, it's possible to effortlessly separate go modules into separate repositories.
 
 ### 3. Local Development Becomes Painful
 
@@ -119,7 +119,7 @@ Microservices introduce an invisible web of needs:
 - Distributed tracing
 - Centralized logging and alerting
 
-In a monolith, a bug might be a simple stack trace. In a distributed system, it's "why does service A fail when B’s deployment lags C by 30 seconds?" 
+In a monolith, a bug might be a simple stack trace. In a distributed system, it's "why does service A fail when B’s deployment lags C by 30 seconds?"
 You would have to thoughroughly invest into your observability stack. To do it "properly", it requires instrumenting your applications in specific ways, e.g. integrating OpenTelemetry to support tracing, or rely on your cloud provider's tools like AWS XRay if you go with complex serverless system. But at this point, you have to completely shift your focus from application code towards building complex monitoring infrastructure that would track whether your microservice architecture **actually works** on production.
 
 Of course some of the observability instrumentation is needed to be performed on monolith apps, but it's way simpler than doing that in terms of number of services in a consistent way.
@@ -128,15 +128,18 @@ Of course some of the observability instrumentation is needed to be performed on
 
 ## When Microservices _Do_ Make Sense
 
-There _are_ cases where microservices genuinely help:
+Despite the mentioned difficulties with microservices, there are times where service-level decoupling actually is very beneficial. There are cases where it definitely helps:
+
+- **Workload isolation**: a common example for that would be in AWS best practices on using S3 event notifications — when image gets loaded to S3, trigger an image resizing/OCR process etc. Why it is useful: we can decouple obscure data processing libraries in self-isolated service and make it API focus solely on image processing and data output based on the input. Your upstream clients that upload data to S3 aren't coupled with this service and there's less overhead in instrumenting such service because of its relative simplicity.
+- **Divergent Scalability Needs**
+
+  There _are_ cases where microservices genuinely help:
 
 - **Workload Isolation:** e.g., an S3-triggered image resizing service, fully self-contained.
-- **Divergent Scalability Needs:** e.g., GPU-heavy inference server separate from lightweight web APIs.
-- **Different Runtime Requirements:** e.g., a Python-based ML service alongside a Go-based main app.
+- **Divergent Scalability Needs:** — Imagine you are building an AI product. One part of the system (**web API**) that triggers ML workloads and shows past results isn't resource intensive, it's lightweight, because it interacts mostly with the database. On contrary, ML model runs on GPUs is actually heavy to run and requires special machines with GPU support with additional configuration. By splitting these parts of application into separate services running on different machines you can scale them independently.
+- **Different Runtime Requirements:** — let's say you've got some legacy part of code written in C++. You have 2 choices — magically convert it to your core programming language or find ways to integrate it with a codebase. Depending on complexity of that legacy app, you would have to write glue code, implementing additional networking/protocols to establish interactions with that service, but bottom line is — you will likely have to separate this app as a separate service due to runtime incompatabilities. I would say even more, you could write you main app in C++ as well, but because of different compiler configurations and library dependencies, you wouldn't be able easily to compile things together as a single binary.
 
-When the operational realities diverge significantly, it can be cleaner and safer to split.
-
-At one company, we separated heavy data processing cron jobs from the main API server to avoid memory contention and unexpected crashes. It worked because we had a _clear operational boundary_, not because it "looked cleaner."
+At one project, that also happens to be a real-estate one, we had a code from a previous team that runs python-based analytics workloads that loads data into MS-SQL db, we found that it would be a waste to build on top of it a django app. The code had different runtime dependencies and was pretty self-isolated, so we just kept it as a separate thing and came back to it when something broke. This worked for us even for a small team, because this analytics generation service was part that required rare changes or maintenance.
 
 **Tip:** Services should be split based on **operational boundaries**, not just code organization.
 
@@ -144,20 +147,30 @@ At one company, we separated heavy data processing cron jobs from the main API s
 
 If you're shipping your first product, here's the playbook I'd recommend:
 
-- **Start monolithic.** Make clean internal separations, but deploy as one unit.
-- **Single repo.** Simplifies CI, dependency management, onboarding.
-- **Dead-simple local setup.** Make `make run` work. If it takes more, document it.
-- **Invest early in CI/CD.** Tests and automation are cheaper early than trying to retrofit stability later.
-- **Split surgically.** Only split when you can _prove_ it solves a real, painful scaling problem.
+- **Start monolithic.** Pick a common framework and focus on getting the features done. All well known frameworks are more than good enough to build some API or website and serve the users. Don't follow the hype, stick to boring way of doing things, you can thank yourself later.
+- **Single repo.** Don't bother splitting your code in multiple repositories. I had cases when developer separated some code into a repository that acted as a library for a core project. But there wasn't apparent reason doing so, there was only one piece of code that consumed that library, but that added to operational complexity in the codebase.
+- **Dead-simple local setup.** Make `make up` work. If it takes more, be very specific on the steps, record video/loom, add screenshots. If your code is going to be run by an intern or junior dev, they'll likely hit a roadblock and you would have to spend time explaining how to troubleshoot an issue. I found that documenting every possible issue for every operating system eliminates time clarifying why certain thing in a local setup didn't work.
+- **Invest early in CI/CD.** Even if it's a simple HTML that you could just copy on your FTP server, you could automate this and rely on souce control with CI/CD to do it. When setup is properly automated, you just forget about your continuous integration infrastructure and focus on features. I've seen many teams and founders when working with outsource teams often be cheap on CI/CD and that results in team being demoralized and annoyed by manual deployment processes.
+- **Split surgically.** Only split when you can _prove_ it solves a real, painful scaling problem. Use your energy on improving modularity and testability of your codebase, rather than solving unncecessary complicated problems.
 
 And above all: **optimize for developer velocity.**
 
 Velocity is your startup’s oxygen. Premature microservices leak that oxygen slowly — until one day, you can't breathe.
 
+## If you go with microservice-based approach
+
+I had micro-service based projects created earlier than it should be done and here are next recommendations that I could give on that:
+
+- Evaluate your technical stack that powers your micro-service based architecture. Invest in developer experience tooling. When you have service based separation you now need to think about automating your microservice stack automatic configuration in production deployment and locally. In certain projects I had to build a separate CLI that does administrative tasks on the monorepository. One project I had, contained 15-20 microservice deployments and for local environment I had to create a code generator for `docker compose` files to achieve for the regular developer seamless one command start-up.
+- Focus on reliable communication protocols around service communication. If it's async messaging, make sure your message schemas are consistent and standardized. If it's REST, focus on OpenAPI documentation. Inter-service communication clients must implement many things that don't come out-of-box: retries with exponential backoff, timeouts. A typical bare-bones gRPC client requires you to manually factor those additional things to make sure you don't suffer from transient errors.
+- Ensure that your unit, integration testing, end-to-end testing setup is stable and scales with the amount of service-level separations you introduce into your codebase.
+- On smaller projects that use micro-service based workloads, you would likely default to a shared library with common helpers for instrumenting your observability, communication code in a consistent way. An imporant consideration here — keep your shared library as small as possible. Any substantial change inside it would require you to recompile each and every service that depends on that shared library.
+- Look into observability earlier on. Add structured-JSON logs and create various correllation IDs for debugging things once your app is deployed, even basic helpers that output rich logging information (until you istrumented your app with proper logging/tracing facilities) often saves time figuring out flaky user flows.
+
+To summarize: if you're still going for microservices, you should beforehand understand the tax you're going to pay in terms of additional development time and maintenance to make the setup workable for every engineer in your team.
+
 # Conclusion
 
-Premature microservices are a tax your startup can’t afford. Stay simple. Stay pragmatic. Stay alive.
-
-When you _truly_ outgrow your monolith, you’ll be able to split services with confidence — because you’ll be solving real problems, not imaginary ones.
+Premature microservices are a tax your startup can’t afford. Stay simple. Stay pragmatic. Stay alive. When you _truly_ outgrow your monolith, you’ll be able to split services with confidence — because you’ll be solving real problems, not imaginary ones.
 
 **Before reaching for microservices, ask yourself: _What's the simplest system that could work today?_**
