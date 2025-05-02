@@ -5,6 +5,8 @@ params:
   author: Oleg Pustovit
 title: "Microservices Are a Tax Your Startup Probably Can’t Afford"
 weight: 10
+images:
+  - frame.jpg
 tags:
   - node.js
   - go
@@ -13,24 +15,26 @@ tags:
   - architecture
 ---
 
-> Why splitting your codebase too early can quietly destroy your team’s velocity — and what to do instead.
+> _Why splitting your codebase too early can quietly destroy your team’s velocity — and what to do instead_.
 
-In a startup, your survival depends on how quickly you can iterate, ship features, and deliver value to end-users. This is where the foundational architecture of your startup plays a big role; additionally, things like your tech stack and choice of programming language directly affect your team’s velocity. The wrong architecture, especially premature microservices, can substantially hurt productivity and contribute to missed goals in delivering software.
+![microservice vs monolith](frame.jpg)
 
-I've had this experience when working on greenfield projects for early-stage startups, where questionable decisions were made in terms of software architecture that led to half-finished services and brittle, over-engineered and broken local setups, and demoralized teams who struggle maintaining unnecessary complexity.
+In a startup, **your survival depends on how quickly you can iterate, ship features, and deliver value to end-users**. This is where the foundational architecture of your startup plays a big role; additionally, things like your tech stack and choice of programming language directly affect your team’s velocity. The wrong architecture, especially premature microservices, can substantially hurt productivity and contribute to missed goals in delivering software.
+
+I've had this experience when working on greenfield projects for early-stage startups, where questionable decisions were made in terms of software architecture that led to half-finished services and _brittle, over-engineered and broken local setups_, and **demoralized teams** who struggle maintaining unnecessary complexity.
 
 Before diving into specific pitfalls, here’s what you’re actually signing up for when introducing microservices prematurely:
 
 **Microservices Early On: What You’re Paying For**
 
-| Pain Point               | Real-World Manifestation                               | Developer Cost                     |
-| ------------------------ | ------------------------------------------------------ | ---------------------------------- |
-| Deployment Complexity    | Orchestrating 5+ services for a single feature         | Hours lost per release             |
-| Local Dev Fragility      | Docker sprawl, broken scripts, platform-specific hacks | Slow onboarding, frequent breakage |
-| CI/CD Duplication        | Multiple pipelines with duplicated logic               | Extra toil per service             |
-| Cross-Service Coupling   | "Decoupled" services tightly linked by shared state    | Slower changes, coordination tax   |
-| Observability Overhead   | Distributed tracing, logging, monitoring               | Weeks to instrument properly       |
-| Test Suite Fragmentation | Tests scattered across services                        | Brittle tests, low confidence      |
+| Pain Point               | Real-World Manifestation                               | Developer Cost                         |
+| ------------------------ | ------------------------------------------------------ | -------------------------------------- |
+| Deployment Complexity    | Orchestrating 5+ services for a single feature         | **Hours lost per release**             |
+| Local Dev Fragility      | Docker sprawl, broken scripts, platform-specific hacks | **Slow onboarding, frequent breakage** |
+| CI/CD Duplication        | Multiple pipelines with duplicated logic               | **Extra toil per service**             |
+| Cross-Service Coupling   | "Decoupled" services tightly linked by shared state    | **Slower changes, coordination tax**   |
+| Observability Overhead   | Distributed tracing, logging, monitoring               | **Weeks to instrument properly**       |
+| Test Suite Fragmentation | Tests scattered across services                        | **Brittle tests, low confidence**      |
 
 Let's unpack why microservices often backfire early on, where they genuinely help, and how to structure your startup's systems for speed and survival.
 
@@ -40,7 +44,7 @@ Let's unpack why microservices often backfire early on, where they genuinely hel
 
 If you're building some SaaS product, even a simple SQL database wrapper eventually may bring a lot of internal complexity in the way your business logic works; additionally, you can get to various integrations and background tasks that let transform one set of data to another.
 
-With time, sometimes unnecessary features, it's inevitable that your app may grow messy. The great thing about monoliths is: they still work. Monoliths, even when messy, keep your team focused on what matters most:
+With time, sometimes unnecessary features, it's inevitable that your app may grow messy. The great thing about monoliths is: they still work. **Monoliths, even when messy, keep your team focused on what matters most**:
 
 - **Staying alive**
 - **Delivering customer value**
@@ -57,7 +61,7 @@ People often point out that it's hard to make monoliths scalable, but it's bad m
 
 A lot of engineers reach for microservices early, thinking they’re “the right way.” And sure — at scale, they can help. But in a startup, that same complexity turns into drag.
 
-Microservices only pay off when you have real scaling bottlenecks, large teams, or independently evolving domains. Before that? You’re paying the price without getting the benefit: duplicated infra, fragile local setups, and slow iteration.
+Microservices only pay off when you have real scaling bottlenecks, large teams, or independently evolving domains. Before that? You’re paying the price without getting the benefit: duplicated infra, fragile local setups, and slow iteration. For example, **Segment** eventually [reversed their microservice split](https://segment.com/blog/goodbye-microservices/) for this exact reason — too much cost, not enough value.
 
 **Takeaway: Microservices are a scaling tool — not a starting template.**
 
@@ -131,7 +135,7 @@ When developing `go`-based microservices, a good idea early in the development i
 
 ### 3. Broken Local Dev = Broken Velocity
 
-If it takes three hours, a custom shell script, and a Docker marathon just to run your app locally, you've already lost velocity.
+**If it takes three hours, a custom shell script, and a Docker marathon just to run your app locally, you've already lost velocity.**
 
 Early projects often suffer from:
 
@@ -183,18 +187,13 @@ You would have to thoroughly invest in your observability stack. To do it "prope
 
 Of course, some of the observability instrumentation is needed to be performed on monolith apps, but it's way simpler than doing that in terms of the number of services in a consistent way.
 
-**Tip:** Understand that distributed systems _aren't free._ They're a commitment to a whole new class of engineering challenges.
+**Tip:** Understand that **distributed systems _aren't free._** They're a commitment to a whole new class of engineering challenges.
 
 ## When Microservices _Do_ Make Sense
 
 Despite the mentioned difficulties with microservices, there are times where service-level decoupling actually is very beneficial. There are cases where it definitely helps:
 
 - **Workload Isolation**: a common example for that would be in AWS best practices on using S3 event notifications — when an image gets loaded to S3, trigger an image resizing/OCR process, etc. Why it is useful: we can decouple obscure data processing libraries in a self-isolated service and make it API focused solely on image processing and generating output from the uploaded data. Your upstream clients that upload data to S3 aren't coupled with this service, and there's less overhead in instrumenting such a service because of its relative simplicity.
-- **Divergent Scalability Needs**
-
-  There _are_ cases where microservices genuinely help:
-
-- **Workload Isolation:** e.g., an S3-triggered image resizing service, fully self-contained.
 - **Divergent Scalability Needs:** — Imagine you are building an AI product. One part of the system (**web API**) that triggers ML workloads and shows past results isn't resource intensive, it's lightweight, because it interacts mostly with the database. On the contrary, ML model runs on GPUs is actually heavy to run and requires special machines with GPU support with additional configuration. By splitting these parts of the application into separate services running on different machines, you can scale them independently.
 - **Different Runtime Requirements:** — Let’s say you've got some legacy part of code written in C++. You have 2 choices — magically convert it to your core programming language or find ways to integrate it with a codebase. Depending on the complexity of that legacy app, you would have to write glue code, implementing additional networking/protocols to establish interactions with that service, but the bottom line is — you will likely have to separate this app as a separate service due to runtime incompatibilities. I would say even more, you could write your main app in C++ as well, but because of different compiler configurations and library dependencies, you wouldn't be able to easily compile things together as a single binary.
 
@@ -216,7 +215,7 @@ If you're shipping your first product, here's the playbook I'd recommend:
 
 And above all: **optimize for developer velocity.**
 
-Velocity is your startup’s oxygen. Premature microservices leak that oxygen slowly — until one day, you can't breathe.
+**Velocity is your startup’s oxygen.** Premature microservices leak that oxygen slowly — until one day, you can't breathe.
 
 **Takeaway: Start simple, stay pragmatic, and split only when you must.**
 
@@ -224,19 +223,28 @@ Velocity is your startup’s oxygen. Premature microservices leak that oxygen sl
 
 I had micro-service-based projects created earlier than they should have been done, and here are the next recommendations that I could give on that:
 
-- Evaluate your technical stack that powers your micro-service-based architecture. Invest in developer experience tooling. When you have service-based separation, you now need to think about automating your microservice stack, automating config across both local and production environments. In certain projects, I had to build a separate CLI that does administrative tasks on the monorepository. One project I had contained 15-20 microservice deployments, and for the local environment, I had to create a cli-tool for generating docker-compose.yml files dynamically to achieve seamless one-command start-up for the regular developer.
-- Focus on reliable communication protocols around service communication. If it's async messaging, make sure your message schemas are consistent and standardized. If it's REST, focus on OpenAPI documentation. Inter-service communication clients must implement many things that don't come out-of-the-box: retries with exponential backoff, timeouts. A typical bare-bones gRPC client requires you to manually factor those additional things to make sure you don't suffer from transient errors.
-- Ensure that your unit, integration testing, and end-to-end testing setup is stable and scales with the amount of service-level separations you introduce into your codebase.
-- On smaller projects that use micro-service-based workloads, you would likely default to a shared library with common helpers for instrumenting your observability, communication code in a consistent way. An important consideration here — keep your shared library as small as possible. Any major change forces a rebuild across all dependent services — even if unrelated.
-{{<figure src="shared-dep.svg" width="600" alt="shared library dependency">}}
-- Look into observability earlier on. Add structured-JSON logs and create various correlation IDs for debugging things once your app is deployed. Even basic helpers that output rich logging information (until you instrumented your app with proper logging/tracing facilities) often save time figuring out flaky user flows.
+- **Evaluate your technical stack** that powers your micro-service-based architecture. Invest in developer experience tooling. When you have service-based separation, you now need to think about automating your microservice stack, automating config across both local and production environments. In certain projects, I had to build a separate CLI that does administrative tasks on the monorepository. One project I had contained 15-20 microservice deployments, and for the local environment, I had to create a cli-tool for generating docker-compose.yml files dynamically to achieve seamless one-command start-up for the regular developer.
+- **Focus on reliable communication protocols** around service communication. If it's async messaging, make sure your message schemas are consistent and standardized. If it's REST, focus on OpenAPI documentation. Inter-service communication clients must implement many things that don't come out-of-the-box: retries with exponential backoff, timeouts. A typical bare-bones gRPC client requires you to manually factor those additional things to make sure you don't suffer from transient errors.
+- **Ensure that your unit, integration testing, and end-to-end testing setup** is stable and scales with the amount of service-level separations you introduce into your codebase.
+- On smaller projects that use micro-service-based workloads, you would likely default to a shared library with common helpers for instrumenting your observability, communication code in a consistent way. An important consideration here — **keep your shared library as small as possible**. Any major change forces a rebuild across all dependent services — even if unrelated.
+  {{<figure src="shared-dep.svg" width="600" alt="shared library dependency">}}
+- **Look into observability earlier on.** Add structured-JSON logs and create various correlation IDs for debugging things once your app is deployed. Even basic helpers that output rich logging information (until you instrumented your app with proper logging/tracing facilities) often save time figuring out flaky user flows.
 
 To summarize: if you're still going for microservices, you should beforehand understand the tax you're going to pay in terms of additional development time and maintenance to make the setup workable for every engineer in your team.
 
 **Takeaway: If you embrace complexity, invest fully in making it manageable.**
 
-# Conclusion
+## Conclusion
 
-Premature microservices are a tax you can’t afford. Stay simple. Stay alive. Split only when the pain makes it obvious.
+**Premature microservices are a tax you can’t afford. Stay simple. Stay alive.** Split only when the pain makes it obvious.
 
 **Survive first. Scale later. Choose the simplest system that works — and earn every layer of complexity you add.**
+
+## Related resources
+
+- [“Monolith First”](https://martinfowler.com/bliki/MonolithFirst.html) — Martin Fowler
+- [“The Majestic Monolith”](https://signalvnoise.com/svn3/the-majestic-monolith) — DHH / Basecamp
+- [Goodbye Microservices: From 100s of problem children to 1 superstar”](https://segment.com/blog/goodbye-microservices) — Segment Eng.
+- [“Deconstructing the Monolith”](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity) — Shopify Eng.
+- [“Domain‑Oriented Microservice Architecture”](https://www.uber.com/blog/microservice-architecture/) — Uber Eng.
+- [“Go + Services = One Goliath Project”](https://blog.khanacademy.org/go-services-one-goliath-project/) — Khan Academy
