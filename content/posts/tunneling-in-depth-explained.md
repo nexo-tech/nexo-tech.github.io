@@ -23,15 +23,21 @@ If you already control a VM with a public IP and a domain name, it’s entirely 
 
 In this article, I’ll walk through how to build a lightweight HTTPS tunnel from scratch. You’ll learn how to forward raw TCP traffic over WebSockets, provision wildcard TLS certs automatically via Caddy + Cloudflare, and multiplex multiple requests through a single connection — without writing a full proxy or web server.
 
-I wanted a secure, flexible alternative to ngrok — one I could control end-to-end. So I built my own.
+**In this guide, you’ll learn:**
+
+- Why naïve HTTP proxying fails (and how Go's `Hijack()` fixes it)
+- How to multiplex traffic using Yamux
+- Setting up wildcard TLS with Caddy + Cloudflare
+- Routing by subdomain to support multiple tunnel clients
+- How WebSocket adapters enable TCP-like connections
 
 #### Let’s define technical requirements for our self-hosted tunneling service
 
-1. A service should be secure (HTTPS) and easily accessible from the internet (need reasoning and explanation)
-2. It should expose minimal ports in the server firewall configuration (need explanations)
-3. It should use basic HTTP based protocols (need reasoning and explainations)
-4. It should dynamically generate a subdomain, like ngrok does, so every exposed app has its own subdomain, so there’s flexibility (need reasoning and explanation)
-5. The service should serve multiple connected clients and needs to manage every connection in a flexible way (need reasoning and explanation)
+1. A service should be secure (HTTPS) and easily accessible from the internet.
+2. It should expose minimal ports in the server firewall configuration.
+3. It should use basic HTTP based protocols.
+4. It should dynamically generate a subdomain, like ngrok does, so every exposed app has its own subdomain, so there’s flexibility.
+5. The service should serve multiple connected clients and needs to manage every connection in a flexible way.
 6. The solution shouldn’t be overly complex and should use Go technical stack for simplicity
 
 ### The highlevel architecture
@@ -41,13 +47,23 @@ To build an HTTPS tunnel you need the following components:
 
 - a highly available server that is exposed to an internet
 - Domain name and full control of DNS of it
-- your local setup with [localhost](http://localhost) application running on certain TCP port
+- a local client (Go binary) running alongside your localhost app to forward traffic
 
-Your highly available server allow specific TCP ports to allow the outside internet to connect to your app. and your Cloud/Hosting provider also needs to allow networking rules for handling incoming and outbound traffic
+Your highly available server allow specific TCP ports to allow the outside internet to connect to your app. and your Cloud/Hosting provider also needs to allow networking rules for handling incoming and outbound traffic.
+
+#### Tunnel Client: A Local Agent That Connects Outbound
+
+To make this tunnel work, we need a lightweight client running on the developer’s machine. This is a small Go binary that:
+
+- Connects outbound to the tunnel server over a secure WebSocket connection
+- Establishes a persistent Yamux session
+- Forwards traffic between your local app (localhost:3000, for example) and the public internet
+
+Because the connection is initiated from the local side, it avoids the need for port forwarding or firewall changes — which makes it ideal for NAT’d or restricted environments.
 
 ## The Naive Attempt (And Why It Breaks)
 
-A common first instinct when building a tunnel is to read the incoming HTTP request, parse it into structured objects (e.g. `http.Request`), then forward that data to the client, reconstruct the request, and send it to the actual local app. This seems simple — and works in toy cases — but fails _immediately_ under real-world conditions.
+A common first instinct when building a tunnel is to read the incoming HTTP request, parse it into structured objects (e.g. `http.Request`), then forward that data to the tunnel client, reconstruct the request, and send it to the actual local app. This seems simple — and works in toy cases — but fails _immediately_ under real-world conditions.
 
 Here’s why:
 
@@ -117,22 +133,10 @@ Instead, you should treat HTTP like what it is: **a stream of bytes**. If the cl
 
 In the next section, we’ll look at how using **`Hijack()` in Go** and a **WebSocket + Yamux byte stream tunnel** allows you to avoid all of this complexity — while retaining performance, correctness, and protocol fidelity.
 
-## Building the Real Tunnel (Architecture & Flow)
+So how do we avoid all this complexity while preserving performance and protocol fidelity?
+The answer is simple in principle, but elegant in execution: treat every incoming connection as a raw byte stream, and forward it transparently to the client.
 
-### **🧰 So what’s the alternative?**
-
-When Oleg says he **hijacks the connection and tunnels the raw bytes**, he avoids all of this.
-
-He lets the browser and the target server handle:
-
-- Keep-alive
-- Chunked encoding
-- Header quirks
-- Connection lifecycle
-
-His tunnel becomes a **dumb pipe** — but in the best way. It doesn’t try to interpret HTTP — it just carries it faithfully.
-
-### The simplest bare-bones setup operating and level 4 — TCP
+In the next section, we’ll walk through how to build a real working tunnel using Go, WebSockets, and Yamux — with full HTTPS support, multiplexed streams, and subdomain-based routing.
 
 ## The Real Setup: Building the Tunnel with Go, WebSocket, and Yamux
 
@@ -146,8 +150,6 @@ One of the critical architectural challenges is supporting multi-tenancy: the ab
 
 But there’s a catch. Subdomain routing relies on application-layer data — typically visible only once the HTTP headers have been parsed. At Layer 4 (TCP), we don’t yet have access to this information. While advanced setups could use the Server Name Indication (SNI) field in TLS to infer the subdomain during the TLS handshake, this adds complexity and pushes routing logic earlier in the connection lifecycle. For simplicity and flexibility, it’s better to move routing to the HTTP application layer where domain names are readily accessible.
 
----
-
 ### Hijacking TCP from HTTP: Going Low-Level in Go
 
 Go’s networking stack is one of its biggest strengths, and the `net/http` package offers convenient abstractions for building traditional web servers. But in a tunnel, we don’t want to parse HTTP requests or write back responses via `http.ResponseWriter`. We want full control over the raw TCP connection so we can forward bytes directly to the tunnel client.
@@ -155,8 +157,6 @@ Go’s networking stack is one of its biggest strengths, and the `net/http` pack
 Go makes this possible with `http.Hijacker`. When an HTTP request arrives, calling `ResponseWriter.Hijack()` gives you access to the underlying `net.Conn` — the raw TCP socket. This is exactly what we need to bridge the incoming request with a Yamux stream over the tunnel.
 
 Once the connection is hijacked, we no longer care about HTTP semantics. We stream raw bytes between the remote browser and the local application, preserving the exact content and behavior without modifying headers, buffering bodies, or managing chunked encoding.
-
----
 
 ### Scaling with Yamux: Multiplexing HTTP Requests
 
@@ -178,8 +178,6 @@ for {
 
 Each stream is independent, so concurrent requests can be processed in parallel with proper flow control and graceful shutdown.
 
----
-
 ### Routing Connections via Subdomains at the Application Layer
 
 Since we’re operating at the HTTP layer after TLS termination, we now have access to useful metadata like the requested hostname. This makes subdomain-based routing trivial.
@@ -190,8 +188,6 @@ This design provides multi-tenancy without introducing the complications of SNI 
 
 _(Diagram of request flow and domain-based routing should be inserted here.)_
 
----
-
 ### Making It Work Over WebSocket
 
 One more obstacle remains: getting this tunnel to work in environments where raw TCP connections are blocked or restricted. Many networks (especially corporate or campus ones) don’t allow inbound TCP connections or custom ports. That’s where WebSockets come in.
@@ -199,8 +195,6 @@ One more obstacle remains: getting this tunnel to work in environments where raw
 WebSockets are an HTTP-based, bidirectional protocol that works over standard ports (80/443) and supports full-duplex messaging. We can use them to emulate a persistent TCP channel between the tunnel server and the client — avoiding NAT, firewall, and root-access issues altogether.
 
 However, WebSockets are message-based, not stream-based. That means they transmit discrete binary messages — not a continuous byte stream — which creates an incompatibility with tools like Yamux that expect a standard `net.Conn` interface.
-
----
 
 ### Adapting WebSocket to net.Conn
 
@@ -225,8 +219,6 @@ func (w *WebSocketConn) SetDeadline(...) { ... }
 
 This lets Yamux (and any other `net.Conn`-based library) treat the WebSocket tunnel exactly like a raw TCP connection. It’s an elegant and clean abstraction — no changes needed in upstream or downstream logic.
 
----
-
 ### Why This Works: Letting Lower Layers Handle Complexity
 
 By using `Hijack()` and `net.Conn`, we treat each connection as a transparent stream. We don’t parse headers, decode chunked encoding, or manage HTTP buffering. We let the browser and local app handle that.
@@ -242,8 +234,6 @@ This layered design avoids reinventing low-level behaviors like:
 All of these are already built into TCP and the WebSocket libraries. By staying at a low enough abstraction level — just forwarding raw byte streams — we get correctness, performance, and flexibility “for free.”
 
 Absolutely — here's a **rewritten and restructured version** of the _TLS & Wildcard Domains_ section, keeping **all your original ideas**, but improving the **flow, coherence, and tone**. It avoids promotional overtones while preserving clarity, and replaces bullets with cohesive paragraphs for readability and publication quality.
-
----
 
 ## TLS and Wildcard Domains via Caddy
 
@@ -273,8 +263,6 @@ Once the wildcard cert is in place, Caddy terminates HTTPS at the edge and forwa
 
 This approach ensures that the tunnel can safely and dynamically expose multiple local applications to the public internet under unique, secure URLs — all from a single wildcard certificate.
 
----
-
 ## Security Practices and Operational Lessons
 
 ### Delegating TLS to Caddy: A Clean Separation
@@ -291,21 +279,13 @@ If you run this setup on a shared VM, you can layer in additional protections us
 
 Here’s a more polished and narrative-driven ending to your article that ties everything together, reinforces your expertise, and leaves readers with a sense of clarity and inspiration — without sounding like a pitch.
 
----
-
 ## What’s Next?
 
 This tunnel system started as a personal workaround — a way to expose local apps during development without hitting the limits of services like ngrok. But it quickly turned into something deeper: a small but complete blueprint for secure, multiplexed, and fully self-hosted networking infrastructure, all built from first principles using Go.
 
 There’s plenty of room to evolve this further. In future iterations, I plan to introduce an authentication handshake at the tunnel layer, explore gRPC for more structured communication between clients and server, and integrate Prometheus metrics to monitor usage and performance over time. But even in its current form, this tunnel is lightweight, production-capable, and fully under your control.
 
-If you want to understand what’s really happening under the hood when you click “share URL” in a tunneling service — or you want to build your own version without vendor limits — I’ve open-sourced the full code here:
-
-👉 [GitHub Repo](https://www.notion.so/How-to-expose-your-localhost-app-to-the-internet-by-building-a-Self-Hosted-HTTPS-Tunnel-with-Go-Web-1e75d032cdcd80e1a620e4758cf575aa?pvs=21) (MIT-licensed, \~300 lines of Go)
-
-It’s minimal, portable, and easy to extend — a great weekend project if you're curious about tunnels, proxies, or networking internals.
-
----
+If you want to understand what’s really happening under the hood when you click “share URL” in a tunneling service — or you want to build your own version without vendor limits — I’ve open-sourced the full code (link at the bottom of the article).
 
 ## Final Thoughts
 
@@ -314,3 +294,10 @@ Building things from scratch — even small ones — gives you a much sharper se
 In the end, the lesson was clear: when the system stays dumb, it stays correct. And when you understand the boundaries — what to parse, what to ignore, and what to delegate — you can build something secure, powerful, and refreshingly simple.
 
 If you end up building your own tunnel or riffing on this design, I’d love to hear about it.
+
+## Related Links
+
+- 🧠 [Source Code on GitHub](https://github.com/nexo-tech/microtunnel) – MIT licensed, ~300 lines
+- 📦 [xcaddy – Build Caddy with Plugins](https://github.com/caddyserver/xcaddy)
+- 🔧 [Caddy DNS Providers List](https://caddyserver.com/docs/modules/dns.providers)
+- ☁️ [Cloudflare API Token Permissions](https://developers.cloudflare.com/api/tokens/create/)
