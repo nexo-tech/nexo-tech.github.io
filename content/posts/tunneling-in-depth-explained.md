@@ -2,7 +2,7 @@
 date: 2025-05-02T11:04:12.088Z
 draft: true
 params:
-  author: Oleg Pustovit
+author: Oleg Pustovit
 title: "How to expose your localhost app to the internet by building a Self‑Hosted HTTPS Tunnel with Go, WebSockets, and Yamux"
 weight: 10
 tags:
@@ -23,9 +23,7 @@ If you already control a VM with a public IP and a domain name, it’s entirely 
 
 In this article, I’ll walk through how to build a lightweight HTTPS tunnel from scratch. You’ll learn how to forward raw TCP traffic over WebSockets, provision wildcard TLS certs automatically via Caddy + Cloudflare, and multiplex multiple requests through a single connection — without writing a full proxy or web server.
 
-## Core Architecture: What pieces do you need
-
-This article is an explanation how to build your own setup like ngrok, where you’ll learn specifics on provisioning TLS certificates for your wildcard domain names and setting up and automated scalable tunnel with Go and its rich ecosystem of libraries like `yamux` (for connection multiplexing) and websockets (`gorilla/websocket`).
+I wanted a secure, flexible alternative to ngrok — one I could control end-to-end. So I built my own.
 
 #### Let’s define technical requirements for our self-hosted tunneling service
 
@@ -47,66 +45,79 @@ To build an HTTPS tunnel you need the following components:
 
 Your highly available server allow specific TCP ports to allow the outside internet to connect to your app. and your Cloud/Hosting provider also needs to allow networking rules for handling incoming and outbound traffic
 
-## The Naive Way (and Why It Fails)
+## The Naive Attempt (And Why It Breaks)
 
-So when he says:
+A common first instinct when building a tunnel is to read the incoming HTTP request, parse it into structured objects (e.g. `http.Request`), then forward that data to the client, reconstruct the request, and send it to the actual local app. This seems simple — and works in toy cases — but fails _immediately_ under real-world conditions.
 
-> Hijack incoming HTTP connections to stream them directly without re-encoding
+Here’s why:
 
-He means:
+### Parsing and Reconstructing HTTP is Dangerous
 
-> “Instead of acting like a web server, I grab the raw socket and just pipe it to the client’s machine as-is, like a smart TCP proxy — saving complexity and improving performance.”
+At first glance, HTTP looks like a plain-text protocol — so why not just proxy it line by line? But HTTP has **many moving parts** that interact in non-obvious ways:
 
-Let me know if you want to see Go code that shows how the hijack and pipe actually works.
+#### Key Pitfalls:
 
-#### **Why it’s tricky:**
+- **Chunked Transfer Encoding**: You must correctly decode chunked bodies and reassemble them — and _re-chunk_ them properly when forwarding. If you misalign chunk boundaries, the receiver might never finish reading.
 
-- If you’re proxying HTTP manually, you must correctly parse and reassemble these chunks — including:
-  - Keeping the right newlines
-  - Stripping them if needed
-  - Making sure chunk boundaries don’t get split across WebSocket frames
-- If you mess this up, the receiving end gets malformed data or never knows the request ended.
+- **Newline Normalization**: HTTP/1.1 uses `\r\n` line endings, but clients may tolerate variations. A naive proxy could introduce subtle bugs by rewriting or stripping them inconsistently.
 
----
+- **WebSocket Frame Interference**: If you’re using WebSocket as the transport layer and naively forward data without a byte-level stream abstraction, your HTTP chunks might be split across frames, leading to invalid reads on the client side.
 
-### **🧯 3.**
+- **Connection Reuse**: HTTP/1.1 allows keep-alive connections and pipelined requests. Mishandling this can result in half-read requests, or worse — a later request being forwarded to the wrong backend.
 
-### **Error propagation and edge behavior**
+### Error Propagation Is a Minefield
 
-#### **Problems here:**
+The HTTP spec allows for all sorts of _mid-flight behavior_ that is extremely hard to emulate correctly unless you forward raw bytes as-is.
 
-- What happens if the client disconnects mid-request?
-- What if the server sends an error response early (before reading the full body)?
-- What if you get a 100 Continue interim response?
-- How do you forward Expect: 100-continue logic?
+#### Real Edge Cases That Break Naive Proxies:
 
-When you’re decoding and re-encoding HTTP manually, **you become responsible for faithfully reproducing** these edge cases. Otherwise, subtle bugs appear — e.g. an API call that hangs indefinitely, or an upload that fails in a confusing way.
+- **Client disconnects mid-request**: If you’re buffering request bodies before sending, your proxy may still try to forward a partial/incomplete request — leading to timeouts or panics downstream.
 
----
+- **Early server errors**: If the upstream server sends a `4xx` or `5xx` before reading the full body, your proxy must stop reading from the client — or risk deadlocks.
 
-### **🧭 4.**
+- **`Expect: 100-continue` handshake**: Many clients send headers first and wait for `HTTP/1.1 100 Continue` before sending the body. If your proxy doesn't implement this logic faithfully, uploads hang.
 
-### **Header Normalization and Casing**
+- **Half-duplex timing bugs**: If your proxy starts forwarding a response before the full request has been sent, you might violate sequencing expectations in some clients (e.g., `curl` with stdin streaming).
 
-#### **Why it matters:**
+Naively decoding and re-encoding HTTP makes you responsible for _everything the Go stdlib already handles for you_. It’s a high-maintenance, low-reliability approach.
 
-HTTP headers are case-insensitive, but not all libraries treat them identically. Some clients (especially older or unusual ones) rely on quirks like:
+### Header Normalization Hell
 
-- Duplicated headers (Set-Cookie)
-- Weird casing (x-Foo-Bar)
-- Header ordering
+HTTP headers are case-insensitive and unordered — _in theory_. In practice, many clients and servers rely on non-standard behavior.
 
-If you reconstruct requests manually, you can easily lose or mangle headers — and some backends might reject the request or behave differently.
+#### What Can Go Wrong?
 
----
+- **Duplicate headers**: Some headers (like `Set-Cookie`) are allowed to appear multiple times. Reconstructing them naively with a `map[string]string` loses this information.
 
-### **🧪 5.**
+- **Casing mismatches**: Headers like `X-Foo-Bar` vs `x-foo-bar` might be treated differently by legacy or spec-breaking systems — especially proxies, CDNs, or API gateways.
 
-### **Non-HTTP Protocols over HTTP Ports**
+- **Header ordering**: Some HTTP/2 upgrade paths or custom clients expect a specific header order. Rebuilding requests from scratch may silently break these assumptions.
 
-Some clients will start a connection expecting WebSockets, gRPC, or HTTP/2 upgrade headers. These look like HTTP — but behave differently. If you’re parsing naively, you can’t always tell what protocol is in play.
+Unless you forward the **original byte representation** of the headers, you’re always risking behavioral drift. The only safe way to maintain fidelity is to skip interpretation entirely.
 
----
+### Non-HTTP Traffic Masquerading as HTTP
+
+Not all traffic on port 80/443 is pure HTTP. Some of the most common modern protocols use an HTTP-compatible handshake and then immediately upgrade:
+
+- **WebSockets**: Start with `Upgrade: websocket`, then switch to a framed binary protocol.
+- **gRPC**: Uses HTTP/2 headers and trailers with multiplexed streams — break it, and your client hangs or panics.
+- **HTTP/2**: Starts with a connection preface (`PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n`) that breaks naive line-based parsers.
+
+If your proxy assumes all traffic is simple HTTP/1.1, these connections will either fail outright or behave erratically. And since you can’t always determine the real protocol _until_ parsing a few frames — or even _after_ — it’s extremely risky to do selective decoding.
+
+### Parsing is a Trap
+
+You’re not building a browser or an API gateway — you’re building a **transport tunnel**. Trying to decode and reassemble HTTP manually means:
+
+- Maintaining a full HTTP parser + serializer.
+- Correctly handling edge cases, timeouts, upgrades, partial reads.
+- Debugging subtle, protocol-specific bugs that should never be your concern.
+
+Instead, you should treat HTTP like what it is: **a stream of bytes**. If the client sends valid HTTP, and the server expects valid HTTP, then the best thing you can do is **stay out of the way** and forward the raw stream.
+
+In the next section, we’ll look at how using **`Hijack()` in Go** and a **WebSocket + Yamux byte stream tunnel** allows you to avoid all of this complexity — while retaining performance, correctness, and protocol fidelity.
+
+## Building the Real Tunnel (Architecture & Flow)
 
 ### **🧰 So what’s the alternative?**
 
@@ -123,21 +134,13 @@ His tunnel becomes a **dumb pipe** — but in the best way. It doesn’t try to 
 
 ### The simplest bare-bones setup operating and level 4 — TCP
 
+
+## The Real Setup: WebSocket + Yamux + Go
+
 The natural and obvious step for getting this app ready is to an open TCP socket on specific port on a virtual machine and then let the client connect to that socket. Then the incoming users will be sending HTTP requests and they will be relayed over that socket to client, client will direct that TCP traffic to the [localhost](http://localhost) app and receive from it data. An important component here would be TCP connection multiplexing — it’s important because there will be many TCP connections that will come from the internet to VM and they have to be multiplexed over a single TCP connection to the client.
 
 This is a very important component in this setup, but there are problems: we need to suport multi-tenancy in client connections. however we have to distinguish when one users connects for app 1 that is tunneled, and when they connect to app 2 (e.g. with a subdomain). But the problem with subdomains are, we have to operate on HTTP application layer, but when we are working on a level 4 TCP layer we don’t have a luxiry of this. There comes solutions with SNI data from the upstream load balancer, but that adds more complications to the setup.
 
-## The Real Setup: WebSocket + Yamux + Go
-
-### Using HTTP layer to define routing of multiple connections
-
-(diagram is needed here)
-
-to handle routing properly let’s move our setup to application layer, this way every request initiated from the outside world could be hosted and we can easily see the upstream domain name that was used for connection. E.g. [appa.tunnel.org](http://appa.tunnel.org) and [app-b.tunnel.org](http://app-b.tunnel.org) can be routed to correct downstream clients and communicate with right yamux mmultiplexer
-
-Code example:
-
-(needed)
 
 #### Transmitting a raw TCP traffic from an active HTTP request.
 
@@ -173,8 +176,6 @@ That’s what Go’s [ResponseWriter.Hijack()](https://pkg.go.dev/net/http#Hijac
 
 > It gives you the raw net.Conn — the actual socket — so you can take over and do whatever you want with it.
 
----
-
 #### **🧵 Why hijack in this project?**
 
 In the tunnel server:
@@ -189,8 +190,6 @@ In the tunnel server:
 
 No decoding. No buffering. No parsing headers and writing new ones.
 
----
-
 #### **⚡Why avoid re-encoding?**
 
 Because it:
@@ -204,6 +203,17 @@ By **streaming the raw bytes**, you:
 - Preserve exact behavior (e.g., WebSockets, chunked uploads, etc.)
 - Handle weird edge cases naturally (no need to re-implement HTTP quirks)
 - Keep the tunnel fast and lightweight
+
+### Using HTTP layer to define routing of multiple connections
+
+(diagram is needed here)
+
+to handle routing properly let’s move our setup to application layer, this way every request initiated from the outside world could be hosted and we can easily see the upstream domain name that was used for connection. E.g. [appa.tunnel.org](http://appa.tunnel.org) and [app-b.tunnel.org](http://app-b.tunnel.org) can be routed to correct downstream clients and communicate with right yamux mmultiplexer
+
+Code example:
+
+(needed)
+
 
 ### Making our setup more resillient by using custom websocket protocol for sending receiving TCP traffic from/to client
 
@@ -262,8 +272,6 @@ So now you have a mismatch:
 
 > ❌ yamux wants a pipe (net.Conn), but you’re holding an envelope-based mailbox (WebSocket).
 
----
-
 ### **✅ Solution: Write an**
 
 ### **adapter**
@@ -292,8 +300,6 @@ Imagine a little translator that sits between the two systems and smooths things
 
 📦 **Analogy**: Like unwrapping a full granola bar, then breaking off pieces every time someone asks for a bite.
 
----
-
 #### **2.**
 
 #### **Write(): send byte slices as binary WebSocket messages**
@@ -305,8 +311,6 @@ There’s no streaming here — each Write() becomes one message.
 
 📨 **Analogy**: Every time someone hands you some bytes, you seal them in an envelope and ship it.
 
----
-
 #### **3.**
 
 #### **Deadlines: map to WebSocket timeouts**
@@ -316,8 +320,6 @@ There’s no streaming here — each Write() becomes one message.
 - The adapter just maps one to the other.
 
 ⏱️ **Analogy**: “If this person doesn’t respond in 5 seconds, give up” — the adapter tells the WebSocket layer to enforce that.
-
----
 
 ### **🔧 Why this matters**
 
@@ -334,8 +336,6 @@ It’s a clean abstraction bridge — kind of like writing an “HDMI to USB” 
 > _low enough level_
 
 Let’s break that into pieces.
-
----
 
 ### **📎 First: What are “edge cases” here?**
 
@@ -358,8 +358,6 @@ You’d need to handle buffering correctly so you don’t misread data or stall.
 
 Systems need to slow down the sender until the receiver catches up — this is called **backpressure**.
 
----
-
 ### **🧠 Why didn’t Oleg have to deal with these?**
 
 Because he used **existing, low-level protocols** that already handle these cases:
@@ -377,8 +375,6 @@ Because he used **existing, low-level protocols** that already handle these case
 
 So Oleg’s design is smart: he leans on **battle-tested layers** (WebSocket → TCP) instead of writing complex buffering logic himself.
 
----
-
 ### **📦 Why abstraction level matters**
 
 When you stay at a **low enough level** — just forwarding byte streams — you don’t need to:
@@ -389,8 +385,6 @@ When you stay at a **low enough level** — just forwarding byte streams — you
 - Detect malformed headers
 
 You just move bytes from point A to point B. And the lower layers (WebSocket, TCP) do all the “annoying” work for you.
-
----
 
 At this point websocket should transmit TCP traffic just fine let’s go over security and SSL configuration.
 
@@ -425,8 +419,6 @@ The problematic part is to get SSL cert dynamicall issued based for a wildcard c
 
    …will be trusted by browsers with the green padlock — **without needing more DNS changes**.
 
----
-
 #### **🧠 Why this works**
 
 - **DNS-01 is domain-wide proof**. You’re proving control of the domain, not each individual subdomain.
@@ -441,8 +433,6 @@ Normally, each subdomain (like app.example.com, blog.example.com) would need its
 
 To get a TLS certificate, you usually have to **prove you own the domain**. There are a few ways to do that — one of them is called the **DNS-01 challenge**.
 
----
-
 #### **✅ How does the DNS-01 challenge work?**
 
 It’s pretty clever. The certificate authority (in this case, Let’s Encrypt via Caddy) asks you:
@@ -453,15 +443,11 @@ So your server uses the **Cloudflare API** to automatically add this temporary D
 
 This is all done programmatically, no manual copy-pasting or clicking around in web dashboards.
 
----
-
 #### **🔒 Why is this useful here?**
 
 This tunnel system generates **random subdomains** every time you connect (e.g., 3f9k7t2x.tunnel.example.com) so you can share your local server securely without collisions or configuration.
 
 By using **wildcard TLS with Cloudflare DNS-01**, the server can automatically give each of these subdomains a valid HTTPS certificate. That’s why they’re “instantly green-locked” — your browser trusts them _just like_ a regular secure website.
-
----
 
 #### **🧠 The big win**
 
@@ -489,8 +475,6 @@ Why Caddy?
 - Dead-simple config.
 - Runs well on low-memory VMs.
 
----
-
 #### **⚠️ Security Considerations**
 
 - **TLS is mandatory**: All tunnels go through HTTPS via Caddy.
@@ -498,8 +482,6 @@ Why Caddy?
 - **Authentication** is currently manual — a future improvement is token-based handshakes per client.
 
 If you’re running this on a shared VM, it’s easy to layer HTTP Basic Auth via Caddy or add mTLS at the tunnel level.
-
----
 
 #### **🚧 Gotchas and Lessons**
 
@@ -515,8 +497,6 @@ If you’re running this on a shared VM, it’s easy to layer HTTP Basic Auth vi
 
    Issuing certs dynamically per subdomain with Cloudflare DNS is fast, and every client can have its own URL like xyz123.tunnel.example.com.
 
----
-
 #### **🛠 Go Ecosystem Observations**
 
 - The **http.Hijacker** interface is underused but critical for tunneling.
@@ -527,15 +507,11 @@ Cross-compilation is trivial — I deploy the tunnel server on a $0 Oracle VM (A
 
 ## Next Steps + Repo
 
----
-
 #### **🧪 Future Directions**
 
 - Authentication handshake before tunnel opens.
 - gRPC transport support (structured binary protocol).
 - Prometheus metrics via middleware for tunnel traffic.
-
----
 
 #### **📦 Code & Repo**
 
