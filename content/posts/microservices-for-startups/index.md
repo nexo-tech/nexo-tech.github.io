@@ -51,7 +51,13 @@ With time, sometimes unnecessary features, it's inevitable that your app may gro
 
 The biggest advantage of monoliths is their simplicity in deployment. Generally, such projects are built around existing frameworks — it could be Django for Python, ASP.Net for C#, Nest.js for Node.js apps, etc. When sticking to monolithic architecture, you get the biggest advantage over fancy microservices — a wide support of the open source community and project maintainers who primarily designed those frameworks to work as a single process, monolithic app.
 
-At one real-estate startup where I led front-end team and occasionally consulted backend team on technologies they could use for complex features, a small Laravel app that was initially built as a basic dashboard to manage deals by real-estate agents grew into a large suite of features that handled managing gigabytes of documents, integrating dozens of third-party services while still being a basic PHP-based stack on Apache. The team followed the set of best practices the Laravel community established, and successfully scaled the feature set of the application while maintaining the business needs and expectations. The app worked fine without decoupling it into separate services and introducing potentially unnecessary accidental complexity. This echoes what others have written — like Basecamp’s take on the [“Majestic Monolith”](https://signalvnoise.com/svn3/the-majestic-monolith/), which lays out why simplicity is a superpower early on.
+At one real-estate startup where I led the front-end team, and occasionally consulted the backend team on technology choices, we had an interesting evolution of a Laravel-based app. What started as a small dashboard for real-estate agents to manage deals gradually grew into a much larger system.
+
+Over time, it evolved into a feature-rich suite that handled gigabytes of documents and integrated with dozens of third-party services. Yet, it remained built on a fairly basic PHP stack running on Apache.
+
+The team leaned heavily on best practices recommended by the Laravel community. That discipline paid off, we were able to scale the application’s capabilities significantly while still meeting the business’s needs and expectations.
+
+Interestingly, we never needed to decouple the system into microservices or adopt more complex infrastructure patterns. We avoided a lot of accidental complexity that way. The simplicity of the architecture gave us leverage. This echoes what others have written — like Basecamp’s take on the [“Majestic Monolith”](https://signalvnoise.com/svn3/the-majestic-monolith/), which lays out why simplicity is a superpower early on.
 
 People often point out that it's hard to make monoliths scalable, but it's bad modularization _inside_ the monolith that may bring such problems.
 
@@ -71,7 +77,7 @@ In one early-stage team I advised, the decision to split services created more P
 
 {{<figure src="pm-coordination.svg" width="600" alt="Coordination between teams">}}
 
-**Diagram:** Coordination overhead grows linearly with services — and exponentially when you add product managers, deadlines, and misaligned timelines.
+_**Diagram:** Coordination overhead grows linearly with services — and exponentially when you add product managers, deadlines, and misaligned timelines._
 
 Here are the most common anti-patterns that creep in early.
 
@@ -242,9 +248,9 @@ To summarize: if you're still going for microservices, you should beforehand und
 
 ## Related resources
 
-- [“Monolith First”](https://martinfowler.com/bliki/MonolithFirst.html) — Martin Fowler
-- [“The Majestic Monolith”](https://signalvnoise.com/svn3/the-majestic-monolith) — DHH / Basecamp
-- [Goodbye Microservices: From 100s of problem children to 1 superstar”](https://segment.com/blog/goodbye-microservices) — Segment Eng.
-- [“Deconstructing the Monolith”](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity) — Shopify Eng.
-- [“Domain‑Oriented Microservice Architecture”](https://www.uber.com/blog/microservice-architecture/) — Uber Eng.
-- [“Go + Services = One Goliath Project”](https://blog.khanacademy.org/go-services-one-goliath-project/) — Khan Academy
+- [“Monolith First”](https://martinfowler.com/bliki/MonolithFirst.html) — Martin Fowler
+- [“The Majestic Monolith”](https://signalvnoise.com/svn3/the-majestic-monolith) — DHH / Basecamp
+- [Goodbye Microservices: From 100s of problem children to 1 superstar”](https://segment.com/blog/goodbye-microservices) — Segment Eng.
+- [“Deconstructing the Monolith”](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity) — Shopify Eng.
+- [“Domain‑Oriented Microservice Architecture”](https://www.uber.com/blog/microservice-architecture/) — Uber Eng.
+- [“Go + Services = One Goliath Project”](https://blog.khanacademy.org/go-services-one-goliath-project/) — Khan Academy
