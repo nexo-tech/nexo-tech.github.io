@@ -1,0 +1,141 @@
+direction: right
+monolith: {
+  user: {
+    icon: https://icons.terrastruct.com/aws%2F_General%2FUser_light-bg.svg
+  }
+  user -> monolith -> db
+  monolith: {
+    icon: https://icons.terrastruct.com/azure%2FIdentity%20Service%20Color%2FApp%20Registrations.svg
+  }
+  db: {
+    icon: https://icons.terrastruct.com/aws%2F_General%2FGeneric-database_light-bg.svg
+  }
+}
+microservice: {
+  user: {
+    icon: https://icons.terrastruct.com/aws%2F_General%2FUser_light-bg.svg
+  }
+  API Gateway: {
+    icon: https://icons.terrastruct.com/aws%2FNetworking%20&%20Content%20Delivery%2FAmazon-API-Gateway.svg
+  }
+  user -> API Gateway
+  API Gateway -> Auth service
+  API Gateway -> User service
+  API Gateway -> Orders service
+  API Gateway -> Notifications service
+
+  Auth service: {
+    icon: https://icons.terrastruct.com/azure%2FWeb%20Service%20Color%2FApp%20Services.svg
+  }
+  User service: {
+    icon: https://icons.terrastruct.com/azure%2FWeb%20Service%20Color%2FApp%20Services.svg
+  }
+  Notifications service: {
+    icon: https://icons.terrastruct.com/azure%2FWeb%20Service%20Color%2FApp%20Services.svg
+  }
+  Orders service: {
+    icon: https://icons.terrastruct.com/azure%2FWeb%20Service%20Color%2FApp%20Services.svg
+  }
+
+  Auth service -> Shared DB
+  User service -> Shared DB
+  Orders service -> Shared DB
+  Notifications service -> Shared DB
+
+  Shared DB: {
+    icon: https://icons.terrastruct.com/aws%2F_General%2FGeneric-database_light-bg.svg
+  }
+}
+
+
+---
+
+# direction: right
+
+Monolith: {
+  M1: "Test Suite"
+  M2: "Monolith Code"
+  M1 -> M2
+
+  M1: {
+    icon: https://icons.terrastruct.com/azure%2FDevOps%20Service%20Color%2FAzure%20Test%20Plans.svg
+  }
+}
+
+Microservices: {
+  T1: "Service A Test"
+  T2: "Service B Test"
+  T3: "Service C Test"
+  A: "Service A"
+  B: "Service B"
+  C: "Service C"
+  T1 -> A
+  T2 -> B
+  T3 -> C
+
+  T1: {
+    icon: https://icons.terrastruct.com/azure%2FDevOps%20Service%20Color%2FAzure%20Test%20Plans.svg
+  }
+
+  T2: {
+    icon: https://icons.terrastruct.com/azure%2FDevOps%20Service%20Color%2FAzure%20Test%20Plans.svg
+  }
+
+  T3: {
+    icon: https://icons.terrastruct.com/azure%2FDevOps%20Service%20Color%2FAzure%20Test%20Plans.svg
+  }
+}
+
+
+
+---
+
+
+"Monolith Dev": {
+  M1: "1 Repo"
+  M2: "1 Setup Script"
+  M3: "1 Database"
+  M1 -> M2 -> M3
+}
+
+"Microservices Dev": {
+  R1: "Repo A"
+  R2: "Repo B"
+  R3: "Repo C"
+  S1: "Docker Compose"
+  E1: "Custom Setup Scripts"
+
+  R1 -> S1
+  R2 -> S1
+  R3 -> S1
+  S1 -> E1
+}
+
+---
+
+direction: right
+
+L: "Shared Lib"
+
+S1: "Service A"
+S1 -> L
+S2: "Service B"
+S2 -> L
+S3: "Service C"
+S3 -> L
+
+---
+
+direction: right
+
+PM1: "Product manager Team A"
+ENG1: "Service A"
+PM2: "Product manager Team B"
+ENG2: "Service B"
+ENG3: "Service C"
+
+PM1 -> ENG1
+PM2 -> ENG2
+PM2 -> ENG3
+ENG1 -> ENG2
+ENG2 -> ENG3

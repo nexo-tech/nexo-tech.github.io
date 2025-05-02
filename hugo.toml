@@ -12,6 +12,11 @@ copyright = "Oleg Pustovit"
 noClasses = false
 style = 'catppuccin-latte'
 lineNos = true
+[markup.goldmark]
+    [markup.goldmark.parser]
+      wrapStandAloneImageWithinParagraph = false
+      [markup.goldmark.parser.attribute]
+        block = true
 
 
 [build]
