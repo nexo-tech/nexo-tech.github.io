@@ -133,7 +133,7 @@ These tools save time otherwise spent writing glue code or reinventing orchestra
 - CI performance tuning is non-trivial
 - You may need faster tooling (like bun) to keep build times down
 
-Takeaway: Tooling like `nx` or `turborepo` gives small teams monorepo velocity — if you’re willing to invest in keeping them clean.
+To summarize: Tooling like `nx` or `turborepo` gives small teams monorepo velocity — if you’re willing to invest in keeping them clean.
 
 When developing `go`-based microservices, a good idea early in the development is to use a single ` go` workspace with the `replace` directive in `go.mod`. Eventually, as the software scales, it's possible to effortlessly separate ` go` modules into separate repositories.
 
@@ -248,9 +248,9 @@ To summarize: if you're still going for microservices, you should beforehand und
 
 ## Related resources
 
-- [“Monolith First”](https://martinfowler.com/bliki/MonolithFirst.html) — Martin Fowler
-- [“The Majestic Monolith”](https://signalvnoise.com/svn3/the-majestic-monolith) — DHH / Basecamp
-- [Goodbye Microservices: From 100s of problem children to 1 superstar”](https://segment.com/blog/goodbye-microservices) — Segment Eng.
-- [“Deconstructing the Monolith”](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity) — Shopify Eng.
-- [“Domain‑Oriented Microservice Architecture”](https://www.uber.com/blog/microservice-architecture/) — Uber Eng.
-- [“Go + Services = One Goliath Project”](https://blog.khanacademy.org/go-services-one-goliath-project/) — Khan Academy
+- [Monolith First](https://martinfowler.com/bliki/MonolithFirst.html) — Martin Fowler
+- [The Majestic Monolith](https://signalvnoise.com/svn3/the-majestic-monolith) — DHH / Basecamp
+- [Goodbye Microservices: From 100s of problem children to 1 superstar](https://segment.com/blog/goodbye-microservices) — Segment Eng.
+- [Deconstructing the Monolith](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity) — Shopify Eng.
+- [Domain‑Oriented Microservice Architecture](https://www.uber.com/blog/microservice-architecture/) — Uber Eng.
+- [Go + Services = One Goliath Project](https://blog.khanacademy.org/go-services-one-goliath-project/) — Khan Academy
