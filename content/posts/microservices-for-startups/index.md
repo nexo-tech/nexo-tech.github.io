@@ -1,6 +1,6 @@
 ---
-date: 2025-05-01T11:21:22.800Z
-draft: true
+date: 2025-05-05T10:22:27.523Z
+draft: false
 params:
   author: Oleg Pustovit
 title: "Microservices Are a Tax Your Startup Probably Can’t Afford"
@@ -8,11 +8,11 @@ weight: 10
 images:
   - frame.jpg
 tags:
-  - node.js
-  - go
   - microservices
   - monolith
   - architecture
+  - node.js
+  - go
 ---
 
 > _Why splitting your codebase too early can quietly destroy your team’s velocity — and what to do instead_.
@@ -53,7 +53,7 @@ The biggest advantage of monoliths is their simplicity in deployment. Generally,
 
 At one real-estate startup where I led the front-end team, and occasionally consulted the backend team on technology choices, we had an interesting evolution of a Laravel-based app. What started as a small dashboard for real-estate agents to manage deals gradually grew into a much larger system.
 
-Over time, it evolved into a feature-rich suite that handled gigabytes of documents and integrated with dozens of third-party services. Yet, it remained built on a fairly basic PHP stack running on Apache.
+Over time, it evolved into a feature-rich suite that handled hundreds of gigabytes of documents and integrated with dozens of third-party services. Yet, it remained built on a fairly basic PHP stack running on Apache.
 
 The team leaned heavily on best practices recommended by the Laravel community. That discipline paid off, we were able to scale the application’s capabilities significantly while still meeting the business’s needs and expectations.
 
