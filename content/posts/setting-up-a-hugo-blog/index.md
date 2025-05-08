@@ -4,6 +4,7 @@ params:
   author: Oleg Pustovit
 title: Deploying a Hugo Blog to GitHub Pages with Actions
 weight: 10
+canonical_url: https://hackernoon.com/how-to-deploy-a-hugo-blog-to-github-pages-with-actions
 images:
   - frame.jpg
 tags:

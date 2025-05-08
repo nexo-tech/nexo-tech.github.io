@@ -51,7 +51,7 @@ title = "Oleg Pustovit – Technical Leadership & MVP Development for Startups"
 title = "[nexo.sh]"
 homeTitle = "[nexo.sh]"
 items = [
-  { text = "services", href = "/#services", homeHref = "#services" },
+  { text = "work", href = "/#services", homeHref = "#services" },
   { text = "writings", href = "/posts", homeHref = "#writings" },
   { text = "contact", href = "/#collaborate", homeHref = "#collaborate" }
 ]

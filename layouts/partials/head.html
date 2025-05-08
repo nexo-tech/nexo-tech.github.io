@@ -8,7 +8,7 @@
   {{ if .IsPage }} {{ .Title }} | {{ end }}{{ default .Site.Title
   .Site.Params.Title }}
 </title>
-<link rel="canonical" href="{{ .Permalink }}" />
+<link rel="canonical" href="{{ if .Params.canonical_url }}{{ .Params.canonical_url }}{{ else }}{{ .Permalink }}{{ end }}" />
 {{ with .Site.Params.MetaDescription }}
 <meta name="description" content="{{ . }}" />
 {{ end }} {{ with .Site.Author }}
