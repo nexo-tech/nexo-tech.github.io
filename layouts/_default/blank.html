@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+{{ partial "head.html" . }}
+{{ partialCached "css.html" . }}
+</head>
+<body class="bg-bg min-h-screen font-inter">
+
+    {{ partial "header.html" . }}
+
+    {{ .Content | safeHTML }}
+
+
+</body>
+
+<link rel="stylesheet" href={{ "lib/font-awesome/css/all.min.css" | relURL }}>
+
+
+
+{{- $options := dict "targetPath" "js/bundle.js" -}}
+{{- $jsBundle := resources.Get "js/index.js" | js.Build $options | resources.Minify | fingerprint -}}
+<script src="{{ $jsBundle.RelPermalink }}" integrity="{{ $jsBundle.Data.Integrity }}" defer></script>
+</html>
