@@ -14,158 +14,195 @@ layout: blank
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #111827; /* gray-900 */
-        color: #f3f4f6; /* gray-100 */
+        background-color: #0a0a0a;
+        color: #f3f4f6;
       }
       /* Hide Scrollbar for a cleaner Apple look */
-      /* Works on Chrome, Edge, and Safari */
       body::-webkit-scrollbar {
         display: none;
       }
-      /* Works on Firefox */
       body {
         scrollbar-width: none;
+      }
+      /* Premium gradient animations */
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .animate-gradient {
+        background-size: 200% 200%;
+        animation: gradient 15s ease infinite;
+      }
+      /* Glass effect */
+      .glass {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      /* Premium hover effects */
+      .hover-lift {
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .hover-lift:hover {
+        transform: translateY(-4px);
+      }
+      /* Premium text gradient */
+      .text-gradient {
+        background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
     </style>
 <!--end head-->
   <div class="antialiased scroll-smooth">
     <!-- Hero -->
-    <section class="relative flex min-h-screen flex-col items-center justify-center px-6 text-center">
-      <!-- Enhanced gradient backdrop -->
-      <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-950"></div>
-      <!-- Additional gradient overlays for visual interest -->
+    <section class="relative flex min-h-screen flex-col items-center justify-center px-6 text-center overflow-hidden">
+      <!-- Premium gradient backdrop -->
+      <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient"></div>
+      
+      <!-- Sophisticated gradient overlays -->
       <div class="pointer-events-none absolute inset-0 -z-10">
-        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl"></div>
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl"></div>
+        <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-2xl"></div>
       </div>
 
-      <h1 class="max-w-4xl text-4xl md:text-6xl font-extrabold leading-tight text-white" data-animate>
+      <!-- Premium floating elements -->
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl animate-pulse delay-1000"></div>
+      </div>
+
+      <h1 class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-tight text-gradient" data-animate>
         Reply Like a Pro.<br class="hidden md:block" />Grow Faster on&nbsp;X.
       </h1>
-      <p class="mt-6 max-w-xl text-lg md:text-xl text-gray-300" data-animate>
+      <p class="mt-8 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed" data-animate>
         Generate <span class="font-semibold text-white">100+ context‑aware replies</span> in minutes and watch your following take off.
       </p>
       <a
         href="https://twitter.com/nexo_v1"
         target="_blank"
         rel="noopener noreferrer"
-        class="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-medium text-gray-900 shadow-lg shadow-gray-900/30 transition hover:scale-[1.03] hover:shadow-xl hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/40"
+        class="mt-12 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-medium text-gray-900 shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift"
         data-animate
       >
         Follow <span class="font-semibold">@nexo_v1</span> →
       </a>
-      <p class="mt-4 text-sm text-gray-400" data-animate>Early followers get first‑wave beta invites.</p>
+      <p class="mt-6 text-sm text-gray-400" data-animate>Early followers get first‑wave beta invites.</p>
     </section>
 
     <!-- Pain Section -->
-    <section class="py-24 bg-gray-950" id="pain">
+    <section class="py-32 bg-black/50" id="pain">
       <div class="mx-auto max-w-5xl px-6">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-white" data-animate>
+        <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
           The Hidden Cost of Growth
         </h2>
-        <p class="mt-6 text-center text-gray-300 max-w-3xl mx-auto" data-animate>
+        <p class="mt-8 text-center text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed" data-animate>
           Meaningful replies = visibility = followers. But cranking out 100 thoughtful responses every day? That's a full‑time job—until now.
         </p>
-        <div class="mt-12 grid gap-8 md:grid-cols-3" data-animate>
-          <div class="rounded-2xl border border-gray-800 p-8 shadow-sm bg-gray-900">
+        <div class="mt-16 grid gap-8 md:grid-cols-3" data-animate>
+          <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
             <h3 class="text-xl font-semibold text-white">Time‑Sink</h3>
-            <p class="mt-2 text-gray-400">Typing eats hours you should spend creating.</p>
+            <p class="mt-3 text-gray-400 leading-relaxed">Typing eats hours you should spend creating.</p>
           </div>
-          <div class="rounded-2xl border border-gray-800 p-8 shadow-sm bg-gray-900">
+          <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
             <h3 class="text-xl font-semibold text-white">Writer's Block</h3>
-            <p class="mt-2 text-gray-400">Staring at a blank reply box kills momentum.</p>
+            <p class="mt-3 text-gray-400 leading-relaxed">Staring at a blank reply box kills momentum.</p>
           </div>
-          <div class="rounded-2xl border border-gray-800 p-8 shadow-sm bg-gray-900">
+          <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
             <h3 class="text-xl font-semibold text-white">Tone Trouble</h3>
-            <p class="mt-2 text-gray-400">Generic AI answers sound… generic.</p>
+            <p class="mt-3 text-gray-400 leading-relaxed">Generic AI answers sound… generic.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Solution Section -->
-    <section class="bg-gray-900 py-24" id="solution">
+    <section class="py-32 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient" id="solution">
       <div class="mx-auto max-w-5xl px-6">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-white" data-animate>
+        <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
           Meet <span class="text-blue-400">Hypertweet</span> — Your AI&nbsp;Reply Keyboard
         </h2>
-        <p class="mt-6 text-center text-gray-300 max-w-3xl mx-auto" data-animate>
+        <p class="mt-8 text-center text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed" data-animate>
           A Chrome extension that slides a smart keyboard under every reply box and suggests on‑brand responses you can post—or polish—in one tap.
         </p>
-        <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4" data-animate>
-          <div class="flex flex-col items-center text-center">
-            <span class="mb-3 text-4xl">⚡️</span>
-            <h3 class="font-semibold text-white">10× Your Output</h3>
-            <p class="mt-2 text-gray-400">Draft a day's replies before your coffee cools.</p>
+        <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4" data-animate>
+          <div class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift">
+            <span class="mb-4 text-4xl">⚡️</span>
+            <h3 class="font-semibold text-white text-lg">10× Your Output</h3>
+            <p class="mt-3 text-gray-400 leading-relaxed">Draft a day's replies before your coffee cools.</p>
           </div>
-          <div class="flex flex-col items-center text-center">
-            <span class="mb-3 text-4xl">🎤</span>
-            <h3 class="font-semibold text-white">Sounds Just Like You</h3>
-            <p class="mt-2 text-gray-400">Syncs with your bio to mimic your voice.</p>
+          <div class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift">
+            <span class="mb-4 text-4xl">🎤</span>
+            <h3 class="font-semibold text-white text-lg">Sounds Just Like You</h3>
+            <p class="mt-3 text-gray-400 leading-relaxed">Syncs with your bio to mimic your voice.</p>
           </div>
-          <div class="flex flex-col items-center text-center">
-            <span class="mb-3 text-4xl">🔒</span>
-            <h3 class="font-semibold text-white">Privacy‑First & Local</h3>
-            <p class="mt-2 text-gray-400">Runs in‑browser—your data never leaves your machine.</p>
+          <div class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift">
+            <span class="mb-4 text-4xl">🔒</span>
+            <h3 class="font-semibold text-white text-lg">Privacy‑First & Local</h3>
+            <p class="mt-3 text-gray-400 leading-relaxed">Runs in‑browser—your data never leaves your machine.</p>
           </div>
-          <div class="flex flex-col items-center text-center">
-            <span class="mb-3 text-4xl">💸</span>
-            <h3 class="font-semibold text-white">Token‑Smart</h3>
-            <p class="mt-2 text-gray-400">Minimal prompts keep OpenAI costs pennies per day.</p>
+          <div class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift">
+            <span class="mb-4 text-4xl">💸</span>
+            <h3 class="font-semibold text-white text-lg">Token‑Smart</h3>
+            <p class="mt-3 text-gray-400 leading-relaxed">Minimal prompts keep OpenAI costs pennies per day.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- How It Works Section -->
-    <section class="py-24 bg-gray-950" id="how-it-works">
+    <section class="py-32 bg-black/50" id="how-it-works">
       <div class="mx-auto max-w-5xl px-6">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-white" data-animate>
+        <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
           How It Works
         </h2>
-        <ol class="mt-12 space-y-8 md:space-y-0 md:grid md:grid-cols-4 md:gap-8" data-animate>
-          <li class="relative flex flex-col items-start rounded-2xl border border-gray-800 p-8 shadow-sm bg-gray-900">
-            <span class="absolute -top-4 -left-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">1</span>
-            <h3 class="mt-4 font-semibold text-white">Install</h3>
-            <p class="mt-2 text-gray-400">Free while in beta.</p>
+        <ol class="mt-16 space-y-8 md:space-y-0 md:grid md:grid-cols-4 md:gap-8" data-animate>
+          <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
+            <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">1</span>
+            <h3 class="mt-4 font-semibold text-white text-lg">Install</h3>
+            <p class="mt-3 text-gray-400 leading-relaxed">Free while in beta.</p>
           </li>
-          <li class="relative flex flex-col items-start rounded-2xl border border-gray-800 p-8 shadow-sm bg-gray-900">
-            <span class="absolute -top-4 -left-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">2</span>
-            <h3 class="mt-4 font-semibold text-white">Link Profiles</h3>
-            <p class="mt-2 text-gray-400">Instant personality training from Twitter & LinkedIn.</p>
+          <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
+            <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">2</span>
+            <h3 class="mt-4 font-semibold text-white text-lg">Link Profiles</h3>
+            <p class="mt-3 text-gray-400 leading-relaxed">Instant personality training from Twitter & LinkedIn.</p>
           </li>
-          <li class="relative flex flex-col items-start rounded-2xl border border-gray-800 p-8 shadow-sm bg-gray-900">
-            <span class="absolute -top-4 -left-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">3</span>
-            <h3 class="mt-4 font-semibold text-white">Tap Lightning</h3>
-            <p class="mt-2 text-gray-400">Get 3 crisp replies under any tweet.</p>
+          <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
+            <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">3</span>
+            <h3 class="mt-4 font-semibold text-white text-lg">Tap Lightning</h3>
+            <p class="mt-3 text-gray-400 leading-relaxed">Get 3 crisp replies under any tweet.</p>
           </li>
-          <li class="relative flex flex-col items-start rounded-2xl border border-gray-800 p-8 shadow-sm bg-gray-900">
-            <span class="absolute -top-4 -left-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">4</span>
-            <h3 class="mt-4 font-semibold text-white">Edit & Post</h3>
-            <p class="mt-2 text-gray-400">You stay in control—100% ToS‑compliant.</p>
+          <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
+            <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">4</span>
+            <h3 class="mt-4 font-semibold text-white text-lg">Edit & Post</h3>
+            <p class="mt-3 text-gray-400 leading-relaxed">You stay in control—100% ToS‑compliant.</p>
           </li>
         </ol>
       </div>
     </section>
 
     <!-- CTA Banner -->
-    <section class="relative overflow-hidden bg-gray-900 py-20 text-white">
+    <section class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-950 to-black py-32 text-white">
       <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl"></div>
-        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-2xl"></div>
+        <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-2xl animate-pulse delay-1000"></div>
       </div>
       <div class="relative mx-auto max-w-3xl px-6 text-center" data-animate>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-gradient">
           Ready to Own the Timeline?
         </h2>
-        <p class="mt-4 text-lg text-gray-300">
+        <p class="mt-6 text-lg text-gray-300 leading-relaxed">
           Follow now—beta invites roll out to early supporters first.
         </p>
         <a
           href="https://twitter.com/nexo_v1"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-10 inline-flex items-center gap-2 rounded-full bg-blue-500 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-blue-500/20 transition hover:scale-[1.03] hover:shadow-2xl hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-500/40"
+          class="mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/40 hover-lift"
         >
           Follow <span class="font-semibold">@nexo_v1</span> →
         </a>
@@ -173,9 +210,9 @@ layout: blank
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 text-center text-sm text-gray-400">
+    <footer class="py-12 text-center text-sm text-gray-400 bg-black/50">
       © 2025 Hypertweet. Not affiliated with X Corp. | Privacy‑first | Built in public by
-      <a href="https://twitter.com/nexo_v1" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-300">@nexo_v1</a>
+      <a href="https://twitter.com/nexo_v1" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-300 transition-colors">@nexo_v1</a>
     </footer>
 
     <!-- GSAP Animations -->
@@ -188,8 +225,8 @@ layout: blank
           gsap.from(el, {
             opacity: 0,
             y: 40,
-            duration: 0.8,
-            ease: 'power2.out',
+            duration: 1,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: el,
               start: 'top 85%',
