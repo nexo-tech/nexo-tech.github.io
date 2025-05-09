@@ -5,8 +5,13 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>
-  {{ if .IsPage }} {{ .Title }} | {{ end }}{{ default .Site.Title
-  .Site.Params.Title }}
+  {{ if eq .Layout "blank" }}
+    {{ .Title }}
+  {{ else if .IsPage }}
+    {{ .Title }} | {{ default .Site.Title .Site.Params.Title }}
+  {{ else }}
+    {{ default .Site.Title .Site.Params.Title }}
+  {{ end }}
 </title>
 <link rel="canonical" href="{{ if .Params.canonical_url }}{{ .Params.canonical_url }}{{ else }}{{ .Permalink }}{{ end }}" />
 {{ with .Site.Params.MetaDescription }}
