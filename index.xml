@@ -11,4 +11,84 @@
 &lt;p>Your privacy is important to me. This blog is a personal, non-commercial website focused on publishing technical content. I aim to maintain a privacy-respecting experience for all visitors, while also gaining insights to improve the content and performance of the site.&lt;/p>
 &lt;p>This policy outlines what data is (and is not) collected when you visit this site.&lt;/p>
 &lt;h2 id="1-information-i-collect">&lt;strong>1. Information I Collect&lt;/strong>&lt;/h2>
-&lt;p>This site uses Google Analytics to collect anonymized usage data. This may include:&lt;/p></description></item></channel></rss>
+&lt;p>This site uses Google Analytics to collect anonymized usage data. This may include:&lt;/p></description></item><item><title>Hypertweet</title><link>https://nexo.sh/hypertweet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://nexo.sh/hypertweet/</guid><description>&lt;!--head-->
+ &lt;!-- &lt;meta charset="UTF-8" />
+ &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ &lt;!-- Tailwind CSS CDN -->
+ &lt;!-- &lt;script src="https://cdn.tailwindcss.com">&lt;/script> --> 
+ &lt;!-- Inter font for modern, Apple‑like typography -->
+ &lt;!-- &lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" /> -->
+ &lt;!-- GSAP &amp; ScrollTrigger -->
+ &lt;!-- &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer>&lt;/script>
+ &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer>&lt;/script> -->
+ &lt;style>
+ body {
+ font-family: 'Inter', sans-serif;
+ background-color: #0a0a0a;
+ color: #f3f4f6;
+ }
+ /* Hide Scrollbar for a cleaner Apple look */
+ body::-webkit-scrollbar {
+ display: none;
+ }
+ body {
+ scrollbar-width: none;
+ }
+ /* Premium gradient animations */
+ @keyframes gradient {
+ 0% { background-position: 0% 50%; }
+ 50% { background-position: 100% 50%; }
+ 100% { background-position: 0% 50%; }
+ }
+ .animate-gradient {
+ background-size: 200% 200%;
+ animation: gradient 15s ease infinite;
+ }
+ /* Glass effect */
+ .glass {
+ background: rgba(255, 255, 255, 0.03);
+ backdrop-filter: blur(10px);
+ border: 1px solid rgba(255, 255, 255, 0.05);
+ }
+ /* Premium hover effects */
+ .hover-lift {
+ transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+ }
+ .hover-lift:hover {
+ transform: translateY(-4px);
+ }
+ /* Premium text gradient */
+ .text-gradient {
+ background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ background-clip: text;
+ }
+ &lt;/style>
+&lt;!--end head-->
+ &lt;div class="antialiased scroll-smooth">
+ &lt;!-- Hero -->
+ &lt;section class="relative flex min-h-screen flex-col items-center justify-center px-6 text-center overflow-hidden">
+ &lt;!-- Premium gradient backdrop -->
+ &lt;div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient">&lt;/div>
+ 
+ &lt;!-- Sophisticated gradient overlays -->
+ &lt;div class="pointer-events-none absolute inset-0 -z-10">
+ &lt;div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5">&lt;/div>
+ &lt;div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl">&lt;/div>
+ &lt;div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl">&lt;/div>
+ &lt;div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-2xl">&lt;/div>
+ &lt;/div>
+
+ &lt;!-- Premium floating elements -->
+ &lt;div class="absolute inset-0 pointer-events-none">
+ &lt;div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl animate-pulse">&lt;/div>
+ &lt;div class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl animate-pulse delay-1000">&lt;/div>
+ &lt;/div>
+
+ &lt;h1 class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-tight text-gradient" data-animate>
+ Reply Like a Pro.&lt;br class="hidden md:block" />Grow Faster on&amp;nbsp;X.
+ &lt;/h1>
+ &lt;p class="mt-8 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed" data-animate>
+ Upgrade the way you engage: generate &lt;span class="font-semibold text-white">100+ context‑aware replies in minutes&lt;/span> and watch your following take off.
+ &lt;/p></description></item></channel></rss>
