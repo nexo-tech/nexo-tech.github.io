@@ -83,16 +83,37 @@ title: Hypertweet
       <p class="mt-8 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed" data-animate>
         Upgrade the way you engage: generate <span class="font-semibold text-white">100+ context‑aware replies in minutes</span> and watch your following take off.
       </p>
-      <a
-        href="https://twitter.com/nexo_v1"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="mt-12 inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-lg font-medium text-gray-900 shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift"
-        data-animate
-      >
-        Follow <span class="font-semibold">@nexo_v1</span> →
-      </a>
-      <p class="mt-6 text-sm text-gray-400" data-animate>Early followers get first‑wave beta invites.</p>
+      <div class="mt-12 flex flex-col items-center gap-4" data-animate>
+        <a
+          href="https://twitter.com/nexo_v1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift hero-cta-button opacity-0"
+        >
+          <span class="relative z-10 hero-cta-text">Follow for Early Access</span>
+          <span class="relative z-10 hero-cta-arrow">→</span>
+        </a>
+        <div class="flex flex-col items-center gap-2">
+          <p class="text-sm text-gray-400 hero-cta-note">
+            <span class="inline-flex items-center gap-1">
+              <span class="flex h-2 w-2">
+                <span class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+              </span>
+              First 100 followers get lifetime free access
+            </span>
+          </p>
+          <p class="text-sm text-gray-400">
+            <span class="inline-flex items-center gap-1">
+              <span class="flex h-2 w-2">
+                <span class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+              </span>
+              Weekly updates on development progress
+            </span>
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- Pain Section -->
@@ -215,7 +236,7 @@ title: Hypertweet
           </div>
         </div>
         <div class="mt-16 glass p-8 rounded-2xl text-center" data-animate>
-          <p class="text-gray-300 text-lg italic">Who’s this for?</p>
+          <p class="text-gray-300 text-lg italic">Who's this for?</p>
           <p class="mt-4 text-white text-xl font-medium">Anyone who replies for reach: creators, indie hackers, solopreneurs, brand accounts, and growth-minded teams.</p>
         </div>
       </div>
@@ -253,27 +274,38 @@ title: Hypertweet
     </section>
 
     <!-- CTA Banner -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-950 to-black py-32 text-white">
+    <section class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-950 to-black py-32 text-white" id="cta-section">
+      <!-- Enhanced gradient animations -->
       <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-2xl animate-pulse delay-1000"></div>
+        <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl animate-pulse cta-glow-1"></div>
+        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-2xl animate-pulse delay-1000 cta-glow-2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl cta-glow-3"></div>
       </div>
+
+      <!-- Floating elements -->
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl cta-float-1"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl cta-float-2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-pink-500/5 blur-xl cta-float-3"></div>
+      </div>
+
       <div class="relative mx-auto max-w-3xl px-6 text-center" data-animate>
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-gradient">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-gradient cta-title">
           Ready to Own the Timeline?
         </h2>
-        <p class="mt-6 text-lg text-gray-300 leading-relaxed">
+        <p class="mt-6 text-lg text-gray-300 leading-relaxed cta-subtitle">
           Follow now. Beta invites go out to early supporters first.
         </p>
         <a
           href="https://twitter.com/nexo_v1"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/40 hover-lift"
+          class="mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift cta-button"
         >
-          Follow <span class="font-semibold">@nexo_v1</span> →
+          <span class="cta-button-text">Follow <span class="font-semibold">@nexo_v1</span></span>
+          <span class="cta-button-arrow">→</span>
         </a>
-        <p class="mt-6 text-sm text-gray-400">Already following? Retweet the pinned post and jump the waitlist!</p>
+        <p class="mt-6 text-sm text-gray-400 cta-note">Already following? Retweet the pinned post and jump the waitlist!</p>
       </div>
     </section>
 
@@ -283,12 +315,13 @@ title: Hypertweet
       <a href="https://twitter.com/nexo_v1" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-300 transition-colors">@nexo_v1</a>
     </footer>
 
-    <!-- GSAP Animations -->
+    <!-- Enhanced GSAP Animations -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         gsap.registerPlugin(ScrollTrigger);
         document.body.classList.add('dark-mode');
 
+        // Base animations for all sections
         gsap.utils.toArray('[data-animate]').forEach((el) => {
           gsap.from(el, {
             opacity: 0,
@@ -300,6 +333,299 @@ title: Hypertweet
               start: 'top 85%',
             },
           });
+        });
+
+        // Hero CTA Button Animations
+        const heroCtaButton = document.querySelector('.hero-cta-button');
+        const heroCtaText = document.querySelector('.hero-cta-text');
+        const heroCtaArrow = document.querySelector('.hero-cta-arrow');
+
+        // Initial button animation
+        gsap.to(heroCtaButton, {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: 'elastic.out(1, 0.5)',
+          delay: 0.5
+        });
+
+        // Continuous subtle pulse animation
+        gsap.to(heroCtaButton, {
+          boxShadow: '0 0 30px rgba(255, 255, 255, 0.2)',
+          duration: 1.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+
+        // Arrow animation
+        gsap.to(heroCtaArrow, {
+          x: 5,
+          duration: 1,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut'
+        });
+
+        // Hover animations
+        heroCtaButton.addEventListener('mouseenter', () => {
+          gsap.to(heroCtaButton, {
+            scale: 1.05,
+            boxShadow: '0 0 40px rgba(255, 255, 255, 0.3)',
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+          
+          gsap.to(heroCtaText, {
+            scale: 1.05,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+
+          gsap.to(heroCtaArrow, {
+            x: 10,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+
+          // Create ripple effect
+          const ripple = document.createElement('div');
+          ripple.className = 'absolute inset-0 rounded-full bg-white/20 pointer-events-none';
+          heroCtaButton.appendChild(ripple);
+          
+          gsap.fromTo(ripple, 
+            { scale: 0, opacity: 0.5 },
+            { 
+              scale: 2,
+              opacity: 0,
+              duration: 0.6,
+              ease: 'power2.out',
+              onComplete: () => ripple.remove()
+            }
+          );
+        });
+
+        heroCtaButton.addEventListener('mouseleave', () => {
+          gsap.to(heroCtaButton, {
+            scale: 1,
+            boxShadow: '0 0 20px rgba(255, 255, 255, 0.1)',
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+
+          gsap.to(heroCtaText, {
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+
+          gsap.to(heroCtaArrow, {
+            x: 0,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+
+        // Add sparkle effect
+        function createSparkle() {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'absolute w-1 h-1 bg-white rounded-full pointer-events-none';
+          heroCtaButton.appendChild(sparkle);
+
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 50 + Math.random() * 50;
+          const x = Math.cos(angle) * distance;
+          const y = Math.sin(angle) * distance;
+
+          gsap.fromTo(sparkle,
+            { 
+              x: 0,
+              y: 0,
+              opacity: 1,
+              scale: 1
+            },
+            {
+              x: x,
+              y: y,
+              opacity: 0,
+              scale: 0,
+              duration: 1 + Math.random(),
+              ease: 'power2.out',
+              onComplete: () => sparkle.remove()
+            }
+          );
+        }
+
+        // Create sparkles periodically
+        setInterval(createSparkle, 2000);
+
+        // Add click effect
+        heroCtaButton.addEventListener('click', () => {
+          gsap.to(heroCtaButton, {
+            scale: 0.95,
+            duration: 0.1,
+            yoyo: true,
+            repeat: 1
+          });
+
+          // Create burst effect
+          for (let i = 0; i < 8; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'absolute w-1 h-1 bg-white rounded-full pointer-events-none';
+            heroCtaButton.appendChild(particle);
+
+            const angle = (i / 8) * Math.PI * 2;
+            const distance = 100;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+
+            gsap.fromTo(particle,
+              { 
+                x: 0,
+                y: 0,
+                opacity: 1,
+                scale: 1
+              },
+              {
+                x: x,
+                y: y,
+                opacity: 0,
+                scale: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                onComplete: () => particle.remove()
+              }
+            );
+          }
+        });
+
+        // CTA Section Specific Animations
+        const ctaSection = document.getElementById('cta-section');
+        
+        // Floating elements animation
+        gsap.to('.cta-float-1', {
+          y: -20,
+          x: 20,
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+
+        gsap.to('.cta-float-2', {
+          y: 20,
+          x: -20,
+          duration: 5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+
+        gsap.to('.cta-float-3', {
+          scale: 1.2,
+          duration: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+
+        // Glow effects animation
+        gsap.to('.cta-glow-1', {
+          opacity: 0.5,
+          duration: 2,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+
+        gsap.to('.cta-glow-2', {
+          opacity: 0.5,
+          duration: 2.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+
+        gsap.to('.cta-glow-3', {
+          scale: 1.1,
+          duration: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+
+        // CTA Button hover animation
+        const ctaButton = document.querySelector('.cta-button');
+        ctaButton.addEventListener('mouseenter', () => {
+          gsap.to('.cta-button-text', {
+            scale: 1.05,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+          gsap.to('.cta-button', {
+            boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)',
+            duration: 0.3
+          });
+        });
+
+        ctaButton.addEventListener('mouseleave', () => {
+          gsap.to('.cta-button-text', {
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+          gsap.to('.cta-button', {
+            boxShadow: '0 0 20px rgba(59, 130, 246, 0.2)',
+            duration: 0.3
+          });
+        });
+
+        // Scroll-triggered animations for CTA elements
+        gsap.from('.cta-title', {
+          scrollTrigger: {
+            trigger: '#cta-section',
+            start: 'top 80%',
+          },
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out'
+        });
+
+        gsap.from('.cta-subtitle', {
+          scrollTrigger: {
+            trigger: '#cta-section',
+            start: 'top 80%',
+          },
+          y: 30,
+          opacity: 0,
+          duration: 1,
+          delay: 0.2,
+          ease: 'power3.out'
+        });
+
+        gsap.from('.cta-button', {
+          scrollTrigger: {
+            trigger: '#cta-section',
+            start: 'top 80%',
+          },
+          y: 30,
+          opacity: 0,
+          duration: 1,
+          delay: 0.4,
+          ease: 'power3.out'
+        });
+
+        gsap.from('.cta-note', {
+          scrollTrigger: {
+            trigger: '#cta-section',
+            start: 'top 80%',
+          },
+          y: 20,
+          opacity: 0,
+          duration: 1,
+          delay: 0.6,
+          ease: 'power3.out'
         });
       });
     </script>
