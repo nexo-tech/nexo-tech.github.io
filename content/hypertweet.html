@@ -137,10 +137,10 @@ customMenu:
     transform: translate(-50%, -50%);
     z-index: -1;
   }
-#hero > *:not(.icon) {
-  position: relative;
-  z-index: 1;
-}
+  #hero > *:not(.icon) {
+    position: relative;
+    z-index: 1;
+  }
   .icon svg {
     width: 100%;
     height: 100%;
@@ -188,68 +188,136 @@ customMenu:
       ></div>
     </div>
 
-    <h1
-      class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-[1.1] text-gradient"
-      data-animate
-    >
-      Reply Like a Pro.<br class="hidden md:block" />Grow Faster on&nbsp;X.
-    </h1>
-    <p
-      class="mt-6 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed"
-      data-animate
-    >
-      Upgrade the way you engage: generate
-      <span class="font-semibold text-white"
-        >100+ context‑aware replies in minutes</span
-      >
-      and watch your following take off.
-    </p>
-    <div class="mt-8 flex flex-col items-center gap-4" data-animate>
-      <div class="flex flex-wrap items-center justify-center gap-4">
-        <a
-          href="https://twitter.com/nexo_v1"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift hero-cta-button opacity-0"
-        >
-          <span class="relative z-10 hero-cta-text"
-            >Follow for Early Access</span
-          >
-          <span class="relative z-10 hero-cta-arrow">→</span>
-        </a>
-        <a
-          href="https://github.com/nexo-tech/hypertweet"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="relative inline-flex items-center gap-2 rounded-full bg-gray-800 px-6 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift github-button opacity-0"
-        >
-          <svg
-            class="w-5 h-5"
-            fill="white"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-          <span class="relative z-10">Star on GitHub</span>
-        </a>
+    <!-- Content wrapper with premium glow -->
+    <div class="relative z-10">
+      <!-- Nebulous glow effect -->
+      <div class="absolute inset-0 -z-10">
+        <!-- Main nebulous glow -->
+        <div
+          class="p-6 overflow-hidden absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-900/30 to-gray-900/40 backdrop-blur-[100px]"
+        ></div>
+
+        <!-- Organic glow shapes -->
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-[120px] transform -rotate-12"
+        ></div>
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 blur-[100px] transform rotate-12"
+        ></div>
+
+        <!-- Ambient glows -->
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-gray-900/40 via-transparent to-gray-900/40"
+        ></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-gray-900/40 via-transparent to-gray-900/40"
+        ></div>
+
+        <!-- Additional masking layers -->
+        <div
+          class="absolute inset-0 bg-gradient-radial from-gray-900/50 via-gray-900/30 to-transparent"
+        ></div>
+        <div class="absolute inset-0 backdrop-blur-[50px]"></div>
       </div>
-      <div class="flex flex-col items-center gap-2">
-        <p class="text-sm text-gray-400">
-          <span class="inline-flex items-center gap-1">
-            <span class="flex h-2 w-2">
-              <span
-                class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-blue-400 opacity-75"
-              ></span>
-              <span
-                class="relative inline-flex h-2 w-2 rounded-full bg-blue-500"
-              ></span>
-            </span>
-            Daily updates on development progress
-          </span>
-        </p>
+
+      <!-- Content with glass effect -->
+      <div class="relative rounded-[2rem] overflow-hidden">
+        <!-- Glass effect behind content -->
+        <div
+          class="absolute border border-white/10 overflow-hidden inset-0 bg-gradient-to-br from-gray-900/5 via-gray-900/10 to-gray-900/5 backdrop-blur-[40px] rounded-[2rem]"
+        >
+          <!-- Subtle inner highlights -->
+          <div
+            class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-30"
+          ></div>
+          <!-- Ambient glow -->
+          <div
+            class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"
+          ></div>
+          <!-- Edge highlights -->
+          <div
+            class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/5 to-transparent opacity-20"
+          ></div>
+          <!-- Subtle shadow -->
+          <div
+            class="absolute inset-0 rounded-[2rem] shadow-[0_0_100px_rgba(0,0,0,0.3)]"
+          ></div>
+        </div>
+
+        <!-- Content with padding -->
+        <div class="relative px-16 py-20">
+          <!-- Subtle inner glow -->
+          <div
+            class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-20"
+          ></div>
+
+          <h1
+            class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-[1.1] text-gradient"
+            data-animate
+          >
+            Reply Like a Pro.<br class="hidden md:block" />Grow Faster
+            on&nbsp;X.
+          </h1>
+          <p
+            class="mt-6 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed"
+            data-animate
+          >
+            Upgrade the way you engage: generate
+            <span class="font-semibold text-white"
+              >100+ context‑aware replies in minutes</span
+            >
+            and watch your following take off.
+          </p>
+          <div class="mt-8 flex flex-col items-center gap-4" data-animate>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="https://twitter.com/nexo_v1"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift hero-cta-button opacity-0"
+              >
+                <span class="relative z-10 hero-cta-text"
+                  >Follow for Early Access</span
+                >
+                <span class="relative z-10 hero-cta-arrow">→</span>
+              </a>
+              <a
+                href="https://github.com/nexo-tech/hypertweet"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="relative inline-flex items-center gap-2 rounded-full bg-gray-800 px-6 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift github-button opacity-0"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="white"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                  />
+                </svg>
+                <span class="relative z-10">Star on GitHub</span>
+              </a>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <p class="text-sm text-gray-400">
+                <span class="inline-flex items-center gap-1">
+                  <span class="flex h-2 w-2">
+                    <span
+                      class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-blue-400 opacity-75"
+                    ></span>
+                    <span
+                      class="relative inline-flex h-2 w-2 rounded-full bg-blue-500"
+                    ></span>
+                  </span>
+                  Daily updates on development progress
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1135,16 +1203,7 @@ customMenu:
 
       // Function to calculate center fade opacity
       function getCenterFadeOpacity(x, y) {
-        // Normalize coordinates to -1 to 1 range
-        const normalizedX = x / (window.innerWidth / 2);
-        const normalizedY = y / (window.innerHeight / 2);
-        
-        // Calculate distance from center (0,0)
-        const distanceFromCenter = Math.sqrt(normalizedX * normalizedX + normalizedY * normalizedY);
-        
-        // Apply stronger fade effect
-        if (distanceFromCenter > 1) return 1;
-        return Math.max(0.05, Math.pow(distanceFromCenter, 2)); // Square the distance for stronger fade
+        return 1; ///Math.max(0.05, Math.pow(distanceFromCenter, 2)); // Square the distance for stronger fade
       }
 
       // Generate icons with initial z positions
@@ -1158,25 +1217,28 @@ customMenu:
         const centerBias = 0.7;
         const randomX = gsap.utils.random(-1, 1);
         const randomY = gsap.utils.random(-1, 1);
-        const x = (randomX * Math.abs(randomX)) * (window.innerWidth / 2) * centerBias;
-        const y = (randomY * Math.abs(randomY)) * (window.innerHeight / 2) * centerBias;
+        const x =
+          randomX * Math.abs(randomX) * (window.innerWidth / 2) * centerBias;
+        const y =
+          randomY * Math.abs(randomY) * (window.innerHeight / 2) * centerBias;
 
         // Random initial z position
         const initialZ = gsap.utils.random(-depth, depth);
-        
+
         // More varied size distribution
         const size = gsap.utils.random(0.15, 0.5);
         const scale = size * (1 + Math.random() * 0.5);
 
         // Calculate initial opacity based on position
-        const initialOpacity = getCenterFadeOpacity(x, y) * gsap.utils.random(0.3, 0.7);
+        const initialOpacity =
+          getCenterFadeOpacity(x, y) * gsap.utils.random(0.3, 0.7);
 
         gsap.set(icon, {
           x: x,
           y: y,
           z: initialZ,
           scale: scale,
-          opacity: initialOpacity
+          opacity: initialOpacity,
         });
 
         // Start the animation from the initial position
@@ -1186,12 +1248,12 @@ customMenu:
       function fly(el, startZ) {
         const duration = gsap.utils.random(3, 6); // Faster animation
         const startOpacity = gsap.utils.random(0.3, 0.7);
-        
+
         gsap.fromTo(
           el,
-          { 
+          {
             z: startZ,
-            opacity: startOpacity
+            opacity: startOpacity,
           },
           {
             z: depth,
@@ -1204,8 +1266,16 @@ customMenu:
               const centerBias = 0.7;
               const randomX = gsap.utils.random(-1, 1);
               const randomY = gsap.utils.random(-1, 1);
-              const x = (randomX * Math.abs(randomX)) * (window.innerWidth / 2) * centerBias;
-              const y = (randomY * Math.abs(randomY)) * (window.innerHeight / 2) * centerBias;
+              const x =
+                randomX *
+                Math.abs(randomX) *
+                (window.innerWidth / 2) *
+                centerBias;
+              const y =
+                randomY *
+                Math.abs(randomY) *
+                (window.innerHeight / 2) *
+                centerBias;
 
               // Randomize size on each repeat
               const size = gsap.utils.random(0.15, 0.5);
@@ -1219,7 +1289,7 @@ customMenu:
                 y: y,
                 scale: scale,
                 z: -depth,
-                opacity: newOpacity
+                opacity: newOpacity,
               });
             },
           }
@@ -1232,8 +1302,10 @@ customMenu:
           const centerBias = 0.7;
           const randomX = gsap.utils.random(-1, 1);
           const randomY = gsap.utils.random(-1, 1);
-          const x = (randomX * Math.abs(randomX)) * (window.innerWidth / 2) * centerBias;
-          const y = (randomY * Math.abs(randomY)) * (window.innerHeight / 2) * centerBias;
+          const x =
+            randomX * Math.abs(randomX) * (window.innerWidth / 2) * centerBias;
+          const y =
+            randomY * Math.abs(randomY) * (window.innerHeight / 2) * centerBias;
 
           // Update opacity based on new position
           const newOpacity = getCenterFadeOpacity(x, y);
@@ -1241,7 +1313,7 @@ customMenu:
           gsap.set(el, {
             x: x,
             y: y,
-            opacity: newOpacity
+            opacity: newOpacity,
           });
         });
       });
