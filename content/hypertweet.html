@@ -151,16 +151,13 @@ customMenu:
 <div class="antialiased scroll-smooth">
   <!-- Hero -->
   <section
-    class="relative flex min-h-screen flex-col items-center justify-center px-6 text-center overflow-hidden pt-24 md:pt-32"
+    class="relative overflow-hidden flex min-h-[120vh] flex-col items-center justify-center px-6 text-center pt-24 md:pt-32 pb-32"
     id="hero"
   >
     <!-- Premium gradient backdrop -->
     <div
       class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient"
     ></div>
-
-    <!-- Tech pattern overlay -->
-    <div class="tech-pattern"></div>
 
     <!-- Sophisticated gradient overlays -->
     <div class="pointer-events-none absolute inset-0 -z-10">
@@ -323,7 +320,12 @@ customMenu:
   </section>
 
   <!-- Pain Section -->
-  <section class="py-32 bg-black/50 relative" id="pain">
+  <section class="relative py-32 bg-black/50" id="pain">
+    <!-- Transition gradient -->
+    <div
+      class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-transparent via-black/80 to-black -translate-y-full"
+    ></div>
+
     <!-- Particle system container -->
     <div
       id="particle-container"
@@ -453,7 +455,7 @@ customMenu:
   </section>
 
   <!-- How It Works Section -->
-  <section class="py-32 bg-black/50" id="how-it-works">
+  <section class="relative py-32 bg-black/50" id="how-it-works">
     <div class="mx-auto max-w-5xl px-6">
       <h2
         class="text-3xl md:text-5xl font-bold text-center text-gradient"
