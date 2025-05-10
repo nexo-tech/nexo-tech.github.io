@@ -11,843 +11,1184 @@ customMenu:
   - title: "early access"
     url: "#early-access"
 ---
+
 <!--head-->
-    <!-- <meta charset="UTF-8" />
+<!-- <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Tailwind CSS CDN -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> --> 
-    <!-- Inter font for modern, Apple‑like typography -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" /> -->
-    <!-- GSAP & ScrollTrigger -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+<!-- Inter font for modern, Apple‑like typography -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" /> -->
+<!-- GSAP & ScrollTrigger -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script> -->
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #0a0a0a;
-        color: #f3f4f6;
-      }
-      /* Hide Scrollbar for a cleaner Apple look */
-      body::-webkit-scrollbar {
-        display: none;
-      }
-      body {
-        scrollbar-width: none;
-      }
-      /* Premium gradient animations */
-      @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-      .animate-gradient {
-        background-size: 200% 200%;
-        animation: gradient 15s ease infinite;
-      }
-      /* Glass effect */
-      .glass {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      /* Premium hover effects */
-      .hover-lift {
-        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      .hover-lift:hover {
-        transform: translateY(-4px);
-      }
-      /* Premium text gradient */
-      .text-gradient {
-        background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      /* Tech pattern styles */
-      .tech-pattern {
-        position: absolute;
-        inset: 0;
-        background-image: 
-          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        background-size: 50px 50px;
-        mask-image: radial-gradient(circle at center, black, transparent 80%);
-        -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
-      }
-      .particle {
-        position: absolute;
-        pointer-events: none;
-        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
-        border-radius: 50%;
-      }
-      .connection-line {
-        position: absolute;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        height: 1px;
-        transform-origin: left center;
-        pointer-events: none;
-      }
-      .data-flow {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        pointer-events: none;
-      }
-    </style>
+<style>
+  body {
+    font-family: "Inter", sans-serif;
+    background-color: #0a0a0a;
+    color: #f3f4f6;
+  }
+  /* Hide Scrollbar for a cleaner Apple look */
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    scrollbar-width: none;
+  }
+  /* Premium gradient animations */
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 15s ease infinite;
+  }
+  /* Glass effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  /* Premium hover effects */
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+  /* Premium text gradient */
+  .text-gradient {
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  /* Tech pattern styles */
+  .tech-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(
+      circle at center,
+      black,
+      transparent 80%
+    );
+  }
+  .particle {
+    position: absolute;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.8) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+  }
+  .connection-line {
+    position: absolute;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    height: 1px;
+    transform-origin: left center;
+    pointer-events: none;
+  }
+  .data-flow {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  /* Utility to enable 3‑D space */
+  #hero {
+    perspective: 800px;
+    perspective-origin: 50% 50%;
+    position: relative;
+  }
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    color: white;
+    pointer-events: none;
+    user-select: none;
+    transform-style: preserve-3d;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+</style>
 <!--end head-->
-  <div class="antialiased scroll-smooth">
-    <!-- Hero -->
-    <section class="relative flex min-h-screen flex-col items-center justify-center px-6 text-center overflow-hidden">
-      <!-- Premium gradient backdrop -->
-      <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient"></div>
-      
-      <!-- Tech pattern overlay -->
-      <div class="tech-pattern"></div>
-      
-      <!-- Particle system container -->
-      <div id="particle-container" class="absolute inset-0 pointer-events-none"></div>
-      
-      <!-- Data flow container -->
-      <div id="data-flow-container" class="absolute inset-0 pointer-events-none"></div>
+<div class="antialiased scroll-smooth">
+  <!-- Hero -->
+  <section
+    class="relative flex min-h-screen flex-col items-center justify-center px-6 text-center overflow-hidden pt-24 md:pt-32"
+    id="hero"
+  >
+    <!-- Premium gradient backdrop -->
+    <div
+      class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient"
+    ></div>
 
-      <!-- Sophisticated gradient overlays -->
-      <div class="pointer-events-none absolute inset-0 -z-10">
-        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl"></div>
-        <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl"></div>
-        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-2xl"></div>
-      </div>
+    <!-- Tech pattern overlay -->
+    <div class="tech-pattern"></div>
 
-      <!-- Premium floating elements -->
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl animate-pulse delay-1000"></div>
-      </div>
 
-      <h1 class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-tight text-gradient" data-animate>
-        Reply Like a Pro.<br class="hidden md:block" />Grow Faster on&nbsp;X.
-      </h1>
-      <p class="mt-8 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed" data-animate>
-        Upgrade the way you engage: generate <span class="font-semibold text-white">100+ context‑aware replies in minutes</span> and watch your following take off.
-      </p>
-      <div class="mt-12 flex flex-col items-center gap-4" data-animate>
-        <div class="flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="https://twitter.com/nexo_v1"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift hero-cta-button opacity-0"
-          >
-            <span class="relative z-10 hero-cta-text">Follow for Early Access</span>
-            <span class="relative z-10 hero-cta-arrow">→</span>
-          </a>
-          <a
-            href="https://github.com/nexo-tech/hypertweet"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="relative inline-flex items-center gap-2 rounded-full bg-gray-800 px-6 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift github-button opacity-0"
-          >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="relative z-10">Star on GitHub</span>
-          </a>
-        </div>
-        <div class="flex flex-col items-center gap-2">
-          <p class="text-sm text-gray-400">
-            <span class="inline-flex items-center gap-1">
-              <span class="flex h-2 w-2">
-                <span class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-blue-400 opacity-75"></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
-              </span>
-              Daily updates on development progress
-            </span>
-          </p>
-        </div>
-      </div>
-    </section>
 
-    <!-- Pain Section -->
-    <section class="py-32 bg-black/50" id="pain">
-      <div class="mx-auto max-w-5xl px-6">
-        <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
-          Why Every Growth Playbook Starts with Replies
-        </h2>
-        <p class="mt-8 text-center text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed italic" data-animate>
-          You know the drill: meaningful replies = visibility = followers. But cranking out 100 thoughtful responses every day? That's a full‑time job.
-        </p>
-        <div class="mt-16 grid gap-8 md:grid-cols-3" data-animate>
-          <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
-            <h3 class="text-xl font-semibold text-white">Time‑Sink</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Typing eats hours you should spend creating.</p>
-          </div>
-          <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
-            <h3 class="text-xl font-semibold text-white">Writer's Block</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Staring at a blank reply box kills momentum.</p>
-          </div>
-          <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
-            <h3 class="text-xl font-semibold text-white">Tone Trouble</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Generic AI answers sound… generic.</p>
-          </div>
-        </div>
-        <p class="mt-12 text-center text-gray-300 text-lg font-medium" data-animate>Hypertweet fixes all three. Instantly.</p>
-      </div>
-    </section>
+    <!-- Sophisticated gradient overlays -->
+    <div class="pointer-events-none absolute inset-0 -z-10">
+      <div
+        class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"
+      ></div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl"
+      ></div>
+      <div
+        class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl"
+      ></div>
+      <div
+        class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-2xl"
+      ></div>
+    </div>
 
-    <!-- Solution Section -->
-    <section class="py-32 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient" id="solution">
-      <div class="mx-auto max-w-5xl px-6">
-        <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
-          Meet <span class="text-blue-400">Hypertweet</span>: Your AI&nbsp;Reply Keyboard
-        </h2>
-        <p class="mt-8 text-center text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed" data-animate>
-          A Chrome extension that slides a smart keyboard under every reply box and <span class="font-semibold text-white">suggests on‑brand responses you can post or polish in one tap.</span>
-        </p>
-        <p class="mt-6 text-center text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed italic" data-animate>
-          ⚡️ One tap. One edit. One post.
-        </p>
-        <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4" data-animate>
-          <div class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift">
-            <span class="mb-4 text-4xl">⚡️</span>
-            <h3 class="font-semibold text-white text-lg">10× Your Output</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Draft a day's replies before your coffee cools.</p>
-          </div>
-          <div class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift">
-            <span class="mb-4 text-4xl">🎤</span>
-            <h3 class="font-semibold text-white text-lg">Sounds Just Like You</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Syncs with your Twitter & LinkedIn bio to capture voice, humor, and expertise.</p>
-          </div>
-          <div class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift">
-            <span class="mb-4 text-4xl">🔒</span>
-            <h3 class="font-semibold text-white text-lg">Privacy‑First & Local</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Runs in‑browser—your data never leaves your machine.</p>
-          </div>
-          <div class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift">
-            <span class="mb-4 text-4xl">💸</span>
-            <h3 class="font-semibold text-white text-lg">Token‑Smart</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Minimal prompt engineering keeps OpenAI costs pennies per day.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Premium floating elements -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div
+        class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl animate-pulse"
+      ></div>
+      <div
+        class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl animate-pulse delay-1000"
+      ></div>
+    </div>
 
-    <!-- How It Works Section -->
-    <section class="py-32 bg-black/50" id="how-it-works">
-      <div class="mx-auto max-w-5xl px-6">
-        <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
-          How It Works
-        </h2>
-        <ol class="mt-16 space-y-8 md:space-y-0 md:grid md:grid-cols-4 md:gap-8" data-animate>
-          <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
-            <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">1</span>
-            <h3 class="mt-4 font-semibold text-white text-lg">Install</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Free and open source.</p>
-          </li>
-          <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
-            <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">2</span>
-            <h3 class="mt-4 font-semibold text-white text-lg">Link Profiles</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Link your Twitter & LinkedIn profiles for instant personality training.</p>
-          </li>
-          <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
-            <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">3</span>
-            <h3 class="mt-4 font-semibold text-white text-lg">Tap Lightning</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Tap the lightning icon under any tweet → Hypertweet generates 3 crisp replies.</p>
-          </li>
-          <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
-            <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">4</span>
-            <h3 class="mt-4 font-semibold text-white text-lg">Edit & Post</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">You stay in control (100% ToS‑compliant).</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Power Features Section -->
-    <section class="py-32 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient" id="power-features">
-      <div class="mx-auto max-w-5xl px-6">
-        <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
-          Power Features Creators Love
-        </h2>
-        <div class="mt-16 grid gap-8 md:grid-cols-2" data-animate>
-          <div class="glass p-8 rounded-2xl hover-lift">
-            <h3 class="text-xl font-semibold text-white">Custom Prompt Slots</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Preload prompts like "friend‑teasing humor" or "quick stat drop."</p>
-          </div>
-          <div class="glass p-8 rounded-2xl hover-lift">
-            <h3 class="text-xl font-semibold text-white">Emoji & Punctuation Dial</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Choose ✨none, 🤝subtle, or 💯full‑send.</p>
-          </div>
-          <div class="glass p-8 rounded-2xl hover-lift">
-            <h3 class="text-xl font-semibold text-white">Thread → ChatGPT Export</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Spin an entire convo into deeper content and cut costs.</p>
-          </div>
-          <div class="glass p-8 rounded-2xl hover-lift">
-            <h3 class="text-xl font-semibold text-white">Style Polisher</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Auto‑removes fluff, adds natural flow.</p>
-          </div>
-        </div>
-        <div class="mt-16 glass p-8 rounded-2xl text-center" data-animate>
-          <p class="text-gray-300 text-lg italic">Who's this for?</p>
-          <p class="mt-4 text-white text-xl font-medium">Anyone who replies for reach: creators, indie hackers, solopreneurs, brand accounts, and growth-minded teams.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="py-32 bg-black/50" id="faq">
-      <div class="mx-auto max-w-5xl px-6">
-        <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
-          Frequently Asked
-        </h2>
-        <div class="mt-16 space-y-8" data-animate>
-          <div class="glass p-8 rounded-2xl">
-            <h3 class="text-xl font-semibold text-white">Is it allowed by Twitter's ToS?</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Yes. You always review and press send.</p>
-          </div>
-          <div class="glass p-8 rounded-2xl">
-            <h3 class="text-xl font-semibold text-white">How much will it cost?</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">You only pay for OpenAI usage using your own key.</p>
-          </div>
-          <div class="glass p-8 rounded-2xl">
-            <h3 class="text-xl font-semibold text-white">When do you launch?</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Private beta starts in Q3 2025. Early followers get the first invites.</p>
-          </div>
-          <div class="glass p-8 rounded-2xl">
-            <h3 class="text-xl font-semibold text-white">Does it work in languages other than English?</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Absolutely. Any language OpenAI supports.</p>
-          </div>
-          <div class="glass p-8 rounded-2xl">
-            <h3 class="text-xl font-semibold text-white">Will it autofollow or auto‑like?</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">No spammy mechanics. Just smarter replies.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Banner -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-950 to-black py-32 text-white" id="cta-section">
-      <!-- Enhanced gradient animations -->
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl animate-pulse cta-glow-1"></div>
-        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-2xl animate-pulse delay-1000 cta-glow-2"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl cta-glow-3"></div>
-      </div>
-
-      <!-- Floating elements -->
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl cta-float-1"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl cta-float-2"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-pink-500/5 blur-xl cta-float-3"></div>
-      </div>
-
-      <div class="relative mx-auto max-w-3xl px-6 text-center" data-animate id="early-access">
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-gradient cta-title">
-          Ready to Own the Timeline?
-        </h2>
-        <p class="mt-6 text-lg text-gray-300 leading-relaxed cta-subtitle">
-          Follow now. Beta invites go out to early supporters first.
-        </p>
+    <h1
+      class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-[1.1] text-gradient"
+      data-animate
+    >
+      Reply Like a Pro.<br class="hidden md:block" />Grow Faster on&nbsp;X.
+    </h1>
+    <p
+      class="mt-6 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed"
+      data-animate
+    >
+      Upgrade the way you engage: generate
+      <span class="font-semibold text-white"
+        >100+ context‑aware replies in minutes</span
+      >
+      and watch your following take off.
+    </p>
+    <div class="mt-8 flex flex-col items-center gap-4" data-animate>
+      <div class="flex flex-wrap items-center justify-center gap-4">
         <a
           href="https://twitter.com/nexo_v1"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift cta-button"
+          class="relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift hero-cta-button opacity-0"
         >
-          <span class="cta-button-text">Follow <span class="font-semibold">@nexo_v1</span></span>
-          <span class="cta-button-arrow">→</span>
+          <span class="relative z-10 hero-cta-text"
+            >Follow for Early Access</span
+          >
+          <span class="relative z-10 hero-cta-arrow">→</span>
         </a>
-        <p class="mt-6 text-sm text-gray-400 cta-note">Already following? Retweet the pinned post and jump the waitlist!</p>
+        <a
+          href="https://github.com/nexo-tech/hypertweet"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="relative inline-flex items-center gap-2 rounded-full bg-gray-800 px-6 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift github-button opacity-0"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="white"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="relative z-10">Star on GitHub</span>
+        </a>
       </div>
-    </section>
+      <div class="flex flex-col items-center gap-2">
+        <p class="text-sm text-gray-400">
+          <span class="inline-flex items-center gap-1">
+            <span class="flex h-2 w-2">
+              <span
+                class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-blue-400 opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex h-2 w-2 rounded-full bg-blue-500"
+              ></span>
+            </span>
+            Daily updates on development progress
+          </span>
+        </p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="py-12 text-center text-sm text-gray-400 bg-black/50">
-      © 2025 Hypertweet. Not affiliated with X Corp | Privacy first | Built in public by
-      <a href="https://twitter.com/nexo_v1" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-300 transition-colors">@nexo_v1</a>
-    </footer>
+  <!-- Pain Section -->
+  <section class="py-32 bg-black/50" id="pain">
 
-    <!-- Enhanced GSAP Animations -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        gsap.registerPlugin(ScrollTrigger);
-        document.body.classList.add('dark-mode');
+    <!-- Particle system container -->
+    <div
+      id="particle-container"
+      class="absolute inset-0 pointer-events-none"
+    ></div>
 
-        // Particle System
-        const particleContainer = document.getElementById('particle-container');
-        const dataFlowContainer = document.getElementById('data-flow-container');
-        const particles = [];
-        const dataFlows = [];
-        const connectionLines = [];
+    <!-- Data flow container -->
+    <div
+      id="data-flow-container"
+      class="absolute inset-0 pointer-events-none"
+    ></div>
 
-        // Create particles
-        function createParticle() {
-          const particle = document.createElement('div');
-          particle.className = 'particle';
-          const size = Math.random() * 4 + 2;
-          particle.style.width = `${size}px`;
-          particle.style.height = `${size}px`;
-          
-          // Random position
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight;
-          particle.style.left = `${x}px`;
-          particle.style.top = `${y}px`;
-          
-          particleContainer.appendChild(particle);
-          particles.push({
-            element: particle,
-            x,
-            y,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
-            size
-          });
-        }
+    <div class="mx-auto max-w-5xl px-6">
+      <h2
+        class="text-3xl md:text-5xl font-bold text-center text-gradient"
+        data-animate
+      >
+        Why Every Growth Playbook Starts with Replies
+      </h2>
+      <p
+        class="mt-8 text-center text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed italic"
+        data-animate
+      >
+        You know the drill: meaningful replies = visibility = followers. But
+        cranking out 100 thoughtful responses every day? That's a full‑time job.
+      </p>
+      <div class="mt-16 grid gap-8 md:grid-cols-3" data-animate>
+        <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
+          <h3 class="text-xl font-semibold text-white">Time‑Sink</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Typing eats hours you should spend creating.
+          </p>
+        </div>
+        <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
+          <h3 class="text-xl font-semibold text-white">Writer's Block</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Staring at a blank reply box kills momentum.
+          </p>
+        </div>
+        <div class="rounded-2xl glass p-8 shadow-lg hover-lift">
+          <h3 class="text-xl font-semibold text-white">Tone Trouble</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Generic AI answers sound… generic.
+          </p>
+        </div>
+      </div>
+      <p
+        class="mt-12 text-center text-gray-300 text-lg font-medium"
+        data-animate
+      >
+        Hypertweet fixes all three. Instantly.
+      </p>
+    </div>
+  </section>
 
-        // Create data flow
-        function createDataFlow() {
-          const flow = document.createElement('div');
-          flow.className = 'data-flow';
-          
-          // Random position
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight;
-          flow.style.left = `${x}px`;
-          flow.style.top = `${y}px`;
-          
-          dataFlowContainer.appendChild(flow);
-          dataFlows.push({
-            element: flow,
-            x,
-            y,
-            vx: (Math.random() - 0.5) * 2,
-            vy: (Math.random() - 0.5) * 2
-          });
-        }
+  <!-- Solution Section -->
+  <section
+    class="py-32 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient"
+    id="solution"
+  >
+    <div class="mx-auto max-w-5xl px-6">
+      <h2
+        class="text-3xl md:text-5xl font-bold text-center text-gradient"
+        data-animate
+      >
+        Meet <span class="text-blue-400">Hypertweet</span>: Your AI&nbsp;Reply
+        Keyboard
+      </h2>
+      <p
+        class="mt-8 text-center text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed"
+        data-animate
+      >
+        A Chrome extension that slides a smart keyboard under every reply box
+        and
+        <span class="font-semibold text-white"
+          >suggests on‑brand responses you can post or polish in one tap.</span
+        >
+      </p>
+      <p
+        class="mt-6 text-center text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed italic"
+        data-animate
+      >
+        ⚡️ One tap. One edit. One post.
+      </p>
+      <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4" data-animate>
+        <div
+          class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift"
+        >
+          <span class="mb-4 text-4xl">⚡️</span>
+          <h3 class="font-semibold text-white text-lg">10× Your Output</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Draft a day's replies before your coffee cools.
+          </p>
+        </div>
+        <div
+          class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift"
+        >
+          <span class="mb-4 text-4xl">🎤</span>
+          <h3 class="font-semibold text-white text-lg">Sounds Just Like You</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Syncs with your Twitter & LinkedIn bio to capture voice, humor, and
+            expertise.
+          </p>
+        </div>
+        <div
+          class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift"
+        >
+          <span class="mb-4 text-4xl">🔒</span>
+          <h3 class="font-semibold text-white text-lg">
+            Privacy‑First & Local
+          </h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Runs in‑browser—your data never leaves your machine.
+          </p>
+        </div>
+        <div
+          class="flex flex-col items-center text-center glass p-8 rounded-2xl hover-lift"
+        >
+          <span class="mb-4 text-4xl">💸</span>
+          <h3 class="font-semibold text-white text-lg">Token‑Smart</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Minimal prompt engineering keeps OpenAI costs pennies per day.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Create connection lines
-        function createConnectionLine(particle1, particle2) {
-          const line = document.createElement('div');
-          line.className = 'connection-line';
-          
-          const dx = particle2.x - particle1.x;
-          const dy = particle2.y - particle1.y;
+  <!-- How It Works Section -->
+  <section class="py-32 bg-black/50" id="how-it-works">
+    <div class="mx-auto max-w-5xl px-6">
+      <h2
+        class="text-3xl md:text-5xl font-bold text-center text-gradient"
+        data-animate
+      >
+        How It Works
+      </h2>
+      <ol
+        class="mt-16 space-y-8 md:space-y-0 md:grid md:grid-cols-4 md:gap-8"
+        data-animate
+      >
+        <li
+          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift"
+        >
+          <span
+            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg"
+            >1</span
+          >
+          <h3 class="mt-4 font-semibold text-white text-lg">Install</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Free and open source.
+          </p>
+        </li>
+        <li
+          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift"
+        >
+          <span
+            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg"
+            >2</span
+          >
+          <h3 class="mt-4 font-semibold text-white text-lg">Link Profiles</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Link your Twitter & LinkedIn profiles for instant personality
+            training.
+          </p>
+        </li>
+        <li
+          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift"
+        >
+          <span
+            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg"
+            >3</span
+          >
+          <h3 class="mt-4 font-semibold text-white text-lg">Tap Lightning</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Tap the lightning icon under any tweet → Hypertweet generates 3
+            crisp replies.
+          </p>
+        </li>
+        <li
+          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift"
+        >
+          <span
+            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg"
+            >4</span
+          >
+          <h3 class="mt-4 font-semibold text-white text-lg">Edit & Post</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            You stay in control (100% ToS‑compliant).
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Power Features Section -->
+  <section
+    class="py-32 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient"
+    id="power-features"
+  >
+    <div class="mx-auto max-w-5xl px-6">
+      <h2
+        class="text-3xl md:text-5xl font-bold text-center text-gradient"
+        data-animate
+      >
+        Power Features Creators Love
+      </h2>
+      <div class="mt-16 grid gap-8 md:grid-cols-2" data-animate>
+        <div class="glass p-8 rounded-2xl hover-lift">
+          <h3 class="text-xl font-semibold text-white">Custom Prompt Slots</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Preload prompts like "friend‑teasing humor" or "quick stat drop."
+          </p>
+        </div>
+        <div class="glass p-8 rounded-2xl hover-lift">
+          <h3 class="text-xl font-semibold text-white">
+            Emoji & Punctuation Dial
+          </h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Choose ✨none, 🤝subtle, or 💯full‑send.
+          </p>
+        </div>
+        <div class="glass p-8 rounded-2xl hover-lift">
+          <h3 class="text-xl font-semibold text-white">
+            Thread → ChatGPT Export
+          </h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Spin an entire convo into deeper content and cut costs.
+          </p>
+        </div>
+        <div class="glass p-8 rounded-2xl hover-lift">
+          <h3 class="text-xl font-semibold text-white">Style Polisher</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Auto‑removes fluff, adds natural flow.
+          </p>
+        </div>
+      </div>
+      <div class="mt-16 glass p-8 rounded-2xl text-center" data-animate>
+        <p class="text-gray-300 text-lg italic">Who's this for?</p>
+        <p class="mt-4 text-white text-xl font-medium">
+          Anyone who replies for reach: creators, indie hackers, solopreneurs,
+          brand accounts, and growth-minded teams.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-32 bg-black/50" id="faq">
+    <div class="mx-auto max-w-5xl px-6">
+      <h2
+        class="text-3xl md:text-5xl font-bold text-center text-gradient"
+        data-animate
+      >
+        Frequently Asked
+      </h2>
+      <div class="mt-16 space-y-8" data-animate>
+        <div class="glass p-8 rounded-2xl">
+          <h3 class="text-xl font-semibold text-white">
+            Is it allowed by Twitter's ToS?
+          </h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Yes. You always review and press send.
+          </p>
+        </div>
+        <div class="glass p-8 rounded-2xl">
+          <h3 class="text-xl font-semibold text-white">
+            How much will it cost?
+          </h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            You only pay for OpenAI usage using your own key.
+          </p>
+        </div>
+        <div class="glass p-8 rounded-2xl">
+          <h3 class="text-xl font-semibold text-white">When do you launch?</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Private beta starts in Q3 2025. Early followers get the first
+            invites.
+          </p>
+        </div>
+        <div class="glass p-8 rounded-2xl">
+          <h3 class="text-xl font-semibold text-white">
+            Does it work in languages other than English?
+          </h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            Absolutely. Any language OpenAI supports.
+          </p>
+        </div>
+        <div class="glass p-8 rounded-2xl">
+          <h3 class="text-xl font-semibold text-white">
+            Will it autofollow or auto‑like?
+          </h3>
+          <p class="mt-3 text-gray-400 leading-relaxed">
+            No spammy mechanics. Just smarter replies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-950 to-black py-32 text-white"
+    id="cta-section"
+  >
+    <!-- Enhanced gradient animations -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div
+        class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl animate-pulse cta-glow-1"
+      ></div>
+      <div
+        class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-2xl animate-pulse delay-1000 cta-glow-2"
+      ></div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl cta-glow-3"
+      ></div>
+    </div>
+
+    <!-- Floating elements -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div
+        class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl cta-float-1"
+      ></div>
+      <div
+        class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl cta-float-2"
+      ></div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-pink-500/5 blur-xl cta-float-3"
+      ></div>
+    </div>
+
+    <div
+      class="relative mx-auto max-w-3xl px-6 text-center"
+      data-animate
+      id="early-access"
+    >
+      <h2
+        class="text-3xl md:text-5xl font-bold tracking-tight text-gradient cta-title"
+      >
+        Ready to Own the Timeline?
+      </h2>
+      <p class="mt-6 text-lg text-gray-300 leading-relaxed cta-subtitle">
+        Follow now. Beta invites go out to early supporters first.
+      </p>
+      <a
+        href="https://twitter.com/nexo_v1"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift cta-button"
+      >
+        <span class="cta-button-text"
+          >Follow <span class="font-semibold">@nexo_v1</span></span
+        >
+        <span class="cta-button-arrow">→</span>
+      </a>
+      <p class="mt-6 text-sm text-gray-400 cta-note">
+        Already following? Retweet the pinned post and jump the waitlist!
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 text-center text-sm text-gray-400 bg-black/50">
+    © 2025 Hypertweet. Not affiliated with X Corp | Privacy first | Built in
+    public by
+    <a
+      href="https://twitter.com/nexo_v1"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="underline hover:text-gray-300 transition-colors"
+      >@nexo_v1</a
+    >
+  </footer>
+
+  <!-- Enhanced GSAP Animations -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      gsap.registerPlugin(ScrollTrigger);
+      document.body.classList.add("dark-mode");
+
+      // Particle System
+      const particleContainer = document.getElementById("particle-container");
+      const dataFlowContainer = document.getElementById("data-flow-container");
+      const particles = [];
+      const dataFlows = [];
+      const connectionLines = [];
+
+      // Create particles
+      function createParticle() {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+
+        // Random position
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+
+        particleContainer.appendChild(particle);
+        particles.push({
+          element: particle,
+          x,
+          y,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size,
+        });
+      }
+
+      // Create data flow
+      function createDataFlow() {
+        const flow = document.createElement("div");
+        flow.className = "data-flow";
+
+        // Random position
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        flow.style.left = `${x}px`;
+        flow.style.top = `${y}px`;
+
+        dataFlowContainer.appendChild(flow);
+        dataFlows.push({
+          element: flow,
+          x,
+          y,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
+        });
+      }
+
+      // Create connection lines
+      function createConnectionLine(particle1, particle2) {
+        const line = document.createElement("div");
+        line.className = "connection-line";
+
+        const dx = particle2.x - particle1.x;
+        const dy = particle2.y - particle1.y;
+        const length = Math.sqrt(dx * dx + dy * dy);
+        const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+
+        line.style.width = `${length}px`;
+        line.style.left = `${particle1.x}px`;
+        line.style.top = `${particle1.y}px`;
+        line.style.transform = `rotate(${angle}deg)`;
+
+        particleContainer.appendChild(line);
+        connectionLines.push({
+          element: line,
+          particle1,
+          particle2,
+        });
+      }
+
+      // Initialize particles and connections
+      for (let i = 0; i < 50; i++) {
+        createParticle();
+      }
+
+      for (let i = 0; i < 20; i++) {
+        createDataFlow();
+      }
+
+      // Update particles and connections
+      function updateParticles() {
+        particles.forEach((particle) => {
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+
+          // Bounce off edges
+          if (particle.x < 0 || particle.x > window.innerWidth)
+            particle.vx *= -1;
+          if (particle.y < 0 || particle.y > window.innerHeight)
+            particle.vy *= -1;
+
+          particle.element.style.left = `${particle.x}px`;
+          particle.element.style.top = `${particle.y}px`;
+        });
+
+        // Update data flows
+        dataFlows.forEach((flow) => {
+          flow.x += flow.vx;
+          flow.y += flow.vy;
+
+          // Bounce off edges
+          if (flow.x < 0 || flow.x > window.innerWidth) flow.vx *= -1;
+          if (flow.y < 0 || flow.y > window.innerHeight) flow.vy *= -1;
+
+          flow.element.style.left = `${flow.x}px`;
+          flow.element.style.top = `${flow.y}px`;
+        });
+
+        // Update connection lines
+        connectionLines.forEach((line) => {
+          const dx = line.particle2.x - line.particle1.x;
+          const dy = line.particle2.y - line.particle1.y;
           const length = Math.sqrt(dx * dx + dy * dy);
-          const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-          
-          line.style.width = `${length}px`;
-          line.style.left = `${particle1.x}px`;
-          line.style.top = `${particle1.y}px`;
-          line.style.transform = `rotate(${angle}deg)`;
-          
-          particleContainer.appendChild(line);
-          connectionLines.push({
-            element: line,
-            particle1,
-            particle2
-          });
-        }
+          const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
 
-        // Initialize particles and connections
-        for (let i = 0; i < 50; i++) {
-          createParticle();
-        }
+          line.element.style.width = `${length}px`;
+          line.element.style.left = `${line.particle1.x}px`;
+          line.element.style.top = `${line.particle1.y}px`;
+          line.element.style.transform = `rotate(${angle}deg)`;
 
-        for (let i = 0; i < 20; i++) {
-          createDataFlow();
-        }
+          // Fade out if too far
+          const opacity = Math.max(0, 1 - length / 200);
+          line.element.style.opacity = opacity;
+        });
 
-        // Update particles and connections
-        function updateParticles() {
-          particles.forEach(particle => {
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            
-            // Bounce off edges
-            if (particle.x < 0 || particle.x > window.innerWidth) particle.vx *= -1;
-            if (particle.y < 0 || particle.y > window.innerHeight) particle.vy *= -1;
-            
-            particle.element.style.left = `${particle.x}px`;
-            particle.element.style.top = `${particle.y}px`;
-          });
+        requestAnimationFrame(updateParticles);
+      }
 
-          // Update data flows
-          dataFlows.forEach(flow => {
-            flow.x += flow.vx;
-            flow.y += flow.vy;
-            
-            // Bounce off edges
-            if (flow.x < 0 || flow.x > window.innerWidth) flow.vx *= -1;
-            if (flow.y < 0 || flow.y > window.innerHeight) flow.vy *= -1;
-            
-            flow.element.style.left = `${flow.x}px`;
-            flow.element.style.top = `${flow.y}px`;
-          });
+      // Start animation
+      updateParticles();
 
-          // Update connection lines
-          connectionLines.forEach(line => {
-            const dx = line.particle2.x - line.particle1.x;
-            const dy = line.particle2.y - line.particle1.y;
-            const length = Math.sqrt(dx * dx + dy * dy);
-            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-            
-            line.element.style.width = `${length}px`;
-            line.element.style.left = `${line.particle1.x}px`;
-            line.element.style.top = `${line.particle1.y}px`;
-            line.element.style.transform = `rotate(${angle}deg)`;
-            
-            // Fade out if too far
-            const opacity = Math.max(0, 1 - length / 200);
-            line.element.style.opacity = opacity;
-          });
+      // Create new connections periodically
+      setInterval(() => {
+        // Remove old connections
+        connectionLines.forEach((line) => line.element.remove());
+        connectionLines.length = 0;
 
-          requestAnimationFrame(updateParticles);
-        }
+        // Create new connections
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[j].x - particles[i].x;
+            const dy = particles[j].y - particles[i].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Start animation
-        updateParticles();
-
-        // Create new connections periodically
-        setInterval(() => {
-          // Remove old connections
-          connectionLines.forEach(line => line.element.remove());
-          connectionLines.length = 0;
-          
-          // Create new connections
-          for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-              const dx = particles[j].x - particles[i].x;
-              const dy = particles[j].y - particles[i].y;
-              const distance = Math.sqrt(dx * dx + dy * dy);
-              
-              if (distance < 200) {
-                createConnectionLine(particles[i], particles[j]);
-              }
+            if (distance < 200) {
+              createConnectionLine(particles[i], particles[j]);
             }
           }
-        }, 1000);
+        }
+      }, 1000);
 
-        // Base animations for all sections
-        gsap.utils.toArray('[data-animate]').forEach((el) => {
-          gsap.from(el, {
-            opacity: 0,
-            y: 40,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-            },
-          });
+      // Base animations for all sections
+      gsap.utils.toArray("[data-animate]").forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 40,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          },
         });
+      });
 
-        // Hero CTA Button Animations
-        const heroCtaButton = document.querySelector('.hero-cta-button');
-        const githubButton = document.querySelector('.github-button');
-        const heroCtaText = document.querySelector('.hero-cta-text');
-        const heroCtaArrow = document.querySelector('.hero-cta-arrow');
+      // Hero CTA Button Animations
+      const heroCtaButton = document.querySelector(".hero-cta-button");
+      const githubButton = document.querySelector(".github-button");
+      const heroCtaText = document.querySelector(".hero-cta-text");
+      const heroCtaArrow = document.querySelector(".hero-cta-arrow");
 
-        // Initial button animations
-        gsap.to([heroCtaButton, githubButton], {
-          opacity: 1,
+      // Initial button animations
+      gsap.to([heroCtaButton, githubButton], {
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: "elastic.out(1, 0.5)",
+        delay: 0.5,
+        stagger: 0.1,
+      });
+
+      // GitHub button hover animation
+      githubButton.addEventListener("mouseenter", () => {
+        gsap.to(githubButton, {
+          scale: 1.05,
+          boxShadow: "0 0 40px rgba(255, 255, 255, 0.2)",
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      });
+
+      githubButton.addEventListener("mouseleave", () => {
+        gsap.to(githubButton, {
           scale: 1,
-          duration: 1,
-          ease: 'elastic.out(1, 0.5)',
-          delay: 0.5,
-          stagger: 0.1
+          boxShadow: "0 0 20px rgba(255, 255, 255, 0.1)",
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      });
+
+      // Arrow animation
+      gsap.to(heroCtaArrow, {
+        x: 5,
+        duration: 1,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+      });
+
+      // Hover animations
+      heroCtaButton.addEventListener("mouseenter", () => {
+        gsap.to(heroCtaButton, {
+          scale: 1.05,
+          boxShadow: "0 0 40px rgba(255, 255, 255, 0.3)",
+          duration: 0.3,
+          ease: "power2.out",
         });
 
-        // GitHub button hover animation
-        githubButton.addEventListener('mouseenter', () => {
-          gsap.to(githubButton, {
-            scale: 1.05,
-            boxShadow: '0 0 40px rgba(255, 255, 255, 0.2)',
-            duration: 0.3,
-            ease: 'power2.out'
-          });
+        gsap.to(heroCtaText, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out",
         });
 
-        githubButton.addEventListener('mouseleave', () => {
-          gsap.to(githubButton, {
-            scale: 1,
-            boxShadow: '0 0 20px rgba(255, 255, 255, 0.1)',
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-        });
-
-        // Arrow animation
         gsap.to(heroCtaArrow, {
-          x: 5,
-          duration: 1,
-          repeat: -1,
-          yoyo: true,
-          ease: 'power1.inOut'
+          x: 10,
+          duration: 0.3,
+          ease: "power2.out",
         });
 
-        // Hover animations
-        heroCtaButton.addEventListener('mouseenter', () => {
-          gsap.to(heroCtaButton, {
-            scale: 1.05,
-            boxShadow: '0 0 40px rgba(255, 255, 255, 0.3)',
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-          
-          gsap.to(heroCtaText, {
-            scale: 1.05,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
+        // Create ripple effect
+        const ripple = document.createElement("div");
+        ripple.className =
+          "absolute inset-0 rounded-full bg-white/20 pointer-events-none";
+        heroCtaButton.appendChild(ripple);
 
-          gsap.to(heroCtaArrow, {
-            x: 10,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
+        gsap.fromTo(
+          ripple,
+          { scale: 0, opacity: 0.5 },
+          {
+            scale: 2,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            onComplete: () => ripple.remove(),
+          }
+        );
+      });
 
-          // Create ripple effect
-          const ripple = document.createElement('div');
-          ripple.className = 'absolute inset-0 rounded-full bg-white/20 pointer-events-none';
-          heroCtaButton.appendChild(ripple);
-          
-          gsap.fromTo(ripple, 
-            { scale: 0, opacity: 0.5 },
-            { 
-              scale: 2,
-              opacity: 0,
-              duration: 0.6,
-              ease: 'power2.out',
-              onComplete: () => ripple.remove()
-            }
-          );
+      heroCtaButton.addEventListener("mouseleave", () => {
+        gsap.to(heroCtaButton, {
+          scale: 1,
+          boxShadow: "0 0 20px rgba(255, 255, 255, 0.1)",
+          duration: 0.3,
+          ease: "power2.out",
         });
 
-        heroCtaButton.addEventListener('mouseleave', () => {
-          gsap.to(heroCtaButton, {
-            scale: 1,
-            boxShadow: '0 0 20px rgba(255, 255, 255, 0.1)',
-            duration: 0.3,
-            ease: 'power2.out'
-          });
+        gsap.to(heroCtaText, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
 
-          gsap.to(heroCtaText, {
-            scale: 1,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
+        gsap.to(heroCtaArrow, {
+          x: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      });
 
-          gsap.to(heroCtaArrow, {
+      // Add sparkle effect
+      function createSparkle() {
+        const sparkle = document.createElement("div");
+        sparkle.className =
+          "absolute w-1 h-1 bg-white rounded-full pointer-events-none";
+        heroCtaButton.appendChild(sparkle);
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 50 + Math.random() * 50;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+
+        gsap.fromTo(
+          sparkle,
+          {
             x: 0,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
+            y: 0,
+            opacity: 1,
+            scale: 1,
+          },
+          {
+            x: x,
+            y: y,
+            opacity: 0,
+            scale: 0,
+            duration: 1 + Math.random(),
+            ease: "power2.out",
+            onComplete: () => sparkle.remove(),
+          }
+        );
+      }
+
+      // Create sparkles periodically
+      setInterval(createSparkle, 2000);
+
+      // Add click effect
+      heroCtaButton.addEventListener("click", () => {
+        gsap.to(heroCtaButton, {
+          scale: 0.95,
+          duration: 0.1,
+          yoyo: true,
+          repeat: 1,
         });
 
-        // Add sparkle effect
-        function createSparkle() {
-          const sparkle = document.createElement('div');
-          sparkle.className = 'absolute w-1 h-1 bg-white rounded-full pointer-events-none';
-          heroCtaButton.appendChild(sparkle);
+        // Create burst effect
+        for (let i = 0; i < 8; i++) {
+          const particle = document.createElement("div");
+          particle.className =
+            "absolute w-1 h-1 bg-white rounded-full pointer-events-none";
+          heroCtaButton.appendChild(particle);
 
-          const angle = Math.random() * Math.PI * 2;
-          const distance = 50 + Math.random() * 50;
+          const angle = (i / 8) * Math.PI * 2;
+          const distance = 100;
           const x = Math.cos(angle) * distance;
           const y = Math.sin(angle) * distance;
 
-          gsap.fromTo(sparkle,
-            { 
+          gsap.fromTo(
+            particle,
+            {
               x: 0,
               y: 0,
               opacity: 1,
-              scale: 1
+              scale: 1,
             },
             {
               x: x,
               y: y,
               opacity: 0,
               scale: 0,
-              duration: 1 + Math.random(),
-              ease: 'power2.out',
-              onComplete: () => sparkle.remove()
+              duration: 0.8,
+              ease: "power2.out",
+              onComplete: () => particle.remove(),
             }
           );
         }
+      });
 
-        // Create sparkles periodically
-        setInterval(createSparkle, 2000);
+      // CTA Section Specific Animations
+      const ctaSection = document.getElementById("cta-section");
 
-        // Add click effect
-        heroCtaButton.addEventListener('click', () => {
-          gsap.to(heroCtaButton, {
-            scale: 0.95,
-            duration: 0.1,
-            yoyo: true,
-            repeat: 1
-          });
+      // Floating elements animation
+      gsap.to(".cta-float-1", {
+        y: -20,
+        x: 20,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
 
-          // Create burst effect
-          for (let i = 0; i < 8; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'absolute w-1 h-1 bg-white rounded-full pointer-events-none';
-            heroCtaButton.appendChild(particle);
+      gsap.to(".cta-float-2", {
+        y: 20,
+        x: -20,
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
 
-            const angle = (i / 8) * Math.PI * 2;
-            const distance = 100;
-            const x = Math.cos(angle) * distance;
-            const y = Math.sin(angle) * distance;
+      gsap.to(".cta-float-3", {
+        scale: 1.2,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
 
-            gsap.fromTo(particle,
-              { 
-                x: 0,
-                y: 0,
-                opacity: 1,
-                scale: 1
-              },
-              {
-                x: x,
-                y: y,
-                opacity: 0,
-                scale: 0,
-                duration: 0.8,
-                ease: 'power2.out',
-                onComplete: () => particle.remove()
-              }
-            );
-          }
+      // Glow effects animation
+      gsap.to(".cta-glow-1", {
+        opacity: 0.5,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      gsap.to(".cta-glow-2", {
+        opacity: 0.5,
+        duration: 2.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      gsap.to(".cta-glow-3", {
+        scale: 1.1,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      // CTA Button hover animation
+      const ctaButton = document.querySelector(".cta-button");
+      ctaButton.addEventListener("mouseenter", () => {
+        gsap.to(".cta-button-text", {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out",
         });
-
-        // CTA Section Specific Animations
-        const ctaSection = document.getElementById('cta-section');
-        
-        // Floating elements animation
-        gsap.to('.cta-float-1', {
-          y: -20,
-          x: 20,
-          duration: 4,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
-        });
-
-        gsap.to('.cta-float-2', {
-          y: 20,
-          x: -20,
-          duration: 5,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
-        });
-
-        gsap.to('.cta-float-3', {
-          scale: 1.2,
-          duration: 3,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
-        });
-
-        // Glow effects animation
-        gsap.to('.cta-glow-1', {
-          opacity: 0.5,
-          duration: 2,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
-        });
-
-        gsap.to('.cta-glow-2', {
-          opacity: 0.5,
-          duration: 2.5,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
-        });
-
-        gsap.to('.cta-glow-3', {
-          scale: 1.1,
-          duration: 3,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
-        });
-
-        // CTA Button hover animation
-        const ctaButton = document.querySelector('.cta-button');
-        ctaButton.addEventListener('mouseenter', () => {
-          gsap.to('.cta-button-text', {
-            scale: 1.05,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-          gsap.to('.cta-button', {
-            boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)',
-            duration: 0.3
-          });
-        });
-
-        ctaButton.addEventListener('mouseleave', () => {
-          gsap.to('.cta-button-text', {
-            scale: 1,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-          gsap.to('.cta-button', {
-            boxShadow: '0 0 20px rgba(59, 130, 246, 0.2)',
-            duration: 0.3
-          });
-        });
-
-        // Scroll-triggered animations for CTA elements
-        gsap.from('.cta-title', {
-          scrollTrigger: {
-            trigger: '#cta-section',
-            start: 'top 80%',
-          },
-          y: 50,
-          opacity: 0,
-          duration: 1,
-          ease: 'power3.out'
-        });
-
-        gsap.from('.cta-subtitle', {
-          scrollTrigger: {
-            trigger: '#cta-section',
-            start: 'top 80%',
-          },
-          y: 30,
-          opacity: 0,
-          duration: 1,
-          delay: 0.2,
-          ease: 'power3.out'
-        });
-
-        gsap.from('.cta-button', {
-          scrollTrigger: {
-            trigger: '#cta-section',
-            start: 'top 80%',
-          },
-          y: 30,
-          opacity: 0,
-          duration: 1,
-          delay: 0.4,
-          ease: 'power3.out'
-        });
-
-        gsap.from('.cta-note', {
-          scrollTrigger: {
-            trigger: '#cta-section',
-            start: 'top 80%',
-          },
-          y: 20,
-          opacity: 0,
-          duration: 1,
-          delay: 0.6,
-          ease: 'power3.out'
+        gsap.to(".cta-button", {
+          boxShadow: "0 0 30px rgba(59, 130, 246, 0.5)",
+          duration: 0.3,
         });
       });
-    </script>
-  </div>
+
+      ctaButton.addEventListener("mouseleave", () => {
+        gsap.to(".cta-button-text", {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+        gsap.to(".cta-button", {
+          boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)",
+          duration: 0.3,
+        });
+      });
+
+      // Scroll-triggered animations for CTA elements
+      gsap.from(".cta-title", {
+        scrollTrigger: {
+          trigger: "#cta-section",
+          start: "top 80%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      gsap.from(".cta-subtitle", {
+        scrollTrigger: {
+          trigger: "#cta-section",
+          start: "top 80%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        delay: 0.2,
+        ease: "power3.out",
+      });
+
+      gsap.from(".cta-button", {
+        scrollTrigger: {
+          trigger: "#cta-section",
+          start: "top 80%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        delay: 0.4,
+        ease: "power3.out",
+      });
+
+      gsap.from(".cta-note", {
+        scrollTrigger: {
+          trigger: "#cta-section",
+          start: "top 80%",
+        },
+        y: 20,
+        opacity: 0,
+        duration: 1,
+        delay: 0.6,
+        ease: "power3.out",
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const hero = document.getElementById("hero");
+      const count = 200; // how many icons
+      const depth = 1000; // z‑distance
+
+      // minimalist X logo as inline SVG
+      const xSVG = `
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path fill="white" d="M18.3 2H22L14 11l8 11h-3.7l-6-8-6 8H2l8-11L2 2h3.7l6 8 6-8z" />
+  </svg>`;
+
+      // Generate icons
+      for (let i = 0; i < count; i++) {
+        const icon = document.createElement("div");
+        icon.className = "icon";
+        icon.innerHTML = xSVG;
+        hero.appendChild(icon);
+
+        // Random starting coords
+        gsap.set(icon, {
+          x: gsap.utils.random(-window.innerWidth / 2, window.innerWidth / 2),
+          y: gsap.utils.random(-window.innerHeight / 2, window.innerHeight / 2),
+          z: gsap.utils.random(-depth, depth),
+          scale: 0.15,
+        });
+
+        fly(icon);
+      }
+
+      function fly(el) {
+        gsap.fromTo(
+          el,
+          { z: -depth, opacity: 0 },
+          {
+            z: depth,
+            opacity: 1,
+            repeat: -1,
+            duration: gsap.utils.random(5, 10),
+            ease: "none",
+            onRepeat: () => {
+              // reposition horizontally & vertically after each fly‑by
+              gsap.set(el, {
+                x: gsap.utils.random(
+                  -window.innerWidth / 2,
+                  window.innerWidth / 2
+                ),
+                y: gsap.utils.random(
+                  -window.innerHeight / 2,
+                  window.innerHeight / 2
+                ),
+              });
+            },
+          }
+        );
+      }
+
+      // Keep things responsive
+      window.addEventListener("resize", () => {
+        document.querySelectorAll(".icon").forEach((el) => {
+          gsap.set(el, {
+            x: gsap.utils.random(-window.innerWidth / 2, window.innerWidth / 2),
+            y: gsap.utils.random(
+              -window.innerHeight / 2,
+              window.innerHeight / 2
+            ),
+          });
+        });
+      });
+    });
+  </script>
+</div>
