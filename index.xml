@@ -12,18 +12,18 @@
 &lt;p>This policy outlines what data is (and is not) collected when you visit this site.&lt;/p>
 &lt;h2 id="1-information-i-collect">&lt;strong>1. Information I Collect&lt;/strong>&lt;/h2>
 &lt;p>This site uses Google Analytics to collect anonymized usage data. This may include:&lt;/p></description></item><item><title>Hypertweet</title><link>https://nexo.sh/hypertweet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://nexo.sh/hypertweet/</guid><description>&lt;!--head-->
- &lt;!-- &lt;meta charset="UTF-8" />
+&lt;!-- &lt;meta charset="UTF-8" />
  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" />
  &lt;!-- Tailwind CSS CDN -->
- &lt;!-- &lt;script src="https://cdn.tailwindcss.com">&lt;/script> --> 
- &lt;!-- Inter font for modern, Apple‑like typography -->
- &lt;!-- &lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" /> -->
- &lt;!-- GSAP &amp; ScrollTrigger -->
- &lt;!-- &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer>&lt;/script>
+&lt;!-- &lt;script src="https://cdn.tailwindcss.com">&lt;/script> -->
+&lt;!-- Inter font for modern, Apple‑like typography -->
+&lt;!-- &lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" /> -->
+&lt;!-- GSAP &amp; ScrollTrigger -->
+&lt;!-- &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer>&lt;/script>
  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer>&lt;/script> -->
- &lt;style>
+&lt;style>
  body {
- font-family: 'Inter', sans-serif;
+ font-family: "Inter", sans-serif;
  background-color: #0a0a0a;
  color: #f3f4f6;
  }
@@ -36,9 +36,15 @@
  }
  /* Premium gradient animations */
  @keyframes gradient {
- 0% { background-position: 0% 50%; }
- 50% { background-position: 100% 50%; }
- 100% { background-position: 0% 50%; }
+ 0% {
+ background-position: 0% 50%;
+ }
+ 50% {
+ background-position: 100% 50%;
+ }
+ 100% {
+ background-position: 0% 50%;
+ }
  }
  .animate-gradient {
  background-size: 200% 200%;
@@ -64,31 +70,234 @@
  -webkit-text-fill-color: transparent;
  background-clip: text;
  }
- &lt;/style>
+ /* Tech pattern styles */
+ .tech-pattern {
+ position: absolute;
+ inset: 0;
+ background-image: linear-gradient(
+ rgba(255, 255, 255, 0.03) 1px,
+ transparent 1px
+ ),
+ linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+ background-size: 50px 50px;
+ mask-image: radial-gradient(circle at center, black, transparent 80%);
+ -webkit-mask-image: radial-gradient(
+ circle at center,
+ black,
+ transparent 80%
+ );
+ }
+ .particle {
+ position: absolute;
+ pointer-events: none;
+ background: radial-gradient(
+ circle at center,
+ rgba(255, 255, 255, 0.8) 0%,
+ transparent 70%
+ );
+ border-radius: 50%;
+ }
+ .connection-line {
+ position: absolute;
+ background: linear-gradient(
+ 90deg,
+ transparent,
+ rgba(255, 255, 255, 0.1),
+ transparent
+ );
+ height: 1px;
+ transform-origin: left center;
+ pointer-events: none;
+ }
+ .data-flow {
+ position: absolute;
+ width: 2px;
+ height: 2px;
+ background: rgba(255, 255, 255, 0.5);
+ border-radius: 50%;
+ pointer-events: none;
+ }
+ /* Utility to enable 3‑D space */
+ #hero {
+ perspective: 800px;
+ perspective-origin: 50% 50%;
+ position: relative;
+ }
+ .icon {
+ width: 1.5rem;
+ height: 1.5rem;
+ position: absolute;
+ color: white;
+ pointer-events: none;
+ user-select: none;
+ transform-style: preserve-3d;
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+ z-index: -1;
+ }
+ #hero > *:not(.icon) {
+ position: relative;
+ z-index: 1;
+ }
+ .icon svg {
+ width: 100%;
+ height: 100%;
+ fill: currentColor;
+ }
+ @keyframes techLine {
+ 0% {
+ transform: translateX(-100%) translateY(-100%);
+ }
+ 100% {
+ transform: translateX(100%) translateY(100%);
+ }
+ }
+ .tech-pattern {
+ background-image: 
+ linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+ linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+ background-size: 50px 50px;
+ mask-image: radial-gradient(circle at center, black, transparent 80%);
+ -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+ }
+ .tech-pattern::before {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background-image: 
+ radial-gradient(circle at center, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+ radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 30%);
+ background-size: 100px 100px, 200px 200px;
+ background-position: 0 0, 50px 50px;
+ animation: techPulse 4s ease-in-out infinite alternate;
+ }
+ @keyframes techPulse {
+ 0% {
+ opacity: 0.3;
+ transform: scale(0.95);
+ }
+ 100% {
+ opacity: 0.5;
+ transform: scale(1.05);
+ }
+ }
+&lt;/style>
 &lt;!--end head-->
- &lt;div class="antialiased scroll-smooth">
+&lt;div class="antialiased scroll-smooth">
  &lt;!-- Hero -->
- &lt;section class="relative flex min-h-screen flex-col items-center justify-center px-6 text-center overflow-hidden">
+ &lt;section
+ class="relative overflow-hidden flex min-h-[120vh] flex-col items-center justify-center px-6 text-center pt-24 md:pt-32 pb-32"
+ id="hero"
+ >
  &lt;!-- Premium gradient backdrop -->
- &lt;div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient">&lt;/div>
- 
+ &lt;div
+ class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient"
+ >&lt;/div>
+
  &lt;!-- Sophisticated gradient overlays -->
  &lt;div class="pointer-events-none absolute inset-0 -z-10">
- &lt;div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5">&lt;/div>
- &lt;div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl">&lt;/div>
- &lt;div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl">&lt;/div>
- &lt;div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-2xl">&lt;/div>
+ &lt;div
+ class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"
+ >&lt;/div>
+ &lt;div
+ class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl"
+ >&lt;/div>
+ &lt;div
+ class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl"
+ >&lt;/div>
+ &lt;div
+ class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-2xl"
+ >&lt;/div>
  &lt;/div>
 
  &lt;!-- Premium floating elements -->
  &lt;div class="absolute inset-0 pointer-events-none">
- &lt;div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl animate-pulse">&lt;/div>
- &lt;div class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl animate-pulse delay-1000">&lt;/div>
+ &lt;div
+ class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl animate-pulse"
+ >&lt;/div>
+ &lt;div
+ class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl animate-pulse delay-1000"
+ >&lt;/div>
  &lt;/div>
 
- &lt;h1 class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-tight text-gradient" data-animate>
- Reply Like a Pro.&lt;br class="hidden md:block" />Grow Faster on&amp;nbsp;X.
+ &lt;!-- Content wrapper with premium glow -->
+ &lt;div class="relative z-10">
+ &lt;!-- Nebulous glow effect -->
+ &lt;div class="absolute inset-0 -z-10">
+ &lt;!-- Main nebulous glow -->
+ &lt;div
+ class="p-6 overflow-hidden absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-900/30 to-gray-900/40 backdrop-blur-[100px]"
+ >&lt;/div>
+
+ &lt;!-- Organic glow shapes -->
+ &lt;div
+ class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-[120px] transform -rotate-12"
+ >&lt;/div>
+ &lt;div
+ class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 blur-[100px] transform rotate-12"
+ >&lt;/div>
+
+ &lt;!-- Ambient glows -->
+ &lt;div
+ class="absolute inset-0 bg-gradient-to-b from-gray-900/40 via-transparent to-gray-900/40"
+ >&lt;/div>
+ &lt;div
+ class="absolute inset-0 bg-gradient-to-r from-gray-900/40 via-transparent to-gray-900/40"
+ >&lt;/div>
+
+ &lt;!-- Additional masking layers -->
+ &lt;div
+ class="absolute inset-0 bg-gradient-radial from-gray-900/50 via-gray-900/30 to-transparent"
+ >&lt;/div>
+ &lt;div class="absolute inset-0 backdrop-blur-[50px]">&lt;/div>
+ &lt;/div>
+
+ &lt;!-- Content with glass effect -->
+ &lt;div class="relative rounded-[2rem] overflow-hidden">
+ &lt;!-- Glass effect behind content -->
+ &lt;div
+ class="absolute border border-white/10 overflow-hidden inset-0 bg-gradient-to-br from-gray-900/5 via-gray-900/10 to-gray-900/5 backdrop-blur-[40px] rounded-[2rem]"
+ >
+ &lt;!-- Subtle inner highlights -->
+ &lt;div
+ class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-30"
+ >&lt;/div>
+ &lt;!-- Ambient glow -->
+ &lt;div
+ class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"
+ >&lt;/div>
+ &lt;!-- Edge highlights -->
+ &lt;div
+ class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/5 to-transparent opacity-20"
+ >&lt;/div>
+ &lt;!-- Subtle shadow -->
+ &lt;div
+ class="absolute inset-0 rounded-[2rem] shadow-[0_0_100px_rgba(0,0,0,0.3)]"
+ >&lt;/div>
+ &lt;/div>
+
+ &lt;!-- Content with padding -->
+ &lt;div class="relative px-16 py-20">
+ &lt;!-- Subtle inner glow -->
+ &lt;div
+ class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-20"
+ >&lt;/div>
+
+ &lt;h1
+ class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-[1.1] text-gradient"
+ data-animate
+ >
+ Reply Like a Pro.&lt;br class="hidden md:block" />Grow Faster
+ on&amp;nbsp;X.
  &lt;/h1>
- &lt;p class="mt-8 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed" data-animate>
- Upgrade the way you engage: generate &lt;span class="font-semibold text-white">100+ context‑aware replies in minutes&lt;/span> and watch your following take off.
+ &lt;p
+ class="mt-6 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed"
+ data-animate
+ >
+ Upgrade the way you engage: generate
+ &lt;span class="font-semibold text-white"
+ >100+ context‑aware replies in minutes&lt;/span
+ >
+ and watch your following take off.
  &lt;/p></description></item></channel></rss>
