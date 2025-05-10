@@ -146,6 +146,43 @@ customMenu:
     height: 100%;
     fill: currentColor;
   }
+  @keyframes techLine {
+    0% {
+      transform: translateX(-100%) translateY(-100%);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%);
+    }
+  }
+  .tech-pattern {
+    background-image: 
+      linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+  }
+  .tech-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at center, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 30%);
+    background-size: 100px 100px, 200px 200px;
+    background-position: 0 0, 50px 50px;
+    animation: techPulse 4s ease-in-out infinite alternate;
+  }
+  @keyframes techPulse {
+    0% {
+      opacity: 0.3;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
+  }
 </style>
 <!--end head-->
 <div class="antialiased scroll-smooth">
@@ -631,40 +668,30 @@ customMenu:
     class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-950 to-black py-32 text-white"
     id="cta-section"
   >
+    <!-- Top transition gradient -->
+    <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black via-black/80 to-transparent"></div>
+
+    <!-- Mouse-responsive tech grid -->
+    <div id="tech-grid" class="absolute inset-0 pointer-events-none">
+      <canvas id="grid-canvas" class="absolute inset-0 w-full h-full"></canvas>
+    </div>
+
     <!-- Enhanced gradient animations -->
     <div class="absolute inset-0 pointer-events-none">
-      <div
-        class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl animate-pulse cta-glow-1"
-      ></div>
-      <div
-        class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-2xl animate-pulse delay-1000 cta-glow-2"
-      ></div>
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl cta-glow-3"
-      ></div>
+      <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl animate-pulse cta-glow-1"></div>
+      <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-2xl animate-pulse delay-1000 cta-glow-2"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl cta-glow-3"></div>
     </div>
 
     <!-- Floating elements -->
     <div class="absolute inset-0 pointer-events-none">
-      <div
-        class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl cta-float-1"
-      ></div>
-      <div
-        class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl cta-float-2"
-      ></div>
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-pink-500/5 blur-xl cta-float-3"
-      ></div>
+      <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl cta-float-1"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-purple-500/5 blur-2xl cta-float-2"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-pink-500/5 blur-xl cta-float-3"></div>
     </div>
 
-    <div
-      class="relative mx-auto max-w-3xl px-6 text-center"
-      data-animate
-      id="early-access"
-    >
-      <h2
-        class="text-3xl md:text-5xl font-bold tracking-tight text-gradient cta-title"
-      >
+    <div class="relative mx-auto max-w-3xl px-6 text-center" data-animate id="early-access">
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-gradient cta-title">
         Ready to Own the Timeline?
       </h2>
       <p class="mt-6 text-lg text-gray-300 leading-relaxed cta-subtitle">
@@ -676,21 +703,24 @@ customMenu:
         rel="noopener noreferrer"
         class="mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift cta-button"
       >
-        <span class="cta-button-text"
-          >Follow <span class="font-semibold">@nexo_v1</span></span
-        >
+        <span class="cta-button-text">Follow <span class="font-semibold">@nexo_v1</span></span>
         <span class="cta-button-arrow">→</span>
       </a>
       <p class="mt-6 text-sm text-gray-400 cta-note">
         Already following? Retweet the pinned post and jump the waitlist!
       </p>
     </div>
+
+    <!-- Bottom transition gradient -->
+    <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent via-black/80 to-transparent translate-y-full"></div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-12 text-center text-sm text-gray-400 bg-black/50">
-    © 2025 Hypertweet. Not affiliated with X Corp | Privacy first | Built in
-    public by
+  <footer class="relative py-12 text-center text-sm text-gray-400 bg-black/50">
+    <!-- Top transition gradient -->
+    <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-transparent via-black/80 to-black -translate-y-full"></div>
+    
+    © 2025 Hypertweet. Not affiliated with X Corp | Privacy first | Built in public by
     <a
       href="https://twitter.com/nexo_v1"
       target="_blank"
@@ -1319,6 +1349,84 @@ customMenu:
           });
         });
       });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('grid-canvas');
+      const ctx = canvas.getContext('2d');
+      let mouseX = 0;
+      let mouseY = 0;
+      let windowWidth = window.innerWidth;
+      let windowHeight = window.innerHeight;
+
+      // Set canvas size
+      function resizeCanvas() {
+        canvas.width = windowWidth;
+        canvas.height = windowHeight;
+      }
+
+      // Track mouse movement
+      document.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+      });
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        windowWidth = window.innerWidth;
+        windowHeight = window.innerHeight;
+        resizeCanvas();
+      });
+
+      // Initial setup
+      resizeCanvas();
+
+      // Draw the grid
+      function drawGrid() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const gridSize = 50;
+        const lineWidth = 1;
+        const maxDistance = 300;
+        
+        // Calculate grid offset based on mouse position
+        const offsetX = (mouseX - windowWidth / 2) * 0.1;
+        const offsetY = (mouseY - windowHeight / 2) * 0.1;
+
+        // Draw vertical lines
+        for (let x = 0; x < windowWidth; x += gridSize) {
+          const distanceFromMouse = Math.abs(x - mouseX);
+          const opacity = Math.max(0, 1 - distanceFromMouse / maxDistance);
+          
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.15})`;
+          ctx.lineWidth = lineWidth;
+          ctx.moveTo(x + offsetX, 0);
+          ctx.lineTo(x + offsetX, windowHeight);
+          ctx.stroke();
+        }
+
+        // Draw horizontal lines
+        for (let y = 0; y < windowHeight; y += gridSize) {
+          const distanceFromMouse = Math.abs(y - mouseY);
+          const opacity = Math.max(0, 1 - distanceFromMouse / maxDistance);
+          
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.15})`;
+          ctx.lineWidth = lineWidth;
+          ctx.moveTo(0, y + offsetY);
+          ctx.lineTo(windowWidth, y + offsetY);
+          ctx.stroke();
+        }
+
+        requestAnimationFrame(drawGrid);
+      }
+
+      // Start the animation
+      drawGrid();
     });
   </script>
 </div>
