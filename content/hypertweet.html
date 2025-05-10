@@ -135,7 +135,12 @@ customMenu:
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    z-index: -1;
   }
+#hero > *:not(.icon) {
+  position: relative;
+  z-index: 1;
+}
   .icon svg {
     width: 100%;
     height: 100%;
@@ -1120,6 +1125,7 @@ customMenu:
       const hero = document.getElementById("hero");
       const count = 200; // how many icons
       const depth = 1000; // z‑distance
+      const centerFadeRadius = 400; // increased radius for better fade effect
 
       // minimalist X logo as inline SVG
       const xSVG = `
@@ -1127,7 +1133,21 @@ customMenu:
     <path fill="white" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
   </svg>`;
 
-      // Generate icons
+      // Function to calculate center fade opacity
+      function getCenterFadeOpacity(x, y) {
+        // Normalize coordinates to -1 to 1 range
+        const normalizedX = x / (window.innerWidth / 2);
+        const normalizedY = y / (window.innerHeight / 2);
+        
+        // Calculate distance from center (0,0)
+        const distanceFromCenter = Math.sqrt(normalizedX * normalizedX + normalizedY * normalizedY);
+        
+        // Apply stronger fade effect
+        if (distanceFromCenter > 1) return 1;
+        return Math.max(0.05, Math.pow(distanceFromCenter, 2)); // Square the distance for stronger fade
+      }
+
+      // Generate icons with initial z positions
       for (let i = 0; i < count; i++) {
         const icon = document.createElement("div");
         icon.className = "icon";
@@ -1135,31 +1155,49 @@ customMenu:
         hero.appendChild(icon);
 
         // Random starting coords with concentration towards center
-        const centerBias = 0.7; // Higher value means more concentration towards center
+        const centerBias = 0.7;
         const randomX = gsap.utils.random(-1, 1);
         const randomY = gsap.utils.random(-1, 1);
         const x = (randomX * Math.abs(randomX)) * (window.innerWidth / 2) * centerBias;
         const y = (randomY * Math.abs(randomY)) * (window.innerHeight / 2) * centerBias;
 
+        // Random initial z position
+        const initialZ = gsap.utils.random(-depth, depth);
+        
+        // More varied size distribution
+        const size = gsap.utils.random(0.15, 0.5);
+        const scale = size * (1 + Math.random() * 0.5);
+
+        // Calculate initial opacity based on position
+        const initialOpacity = getCenterFadeOpacity(x, y) * gsap.utils.random(0.3, 0.7);
+
         gsap.set(icon, {
           x: x,
           y: y,
-          z: gsap.utils.random(-depth, depth),
-          scale: gsap.utils.random(0.2, 0.4), // Increased size range
+          z: initialZ,
+          scale: scale,
+          opacity: initialOpacity
         });
 
-        fly(icon);
+        // Start the animation from the initial position
+        fly(icon, initialZ);
       }
 
-      function fly(el) {
+      function fly(el, startZ) {
+        const duration = gsap.utils.random(3, 6); // Faster animation
+        const startOpacity = gsap.utils.random(0.3, 0.7);
+        
         gsap.fromTo(
           el,
-          { z: -depth, opacity: 0 },
+          { 
+            z: startZ,
+            opacity: startOpacity
+          },
           {
             z: depth,
             opacity: 1,
             repeat: -1,
-            duration: gsap.utils.random(5, 10),
+            duration: duration,
             ease: "none",
             onRepeat: () => {
               // reposition with center bias
@@ -1169,9 +1207,19 @@ customMenu:
               const x = (randomX * Math.abs(randomX)) * (window.innerWidth / 2) * centerBias;
               const y = (randomY * Math.abs(randomY)) * (window.innerHeight / 2) * centerBias;
 
+              // Randomize size on each repeat
+              const size = gsap.utils.random(0.15, 0.5);
+              const scale = size * (1 + Math.random() * 0.5);
+
+              // Calculate new opacity based on position
+              const newOpacity = getCenterFadeOpacity(x, y);
+
               gsap.set(el, {
                 x: x,
                 y: y,
+                scale: scale,
+                z: -depth,
+                opacity: newOpacity
               });
             },
           }
@@ -1187,9 +1235,13 @@ customMenu:
           const x = (randomX * Math.abs(randomX)) * (window.innerWidth / 2) * centerBias;
           const y = (randomY * Math.abs(randomY)) * (window.innerHeight / 2) * centerBias;
 
+          // Update opacity based on new position
+          const newOpacity = getCenterFadeOpacity(x, y);
+
           gsap.set(el, {
             x: x,
             y: y,
+            opacity: newOpacity
           });
         });
       });
