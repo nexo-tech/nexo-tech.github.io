@@ -9,12 +9,20 @@
         >{{ if .IsHome }}{{ .Site.Params.header.homeTitle }}{{ else }}{{ .Site.Params.header.title }}{{ end }}</a
       >
       <div class="flex flex-wrap gap-2 sm:gap-4 sm:space-x-4 sm:space-x-8">
-        {{ range .Site.Params.header.items }}
-        <a
-          href="{{ if $.IsHome }}{{ .homeHref }}{{ else }}{{ .href }}{{ end }}"
-          class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
-          >/{{ .text }}</a
-        >
+        {{ if .Params.customMenu }}
+          {{ range .Params.customMenu }}
+            <a href="{{ .url }}" class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
+              >{{ .title }}</a
+            >
+          {{ end }}
+        {{ else }}
+          {{ range .Site.Params.header.items }}
+          <a
+            href="{{ if $.IsHome }}{{ .homeHref }}{{ else }}{{ .href }}{{ end }}"
+            class="nav-item text-sm sm:text-md text-primary hover:text-primary/80 hover:underline transition-colors font-semibold header-text"
+            >/{{ .text }}</a
+          >
+          {{ end }}
         {{ end }}
       </div>
     </nav>

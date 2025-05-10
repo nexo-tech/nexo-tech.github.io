@@ -1,6 +1,15 @@
 ---
 layout: blank
 title: Hypertweet
+customMenu:
+  - title: "how it works"
+    url: "#how-it-works"
+  - title: "power features"
+    url: "#power-features"
+  - title: "faq"
+    url: "#faq"
+  - title: "early access"
+    url: "#early-access"
 ---
 <!--head-->
     <!-- <meta charset="UTF-8" />
@@ -55,6 +64,38 @@ title: Hypertweet
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
+      /* Tech pattern styles */
+      .tech-pattern {
+        position: absolute;
+        inset: 0;
+        background-image: 
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        mask-image: radial-gradient(circle at center, black, transparent 80%);
+        -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+      }
+      .particle {
+        position: absolute;
+        pointer-events: none;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+        border-radius: 50%;
+      }
+      .connection-line {
+        position: absolute;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        height: 1px;
+        transform-origin: left center;
+        pointer-events: none;
+      }
+      .data-flow {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+      }
     </style>
 <!--end head-->
   <div class="antialiased scroll-smooth">
@@ -63,6 +104,15 @@ title: Hypertweet
       <!-- Premium gradient backdrop -->
       <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient"></div>
       
+      <!-- Tech pattern overlay -->
+      <div class="tech-pattern"></div>
+      
+      <!-- Particle system container -->
+      <div id="particle-container" class="absolute inset-0 pointer-events-none"></div>
+      
+      <!-- Data flow container -->
+      <div id="data-flow-container" class="absolute inset-0 pointer-events-none"></div>
+
       <!-- Sophisticated gradient overlays -->
       <div class="pointer-events-none absolute inset-0 -z-10">
         <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
@@ -84,15 +134,28 @@ title: Hypertweet
         Upgrade the way you engage: generate <span class="font-semibold text-white">100+ context‑aware replies in minutes</span> and watch your following take off.
       </p>
       <div class="mt-12 flex flex-col items-center gap-4" data-animate>
-        <a
-          href="https://twitter.com/nexo_v1"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift hero-cta-button opacity-0"
-        >
-          <span class="relative z-10 hero-cta-text">Follow for Early Access</span>
-          <span class="relative z-10 hero-cta-arrow">→</span>
-        </a>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="https://twitter.com/nexo_v1"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift hero-cta-button opacity-0"
+          >
+            <span class="relative z-10 hero-cta-text">Follow for Early Access</span>
+            <span class="relative z-10 hero-cta-arrow">→</span>
+          </a>
+          <a
+            href="https://github.com/nexo-tech/hypertweet"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative inline-flex items-center gap-2 rounded-full bg-gray-800 px-6 py-4 text-lg font-medium text-white shadow-lg shadow-gray-900/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-white/40 hover-lift github-button opacity-0"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="relative z-10">Star on GitHub</span>
+          </a>
+        </div>
         <div class="flex flex-col items-center gap-2">
           <p class="text-sm text-gray-400">
             <span class="inline-flex items-center gap-1">
@@ -181,7 +244,7 @@ title: Hypertweet
           <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
             <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">1</span>
             <h3 class="mt-4 font-semibold text-white text-lg">Install</h3>
-            <p class="mt-3 text-gray-400 leading-relaxed">Free while in beta.</p>
+            <p class="mt-3 text-gray-400 leading-relaxed">Free and open source.</p>
           </li>
           <li class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift">
             <span class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg">2</span>
@@ -203,7 +266,7 @@ title: Hypertweet
     </section>
 
     <!-- Power Features Section -->
-    <section class="py-32 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient">
+    <section class="py-32 bg-gradient-to-br from-gray-900 via-gray-950 to-black animate-gradient" id="power-features">
       <div class="mx-auto max-w-5xl px-6">
         <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
           Power Features Creators Love
@@ -234,7 +297,7 @@ title: Hypertweet
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-32 bg-black/50">
+    <section class="py-32 bg-black/50" id="faq">
       <div class="mx-auto max-w-5xl px-6">
         <h2 class="text-3xl md:text-5xl font-bold text-center text-gradient" data-animate>
           Frequently Asked
@@ -280,7 +343,7 @@ title: Hypertweet
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-pink-500/5 blur-xl cta-float-3"></div>
       </div>
 
-      <div class="relative mx-auto max-w-3xl px-6 text-center" data-animate>
+      <div class="relative mx-auto max-w-3xl px-6 text-center" data-animate id="early-access">
         <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-gradient cta-title">
           Ready to Own the Timeline?
         </h2>
@@ -312,6 +375,161 @@ title: Hypertweet
         gsap.registerPlugin(ScrollTrigger);
         document.body.classList.add('dark-mode');
 
+        // Particle System
+        const particleContainer = document.getElementById('particle-container');
+        const dataFlowContainer = document.getElementById('data-flow-container');
+        const particles = [];
+        const dataFlows = [];
+        const connectionLines = [];
+
+        // Create particles
+        function createParticle() {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          const size = Math.random() * 4 + 2;
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          
+          // Random position
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          
+          particleContainer.appendChild(particle);
+          particles.push({
+            element: particle,
+            x,
+            y,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size
+          });
+        }
+
+        // Create data flow
+        function createDataFlow() {
+          const flow = document.createElement('div');
+          flow.className = 'data-flow';
+          
+          // Random position
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          flow.style.left = `${x}px`;
+          flow.style.top = `${y}px`;
+          
+          dataFlowContainer.appendChild(flow);
+          dataFlows.push({
+            element: flow,
+            x,
+            y,
+            vx: (Math.random() - 0.5) * 2,
+            vy: (Math.random() - 0.5) * 2
+          });
+        }
+
+        // Create connection lines
+        function createConnectionLine(particle1, particle2) {
+          const line = document.createElement('div');
+          line.className = 'connection-line';
+          
+          const dx = particle2.x - particle1.x;
+          const dy = particle2.y - particle1.y;
+          const length = Math.sqrt(dx * dx + dy * dy);
+          const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+          
+          line.style.width = `${length}px`;
+          line.style.left = `${particle1.x}px`;
+          line.style.top = `${particle1.y}px`;
+          line.style.transform = `rotate(${angle}deg)`;
+          
+          particleContainer.appendChild(line);
+          connectionLines.push({
+            element: line,
+            particle1,
+            particle2
+          });
+        }
+
+        // Initialize particles and connections
+        for (let i = 0; i < 50; i++) {
+          createParticle();
+        }
+
+        for (let i = 0; i < 20; i++) {
+          createDataFlow();
+        }
+
+        // Update particles and connections
+        function updateParticles() {
+          particles.forEach(particle => {
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            
+            // Bounce off edges
+            if (particle.x < 0 || particle.x > window.innerWidth) particle.vx *= -1;
+            if (particle.y < 0 || particle.y > window.innerHeight) particle.vy *= -1;
+            
+            particle.element.style.left = `${particle.x}px`;
+            particle.element.style.top = `${particle.y}px`;
+          });
+
+          // Update data flows
+          dataFlows.forEach(flow => {
+            flow.x += flow.vx;
+            flow.y += flow.vy;
+            
+            // Bounce off edges
+            if (flow.x < 0 || flow.x > window.innerWidth) flow.vx *= -1;
+            if (flow.y < 0 || flow.y > window.innerHeight) flow.vy *= -1;
+            
+            flow.element.style.left = `${flow.x}px`;
+            flow.element.style.top = `${flow.y}px`;
+          });
+
+          // Update connection lines
+          connectionLines.forEach(line => {
+            const dx = line.particle2.x - line.particle1.x;
+            const dy = line.particle2.y - line.particle1.y;
+            const length = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+            
+            line.element.style.width = `${length}px`;
+            line.element.style.left = `${line.particle1.x}px`;
+            line.element.style.top = `${line.particle1.y}px`;
+            line.element.style.transform = `rotate(${angle}deg)`;
+            
+            // Fade out if too far
+            const opacity = Math.max(0, 1 - length / 200);
+            line.element.style.opacity = opacity;
+          });
+
+          requestAnimationFrame(updateParticles);
+        }
+
+        // Start animation
+        updateParticles();
+
+        // Create new connections periodically
+        setInterval(() => {
+          // Remove old connections
+          connectionLines.forEach(line => line.element.remove());
+          connectionLines.length = 0;
+          
+          // Create new connections
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const dx = particles[j].x - particles[i].x;
+              const dy = particles[j].y - particles[i].y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              
+              if (distance < 200) {
+                createConnectionLine(particles[i], particles[j]);
+              }
+            }
+          }
+        }, 1000);
+
         // Base animations for all sections
         gsap.utils.toArray('[data-animate]').forEach((el) => {
           gsap.from(el, {
@@ -328,25 +546,37 @@ title: Hypertweet
 
         // Hero CTA Button Animations
         const heroCtaButton = document.querySelector('.hero-cta-button');
+        const githubButton = document.querySelector('.github-button');
         const heroCtaText = document.querySelector('.hero-cta-text');
         const heroCtaArrow = document.querySelector('.hero-cta-arrow');
 
-        // Initial button animation
-        gsap.to(heroCtaButton, {
+        // Initial button animations
+        gsap.to([heroCtaButton, githubButton], {
           opacity: 1,
           scale: 1,
           duration: 1,
           ease: 'elastic.out(1, 0.5)',
-          delay: 0.5
+          delay: 0.5,
+          stagger: 0.1
         });
 
-        // Continuous subtle pulse animation
-        gsap.to(heroCtaButton, {
-          boxShadow: '0 0 30px rgba(255, 255, 255, 0.2)',
-          duration: 1.5,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
+        // GitHub button hover animation
+        githubButton.addEventListener('mouseenter', () => {
+          gsap.to(githubButton, {
+            scale: 1.05,
+            boxShadow: '0 0 40px rgba(255, 255, 255, 0.2)',
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+
+        githubButton.addEventListener('mouseleave', () => {
+          gsap.to(githubButton, {
+            scale: 1,
+            boxShadow: '0 0 20px rgba(255, 255, 255, 0.1)',
+            duration: 0.3,
+            ease: 'power2.out'
+          });
         });
 
         // Arrow animation
