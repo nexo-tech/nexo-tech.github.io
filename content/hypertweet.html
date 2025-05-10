@@ -502,57 +502,63 @@ customMenu:
       </h2>
       <ol
         class="mt-16 space-y-8 md:space-y-0 md:grid md:grid-cols-4 md:gap-8"
-        data-animate
+        id="how-it-works-steps"
       >
         <li
-          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift"
+          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift opacity-0 translate-y-8"
+          data-step="1"
         >
           <span
-            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg"
+            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg step-number"
             >1</span
           >
-          <h3 class="mt-4 font-semibold text-white text-lg">Install</h3>
-          <p class="mt-3 text-gray-400 leading-relaxed">
-            Free and open source.
+          <h3 class="mt-4 font-semibold text-white text-lg step-title">Install</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed step-description">
+            Add the Chrome extension to your browser. It's free and open source.
           </p>
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 step-glow"></div>
         </li>
         <li
-          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift"
+          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift opacity-0 translate-y-8"
+          data-step="2"
         >
           <span
-            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg"
+            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg step-number"
             >2</span
           >
-          <h3 class="mt-4 font-semibold text-white text-lg">Link Profiles</h3>
-          <p class="mt-3 text-gray-400 leading-relaxed">
-            Link your Twitter & LinkedIn profiles for instant personality
-            training.
+          <h3 class="mt-4 font-semibold text-white text-lg step-title">Link Profiles</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed step-description">
+            Connect your social profiles to train the AI with your unique voice and style.
           </p>
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 step-glow"></div>
         </li>
         <li
-          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift"
+          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift opacity-0 translate-y-8"
+          data-step="3"
         >
           <span
-            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg"
+            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg step-number"
             >3</span
           >
-          <h3 class="mt-4 font-semibold text-white text-lg">Tap Lightning</h3>
-          <p class="mt-3 text-gray-400 leading-relaxed">
-            Tap the lightning icon under any tweet → Hypertweet generates 3
-            crisp replies.
+          <h3 class="mt-4 font-semibold text-white text-lg step-title">Choose Your Reply</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed step-description">
+            Select from AI‑generated replies that match your tone and expertise.
           </p>
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 step-glow"></div>
         </li>
         <li
-          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift"
+          class="relative flex flex-col items-start glass p-8 rounded-2xl hover-lift opacity-0 translate-y-8"
+          data-step="4"
         >
           <span
-            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg"
+            class="absolute -top-4 -left-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-lg step-number"
             >4</span
           >
-          <h3 class="mt-4 font-semibold text-white text-lg">Edit & Post</h3>
-          <p class="mt-3 text-gray-400 leading-relaxed">
-            You stay in control (100% ToS‑compliant).
+          <h3 class="mt-4 font-semibold text-white text-lg step-title">Edit & Post</h3>
+          <p class="mt-3 text-gray-400 leading-relaxed step-description">
+            Fine‑tune the response if needed, then post with confidence.
           </p>
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 step-glow"></div>
         </li>
       </ol>
     </div>
@@ -719,7 +725,6 @@ customMenu:
   <footer class="relative py-12 text-center text-sm text-gray-400 bg-black/50">
     <!-- Top transition gradient -->
     <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-transparent via-black/80 to-black -translate-y-full"></div>
-    
     © 2025 Hypertweet. Not affiliated with X Corp | Privacy first | Built in public by
     <a
       href="https://twitter.com/nexo_v1"
@@ -1216,6 +1221,126 @@ customMenu:
         duration: 1,
         delay: 0.6,
         ease: "power3.out",
+      });
+
+      // How It Works section animations
+      const howItWorksSection = document.getElementById('how-it-works');
+      const steps = document.querySelectorAll('#how-it-works-steps li');
+
+      // Create a timeline for the sequence
+      const stepsTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: howItWorksSection,
+          start: "top 75%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      // Add each step to the timeline with a stagger
+      steps.forEach((step, index) => {
+        const number = step.querySelector('.step-number');
+        const title = step.querySelector('.step-title');
+        const description = step.querySelector('.step-description');
+        const glow = step.querySelector('.step-glow');
+
+        stepsTimeline.fromTo(step, 
+          {
+            opacity: 0,
+            y: 30,
+            scale: 0.95,
+            rotationX: 15
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotationX: 0,
+            duration: 0.5,
+            ease: "power3.out",
+            delay: index * 0.15,
+            onStart: () => {
+              // Animate number
+              gsap.fromTo(number, 
+                { scale: 0, rotation: -45 },
+                { scale: 1, rotation: 0, duration: 0.4, ease: "back.out(1.7)" }
+              );
+              
+              // Animate title
+              gsap.fromTo(title,
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", delay: 0.1 }
+              );
+              
+              // Animate description
+              gsap.fromTo(description,
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", delay: 0.2 }
+              );
+            }
+          }
+        );
+      });
+
+      // Enhanced hover animations
+      steps.forEach(step => {
+        const glow = step.querySelector('.step-glow');
+        const number = step.querySelector('.step-number');
+        const title = step.querySelector('.step-title');
+
+        step.addEventListener('mouseenter', () => {
+          gsap.to(step, {
+            scale: 1.02,
+            boxShadow: "0 0 30px rgba(59, 130, 246, 0.2)",
+            duration: 0.3,
+            ease: "power2.out"
+          });
+
+          gsap.to(glow, {
+            opacity: 1,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+
+          gsap.to(number, {
+            scale: 1.1,
+            duration: 0.3,
+            ease: "back.out(1.7)"
+          });
+
+          gsap.to(title, {
+            y: -2,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+
+        step.addEventListener('mouseleave', () => {
+          gsap.to(step, {
+            scale: 1,
+            boxShadow: "0 0 20px rgba(59, 130, 246, 0.1)",
+            duration: 0.3,
+            ease: "power2.out"
+          });
+
+          gsap.to(glow, {
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+
+          gsap.to(number, {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+
+          gsap.to(title, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
       });
     });
   </script>
