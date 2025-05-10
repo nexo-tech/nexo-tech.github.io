@@ -254,26 +254,26 @@
  &lt;/div>
 
  &lt;!-- Content with glass effect -->
- &lt;div class="relative rounded-[2rem] overflow-hidden">
+ &lt;div class="relative rounded-[1rem] overflow-hidden">
  &lt;!-- Glass effect behind content -->
  &lt;div
- class="absolute border border-white/10 overflow-hidden inset-0 bg-gradient-to-br from-gray-900/5 via-gray-900/10 to-gray-900/5 backdrop-blur-[40px] rounded-[2rem]"
+ class="absolute border border-white/10 overflow-hidden inset-0 bg-gradient-to-br from-gray-900/5 via-gray-900/10 to-gray-900/5 backdrop-blur-[40px] rounded-[1rem]"
  >
  &lt;!-- Subtle inner highlights -->
  &lt;div
- class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-30"
+ class="absolute inset-0 rounded-[1rem] bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-30"
  >&lt;/div>
  &lt;!-- Ambient glow -->
  &lt;div
- class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"
+ class="absolute inset-0 rounded-[1rem] bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"
  >&lt;/div>
  &lt;!-- Edge highlights -->
  &lt;div
- class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/5 to-transparent opacity-20"
+ class="absolute inset-0 rounded-[1rem] bg-gradient-to-br from-white/5 to-transparent opacity-20"
  >&lt;/div>
  &lt;!-- Subtle shadow -->
  &lt;div
- class="absolute inset-0 rounded-[2rem] shadow-[0_0_100px_rgba(0,0,0,0.3)]"
+ class="absolute inset-0 rounded-[1rem] shadow-[0_0_100px_rgba(0,0,0,0.3)]"
  >&lt;/div>
  &lt;/div>
 
@@ -281,18 +281,18 @@
  &lt;div class="relative px-16 py-20">
  &lt;!-- Subtle inner glow -->
  &lt;div
- class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-20"
+ class="absolute inset-0 rounded-[1rem] bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-20"
  >&lt;/div>
 
  &lt;h1
- class="max-w-4xl text-4xl md:text-7xl font-extrabold leading-[1.1] text-gradient"
+ class="max-w-4xl text-4xl md:text-5xl font-extrabold leading-[1.1] text-gradient"
  data-animate
  >
  Reply Like a Pro.&lt;br class="hidden md:block" />Grow Faster
  on&amp;nbsp;X.
  &lt;/h1>
  &lt;p
- class="mt-6 max-w-xl text-lg md:text-xl text-gray-300 leading-relaxed"
+ class="mt-6 max-w-xl text-lg md:text-md text-gray-300 leading-relaxed"
  data-animate
  >
  Upgrade the way you engage: generate
