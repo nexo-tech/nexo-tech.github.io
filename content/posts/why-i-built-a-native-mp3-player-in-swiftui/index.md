@@ -20,9 +20,9 @@ tags:
 
 Like many people, I've picked up too many subscriptions, some through Apple (iCloud, Apple Music), others got lost in random platforms (like Netflix, which I forgot I was still paying for). I actually used Apple Music regularly (and previously Spotify), but the streaming turned out to be more convenience than necessity. With a curated local library, I didn't lose much, just the lock-in.
 
-I had an Apple Music subscription and I saw that they have an iCloud music sync — you put your music to your iTunes library and it gets synced across devices. Alas, shortly after cancelling my subscription, I discovered that this functionality doesn’t work without an active service subscription, so I reduced my problem to the next thing — have my library of music stored in iCloud and stream the music from the cloud so I could play it from multiple devices. Sure, Apple provides a standalone service called iTunes Match ($24.99 a year), but it has downsides of replacing audio files when songs are matched and you're tied to iTunes, which is a quite archaic piece of software these days.
+I had an Apple Music subscription and I saw that they have an iCloud music sync, you put your music to your iTunes library and it gets synced across devices. Alas, shortly after cancelling my subscription, I discovered that this functionality doesn't work without an active service subscription, so I reduced my problem to the next thing, have my library of music stored in iCloud and stream the music from the cloud so I could play it from multiple devices. Sure, Apple provides a standalone service called iTunes Match ($24.99 a year), but it has downsides of replacing audio files when songs are matched and you're tied to iTunes, which is a quite archaic piece of software these days.
 
-While being frustrated with the lack of options, I decided to go the hacker/builder route. If I bought a computing device (iPhone in this case), what stops me from just building exactly what I need with code to use it? In this article, I want to share my full journey of frustrations towards creating a basic music player functionality — loading MP3 files, organizing and playing them back, but still encourage more talented people to keep using their computer technology as a means to create, not just consume.
+While being frustrated with the lack of options, I decided to go the hacker/builder route. If I bought a computing device (iPhone in this case), what stops me from just building exactly what I need with code to use it? In this article, I want to share my full journey of frustrations towards creating a basic music player functionality: loading MP3 files, organizing and playing them back, but still encourage more talented people to keep using their computer technology as a means to create, not just consume.
 
 ## What Apple (and Others) Offer Today
 
@@ -34,19 +34,19 @@ Apple technically lets you play music directly from iCloud via the Files app, bu
 
 ### Third-Party Apps
 
-I went to the app store to look for cool apps that solve my problem — while there are many of them, many rely on subscription-based pricing, a questionable model for an app that simply plays files users already own. There’s one app that I liked — Doppler. I’ve played with it during a trial, but the UX is built around managing albums. The search wasn’t that good, and the import functionality from iCloud was slow and hard to use on a large number of nested folders. The upside was — it had a single payment pricing model.
+I went to the app store to look for cool apps that solve my problem, while there are many of them, many rely on subscription-based pricing, a questionable model for an app that simply plays files users already own. There's one app that I liked, Doppler. I've played with it during a trial, but the UX is built around managing albums. The search wasn't that good, and the import functionality from iCloud was slow and hard to use on a large number of nested folders. The upside was, it had a single payment pricing model.
 
 ## Going Builder Mode: My Technical Journey
 
 With that said, I decided to create my own ideal music player that solves my pain points:
 
 - Flexible full-text search across iCloud folders, so I can select and import a folder with music or specific files quickly.
-- Functionality in managing music at least on par with the official Music App — queue, playlist management, and sorting by albums, etc.
+- Functionality in managing music at least on par with the official Music App: queue, playlist management, and sorting by albums, etc.
 - Familiar and friendly interface.
 
 ### Trying React Native First
 
-I’m not a Swift person. I had experience working with Swift, and honestly, I didn’t enjoy it much — the language felt very similar to TypeScript (in terms of syntax) and Rust (in terms of certain semantics), but I found Swift ergonomically frustrating, especially coming from async-heavy ecosystems like JS or Go.
+I'm not a Swift person. I had experience working with Swift, and honestly, I didn't enjoy it much, the language felt very similar to TypeScript (in terms of syntax) and Rust (in terms of certain semantics), but I found Swift ergonomically frustrating, especially coming from async-heavy ecosystems like JS or Go.
 
 For my application, I initially reached for React Native or Expo, hoping to reuse my web development experience and pub in a player UI from existing templates. Building the playback UI was straightforward; there are numerous open-source examples and tutorial videos on building good-looking music players that fit my needs.
 
@@ -58,9 +58,9 @@ Swift-native APIs gave me more control over iCloud file access compared to React
 
 ### Switching to SwiftUI
 
-I went with SwiftUI instead of UIKit or storyboards because I wanted a clean and declarative UI layer that would stay out of the way while I focused on domain logic and data synchronization. With modern features like async/await and integration with Swift Actors, I found it easier to manage data flow and concurrency. SwiftUI also definitely made it easier to structure the app into isolated ViewModel components, which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek — they could generate pure UI code or data binding code without introducing messy interdependencies.
+I went with SwiftUI instead of UIKit or storyboards because I wanted a clean and declarative UI layer that would stay out of the way while I focused on domain logic and data synchronization. With modern features like async/await and integration with Swift Actors, I found it easier to manage data flow and concurrency. SwiftUI also definitely made it easier to structure the app into isolated ViewModel components, which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek, they could generate pure UI code or data binding code without introducing messy interdependencies.
 
-I was pleasantly surprised by how far Swift had come, particularly with async/await and its updated SwiftUI syntax. This shift made Swift feel closed to modern TypeScript — it made the transition smoother and allowed me to focus more on architecture and domain logic, rather than low-level UI boilerplate.
+I was pleasantly surprised by how far Swift had come, particularly with async/await and its updated SwiftUI syntax. This shift made Swift feel closed to modern TypeScript, it made the transition smoother and allowed me to focus more on architecture and domain logic, rather than low-level UI boilerplate.
 
 ## App Architecture and Data Model
 
@@ -70,28 +70,30 @@ Let's go over the architecture of the app I've created: I used SQLite for persis
 
 **The app consists of 3 screen/modes:**
 
-1. **Library import.** This is where you add your iCloud library folder. The app scans every folder for MP3 files and inserts every path into a SQLite database. This way, you can have full flexibility in searching, adding folders, and subfolders. Apple's native file picker is very clunky — you cannot select multiple directories that you searched by keyword and then also a bunch of files in one go. It simply is not designed to do that.
+1. **Library import.** This is where you add your iCloud library folder. The app scans every folder for MP3 files and inserts every path into a SQLite database. This way, you can have full flexibility in searching, adding folders, and subfolders. Apple's native file picker is very clunky, you cannot select multiple directories that you searched by keyword and then also a bunch of files in one go. It simply is not designed to do that.
 2. **Library management.** This is where you can manage the added songs and organize playlists. For the most part, I've reflected the way Apple did that in their Music app, and it was good enough for my needs.
 3. **Player and playback.** This part of the application manages queue management (repeat, shuffle), etc., and play, stop, and next song functionality.
 
 A simple user flow diagram is shown here:
 
-\<diagram image here>
+![user flow diagram](user-flow-diagram.svg)
+
+**User flow in practice:** When the app launches with an empty library it lands on the Sync tab, showing a big "Add iCloud Source" button. Pick a folder there and the Sync screen displays a progress bar while it walks the tree. As soon as indexing finishes it switches you to the Library tab, whose first screen lists **Playlists / Artists / Albums / Songs**. Dive into any list, tap a track, and a Mini-Player pops up along the bottom; tap that mini-bar to open the full-screen Player with shuffle, repeat, queue reorder and volume. Swipe or tap the close icon and you're straight back to the Library while playback continues. Any time you need more music, jump back to Sync, hit the "+" in the nav bar, select another folder, and the import service merges new songs in the background, no restart required.
 
 ### Backend-Like Logic Layer
 
 Having a web/cloud background and shipped a lot of server code while working in startups, I went with a backend-like architecture for the mobile app. The whole domain/logic layer was separated from the View and View-Model layer because I had to nail the cloud syncing, metadata parsing aspect of the app and having clean data access to a SQLite DB.
 Since I also relied a lot on LLMs (thanks OpenAI o1 and DeepSeek), separating the domain logic and aggregate classes of various music player entities forced the LLM not to include UI-independent code inside Views and View Models, thus saving me time to keep things organized. Here's an approximate layered architecture diagram that I used here:
 
-\<diagram image here>
+![layered architecture diagram](layers.svg)
 
-I worked the most on the domain side of things. I had to write SQL table setup and queries that do full text search and then relay the data back to the View-Model layer that is shown by Views.
+**How the layers talk:** SQLite sits at the bottom, storing raw song rows and FTS indexes. Then repositories wrap the database and expose async APIs. On top of those live my domain actors, Swift actors that own all business rules (import, search, queue logic) so state mutations stay thread-safe. ViewModels subscribe to the actors, transform the data into UI-ready structs, and SwiftUI views simply render whatever they get. Nothing crosses layers directly, keeping iCloud sync, playback, and UI nicely decoupled.
 
 ## Implementing Full Text Search with SQLite
 
 Like I previously mentioned, it's fortunate that you can import an SQLite version with FTS capabilities: since iOS 11, Apple added the compile flag `SQLITE_ENABLE_FTS5`, so I have FTS5 (Full Text Search version 5) enabled out of the box. This made it easy to integrate fuzzy search into my music library without any external dependencies. Additionally, I used the SQLite.swift library for regular queries (which works as a sort of query builder with compile-time safety); however, for FTS queries, I had to resort to regular SQL statements.
 
-SQLite’s FTS5 extension ended up being one of the most valuable pieces of the architecture. I wanted fast, fuzzy search over my local music library and file system paths — across filenames and metadata (title/artist/album).
+SQLite's FTS5 extension ended up being one of the most valuable pieces of the architecture. I wanted fast, fuzzy search over my local music library and file system paths, across filenames and metadata (title/artist/album).
 
 ### Setting Up the FTS Tables
 
@@ -107,7 +109,7 @@ Here's a simplified example of how I set up full-text search with SQLite:
 
 #### Creating the search index
 
-SQLite’s built-in FTS5 makes quick searches easy. Here’s a simple table definition I used:
+SQLite's built-in FTS5 makes quick searches easy. Here's a simple table definition I used:
 
 ```swift
 try db.execute("""
@@ -136,7 +138,7 @@ func upsertSong(_ song: Song) async throws {
 
 For user-friendly search, I add wildcard support automatically. If you type "lumine," it searches for "lumine\*" internally, giving instant results even with partial queries.
 
-I also leverage SQLite’s built-in smart ranking (`bm25`) to return more relevant results without extra complexity:
+I also leverage SQLite's built-in smart ranking (`bm25`) to return more relevant results without extra complexity:
 
 ```sql
 SELECT s.*
@@ -150,8 +152,8 @@ Overall, using raw SQLite gave me the flexibility I needed: predictable schema, 
 
 ## Working with iOS Files and Bookmarks
 
-Apple provides security-scoped bookmarks as stable references to files outside the app’s sandbox. Normally, these bookmarks remain valid indefinitely, as long as the files aren’t moved outside the app’s original security context. However, sandboxing changes or improper handling can cause bookmarks to become invalid, making file access unreliable unless carefully managed (e.g., failing to call `startAccessingSecurityScopedResource()`). See [Apple’s bookmark documentation](https://developer.apple.com/documentation/foundation/nsurl#1664002).
-To mitigate this, I implemented a fallback mechanism that copies files into the app’s own sandboxed container. This avoids the fragile lifecycle of security-scoped bookmarks that can silently break if iOS resets the permissions. By copying files proactively in the background, while the bookmark is valid, there's no risk in accessing invalid audio-file references.
+Apple provides security-scoped bookmarks as stable references to files outside the app's sandbox. Normally, these bookmarks remain valid indefinitely, as long as the files aren't moved outside the app's original security context. However, sandboxing changes or improper handling can cause bookmarks to become invalid, making file access unreliable unless carefully managed (e.g., failing to call `startAccessingSecurityScopedResource()`). See [Apple's bookmark documentation](https://developer.apple.com/documentation/foundation/nsurl#1664002).
+To mitigate this, I implemented a fallback mechanism that copies files into the app's own sandboxed container. This avoids the fragile lifecycle of security-scoped bookmarks that can silently break if iOS resets the permissions. By copying files proactively in the background, while the bookmark is valid, there's no risk in accessing invalid audio-file references.
 
 As a solution, I had to come up with a clever way to keep the library import process quick: I would still use security-scoped bookmarks that are serialized and stored in the SQLite database, but I will also run a background sync process that will copy music files onto the application filesystem container while the bookmark is still valid. I managed to persist secure access to the top-level directories this way, and that enabled recursive traversal for indexing. But reliably playing back individual audio files from a bookmark, especially after device restarts, remains an unsolved problem to me. This highlights how under-supported this use case is, even for native apps, and how complex it still is to handle file access reliably on iOS.
 
@@ -177,7 +179,7 @@ To summarize my experience with the development process, I want to highlight the
 
 **Some corners of Apple's SDK still live in Objective-C land.** Spotlight file search, for instance, is only exposed through `NSMetadataQuery`, which uses Key-Value Observing (KVO) and string keys, no Swift-friendly wrapper yet. Documentation is often sparse, which steepens the learning curve.
 
-**SwiftUI’s declarative UI is great, but debugging iCloud interactions still requires manual mocks.** SwiftUI previews can’t emulate full app behaviors involving iCloud entitlements, so you have to mock cloud interactions manually, a minor annoyance but notable.
+**SwiftUI's declarative UI is great, but debugging iCloud interactions still requires manual mocks.** SwiftUI previews can't emulate full app behaviors involving iCloud entitlements, so you have to mock cloud interactions manually, a minor annoyance but notable.
 
 ### The Good
 
@@ -185,14 +187,14 @@ To summarize my experience with the development process, I want to highlight the
 
 **Plethora of native libs.** Yes, you're not limited by open source bindings like in React Native/Flutter ecosystems. Here you have much more freedom in developing something "more serious" than your company/product website replacement (because of poor mobile-first experience). Many Apple's APIs are available with examples, which made it easy to get started.
 
-**SwiftUI** itself. Yes, the React-style approach to building UIs gives more productivity and space for explorations. It’s just great that Apple adopted it.
+**SwiftUI** itself. Yes, the React-style approach to building UIs gives more productivity and space for explorations. It's just great that Apple adopted it.
 
 ### Summary: Building Should Be Easier
 
-After 1.5 weeks of hacking around, I was able to get the piece of software which exactly satisfies my needs — a local/offline music player that can import MP3s from cloud storage.
+After 1.5 weeks of hacking around, I was able to get the piece of software which exactly satisfies my needs: a local/offline music player that can import MP3s from cloud storage.
 
 But developers quickly realize they can't easily deploy apps to their own devices these days and forget about it: you only get a week of app to work, and after that, you have to rebuild it, unless you paid $99 to Apple to enroll in the development program. Unfortunately, even after the DMA Act in the EU, you still cannot sideload freely an app you've built unless you purchase a 1-year provisioning profile or you only have a 7-day one.
 
-This makes ultimately no sense — an innovative technology company actively puts roadblocks into democratized application development. Even Progressive Web Applications (PWAs) face notable limitations on iOS: even after Apple's 16-18.x updates, iOS PWAs still run inside Safari's sandbox. They get WebGL2 and web-push, but they don't get Web Bluetooth/USB/NFC, Background Sync, or more than ~50MB of guaranteed storage. WebGL runs through Metal shim, so real-world frame-rates often trail native Metal apps; this is good enough for UI, but not for AAA 3D games.
+This makes ultimately no sense, an innovative technology company actively puts roadblocks into democratized application development. Even Progressive Web Applications (PWAs) face notable limitations on iOS: even after Apple's 16-18.x updates, iOS PWAs still run inside Safari's sandbox. They get WebGL2 and web-push, but they don't get Web Bluetooth/USB/NFC, Background Sync, or more than ~50MB of guaranteed storage. WebGL runs through Metal shim, so real-world frame-rates often trail native Metal apps; this is good enough for UI, but not for AAA 3D games.
 
-Nowadays, AI has reduced the complexity of modern software development by allowing anyone to tackle unknown technologies by providing all the necessary knowledge in an accessible way. You can clearly see how web development got more interest from non-technical people who have a way to build their ideas without specializing in a plethora of technologies. But when it comes to mobile apps — you just have to play by the artificial rules. You cannot create an app, share it freely; it still must be verified by Apple. It’s ironic that the same company that once empowered independent developers now imposes tight restrictions that hinder personal app development and distribution.
+Nowadays, AI has reduced the complexity of modern software development by allowing anyone to tackle unknown technologies by providing all the necessary knowledge in an accessible way. You can clearly see how web development got more interest from non-technical people who have a way to build their ideas without specializing in a plethora of technologies. But when it comes to mobile apps, you just have to play by the artificial rules. You cannot create an app, share it freely; it still must be verified by Apple. It's ironic that the same company that once empowered independent developers now imposes tight restrictions that hinder personal app development and distribution.
