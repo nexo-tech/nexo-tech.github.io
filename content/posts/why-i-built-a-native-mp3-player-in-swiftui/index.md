@@ -52,21 +52,19 @@ For my application, I initially reached for React Native or Expo, hoping to reus
 
 But when it came to accessing the file system and syncing cloud files, I hit major roadblocks. Libraries like `expo-filesystem` supported basic file picking, but recursive traversal over deeply nested iCloud directories often times either not worked, or simply crashed the app. This made it clear, that pursuing JavaScript-based implementation would be simply more complicated and difficult then just working with Apple's native APIs, even if it meant a steeper learning curve.
 
-iOS enforces string sandboxing, which makes accessing files impossible without explicit user permission through security-scoped bookmarks. These bookmarks grant temporary access once user selected file or directory using the native file picker. This is a sensible design consideration from a security perspective, but very limiting and frustrating from utility standpoint: this significantly differs from desktop operating systems, in macOS you grant a permission once and the application has a consistent access to the part of file system.
+iOS enforces string sandboxing, which makes accessing files impossible without explicit user permission through security-scoped bookmarks. These bookmarks grant temporary access once user selected file or directory using the native file picker. This is a sensible design consideration from a security perspective, but very limiting and frustrating from utility standpoint: this significantly differs from desktop operating systems, in macOS you grant a permission once and the application retains consistent access to that part of the file system.
 
 For my use case, indexing a local music library across iCloud folders, this meant I had to manage bookmarks to reuse user permissions, while gracefully handling invalidated references. Such complexity made me apprecient the hoops independent developers need to jump through to deal with this robust Apple's security model.
 
 ### Switching to SwiftUI
 
-I went with SwiftUI instead of UIKit or storyboards, because I wanted a clean and declarative UI layer that would stay out of the way, while I focused on domain logic and data synchronization. SwiftUI definitely made it easier to structure the app into isolated ViewModel components which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek —  the could generate pure UI code or data binding code without introducing messy interdependencies.
+I went with SwiftUI instead of UIKit or storyboards, because I wanted a clean and declarative UI layer that would stay out of the way, while I focused on domain logic and data synchronization. SwiftUI definitely made it easier to structure the app into isolated ViewModel components which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek — the could generate pure UI code or data binding code without introducing messy interdependencies.
 
-I know that nowadays people try to use SwiftUI instead of IBActions and storyboards. After all, making declarative, code-only UIs is much simpler than battling MVC-like patterns and establishing UI bindings between UI kit storyboards and code.
-
-After some exploration, I revisited Swift and was surprised by how far it had come, especially the introduction of asyn/await and SwiftUI's declarative UI syntax. This shift made Swift feel closed to modern TypeScript —  it made the transition smoother and allowed me to focus more on architecture than UI boilerplate.
+After some exploration, I revisited Swift and was surprised by how far it had come, especially the introduction of asyn/await and SwiftUI's declarative UI syntax. This shift made Swift feel closed to modern TypeScript — it made the transition smoother and allowed me to focus more on architecture and domain logic, rather than low-level UI boilerplate.
 
 ## App Architecture and Data Model
 
-Let's go over the architecture of the app I've created: I used SQLite for persistent data storage and approached the app architecture as a simple server application. I aavoided CoreData because I needed tight control over schema, raw queries, and especially full-text search. SQLite's built-in FTS5 support let me add fast fuzzy search without pulling in heavy external search engines or building my own indexing layer.
+Let's go over the architecture of the app I've created: I used SQLite for persistent data storage and approached the app architecture as a simple server application. I avoided CoreData because I needed tight control over schema, raw queries, and especially full-text search. SQLite's built-in FTS5 support let me add fast fuzzy search without pulling in heavy external search engines or building my own indexing layer.
 
 ### Three Main Screens
 
@@ -105,9 +103,7 @@ I created _two_ FTS5 tables, each tuned for a different query surface:
 | Source-browser paths | `SQLiteSourcePathSearchRepository` | `source_paths_fts` | `fullPath`, `fileName`                    |
 
 Both tables live next to the primary rows in plain‐old B-tree tables (`songs`, `source_paths`). FTS is **read-only for the UI**; all writes happen inside the repositories so nothing slips through the cracks. I used Unicode61 tokenizer to ensure that a wide variety of characters are handled. Non-searchable keys are flagged with `UNINDEXED`, so they don't bloat the term dictionary.
-Here’s your simplified and concise replacement (after the FTS tables), keeping the article clear but less technical:
-
----
+Here's a simplified example of how I set up full-text search with SQLite:
 
 #### Creating the search index
 
@@ -150,12 +146,12 @@ ORDER BY bm25(songs_fts)
 LIMIT ? OFFSET ?;
 ```
 
-Overall, using raw SQLite gave me the flexibility I needed: predictable schema, local-first access and powerful full-text search, without introducing any network dependencies or external services. This was a great fit for an app that meant to be private and offline-first.
+Overall, using raw SQLite gave me the flexibility I needed: predictable schema, local-first access and powerful full-text search, without introducing any network dependencies or external services. This approach was ideal for an app designed to be private and offline-first
 
 ## Working with iOS Files and Bookmarks
 
 Apple provides security-scoped bookmarks as stable references to files outside the app’s sandbox. Normally, these bookmarks remain valid indefinitely, as long as the files aren’t moved outside the app’s original security context. However, bookmarks occasionally become invalidated due to sandbox changes or incorrect bookmark handling (e.g., failing to call `startAccessingSecurityScopedResource()`). See [Apple’s bookmark documentation](https://developer.apple.com/documentation/foundation/nsurl#1664002).
-To mitigate this, I implemented a fallback mechanism that copies files into the app’s own sandboxed container. This avoids the fragile lifecycle of security-scoped bookmarks that can silently break if iOS resets the permissions. By copying files proactively in the background, while the bookmark is valid, there's no risk in accessing invalid audio-file references. 
+To mitigate this, I implemented a fallback mechanism that copies files into the app’s own sandboxed container. This avoids the fragile lifecycle of security-scoped bookmarks that can silently break if iOS resets the permissions. By copying files proactively in the background, while the bookmark is valid, there's no risk in accessing invalid audio-file references.
 
 As a solution, I had to come up with a clever way to keep the library import process quick: I would still use security-scoped bookmarks that are serialized and stored in the SQLite database, but I will also run a background sync process that will copy music files onto the application filesystem container while the bookmark is still valid. I managed to persist secure access to the top-level directories this way and that enabled recursive traversal for indexing. But reliably playing back individual audio files from bookmark, especially after device restarts, remains an unsolved problem to me. This gap in documentation and community knowledge highlights how under-supported this use case is, even for native apps.
 
@@ -163,7 +159,7 @@ As a solution, I had to come up with a clever way to keep the library import pro
 
 ### Metadata Parsing
 
-To parse metadata from audio files, I used Apple's AVFoundation framework, specifically AVURLAsset class, which allows inspection of media file metadata, such as title, album artist, etc. While metadata parsing is handled by the native SDK, certain fields like track numbers you have to manually look up from ID3 tags. I found some of the examples on how to do it via [GitHub search](https://github.com/TastemakerDesign/Warper/blob/2af8c07ad8422f4dc3a539177d3a76ee8502e632/plugins/flutter_media_metadata/ios/Classes/Id3MetadataRetriever.swift) (again because the API isn't very in-depth on how to parse edge cases in audio files).
+To parse metadata from audio files, I used Apple's AVFoundation framework, specifically AVURLAsset class, which allows inspection of media file metadata, such as title, album artist, etc. While metadata parsing is handled by the native SDK, certain fields like track numbers you have to manually look up from ID3 tags. I relied on [GitHub search](https://github.com/TastemakerDesign/Warper/blob/2af8c07ad8422f4dc3a539177d3a76ee8502e632/plugins/flutter_media_metadata/ios/Classes/Id3MetadataRetriever.swift) to find examples, since official documentation lacked coverage for edge cases.
 
 ### Audio Playback with AVFoundation
 
@@ -187,7 +183,7 @@ Setting up **Language Server Protocol (LSP)** support for Swift in editors like 
 
 **Async/await.** Finally, I can write I/O-bound concurrent code like an imperative one with no annoying callbacks. That's a big win, and I greatly appreciate how easy it is to write even sync code into Actors and call it like you do in JavaScript ecosystems.
 
-**Plethora of native libs.** Yes, you're not limited by open source bindings like in React Native/Flutter ecosystems. Here you have much more freedom in developing something "more serious" than your company/product website replacement (because of poor mobile-first experience). Many cool Apple APIs are available with examples, and they are quite easy to get started using.
+**Plethora of native libs.** Yes, you're not limited by open source bindings like in React Native/Flutter ecosystems. Here you have much more freedom in developing something "more serious" than your company/product website replacement (because of poor mobile-first experience). Many Apple's APIs are available with examples, which made it easy to get started.
 
 **SwiftUI** itself. Yes, the React-style approach to building UIs gives more productivity and space for explorations. It’s just great that Apple adopted it.
 
@@ -195,8 +191,8 @@ Setting up **Language Server Protocol (LSP)** support for Swift in editors like 
 
 After 1.5 weeks of hacking around, I was able to get the piece of software which exactly satisfies my needs — a local/offline music player that can import MP3s from cloud storage.
 
-But you quickly realize that you cannot simply deploy an app to the hardware you own these days and forget about it: you only get a week of app to work, and after that, you have to rebuild it, unless you paid $99 to Apple to enroll in the development program. Unfortunately, even after the DMA Act in the EU, you still cannot sideload freely an app you've built unless you purchase a 1-year provisioning profile or you only have a 7-day one.
+But developers quickly realize they can't easily deploy apps to their own devices these days and forget about it: you only get a week of app to work, and after that, you have to rebuild it, unless you paid $99 to Apple to enroll in the development program. Unfortunately, even after the DMA Act in the EU, you still cannot sideload freely an app you've built unless you purchase a 1-year provisioning profile or you only have a 7-day one.
 
-This makes ultimately no sense — an innovative technology company actively puts roadblocks into democratized application development. Not even talking about PWAs — it feels that certain Safari feature set is artificially crippled: you have limited access to the hardware features and graphics APIs like WebGL simply don't produce the same high-fidelity graphics as the native APIs.
+This makes ultimately no sense — an innovative technology company actively puts roadblocks into democratized application development. Even Progressive Web Applications (PWAs) have real limitations — it feels that certain Safari feature set is artificially constrained: you have limited access to the hardware features and graphics APIs like WebGL simply don't produce the same high-fidelity graphics as the native APIs.
 
-Nowadays, AI has reduced the complexity of modern software development by allowing anyone to tackle unknown technologies by providing all the necessary knowledge in an accessible way. You can clearly see how web development got more interest from non-technical people who have a way to build their ideas without specializing in a plethora of technologies. But when it comes to mobile apps — you just have to play by the artificial rules. You cannot create an app, share it freely; it needs to be verified by Apple. How is the same company that opened the door for tech enthusiasts to use personal computers and write applications for it, these days they do the polar opposite and make it really hard to develop applications freely?
+Nowadays, AI has reduced the complexity of modern software development by allowing anyone to tackle unknown technologies by providing all the necessary knowledge in an accessible way. You can clearly see how web development got more interest from non-technical people who have a way to build their ideas without specializing in a plethora of technologies. But when it comes to mobile apps — you just have to play by the artificial rules. You cannot create an app, share it freely; it still must be verified by Apple. It’s ironic that the same company which once empowered independent developers to use personal computers and write applications for it, these days they do the polar opposite and make it really hard to develop applications freely?
