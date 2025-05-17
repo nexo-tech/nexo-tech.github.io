@@ -30,8 +30,7 @@ Before writing my own app, I explored the official and third-party options for o
 
 ### Apple's Built-in Apps
 
-Apple technically lets you play music directly from iCloud via Files app, but it's functionality is not designed for music listening. It lacks essential features such as playlist management, metadata sorting, or playback queues. While it supports music playback, it's very limited and overall not a good user experience.
-
+Apple technically lets you play music directly from iCloud via the Files app, but its functionality is not designed for music listening. It lacks essential features such as playlist management, metadata sorting, or playback queues. While it supports music playback, it's very limited and overall not a good user experience.
 
 ### Third-Party Apps
 
@@ -49,19 +48,19 @@ With that said, I decided to create my own ideal music player that solves my pai
 
 I’m not a Swift person. I had experience working with Swift, and honestly, I didn’t enjoy it much — the language felt very similar to TypeScript (in terms of syntax) and Rust (in terms of certain semantics), but I found Swift ergonomically frustrating, especially coming from async-heavy ecosystems like JS or Go.
 
-For my application, I initially reached for React Native or Expo, hoping to reuse my web development experience and pub in a player UI from existing templates. Building the playback UI was straightforward, there are numerous open-source examples and tutorial videos on building good looking music players that fit my needs.
+For my application, I initially reached for React Native or Expo, hoping to reuse my web development experience and pub in a player UI from existing templates. Building the playback UI was straightforward; there are numerous open-source examples and tutorial videos on building good-looking music players that fit my needs.
 
-But when it came to accessing the file system and syncing cloud files, I hit major roadblocks. Libraries like `expo-filesystem` supported basic file picking, but recursive traversal over deeply nested iCloud directories often failed or even caused app crashes. This made it clear, that a JavaScript-based apprach introduced more complexity than just working with Apple's native APIs, even if it meant a steeper learning curve.
+But when it came to accessing the file system and syncing cloud files, I hit major roadblocks. Libraries like `expo-filesystem` supported basic file picking, but recursive traversal over deeply nested iCloud directories often failed or even caused app crashes. This made it clear that a JavaScript-based approach introduced more complexity than just working with Apple's native APIs, even if it meant a steeper learning curve.
 
-iOS enforces string sandboxing, which makes accessing files impossible without explicit user permission through security-scoped bookmarks. These bookmarks grant temporary access once user selected file or directory using the native file picker. This is a sensible design consideration from a security perspective, but very limiting and frustrating from utility standpoint: this significantly differs from desktop operating systems, in macOS you grant a permission once and the application retains consistent access to that part of the file system.
+iOS sandboxing prevents apps from reading files without explicit user permission, which meant React Native couldn't access external folders reliably, one of the key reasons I had to switch to native APIs.
 
-For my use case, indexing a local music library across iCloud folders, this meant I had to manage bookmarks to reuse user permissions, while gracefully handling invalidated references. Such complexity made me apprecient the hoops independent developers need to jump through to deal with this robust Apple's security model.
+Swift-native APIs gave me more control over iCloud file access compared to React Native, especially when managing security-scoped bookmarks and user permissions.
 
 ### Switching to SwiftUI
 
-I went with SwiftUI instead of UIKit or storyboards, because I wanted a clean and declarative UI layer that would stay out of the way, while I focused on domain logic and data synchronization. SwiftUI definitely made it easier to structure the app into isolated ViewModel components which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek — the could generate pure UI code or data binding code without introducing messy interdependencies.
+I went with SwiftUI instead of UIKit or storyboards because I wanted a clean and declarative UI layer that would stay out of the way while I focused on domain logic and data synchronization. With modern features like async/await and integration with Swift Actors, I found it easier to manage data flow and concurrency. SwiftUI also definitely made it easier to structure the app into isolated ViewModel components, which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek — they could generate pure UI code or data binding code without introducing messy interdependencies.
 
-After some exploration, I revisited Swift and was surprised by how far it had come, especially the introduction of asyn/await and SwiftUI's declarative UI syntax. This shift made Swift feel closed to modern TypeScript — it made the transition smoother and allowed me to focus more on architecture and domain logic, rather than low-level UI boilerplate.
+I was pleasantly surprised by how far Swift had come, particularly with async/await and its updated SwiftUI syntax. This shift made Swift feel closed to modern TypeScript — it made the transition smoother and allowed me to focus more on architecture and domain logic, rather than low-level UI boilerplate.
 
 ## App Architecture and Data Model
 
@@ -81,7 +80,7 @@ A simple user flow diagram is shown here:
 
 ### Backend-Like Logic Layer
 
-Having a web/cloud background and shipped a lot of server code while working in startups, I went with a backend-like architecture of the mobile app. The whole domain/logic layer was separated from the View and View-Model layer because I had to nail the cloud syncing, metadata parsing aspect of the app and having clean data access to a SQLite DB.
+Having a web/cloud background and shipped a lot of server code while working in startups, I went with a backend-like architecture for the mobile app. The whole domain/logic layer was separated from the View and View-Model layer because I had to nail the cloud syncing, metadata parsing aspect of the app and having clean data access to a SQLite DB.
 Since I also relied a lot on LLMs (thanks OpenAI o1 and DeepSeek), separating the domain logic and aggregate classes of various music player entities forced the LLM not to include UI-independent code inside Views and View Models, thus saving me time to keep things organized. Here's an approximate layered architecture diagram that I used here:
 
 \<diagram image here>
@@ -147,20 +146,20 @@ ORDER BY bm25(songs_fts)
 LIMIT ? OFFSET ?;
 ```
 
-Overall, using raw SQLite gave me the flexibility I needed: predictable schema, local-first access and powerful full-text search, without introducing any network dependencies or external services. This approach was ideal for an app designed to be private and offline-first
+Overall, using raw SQLite gave me the flexibility I needed: predictable schema, local-first access, and powerful full-text search, without introducing any network dependencies or external services. This approach was ideal for an app designed to be private and offline-first.
 
 ## Working with iOS Files and Bookmarks
 
 Apple provides security-scoped bookmarks as stable references to files outside the app’s sandbox. Normally, these bookmarks remain valid indefinitely, as long as the files aren’t moved outside the app’s original security context. However, sandboxing changes or improper handling can cause bookmarks to become invalid, making file access unreliable unless carefully managed (e.g., failing to call `startAccessingSecurityScopedResource()`). See [Apple’s bookmark documentation](https://developer.apple.com/documentation/foundation/nsurl#1664002).
 To mitigate this, I implemented a fallback mechanism that copies files into the app’s own sandboxed container. This avoids the fragile lifecycle of security-scoped bookmarks that can silently break if iOS resets the permissions. By copying files proactively in the background, while the bookmark is valid, there's no risk in accessing invalid audio-file references.
 
-As a solution, I had to come up with a clever way to keep the library import process quick: I would still use security-scoped bookmarks that are serialized and stored in the SQLite database, but I will also run a background sync process that will copy music files onto the application filesystem container while the bookmark is still valid. I managed to persist secure access to the top-level directories this way and that enabled recursive traversal for indexing. But reliably playing back individual audio files from bookmark, especially after device restarts, remains an unsolved problem to me. This gap in documentation and community knowledge highlights how under-supported this use case is, even for native apps.
+As a solution, I had to come up with a clever way to keep the library import process quick: I would still use security-scoped bookmarks that are serialized and stored in the SQLite database, but I will also run a background sync process that will copy music files onto the application filesystem container while the bookmark is still valid. I managed to persist secure access to the top-level directories this way, and that enabled recursive traversal for indexing. But reliably playing back individual audio files from a bookmark, especially after device restarts, remains an unsolved problem to me. This highlights how under-supported this use case is, even for native apps, and how complex it still is to handle file access reliably on iOS.
 
 ## Building the Playback and UI
 
 ### Metadata Parsing
 
-To parse metadata from audio files, I used Apple's AVFoundation framework, specifically AVURLAsset class, which allows inspection of media file metadata, such as title, album artist, etc. While metadata parsing is handled by the native SDK, certain fields like track numbers you have to manually look up from ID3 tags. I relied on [GitHub search](https://github.com/TastemakerDesign/Warper/blob/2af8c07ad8422f4dc3a539177d3a76ee8502e632/plugins/flutter_media_metadata/ios/Classes/Id3MetadataRetriever.swift) to find examples, since official documentation lacked coverage for edge cases.
+To parse metadata from audio files, I used Apple's AVFoundation framework, specifically the AVURLAsset class, which allows inspection of media file metadata, such as title, album artist, etc. While metadata parsing is handled by the native SDK, certain fields like track numbers you have to manually look up from ID3 tags. I relied on [GitHub search](https://github.com/TastemakerDesign/Warper/blob/2af8c07ad8422f4dc3a539177d3a76ee8502e632/plugins/flutter_media_metadata/ios/Classes/Id3MetadataRetriever.swift) to find examples, since the official documentation lacked coverage for edge cases.
 
 ### Audio Playback with AVFoundation
 
@@ -172,11 +171,11 @@ To summarize my experience with the development process, I want to highlight the
 
 ### The Bad
 
-**XCode**. I hated it, back when I ported my C++ code to macOS, its capabilities were nowhere close to Microsoft's Visual Studio. Now, with Swift — it feels that things got better with real-time previews, but the development experience feels nowhere as good compared to what Google showed with Flutter five years ago — a tight integration with VSCode that updated the simulator in real-time with a complete and familiar debugger for developers.
+**Xcode's limitations remain frustrating.** Real-time SwiftUI previews are definitely a step forward, but the overall development experience still isn't on par with what Flutter offered five years ago: tight VSCode integration, real-time simulator reloads, and familiar debugging tools.
 
-Setting up **Language Server Protocol (LSP)** support for Swift in editors like Neovim or VSCode requires additional tooling. I used [`xcode-build-server`](https://github.com/SolaWing/xcode-build-server), which helps bridge Apple’s build system with LSP-compatible editors.
+**Lack of editor flexibility.** Setting up Language Server Protocol (LSP) support for Swift in Neovim or VSCode requires extra tooling like [`xcode-build-server`](https://github.com/SolaWing/xcode-build-server), and still doesn't fully match the developer experience of web-first ecosystems.
 
-**Modern Swift API still, in certain cases, lacks functionality, and you need to opt out of old Objective-C bindings**. I faced this issue when I played with NSQueries to find files in the filesystem; you would have to learn "old-school" patterns and learn the whole next level of complexity of Objective-C legacy baggage. Of course, it's not a problem for seasoned OS X/iPhone OS developers, but for someone who gets started, it's a large roadblock. More frustrating is that the documentation often lacks on obscure APIs, and there are not many explanations online on how to use certain things. I would say the same about parsing ID3 tags for music files.
+**Some corners of Apple's SDK still live in Objective-C land.** Spotlight file search, for instance, is only exposed through `NSMetadataQuery`, which uses Key-Value Observing (KVO) and string keys, no Swift-friendly wrapper yet. Documentation is often sparse, which steepens the learning curve.
 
 **SwiftUI’s declarative UI is great, but debugging iCloud interactions still requires manual mocks.** SwiftUI previews can’t emulate full app behaviors involving iCloud entitlements, so you have to mock cloud interactions manually, a minor annoyance but notable.
 
@@ -194,6 +193,6 @@ After 1.5 weeks of hacking around, I was able to get the piece of software which
 
 But developers quickly realize they can't easily deploy apps to their own devices these days and forget about it: you only get a week of app to work, and after that, you have to rebuild it, unless you paid $99 to Apple to enroll in the development program. Unfortunately, even after the DMA Act in the EU, you still cannot sideload freely an app you've built unless you purchase a 1-year provisioning profile or you only have a 7-day one.
 
-This makes ultimately no sense — an innovative technology company actively puts roadblocks into democratized application development. Even Progressive Web Applications (PWAs) face notable limitations on iOS: even after Apple's 16-18.x updates, iOS PWAs still run inside Safari's sandbox. They get WebGL2 and web-push, but they don't get Web Bluetooth/USB/NFC, Background Sync, or more than ~50MB of guaranteed storage. WebGL runs through Metal shim, so real-wolrd frame-rates ofen trail native Metal apps; this is good enough for UI, but not for AAA 3D games.
+This makes ultimately no sense — an innovative technology company actively puts roadblocks into democratized application development. Even Progressive Web Applications (PWAs) face notable limitations on iOS: even after Apple's 16-18.x updates, iOS PWAs still run inside Safari's sandbox. They get WebGL2 and web-push, but they don't get Web Bluetooth/USB/NFC, Background Sync, or more than ~50MB of guaranteed storage. WebGL runs through Metal shim, so real-world frame-rates often trail native Metal apps; this is good enough for UI, but not for AAA 3D games.
 
 Nowadays, AI has reduced the complexity of modern software development by allowing anyone to tackle unknown technologies by providing all the necessary knowledge in an accessible way. You can clearly see how web development got more interest from non-technical people who have a way to build their ideas without specializing in a plethora of technologies. But when it comes to mobile apps — you just have to play by the artificial rules. You cannot create an app, share it freely; it still must be verified by Apple. It’s ironic that the same company that once empowered independent developers now imposes tight restrictions that hinder personal app development and distribution.
