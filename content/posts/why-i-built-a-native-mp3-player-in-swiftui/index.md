@@ -20,6 +20,8 @@ tags:
 
 ## Why I Built My Own MP3 Player
 
+![image of an app](frame_source.webp)
+
 Like many people, I've picked up too many subscriptions, some through Apple (iCloud, Apple Music), others got lost in random platforms (like Netflix, which I forgot I was still paying for). I actually used Apple Music regularly (and previously Spotify), but the streaming turned out to be more convenience than necessity. With a curated local library, I didn't lose much, just the lock-in.
 
 Initially I thought, I'd just keep using iCloud Music Library for cross-device music synchronization, but once I cancelled the Apple Music subscription, the sync stopped working. Turns out this feature is behind a paywall. You can technically get it back via iTunes Match ($24.99/year). Match just stores 256-kbps AAC copies online; your original files stay put unless you choose to replace them. On a modern Mac, you do all this in the Music app. Without either subscription, cloud sync is gone, and you're back to cable/Wi-Fi syncing.
@@ -50,7 +52,9 @@ With that said, I decided to create my own ideal music player that solves my pai
 
 I'm not a Swift person. I had experience working with Swift, and honestly, I didn't enjoy it much. The syntax reminded me of TypeScript, but some of the concurrency and state handling felt closer to Rust. I found Swift frustrating to write, especially compared to languages like Go or TypeScript where async code flows more naturally.
 
-I initially reached for React Native or Expo, hoping to reuse my web development experience and pub in a player UI from existing templates. Building the playback UI was straightforward; there are numerous open-source examples and tutorial videos on building good-looking music players that fit my needs.
+I initially reached for React Native or Expo, hoping to reuse my web development experience and pub in a player UI from existing templates. Building the playback UI was straightforward; there are numerous open-source examples and tutorial videos on building good-looking music players that fit my needs. I picked an existing [template project by Gionatha Sturba](https://github.com/CodeWithGionatha-Labs/music-player), because it looked to have every feature I need for my app.
+
+![building app with react native/expo](rn-screenshot.webp)
 
 Accessing the file system and syncing cloud files hit major roadblocks: libraries like `expo-filesystem` supported basic file picking, but recursive traversal over deeply nested iCloud directories often failed or even caused app crashes. This made it clear that a JavaScript-based approach introduced more complexity than just working with Apple's native APIs, even if it meant a steeper learning curve.
 
