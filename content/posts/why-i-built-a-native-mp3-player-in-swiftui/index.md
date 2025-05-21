@@ -82,8 +82,7 @@ A simple user flow diagram is shown here:
 
 ### Backend-Like Logic Layer
 
-Having a web/cloud background and shipped a lot of server code while working in startups, I went with a **backend-like architecture** for the mobile app. The whole domain/logic layer was separated from the **View and View-Model layer** because I had to nail the **cloud syncing, metadata parsing** aspect of the app and having clean data access to a SQLite DB.
-Since I also relied a lot on LLMs (thanks OpenAI o1 and DeepSeek), separating the domain logic and aggregate classes of various music player entities forced the LLM not to include UI-independent code inside Views and View Models, thus saving me time to keep things organized. _Here's an approximate layered architecture diagram that I used here_:
+Having a web/cloud background and shipped a lot of server code while working in startups, I went with a **backend-like architecture** for the mobile app. The whole domain/logic layer was separated from the **View and View-Model layer** because I had to nail the **cloud syncing, metadata parsing** aspect of the app and having clean data access to a SQLite DB. _Here's an approximate layered architecture diagram that I used here_:
 
 {{<figure src="layers.svg" width="600" alt="Layered architecture diagram">}}
 
@@ -103,8 +102,6 @@ SQLite's [FTS5](https://sqlite.org/fts5.html) extension ended up being one of th
 | Source-browser paths | `SQLiteSourcePathSearchRepository` | `source_paths_fts` | `fullPath`, `fileName`                    |
 
 I used two FTS5 tables: one for indexed songs (artist/title/album) and one for file paths during folder import. Both tables live next to the primary rows in plain‐old B-tree tables (`songs`, `source_paths`). FTS is **read-only for the UI**; all writes happen inside the repositories so nothing slips through the cracks.
-
-Here's a simplified example of how I set up full-text search with SQLite:
 
 #### Creating the search index
 
