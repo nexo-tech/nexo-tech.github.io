@@ -1,6 +1,6 @@
 ---
-date: 2025-05-15T16:17:43.003Z
-draft: true
+date: 2025-05-21T13:43:24.711Z
+draft: false
 params:
   author: Oleg Pustovit
 title: "In 2025, Apple still makes it hard to play your own MP3s, so I wrote my own app"
@@ -14,7 +14,7 @@ tags:
   - xcode
 ---
 
-> In 2025, playing your own **MP3s on an iPhone is surprisingly hard**, unless you pay Apple or navigate a maze of limitations. So I built my own player from scratch, with **full text search**, **iCloud support**, and a **local-first experience**. [GitHub link](https://github.com/nexo-tech/music-app)
+> In 2025, playing your own **music on an iPhone is surprisingly hard**, unless you pay Apple or navigate a maze of limitations. So I built my own player from scratch, with **full text search**, **iCloud support**, and a **local-first experience**. [GitHub link](https://github.com/nexo-tech/music-app)
 
 ## Why I Built My Own Audio Player
 
@@ -60,7 +60,7 @@ iOS sandboxing prevents apps from reading files without explicit user permission
 
 ### Switching to SwiftUI
 
-I went with **SwiftUI** instead of UIKit or storyboards because I wanted a **clean and declarative UI** layer that would stay out of the way while I focused on domain logic and data synchronization. With modern features like async/await and integration with **Swift Actors**, I found it easier to manage data flow and concurrency. SwiftUI also definitely made it easier to structure the app into isolated ViewModel components, which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek. They could generate pure UI code or data binding code without introducing messy interdependencies.
+I went with **SwiftUI** instead of UIKit or storyboards because I wanted a **clean and declarative UI** layer that would stay out of the way while I focused on domain logic and data synchronization. With modern features like async/await and integration with **Swift Actors**, I found it easier to manage data flow and concurrency. SwiftUI also definitely made it easier to structure the app into isolated ViewModel components, which in turn helped me get better results from LLMs like OpenAI o1 and DeepSeek. LLMs could produce pure UI code or data binding code without introducing messy interdependencies.
 
 ## App Architecture and Data Model
 
@@ -167,7 +167,7 @@ To parse metadata from audio files, I used Apple's **AVFoundation framework**, s
 
 ### Audio Playback with AVFoundation
 
-Once there's a library access and read of audio files, implementing an audio player feels pretty simple: you just have to initialize an instance of `AVAudioPlayer` and let the audio play. Additionally, for quality-of-life features: playing music from the control center, I had to implement the `AVAudioPlayerDelegate` protocol and also hooked into Apple's `MPRemoteCommandCenter`, which lets developers respond to system-level playback controls.
+After the library is indexed, implementing an audio player feels pretty simple: you just have to initialize an instance of `AVAudioPlayer` and let the audio play. Additionally, for quality-of-life features: playing music from the control center, I had to implement the `AVAudioPlayerDelegate` protocol and also hooked into Apple's `MPRemoteCommandCenter`, which lets developers respond to system-level playback controls.
 
 ## Reflections: Apple, Developer Lock-In, and the Future
 
