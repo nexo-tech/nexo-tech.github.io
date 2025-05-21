@@ -24,7 +24,7 @@ Like many people, I've picked up too many subscriptions, some through Apple (iCl
 
 Initially I thought, I'd just keep using iCloud Music Library for cross-device music synchronization, but once I cancelled the Apple Music subscription, the sync stopped working. Turns out this feature is **behind a paywall**. You can technically get it back via [_iTunes Match_ ($24.99/year)](https://support.apple.com/en-us/108935). Match just stores 256-kbps AAC copies online; your original files stay put unless you choose to replace them. On a modern Mac, you do all this in the Music app. Without either subscription, cloud sync is gone, and you're back to cable/Wi-Fi syncing.
 
-Frustrated with the lack of options, I went the **builder route**. If I bought a computing device (iPhone in this case), what stops me from just building exactly what I need with code to use it? In this article, I want to share my full journey of frustrations towards creating a basic music player functionality: loading MP3 files, organizing and playing them back, but mostly, I wanted to remind myself, this is still a general-purpose computer, I should be able to make it do what I want.
+Frustrated with the lack of options, I went the **builder route**. If I bought a computing device (iPhone in this case), what stops me from just building exactly what I need with code to use it? In this article, I want to share my full journey of frustrations towards creating a basic music player functionality: loading audio files, organizing and playing them back, but mostly, I wanted to remind myself, _this is still a general-purpose computer, I should be able to make it do what I want_.
 
 ## What Apple (and Others) Offer Today
 
@@ -32,7 +32,7 @@ Before writing my own app, I explored the official and third-party options for o
 
 ### Apple's Built-in Apps
 
-Apple technically lets you play music directly from iCloud via the Files app, but its functionality is not designed for music listening. It **lacks essential features** such as playlist management, metadata sorting, or playback queues. While it supports music playback, it's very limited and overall [not a good user experience](https://discussions.apple.com/thread/252762868).
+Apple technically lets you play music directly from iCloud via the Files app, but its functionality is not designed for music listening. It **lacks essential features** such as playlist management, metadata sorting, or playback queues. While it supports music playback, it's very limited and overall [**not a good user experience**](https://discussions.apple.com/thread/252762868).
 
 ### Third-Party Apps
 
@@ -60,7 +60,7 @@ iOS sandboxing prevents apps from reading files without explicit user permission
 
 ### Switching to SwiftUI
 
-I went with **SwiftUI** instead of UIKit or storyboards because I wanted a **clean and declarative UI** layer that would stay out of the way while I focused on domain logic and data synchronization. With modern features like async/await and integration with Swift Actors, I found it easier to manage data flow and concurrency. SwiftUI also definitely made it easier to structure the app into isolated ViewModel components, which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek. They could generate pure UI code or data binding code without introducing messy interdependencies.
+I went with **SwiftUI** instead of UIKit or storyboards because I wanted a **clean and declarative UI** layer that would stay out of the way while I focused on domain logic and data synchronization. With modern features like async/await and integration with **Swift Actors**, I found it easier to manage data flow and concurrency. SwiftUI also definitely made it easier to structure the app into isolated ViewModel components, which improved my use of LLMs for generating code that is unknown with OpenAI o1 model and DeepSeek. They could generate pure UI code or data binding code without introducing messy interdependencies.
 
 ## App Architecture and Data Model
 
@@ -70,7 +70,7 @@ Let's go over the architecture of the app I've created: I used SQLite for persis
 
 **The app consists of 3 screen/modes:**
 
-1. **Library import.** This is where you add your iCloud library folder. The app scans every folder for MP3 files and inserts every path into a SQLite database. This way, you can have full flexibility in searching, adding folders, and subfolders. Apple's native file picker is very clunky; you cannot select multiple directories that you searched by keyword and then also a bunch of files in one go. It simply is not designed to do that.
+1. **Library import.** This is where you add your iCloud library folder. The app scans every folder for audio files and inserts every path into a SQLite database. This way, you can have full flexibility in searching, adding folders, and subfolders. Apple's native file picker is very clunky; you cannot select multiple directories that you searched by keyword and then also a bunch of files in one go. It simply is not designed to do that.
 2. **Library management.** This is where you can manage the added songs and organize playlists. For the most part, I've reflected the way Apple did that in their Music app, and it was good enough for my needs.
 3. **Player and playback.** This part of the application manages queue management (repeat, shuffle), etc., and play, stop, and next song functionality.
 
@@ -82,12 +82,12 @@ A simple user flow diagram is shown here:
 
 ### Backend-Like Logic Layer
 
-Having a web/cloud background and shipped a lot of server code while working in startups, I went with a backend-like architecture for the mobile app. The whole domain/logic layer was separated from the View and View-Model layer because I had to nail the cloud syncing, metadata parsing aspect of the app and having clean data access to a SQLite DB.
-Since I also relied a lot on LLMs (thanks OpenAI o1 and DeepSeek), separating the domain logic and aggregate classes of various music player entities forced the LLM not to include UI-independent code inside Views and View Models, thus saving me time to keep things organized. Here's an approximate layered architecture diagram that I used here:
+Having a web/cloud background and shipped a lot of server code while working in startups, I went with a **backend-like architecture** for the mobile app. The whole domain/logic layer was separated from the **View and View-Model layer** because I had to nail the **cloud syncing, metadata parsing** aspect of the app and having clean data access to a SQLite DB.
+Since I also relied a lot on LLMs (thanks OpenAI o1 and DeepSeek), separating the domain logic and aggregate classes of various music player entities forced the LLM not to include UI-independent code inside Views and View Models, thus saving me time to keep things organized. _Here's an approximate layered architecture diagram that I used here_:
 
 {{<figure src="layers.svg" width="600" alt="Layered architecture diagram">}}
 
-**How the layers talk:** SQLite sits at the bottom, storing raw song rows and FTS indexes. Then repositories wrap the database and expose async APIs. On top of those live my domain actors, Swift actors that own all business rules (import, search, queue logic) so state mutations stay thread-safe. ViewModels subscribe to the actors, transform the data into UI-ready structs, and SwiftUI views simply render whatever they get. Nothing crosses layers directly, keeping iCloud sync, playback, and UI nicely decoupled.
+**How the layers talk:** SQLite sits at the bottom, storing raw song rows and FTS indexes. Then repositories wrap the database and expose async APIs. On top of those live my **domain actors**, Swift actors that own all business rules (import, search, queue logic) so state mutations stay **thread-safe**. ViewModels subscribe to the actors, transform the data into UI-ready structs, and SwiftUI views simply render whatever they get. Nothing crosses layers directly, keeping iCloud sync, playback, and UI **nicely decoupled**.
 
 ## Implementing Full Text Search with SQLite
 
@@ -155,15 +155,15 @@ Overall, using raw SQLite gave me the flexibility I needed: predictable schema, 
 
 On iOS, apps can store persistent bookmarks to file locations, but **security-scoped bookmarks**, which grant extended access to files outside the app's sandbox, are only available on **macOS**. iOS apps can use regular bookmarks to remember file paths and request access again through the document picker, but that access isn’t guaranteed to persist silently. See [Apple's bookmark documentation](https://developer.apple.com/documentation/foundation/nsurl#Bookmarks-and-Security-Scope).
 
-To mitigate this, I implemented a fallback mechanism that copies files into the app's own sandboxed container. This avoids the fragile lifecycle of security-scoped bookmarks that can silently break if iOS resets the permissions. By copying files proactively in the background, while the bookmark is valid, there's no risk in accessing invalid audio-file references.
+To mitigate this, I implemented a fallback mechanism that copies files into the **app's own sandboxed container**. This avoids the fragile lifecycle of security-scoped bookmarks that can silently break if iOS resets the permissions. By copying files proactively in the background, while the bookmark is valid, there's no risk in accessing invalid audio-file references.
 
-This approach also improves indexing speed. I can scan the folder structure once (while access is active), import only relevant audio files, and safely traverse deeply nested directories. But reliably playing back individual audio files from external locations, especially after device restarts, remains an unsolved problem to me. This highlights how under-supported this use case is, even for native apps, and how complex it still is to handle file access reliably on iOS.
+This approach also improves indexing speed. I can scan the folder structure once (while access is active), import only relevant audio files, and safely traverse deeply nested directories. But reliably playing back individual audio files from external locations, especially after device restarts, _remains an unsolved problem to me_. This highlights how **under-supported** this use case is, even for native apps, and how complex it still is to **handle file access reliably on iOS**.
 
 ## Building the Playback and UI
 
 ### Metadata Parsing
 
-To parse metadata from audio files, I used Apple's AVFoundation framework, specifically the AVURLAsset class, which allows inspection of media file metadata, such as title, album artist, etc. While metadata parsing is handled by the native SDK, certain fields like track numbers you have to manually look up from ID3 tags. I relied on [GitHub search](https://github.com/TastemakerDesign/Warper/blob/2af8c07ad8422f4dc3a539177d3a76ee8502e632/plugins/flutter_media_metadata/ios/Classes/Id3MetadataRetriever.swift) to find examples, since the official documentation lacked coverage for edge cases.
+To parse metadata from audio files, I used Apple's **AVFoundation framework**, specifically the **AVURLAsset** class, which allows inspection of media file metadata, such as title, album artist, etc. While metadata parsing is handled by the native SDK, certain fields like track numbers you have to manually look up from ID3 tags. I relied on [GitHub search](https://github.com/TastemakerDesign/Warper/blob/2af8c07ad8422f4dc3a539177d3a76ee8502e632/plugins/flutter_media_metadata/ios/Classes/Id3MetadataRetriever.swift) to find examples, since the official documentation lacked coverage for edge cases.
 
 ### Audio Playback with AVFoundation
 
@@ -193,15 +193,15 @@ Here's what stood out during development:
 
 ### Summary: Building Should Be Easier
 
-After 1.5 weeks of hacking around, I was able to get the piece of software which exactly satisfies my needs: a **local/offline music player** that can import MP3s from cloud storage.
+After 1.5 weeks of hacking around, I was able to get the piece of software which exactly satisfies my needs: a **local/offline music player** that can import audio files from cloud storage.
 
-But developers quickly realize they can't easily deploy apps to their own devices these days and forget about it: apps only run for [7 days without a dev certificate](https://developer.apple.com/support/compare-memberships), and after that, you have to rebuild it, unless you paid $99 to Apple to enroll in the development program. 
+But developers quickly realize they can't easily deploy apps to their own devices these days and forget about it: apps only run for [**7 days without a dev certificate**](https://developer.apple.com/support/compare-memberships), and after that, you have to rebuild it, unless you paid $99 to Apple to enroll in the development program. 
 
 Even after the **DMA Act in the EU**, sideloading still isn't fully open. EU users can now install apps from third-party marketplaces directly from a developer's site, but only if that developer still enrolled in Apple's $99/year program and agrees to Apple's Alternative Terms. For personal/hobbyist use, this still doesn’t remove the 7-day dev build limitation.
 
 This makes ultimately no sense. An innovative technology company actively puts roadblocks into democratized application development. Even Progressive Web Applications (PWAs) [face notable limitations on iOS](https://brainhub.eu/library/pwa-on-ios): even after Apple's 16-18.x updates, iOS PWAs still run inside Safari's sandbox. They get WebGL2 and web-push, but they don't get Web Bluetooth/USB/NFC, Background Sync, or more than ~50MB of guaranteed storage. WebGL runs through Metal shim, so real-world frame-rates often trail native Metal apps; this is good enough for UI, but not for AAA 3D games.
 
-Nowadays, AI has reduced the complexity of modern software development by allowing anyone to tackle unknown technologies by providing all the necessary knowledge in an accessible way. You can clearly see how web development got more interest from non-technical people who have a way to build their ideas without specializing in a plethora of technologies. But when it comes to mobile apps, you just have to play by the artificial rules. Even if you built it yourself, for yourself, Apple still gets the final say before you can run it for more than a week. The same company that once empowered independent developers now imposes **tight restrictions that hinder personal app development** and distribution. AI has made it easier than ever to build new tools, unless you're building for iOS, where the gate is still locked.
+Nowadays, AI has reduced the complexity of modern software development by allowing anyone to tackle unknown technologies by providing all the necessary knowledge in an accessible way. You can clearly see how web development got more interest from non-technical people who have a way to build their ideas without specializing in a plethora of technologies. But when it comes to mobile apps, you just have to play by the artificial rules. _Even if you built it yourself, for yourself, Apple still gets the final say_ before you can run it for more than a week. The same company that once empowered independent developers now imposes **tight restrictions that hinder personal app development** and distribution. AI has made it easier than ever to build new tools, unless you're building for iOS, where the gate is still locked.
 
 ## Related Links
 
