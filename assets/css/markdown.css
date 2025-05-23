@@ -83,22 +83,19 @@
     @apply text-primary font-medium underline decoration-primary/30 underline-offset-2 hover:decoration-primary transition-all;
   }
   
-  /* Code blocks */
-  /* pre {
-    @apply p-4 rounded-lg bg-primary/5 overflow-x-auto text-sm my-6;
-  }
-  
-  code {
-    @apply font-mono text-sm px-1.5 py-0.5 rounded bg-primary/5 text-primary/90;
-  }
-  
-  pre code {
-    @apply bg-transparent p-0 text-primary/80;
-  } */
-  
   /* Tables */
   table {
     @apply w-full mb-6 text-left border-collapse;
+  }
+  
+  /* Add a wrapper for tables to enable horizontal scrolling */
+  table {
+    @apply block w-full overflow-x-auto whitespace-nowrap;
+  }
+  
+  /* Ensure table cells don't wrap and maintain their width */
+  table th, table td {
+    @apply whitespace-nowrap;
   }
   
   table th {
