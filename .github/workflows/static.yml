@@ -1,4 +1,4 @@
-name: Build and Deploy Hugo
+name: Build and Deploy Hugo to Cloudflare Pages
 
 on:
   push:
@@ -29,12 +29,11 @@ jobs:
       - name: Build site
         run: hugo --minify
 
-      - name: Add CNAME file
-        run: cp CNAME public/CNAME
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+          directory: ./public
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
