@@ -1,4 +1,4 @@
-name: Build and Deploy Hugo to Cloudflare Pages
+name: Build and Deploy Hugo to Cloudflare Workers
 
 on:
   push:
@@ -29,11 +29,9 @@ jobs:
       - name: Build site
         run: hugo --minify
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: ./public
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: deploy --name ${{ secrets.CLOUDFLARE_PROJECT_NAME }} --assets ./public

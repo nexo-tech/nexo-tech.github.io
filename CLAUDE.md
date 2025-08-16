@@ -83,12 +83,12 @@ bun install              # Install/update JavaScript dependencies
 ### Deployment
 - **Branch Strategy**: Push to `dev` branch triggers deployment
 - **GitHub Actions**: `.github/workflows/static.yml` handles build and deploy
-- **Cloudflare Pages**: Deploys to Cloudflare Pages using API token
+- **Cloudflare Workers**: Deploys static assets to Cloudflare Workers using Wrangler
 - **Required Secrets**:
   - `CLOUDFLARE_API_TOKEN`: Cloudflare API token for deployment
   - `CLOUDFLARE_ACCOUNT_ID`: Cloudflare account ID
-  - `CLOUDFLARE_PROJECT_NAME`: Cloudflare Pages project name
-- **Custom Domain**: Configured in Cloudflare Pages dashboard
+  - `CLOUDFLARE_PROJECT_NAME`: Cloudflare Worker name
+- **Custom Domain**: Configured in Cloudflare dashboard
 
 ## Important Notes
 
