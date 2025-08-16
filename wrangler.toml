@@ -1,4 +1,0 @@
-name = "minimal-static-site"
-compatibility_date = "2024-09-25"
-assets = { directory = "./public" }
-
