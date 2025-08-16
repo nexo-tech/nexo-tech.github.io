@@ -1,0 +1,7 @@
+# Wrangler configuration for Cloudflare Workers deployment
+name = "nexo-tech-site"
+compatibility_date = "2025-08-16"
+
+# Asset configuration for static site deployment
+[site]
+bucket = "./public"
