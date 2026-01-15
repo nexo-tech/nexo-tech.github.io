@@ -1,0 +1,48 @@
+<svg viewBox="0 0 500 80" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="500" height="80" fill="#fff"/>
+
+  <text x="10" y="14" font-size="7" fill="#57606a">&gt; SQS + LAMBDA EVENT SOURCE MAPPING</text>
+
+  <!-- Producer -->
+  <rect x="10" y="30" width="60" height="26" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="40" y="47" text-anchor="middle" font-size="8" fill="#2b2b2b">Producer</text>
+
+  <!-- Arrow to SQS -->
+  <line x1="70" y1="43" x2="94" y2="43" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="94,43 89,40 89,46" fill="#2b2b2b"/>
+
+  <!-- SQS -->
+  <rect x="98" y="30" width="50" height="26" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="123" y="47" text-anchor="middle" font-size="8" fill="#2b2b2b">SQS</text>
+
+  <!-- Event Source Mapping - Orange dashed box -->
+  <rect x="162" y="24" width="170" height="38" rx="2" fill="none" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="247" y="34" font-size="6" fill="#f97316" text-anchor="middle">EVENT SOURCE MAPPING</text>
+
+  <!-- Poll arrow -->
+  <line x1="148" y1="43" x2="172" y2="43" stroke="#f97316" stroke-width="1.2"/>
+  <polygon points="172,43 167,40 167,46" fill="#f97316"/>
+
+  <!-- Batch -->
+  <rect x="176" y="40" width="50" height="18" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="201" y="52" text-anchor="middle" font-size="7" fill="#fff">batch</text>
+
+  <!-- Invoke arrow -->
+  <line x1="226" y1="49" x2="256" y2="49" stroke="#f97316" stroke-width="1.2"/>
+  <polygon points="256,49 251,46 251,52" fill="#f97316"/>
+
+  <!-- Lambda -->
+  <rect x="260" y="40" width="60" height="18" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="290" y="52" text-anchor="middle" font-size="7" fill="#fff">Lambda</text>
+
+  <!-- Arrow to result -->
+  <line x1="332" y1="43" x2="356" y2="43" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="356,43 351,40 351,46" fill="#2b2b2b"/>
+
+  <!-- Result -->
+  <rect x="360" y="30" width="60" height="26" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="390" y="47" text-anchor="middle" font-size="8" fill="#2b2b2b">Process</text>
+
+  <!-- DLQ note -->
+  <text x="440" y="47" font-size="6" fill="#57606a">fail → DLQ</text>
+</svg>

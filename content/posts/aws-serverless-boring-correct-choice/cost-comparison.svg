@@ -1,0 +1,18 @@
+<svg viewBox="0 0 420 90" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="420" height="90" fill="#fff"/>
+
+  <text x="12" y="20" font-size="8" fill="#57606a">&gt; MONTHLY COST</text>
+
+  <!-- RDS bar -->
+  <text x="12" y="45" font-size="9" fill="#2b2b2b">RDS db.t3.small</text>
+  <rect x="130" y="34" width="220" height="16" rx="2" fill="#2b2b2b"/>
+  <text x="360" y="46" font-size="9" fill="#2b2b2b">~$35</text>
+
+  <!-- DynamoDB bar - Orange highlight -->
+  <text x="12" y="75" font-size="9" fill="#2b2b2b">DynamoDB</text>
+  <rect x="130" y="64" width="14" height="16" rx="2" fill="#f97316"/>
+  <text x="154" y="76" font-size="9" fill="#f97316" font-weight="600">~$2</text>
+
+  <!-- Savings note -->
+  <text x="200" y="76" font-size="8" fill="#57606a">17x cheaper for low-traffic</text>
+</svg>

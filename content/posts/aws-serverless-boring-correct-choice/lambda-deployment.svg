@@ -1,0 +1,23 @@
+<svg viewBox="0 0 480 95" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="480" height="95" fill="#fff"/>
+
+  <text x="10" y="14" font-size="7" fill="#57606a">&gt; LAMBDA DEPLOYMENT OPTIONS</text>
+
+  <!-- Native Runtime - Recommended (Orange) -->
+  <rect x="10" y="24" width="220" height="62" rx="2" fill="none" stroke="#f97316" stroke-width="1.2"/>
+  <rect x="10" y="24" width="220" height="18" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="120" y="36" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">Native Runtime (Recommended)</text>
+
+  <text x="20" y="54" font-size="7" fill="#2b2b2b">+ Fast cold starts (~100ms)</text>
+  <text x="20" y="66" font-size="7" fill="#2b2b2b">+ Simple CI/CD (zip to S3)</text>
+  <text x="20" y="78" font-size="7" fill="#2b2b2b">+ Use Layers for dependencies</text>
+
+  <!-- Docker -->
+  <rect x="250" y="24" width="220" height="62" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <rect x="250" y="24" width="220" height="18" rx="2" fill="#2b2b2b" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="360" y="36" text-anchor="middle" font-size="8" fill="#fff">Docker Image</text>
+
+  <text x="260" y="54" font-size="7" fill="#57606a">- Slower cold starts (~300-500ms)</text>
+  <text x="260" y="66" font-size="7" fill="#57606a">- Complex CI/CD (ECR pipeline)</text>
+  <text x="260" y="78" font-size="7" fill="#2b2b2b">+ Full OS control when needed</text>
+</svg>

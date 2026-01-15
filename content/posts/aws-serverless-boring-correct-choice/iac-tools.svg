@@ -1,0 +1,20 @@
+<svg viewBox="0 0 380 70" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="380" height="70" fill="#fff"/>
+
+  <text x="10" y="14" font-size="7" fill="#57606a">&gt; PICK YOUR IaC</text>
+
+  <!-- SST Box - Orange highlight (recommended) -->
+  <rect x="10" y="22" width="110" height="40" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="65" y="38" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">SST</text>
+  <text x="65" y="50" text-anchor="middle" font-size="7" fill="#fff">Hot-reload DX</text>
+
+  <!-- Terraform Box -->
+  <rect x="130" y="22" width="110" height="40" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="185" y="38" text-anchor="middle" font-size="9" fill="#2b2b2b" font-weight="600">Terraform</text>
+  <text x="185" y="50" text-anchor="middle" font-size="7" fill="#2b2b2b">Multi-cloud HCL</text>
+
+  <!-- CDK Box -->
+  <rect x="250" y="22" width="110" height="40" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="305" y="38" text-anchor="middle" font-size="9" fill="#2b2b2b" font-weight="600">CDK</text>
+  <text x="305" y="50" text-anchor="middle" font-size="7" fill="#2b2b2b">TypeScript Native</text>
+</svg>

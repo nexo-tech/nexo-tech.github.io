@@ -1,0 +1,49 @@
+<svg viewBox="0 0 420 100" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="420" height="100" fill="#fff"/>
+
+  <text x="10" y="14" font-size="7" fill="#57606a">&gt; ONE NETWORK, ZERO EGRESS</text>
+
+  <!-- AWS Network boundary -->
+  <rect x="10" y="28" width="310" height="64" rx="4" fill="none" stroke="#f97316" stroke-width="1.5"/>
+  <text x="20" y="40" font-size="7" fill="#f97316" font-weight="600">AWS VPC</text>
+
+  <!-- Lambda -->
+  <rect x="24" y="48" width="56" height="32" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="52" y="68" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">Lambda</text>
+
+  <!-- Arrows from Lambda -->
+  <line x1="80" y1="56" x2="104" y2="56" stroke="#2b2b2b" stroke-width="1"/>
+  <polygon points="104,56 99,53 99,59" fill="#2b2b2b"/>
+  <line x1="80" y1="72" x2="104" y2="72" stroke="#2b2b2b" stroke-width="1"/>
+  <polygon points="104,72 99,69 99,75" fill="#2b2b2b"/>
+
+  <!-- DynamoDB -->
+  <rect x="108" y="46" width="56" height="20" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="136" y="59" text-anchor="middle" font-size="7" fill="#2b2b2b">DynamoDB</text>
+
+  <!-- SQS -->
+  <rect x="108" y="68" width="56" height="20" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="136" y="81" text-anchor="middle" font-size="7" fill="#2b2b2b">SQS</text>
+
+  <!-- S3 -->
+  <rect x="172" y="46" width="36" height="20" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="190" y="59" text-anchor="middle" font-size="7" fill="#2b2b2b">S3</text>
+
+  <!-- EventBridge -->
+  <rect x="172" y="68" width="56" height="20" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="200" y="81" text-anchor="middle" font-size="6" fill="#2b2b2b">EventBridge</text>
+
+  <!-- Arrow to Bedrock -->
+  <line x1="228" y1="64" x2="244" y2="64" stroke="#f97316" stroke-width="1"/>
+  <polygon points="244,64 239,61 239,67" fill="#f97316"/>
+
+  <!-- Bedrock -->
+  <rect x="248" y="48" width="60" height="32" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="278" y="68" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">Bedrock</text>
+
+  <!-- Benefits list -->
+  <text x="334" y="46" font-size="7" fill="#2b2b2b">No egress fees</text>
+  <text x="334" y="58" font-size="7" fill="#2b2b2b">Low latency</text>
+  <text x="334" y="70" font-size="7" fill="#2b2b2b">IAM policies</text>
+  <text x="334" y="82" font-size="7" fill="#2b2b2b">One bill</text>
+</svg>

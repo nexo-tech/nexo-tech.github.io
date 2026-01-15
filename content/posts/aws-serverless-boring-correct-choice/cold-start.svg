@@ -1,0 +1,41 @@
+<svg viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="500" height="100" fill="#fff"/>
+
+  <!-- Cold Start Row -->
+  <text x="12" y="24" font-size="8" fill="#57606a">&gt; COLD</text>
+  <text x="60" y="24" font-size="9" fill="#2b2b2b">Request</text>
+  <line x1="108" y1="20" x2="130" y2="20" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="130,20 125,17 125,23" fill="#2b2b2b"/>
+
+  <!-- Cold start box (Init + Handler) -->
+  <rect x="134" y="10" width="180" height="22" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <rect x="134" y="10" width="80" height="22" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1.2"/>
+  <text x="174" y="24" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">Init</text>
+  <line x1="214" y1="10" x2="214" y2="32" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="260" y="24" text-anchor="middle" font-size="8" fill="#2b2b2b">Handler</text>
+
+  <line x1="314" y1="20" x2="340" y2="20" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="340,20 335,17 335,23" fill="#2b2b2b"/>
+  <text x="350" y="24" font-size="9" fill="#2b2b2b">Response</text>
+
+  <!-- Cold start label -->
+  <line x1="134" y1="38" x2="214" y2="38" stroke="#f97316" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="174" y="48" text-anchor="middle" font-size="7" fill="#f97316">cold start (~100-500ms)</text>
+
+  <!-- Warm Row -->
+  <text x="12" y="76" font-size="8" fill="#57606a">&gt; WARM</text>
+  <text x="60" y="76" font-size="9" fill="#2b2b2b">Request</text>
+  <line x1="108" y1="72" x2="130" y2="72" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="130,72 125,69 125,75" fill="#2b2b2b"/>
+
+  <!-- Warm box (Handler only) -->
+  <rect x="134" y="62" width="100" height="22" rx="2" fill="#2b2b2b" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="184" y="76" text-anchor="middle" font-size="8" fill="#fff">Handler</text>
+
+  <line x1="234" y1="72" x2="260" y2="72" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="260,72 255,69 255,75" fill="#2b2b2b"/>
+  <text x="270" y="76" font-size="9" fill="#2b2b2b">Response</text>
+
+  <!-- Fast label -->
+  <text x="350" y="76" font-size="8" fill="#57606a">~10-50ms</text>
+</svg>

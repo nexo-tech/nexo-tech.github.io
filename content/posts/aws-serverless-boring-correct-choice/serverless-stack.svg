@@ -1,0 +1,64 @@
+<svg viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="600" height="140" fill="#fff"/>
+
+  <!-- Row 1: Main flow -->
+  <!-- PRESENTATION -->
+  <text x="12" y="18" font-size="8" fill="#57606a">&gt; PRESENTATION</text>
+  <rect x="12" y="26" width="60" height="22" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="42" y="40" text-anchor="middle" font-size="8" fill="#2b2b2b">CloudFront</text>
+
+  <line x1="72" y1="37" x2="86" y2="37" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="86,37 81,34 81,40" fill="#2b2b2b"/>
+
+  <rect x="90" y="26" width="36" height="22" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="108" y="40" text-anchor="middle" font-size="8" fill="#2b2b2b">S3</text>
+
+  <!-- API -->
+  <text x="150" y="18" font-size="8" fill="#57606a">&gt; API</text>
+  <line x1="126" y1="37" x2="148" y2="37" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="148,37 143,34 143,40" fill="#2b2b2b"/>
+
+  <rect x="152" y="26" width="70" height="22" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="187" y="40" text-anchor="middle" font-size="8" fill="#2b2b2b">API Gateway</text>
+
+  <!-- COMPUTE - Lambda highlighted in orange -->
+  <text x="246" y="18" font-size="8" fill="#57606a">&gt; COMPUTE</text>
+  <line x1="222" y1="37" x2="244" y2="37" stroke="#f97316" stroke-width="1.2"/>
+  <polygon points="244,37 239,34 239,40" fill="#f97316"/>
+
+  <rect x="248" y="26" width="52" height="22" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1.2"/>
+  <text x="274" y="40" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">Lambda</text>
+
+  <!-- DATA -->
+  <text x="324" y="18" font-size="8" fill="#57606a">&gt; DATA</text>
+  <line x1="300" y1="37" x2="322" y2="37" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="322,37 317,34 317,40" fill="#2b2b2b"/>
+
+  <rect x="326" y="26" width="52" height="22" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="352" y="40" text-anchor="middle" font-size="7" fill="#2b2b2b">DynamoDB</text>
+
+  <rect x="382" y="26" width="28" height="22" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="396" y="40" text-anchor="middle" font-size="8" fill="#2b2b2b">S3</text>
+
+  <rect x="414" y="26" width="36" height="22" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="432" y="40" text-anchor="middle" font-size="8" fill="#2b2b2b">SQS</text>
+
+  <!-- Row 2: Background -->
+  <text x="324" y="72" font-size="8" fill="#57606a">&gt; BACKGROUND</text>
+  <line x1="432" y1="48" x2="432" y2="60" stroke="#2b2b2b" stroke-width="1.2"/>
+  <line x1="432" y1="60" x2="390" y2="60" stroke="#2b2b2b" stroke-width="1.2"/>
+  <line x1="390" y1="60" x2="390" y2="78" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="390,78 387,73 393,73" fill="#2b2b2b"/>
+
+  <rect x="326" y="80" width="128" height="22" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1.2"/>
+  <text x="390" y="94" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">Lambda Workers</text>
+
+  <!-- OBSERVABILITY -->
+  <text x="480" y="18" font-size="8" fill="#57606a">&gt; OBSERVABILITY</text>
+  <rect x="480" y="26" width="72" height="22" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="516" y="40" text-anchor="middle" font-size="8" fill="#2b2b2b">CloudWatch</text>
+
+  <!-- Dotted lines to CloudWatch -->
+  <line x1="450" y1="37" x2="480" y2="37" stroke="#2b2b2b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="454" y1="91" x2="516" y2="48" stroke="#2b2b2b" stroke-width="1" stroke-dasharray="3,2"/>
+</svg>

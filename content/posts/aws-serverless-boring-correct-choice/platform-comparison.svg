@@ -1,0 +1,43 @@
+<svg viewBox="0 0 540 110" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="540" height="110" fill="#fff"/>
+
+  <text x="10" y="14" font-size="7" fill="#57606a">&gt; PLATFORM COMPARISON</text>
+
+  <!-- Headers -->
+  <text x="140" y="30" font-size="7" fill="#57606a" text-anchor="middle">Memory</text>
+  <text x="200" y="30" font-size="7" fill="#57606a" text-anchor="middle">Timeout</text>
+  <text x="270" y="30" font-size="7" fill="#57606a" text-anchor="middle">Queues</text>
+  <text x="340" y="30" font-size="7" fill="#57606a" text-anchor="middle">Cron</text>
+  <text x="410" y="30" font-size="7" fill="#57606a" text-anchor="middle">DB</text>
+  <text x="490" y="30" font-size="7" fill="#57606a" text-anchor="middle">Best for</text>
+
+  <!-- Vercel Row -->
+  <rect x="10" y="38" width="70" height="20" rx="2" fill="#2b2b2b" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="45" y="51" text-anchor="middle" font-size="8" fill="#fff">Vercel</text>
+  <text x="140" y="51" font-size="7" fill="#2b2b2b" text-anchor="middle">3 GB</text>
+  <text x="200" y="51" font-size="7" fill="#2b2b2b" text-anchor="middle">5 min</text>
+  <text x="270" y="51" font-size="7" fill="#57606a" text-anchor="middle">Beta</text>
+  <text x="340" y="51" font-size="7" fill="#2b2b2b" text-anchor="middle">Yes</text>
+  <text x="410" y="51" font-size="7" fill="#57606a" text-anchor="middle">External</text>
+  <text x="490" y="51" font-size="7" fill="#2b2b2b" text-anchor="middle">Next.js</text>
+
+  <!-- Cloudflare Row -->
+  <rect x="10" y="62" width="70" height="20" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1"/>
+  <text x="45" y="75" text-anchor="middle" font-size="8" fill="#2b2b2b">Workers</text>
+  <text x="140" y="75" font-size="7" fill="#2b2b2b" text-anchor="middle">128 MB</text>
+  <text x="200" y="75" font-size="7" fill="#2b2b2b" text-anchor="middle">5 min CPU</text>
+  <text x="270" y="75" font-size="7" fill="#2b2b2b" text-anchor="middle">Yes</text>
+  <text x="340" y="75" font-size="7" fill="#2b2b2b" text-anchor="middle">Yes</text>
+  <text x="410" y="75" font-size="7" fill="#2b2b2b" text-anchor="middle">D1</text>
+  <text x="490" y="75" font-size="7" fill="#2b2b2b" text-anchor="middle">Edge</text>
+
+  <!-- AWS Lambda Row - Orange highlight -->
+  <rect x="10" y="86" width="70" height="20" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="45" y="99" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">Lambda</text>
+  <text x="140" y="99" font-size="7" fill="#f97316" text-anchor="middle" font-weight="600">10 GB</text>
+  <text x="200" y="99" font-size="7" fill="#f97316" text-anchor="middle" font-weight="600">15 min</text>
+  <text x="270" y="99" font-size="7" fill="#f97316" text-anchor="middle" font-weight="600">SQS</text>
+  <text x="340" y="99" font-size="7" fill="#f97316" text-anchor="middle" font-weight="600">EventBridge</text>
+  <text x="410" y="99" font-size="7" fill="#f97316" text-anchor="middle" font-weight="600">DynamoDB</text>
+  <text x="490" y="99" font-size="7" fill="#f97316" text-anchor="middle" font-weight="600">Backend</text>
+</svg>
