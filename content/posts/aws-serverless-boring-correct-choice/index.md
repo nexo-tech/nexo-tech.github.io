@@ -16,7 +16,7 @@ tags:
 
 ![Serverless Network](hero.svg)
 
-In the last 6 months, I've helped **3 AI startups migrate from Vercel or Cloudflare to AWS Lambda**. The pattern is the same: they start on a platform with great DX. Then the wall shows up: background jobs, retries, queues, cron and eventually a "this endpoint needs 2-8 GB RAM for 4-10 minutes" workload, and eventually land on AWS.
+In the last 6 months, I've helped **3 AI startups migrate from Vercel or Cloudflare to AWS Lambda**. The pattern is the same: they start on a platform with great DX. Then the wall shows up: background jobs, retries, queues, cron, and eventually a "this endpoint needs 2-8 GB RAM for 4-10 minutes" workload — and they land on AWS.
 
 To be fair: Vercel and Cloudflare captured developer attention for good reasons. Vercel ships Next.js fast — previews, simple deploys, great DX. Workers are great for edge use-cases: low latency, fast cold starts, global distribution. Both solve real problems.
 
@@ -45,7 +45,7 @@ When to reach for something else:
 1. **Long-running processes**. Applications like AI agent orchestrators would not work on Lambda due to hard 15-minute timeout. In this case, switch to [Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html) or regular EC2 instance.
 2. **Predictable high traffic or constant load**. You would gain more benefit from using containers in this case. Serverless is way better for bursty or unpredictable traffic.
 3. **GPU workloads**. Lambda does not support GPUs: for machine learning inference that requires CUDA, you have to use either **EC2** or **SageMaker**.
-4. **High-throughput media pipelines**. Orchestrating many state transitions per second through [Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html) gets expensive fast. The Prime Video case is typical — they used Step Functions to orchestrate state transitions for **every single video chunk**, hitting massive state transition limits and costs. Use containers for stream processing.
+4. **High-throughput media pipelines**. Orchestrating many state transitions per second through [Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html) gets expensive fast. The Prime Video case is typical — they triggered a transition for **every single video chunk**, hitting massive limits and costs. Use containers for stream processing.
 5. **Your team is already efficient elsewhere**. If you have existing infrastructure — Kubernetes, for example — and the team knows it well, don't force serverless. It takes time for an org to adopt an unfamiliar paradigm. For greenfield projects and validation, serverless is great. For teams already shipping on K8s, keep shipping.
 6. **Legacy dependencies that need a full OS**. Some applications depend on libraries that are hard to package for Lambda. At times you just need a VM to run the thing. Serverless is problematic when you're fighting runtime constraints.
 7. **Unsupported programming languages**. Don't experiment with languages Lambda doesn't officially support. Custom runtimes add overhead that's rarely worth it. Stick to Node.js, Python, Go, Java, .NET — the supported options.
@@ -56,21 +56,21 @@ For request-based apps with variable traffic, especially AI-integrated APIs, ser
 
 ## The Stack
 
-To build a serverless application, I recommend AWS, especially if you already have AWS basics. Here's the stack and how to use it effectively.
+If you already have AWS basics, building serverless there makes sense. Here's the stack and how to use it effectively.
 
 ![The Serverless Stack](serverless-stack.svg)
 
 ### Presentation Layer
 
-For the presentation layer, use a CDN and object storage for static assets. That's typically **[CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) + [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)**. You get benefits from the edge computing and the AWS infrastructure. S3 is useful because you can just build your HTML and CSS artifacts and upload them to the object storage. This decouples your frontend and web assets from your server. This brings some architectural limitations; you are limited to static exports. This works for blogs, but you lose Server-Side Rendering (SSR) capabilities needed for dynamic SEO or personalized content.
+For the presentation layer, use a CDN and object storage for static assets. That's typically **[CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) + [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)**, as you get benefits from the edge computing and the AWS infrastructure. S3 is useful because you can just build your HTML and CSS artifacts and upload them to the object storage. This decouples your frontend and web assets from your server, but brings architectural limitations: you can only do static exports. Fine for blogs, but you lose Server-Side Rendering (SSR) capabilities needed for dynamic SEO or personalized content.
 
 When you have the CDN in place, it's worth thinking about how you would coordinate request execution. You can use an **Application Load Balancer** to forward requests to Lambda, but I'd recommend **[API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)** for most cases. It handles request routing, rate limiting, and authorization out of the box. Getting IAM permissions right is critical, but once configured, your requests flow directly to Lambda.
 
 ### Compute
 
-The next component is your compute layer — where business logic lives. For serverless execution, use **[AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)**. It runs your code without provisioning servers, with usage-based pricing: you pay per 100ms of execution. Lambda is designed for event-driven workloads and short-lived compute (up to 15 minutes). For workloads exceeding 15 minutes, reach for Fargate. For prototypes, web apps, and AI-integrated APIs, Lambda is a natural starting point — call LLMs, build UI wrappers, handle business logic, all without managing servers.
+The next component is your compute layer — where business logic lives. For serverless execution, use **[AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)**. It runs your code without provisioning servers, with usage-based pricing: you pay per 100ms of execution. Lambda is designed for event-driven workloads and short-lived compute (up to 15 minutes); anything longer, reach for Fargate. For prototypes, web apps, and AI-integrated APIs, Lambda is a natural starting point — call LLMs, build UI wrappers, handle business logic, all without managing servers.
 
-Two deployment approaches for Lambda: native runtime or custom Docker images. Native is recommended for faster cold starts. Cold starts are real, treat Lambda as an event-driven runtime, not a "tiny server". Keep the handler small with simple initialization, and be intentional about concurrency and the warmup when latency becomes a problem.
+When deploying Lambda, you have two options: native runtime or custom Docker images. Native is recommended for faster cold starts. Cold starts are real, treat Lambda as an event-driven runtime, not a "tiny server". Keep the handler small with simple initialization, and be intentional about concurrency and the warmup when latency becomes a problem.
 
 ![Lambda Deployment Options](lambda-deployment.svg)
 
@@ -92,11 +92,11 @@ An EKS equivalent would have meant provisioning a cluster, configuring autoscali
 
 ### Persistence
 
-For persistence, use **[DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)**, but don't treat it like a relational database. Its power comes from partition keys, sort keys, and secondary indexes, so invest time understanding the data model. Think of it as an advanced key-value store with sorting capability. Optimize access patterns when you hit scale; for prototypes, just build. For deeper patterns, Alex DeBrie's [DynamoDB Guide](https://www.dynamodbguide.com/) covers single-table design and access patterns.
+For persistence, use **[DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)**, but don't treat it like a relational database. Its power comes from partition keys, sort keys, and secondary indexes, so invest time understanding the data model. Think of it as an advanced key-value store with sorting capability. Optimize your queries when you hit scale; for prototypes, just build. For deeper learning, Alex DeBrie's [DynamoDB Guide](https://www.dynamodbguide.com/) covers single-table design and access patterns.
 
 At a B2B marketing startup I was working on, the main data tier was MongoDB collecting events from large e-commerce stores. But the application had also domain tables to store data related to dashboard: organizations, users, authentication, settings. Originally they lived on RDS, which was overkill. At the start there were 10-15 enterprise clients, and paying a dedicated RDS instance for that load made no sense.
 
-**RDS Cost:** `~$35.00` / month for db.t3.small **DynamoDB cost after migration:** `~$0.00 - $2.00` / month (mostly storage costs) for the same workload
+**RDS Cost:** `~$35.00` / month for db.t3.small, **DynamoDB cost after migration:** `~$0.00 - $2.00` / month (mostly storage costs) for the same workload.
 
 ![Cost Comparison](cost-comparison.svg)
 
@@ -114,7 +114,7 @@ Build applications without technology bias. A few years ago, Docker containers a
 
 Start with an **Infrastructure as Code** tool like Terraform, AWS CDK, or the increasingly popular SST. You define how infrastructure gets created, then deploy that stack to your AWS account. I personally use Terraform because I want full control over my infrastructure. But for getting started quickly with pre-built blocks, SST is the better choice since productivity matters early on.
 
-Previously, AWS was less approachable than alternatives since deploying with CloudFormation or SAM was painful. I don't love CloudFormation either, but it gets the job done. It's stable, it's battle-tested, and CDK sits on top of it. You don't need to invest in alternatives — it tends to be reliable once set up. AWS's native tools often lag behind community open-source alternatives in developer experience, so picking the right IaC tool matters.
+Previously, AWS was less approachable since deploying with CloudFormation or SAM was painful. CloudFormation itself is stable and battle-tested: CDK and SST (before v3) both sit on top of it, but the raw DX isn't great. That's why picking the right abstraction layer matters: you get CloudFormation's reliability without writing YAML by hand.
 
 ### Pick your IaC tool carefully
 
@@ -167,7 +167,7 @@ With coding agents like [Claude Code](https://github.com/anthropics/claude-code)
 
 ![SST + OpenNext Demo](sst-opennext-demo.png)
 
-Cloudflare Workers is popular but still maturing. I played around with Rust Workers and WebAssembly, but found the learning curve steep. Lambda functions remain common and widely adopted.
+Cloudflare Workers is popular but still maturing for backend use cases. Lambda remains the more common choice for serverless backends.
 
 What about Vercel? It provides Next.js with serverless functions, but you can't build background execution logic or advanced infrastructure like queue services. The serverless environment is limited to Node.js API routes. It's popular among beginners because React and Node.js are familiar, but you're locked into Vercel as a vendor. Enterprises and startups still use AWS, and even modern AI applications run on AWS Bedrock. As a full-stack developer, investing in AWS serverless gives you more flexibility and portability.
 
@@ -197,7 +197,7 @@ Vercel's limitation is the backend. They [announced queues in 2025](https://verc
 
 For a frontend layer that connects to backend services, Vercel works. For a complete backend, you'll outgrow it.
 
-If you want Next.js without vendor lock-in, look at [OpenNext](https://opennext.js.org/). It's an open-source adapter that deploys Next.js to AWS Lambda, and SST uses it under the hood. You get App Router, Server Components, ISR, image optimization — most Next.js features work. The deployment is one line: `new sst.aws.Nextjs("Web")`. NHS England, Udacity, and Gymshark run production workloads on it. The main gotcha is middleware: it runs on the server, not at the edge, so cached requests skip it. For most apps, that's fine. If you want Next.js but need AWS infrastructure underneath, OpenNext is the escape hatch.
+If you want Next.js without vendor lock-in, look at [OpenNext](https://opennext.js.org/). It's an open-source adapter that deploys Next.js to AWS Lambda, and SST uses it under the hood. You get App Router, Server Components, ISR, image optimization — most Next.js features work. The deployment is one line: `new sst.aws.Nextjs("Web")`. NHS England, Udacity, and Gymshark run production workloads on it. The main gotcha is middleware: it runs on the server, not at the edge, so cached requests skip it. For most apps, that's fine. If you want Next.js but need AWS infrastructure underneath, **OpenNext** is the escape hatch.
 
 ### Cloudflare Workers
 
@@ -211,7 +211,7 @@ I wouldn't build a startup on Cloudflare Workers yet. For edge routing and authe
 
 ### Firebase
 
-At one startup, we had the infrastructure partially on AWS — the AI agent running in the background — but the frontend was React with Firebase Functions calling Firestore. Firebase did a great job as a prototyping tool; we were able to build a complex frontend with the database initially. But the problems stacked up:
+At one startup, we had the infrastructure partially on AWS — the AI agent running in the background, but the frontend was React with Firebase Functions calling Firestore. Firebase did a great job as a prototyping tool; we were able to build a complex frontend with the database initially. But the problems stacked up:
 
 1. The data was fragmented, living outside AWS. Generally considered bad practice.
 2. React calling Firestore directly created tight vendor lock-in with Firestore.
@@ -223,7 +223,7 @@ The one exception: I typically choose Firebase for Google authentication. It's t
 
 ### Why I default to AWS
 
-For startups expecting growth, I recommend AWS.
+For startups expecting growth, here's why AWS makes sense.
 
 ![AWS One Network](aws-network.svg)
 
@@ -233,15 +233,15 @@ For startups expecting growth, I recommend AWS.
 
 3. **One network space.** Your Lambda talks to DynamoDB talks to SQS without leaving AWS. No cross-provider latency, no credential juggling, no surprise egress fees.
 
-4. **Low cost to start.** Some argue serverless is overkill — just rent a $5/month VPS. But Lambda's free tier includes [1 million requests and 400,000 GB-seconds per month](https://aws.amazon.com/lambda/pricing/), permanently. DynamoDB gives you 25 GB free. API Gateway has 1 million HTTP API calls free for 12 months. For low-traffic projects, you can run for near $0. A VPS costs money from day one. For prototypes and MVPs with variable traffic, serverless is often cheaper.
+4. **Low cost to start.** Some argue serverless is overkill — just rent a $5/month VPS. But a VPS costs money from day one, while Lambda's free tier includes [1 million requests and 400,000 GB-seconds per month](https://aws.amazon.com/lambda/pricing/) permanently, DynamoDB gives you 25 GB free, and API Gateway offers 1 million HTTP calls free for 12 months. For low-traffic projects you can run for near $0 — and for prototypes with variable traffic, serverless is often cheaper than fixed infrastructure.
 
-5. **AI-ready.** AWS is investing heavily in AI. [Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html) gives you Anthropic models — Claude and others — within AWS networking. Your Lambda calls Claude without leaving the network. If you qualify as a startup, they offer generous credits to run large inference workloads. For AI-integrated apps, the whole stack stays in one place.
+5. **AI-ready.** AWS is investing heavily in AI, and [Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html) gives you access to Anthropic models (Claude and others) within AWS networking, so your Lambda calls Claude without leaving the network. If you qualify as a startup, they offer generous credits for large inference workloads. For AI-integrated apps, the whole stack stays in one place.
 
 Learn the alternatives. When you need to scale, start with AWS serverless.
 
 ## How to get started with it in 2026
 
-Start by building a complete backend within serverless constraints. Design around cold start limitations and use SQS and [EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) for background execution. This stack works well for AI apps that call LLM inference APIs — not for AI agents that need to run for hours, but for request-based AI features. Whether you're a beginner or an advanced full-stack developer, serverless is worth the investment. Design for constraints first, build after. The serverless stack rewards this discipline.
+Start by building a complete backend within serverless constraints. Design around cold start limitations and use SQS and [EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) for background execution. This stack works well for AI apps that call LLM inference APIs — not for AI agents that need to run for hours, but for request-based AI features. Whether you're a beginner or an advanced full-stack developer, serverless is worth the investment. Understand the limitations first, build after. The serverless stack rewards this discipline.
 
 One caveat: serverless requires your team to think differently. At an ad tech startup, I watched a team struggle with a Lambda-based bidding system. The architecture was designed serverless because of the maintenance overhead we'd avoid — in theory, it was much easier to add or change parts of the ad tech we were building. But the backend engineers came from Docker and long-running servers. They understood request-response, but the tooling around AWS serverless — CloudWatch, S3, the whole stack — felt alienating compared to containerized apps built on FastAPI or Django. That workflow just wasn't available for serverless. The deadline moved three months, which brought a lot of problems. We had to switch to an ECS cluster with containers, which was suboptimal for the bursty nature of ad bidding. The architecture wasn't wrong; the team-stack fit was. If your engineers aren't familiar with serverless, budget time for learning or pick what they know.
 
