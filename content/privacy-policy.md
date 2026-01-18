@@ -46,7 +46,7 @@ If you have concerns or questions about your privacy while using this site, feel
 
 If you have any questions about this privacy policy, you may contact me at:
 
-📧 [oleg@nexo.sh](mailto:oleg@nexo.sh)
+📧 [me@opustovit.com](mailto:me@opustovit.com)
 
 📍 Zagreb, Croatia
 
