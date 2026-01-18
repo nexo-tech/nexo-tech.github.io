@@ -16,7 +16,7 @@ tags:
   - websocket
 ---
 
-> TL;DR: I built a lightweight, self-hosted HTTP tunnel that turns `localhost` into a public **HTTPS** URL. No paid plans, no secret black boxes. Just one Go binary, Caddy with wildcard TLS, and a $0/month Oracle Cloud VM. [GitHub repo](https://github.com/nexo-tech/microtunnel)
+> TL;DR: I built a lightweight, self-hosted HTTP tunnel that turns `localhost` into a public **HTTPS** URL. No paid plans, no secret black boxes. Just one Go binary, Caddy with wildcard TLS, and a $0/month Oracle Cloud VM. [GitHub repo](https://github.com/oleghq/microtunnel)
 
 ## Why I Built It
 
@@ -159,4 +159,4 @@ At this scale and level of abstraction, most edge cases (like frame buffering or
 
 ## Where to Find It
 
-Code: [GitHub →](https://github.com/nexo-tech/microtunnel) (MIT license)
+Code: [GitHub →](https://github.com/oleghq/microtunnel) (MIT license)

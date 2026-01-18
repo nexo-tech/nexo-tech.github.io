@@ -68,7 +68,7 @@ After starting caddy with the configuration above, the development website will 
 Hugo has a number of free themes that are publicly available on GitHub. What is necessary to do to install one is to clone a repository with a theme and then update the `theme` parameter in `hugo.toml`. I chose a theme called [`cactus`](https://github.com/monkeyWzr/hugo-theme-cactus). After installation, I've got a build error complaining that Google Analytics async template is not found:
 
 ```sh
-Error: error building site: render: failed to render pages: render of "/" failed: "/home/user/projects/nexo-tech.github.io/themes/cactus/layouts/_default/baseof.html:3:3": execute of template failed: template: index.html:3:3: executing "index.html" at <partial "head.html" .>: error calling partial: execute of template failed: html/template:partials/head.html:47:16: no such template "_internal/google_analytics_async.html"
+Error: error building site: render: failed to render pages: render of "/" failed: "/home/user/projects/website/themes/cactus/layouts/_default/baseof.html:3:3": execute of template failed: template: index.html:3:3: executing "index.html" at <partial "head.html" .>: error calling partial: execute of template failed: html/template:partials/head.html:47:16: no such template "_internal/google_analytics_async.html"
 make: *** [Makefile:2: up] Error
 ```
 
@@ -124,7 +124,7 @@ With Hugo set up and deployed, I can now focus on what matters — sharing techn
 
 ## Related resources
 
-- [Repository for this website](https://github.com/nexo-tech/nexo-tech.github.io)
+- [Repository for this website](https://github.com/oleghq/website)
 - [Hugo quick start](https://gohugo.io/getting-started/quick-start/#publish-the-site)
 - [Configuring DNS settings for GitHub Pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#dns-records-for-your-custom-domain)
 - [Cactus theme for Hugo](https://themes.gohugo.io/themes/hugo-theme-cactus/)

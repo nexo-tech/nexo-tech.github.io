@@ -1,6 +1,6 @@
 baseURL = 'https://nexo.sh/'
 languageCode = 'en-us'
-title = 'nexo blog'
+title = 'oleg pustovit'
 copyright = "Oleg Pustovit"
 
 [services]
@@ -48,8 +48,8 @@ author = "Oleg Pustovit"
 title = "Oleg Pustovit – Technical Leadership & MVP Development for Startups"
 
 [params.header]
-title = "[nexo.sh]"
-homeTitle = "[nexo.sh]"
+title = "[oleg pustovit]"
+homeTitle = "[oleg pustovit]"
 items = [
   { text = "work", href = "/#services", homeHref = "#services" },
   { text = "writings", href = "/posts", homeHref = "#writings" },
@@ -62,7 +62,7 @@ sidebarText = "Technical leadership for **startups**, **scale-ups**, and **found
 
 [[params.social]]
 name = "github"
-link = "https://github.com/nexo-tech"
+link = "https://github.com/oleghq"
 
 [[params.social]]
 name = "email"
@@ -74,7 +74,7 @@ link = "https://x.com/nexo_v1"
 
 [[params.social]]
 name = "linkedin"
-link = "https://www.linkedin.com/in/nexo-tech/"
+link = "https://www.linkedin.com/in/opustovit/"
 
 [params.introduction]
 title = "Oleg Pustovit"

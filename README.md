@@ -1,4 +1,4 @@
-# `nexo.sh` — Personal Website
+# oleg pustovit — Personal Website
 
 A fast, modern personal site powered by [Hugo](https://gohugo.io/), styled with [Tailwind CSS](https://tailwindcss.com/), and animated with [GSAP](https://greensock.com/gsap/). Built with performance, clarity, and a touch of unnecessary flair.
 
@@ -49,8 +49,8 @@ A fast, modern personal site powered by [Hugo](https://gohugo.io/), styled with 
 #### Using Nix (Preferred)
 
 ```bash
-git clone https://github.com/nexo-tech/nexo-tech.github.io.git
-cd nexo-tech.github.io
+git clone https://github.com/oleghq/website.git
+cd website
 
 nix develop
 make up
@@ -59,8 +59,8 @@ make up
 #### Manual Setup
 
 ```bash
-git clone https://github.com/nexo-tech/nexo-tech.github.io.git
-cd nexo-tech.github.io
+git clone https://github.com/oleghq/website.git
+cd website
 
 bun install
 hugo server -D

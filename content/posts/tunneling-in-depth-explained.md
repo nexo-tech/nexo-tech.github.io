@@ -297,7 +297,7 @@ If you end up building your own tunnel or riffing on this design, I’d love to 
 
 ## Related Links
 
-- 🧠 [Source Code on GitHub](https://github.com/nexo-tech/microtunnel) – MIT licensed, ~300 lines
+- 🧠 [Source Code on GitHub](https://github.com/oleghq/microtunnel) – MIT licensed, ~300 lines
 - 📦 [xcaddy – Build Caddy with Plugins](https://github.com/caddyserver/xcaddy)
 - 🔧 [Caddy DNS Providers List](https://caddyserver.com/docs/modules/dns.providers)
 - ☁️ [Cloudflare API Token Permissions](https://developers.cloudflare.com/api/tokens/create/)
