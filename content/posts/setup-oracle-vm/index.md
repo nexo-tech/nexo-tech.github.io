@@ -13,6 +13,8 @@ tags:
   - web-development
   - firewall
   - devops
+topics:
+  - "Infrastructure"
 ---
 
 ![image title](splash.jpg)

@@ -13,6 +13,9 @@ tags:
   - open-source
   - agentic-ai
   - developer-tools
+topics:
+  - "AI & Agents"
+  - "Developer Tools"
 description: "The AI agent ecosystem is where npm was in 2010. Everyone is building agents, but nobody has solved distribution. Here's why I built agentpack."
 keywords:
   - AI agent package manager

@@ -12,6 +12,8 @@ tags:
   - sst
   - dynamodb
   - infrastructure
+topics:
+  - "Infrastructure"
 ---
 
 ![Serverless Network](hero.svg)

@@ -15,6 +15,8 @@ tags:
   - reverse-proxy
   - technical-writing
   - theme-customization
+topics:
+  - "Infrastructure"
 ---
 
 ## Executive Summary

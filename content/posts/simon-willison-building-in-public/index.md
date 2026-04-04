@@ -11,6 +11,8 @@ tags:
   - open-source
   - content-strategy
   - thought-leadership
+topics:
+  - "Career & Community"
 description: "Simon Willison quoted something I wrote on his blog. It changed how I think about building in public. Here are three lessons."
 keywords:
   - building in public

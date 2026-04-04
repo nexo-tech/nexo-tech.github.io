@@ -11,6 +11,9 @@ tags:
   - design-patterns
   - software-architecture
   - multi-agent-systems
+topics:
+  - "AI & Agents"
+  - "Architecture"
 description: "Five orchestration patterns that keep emerging in production agent systems. Each solves a different coordination problem."
 keywords:
   - agent orchestration patterns

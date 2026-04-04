@@ -12,6 +12,8 @@ tags:
   - ios
   - apple
   - xcode
+topics:
+  - "Side Projects"
 ---
 
 > In 2025, playing your own **music on an iPhone is surprisingly hard**, unless you pay Apple or navigate a maze of limitations. So I built my own player from scratch, with **full text search**, **iCloud support**, and a **local-first experience**. [GitHub link](https://github.com/oleghq/music-app)

@@ -9,6 +9,8 @@ tags:
   - go
   - concurrency
   - functional-programming
+topics:
+  - "Developer Tools"
 ---
 
 A few days ago, I read an article about [mimicking Haskell's lazy infinite lists in Python using generators](https://unnamed.website/posts/haskelling-my-python/). It was a fun read.

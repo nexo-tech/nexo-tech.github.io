@@ -13,6 +13,8 @@ tags:
   - architecture
   - node.js
   - go
+topics:
+  - "Architecture"
 ---
 
 > _Why splitting your codebase too early can quietly destroy your team’s velocity — and what to do instead_.

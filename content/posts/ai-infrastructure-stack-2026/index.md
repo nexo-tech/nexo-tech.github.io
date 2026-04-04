@@ -11,6 +11,9 @@ tags:
   - agentic-ai
   - ai-tooling
   - agentpack
+topics:
+  - "AI & Agents"
+  - "Developer Tools"
 description: "We have foundation models, vector databases, and agent frameworks. What we don't have is everything in between."
 keywords:
   - AI infrastructure 2026

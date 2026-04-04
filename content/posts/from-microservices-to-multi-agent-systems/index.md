@@ -11,6 +11,9 @@ tags:
   - ai-architecture
   - distributed-systems
   - software-architecture
+topics:
+  - "AI & Agents"
+  - "Architecture"
 description: "If you've built microservices, you already understand 80% of multi-agent system design. The remaining 20% is what makes it interesting."
 keywords:
   - multi-agent systems

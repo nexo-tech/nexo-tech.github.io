@@ -15,6 +15,9 @@ tags:
   - blog
   - caddy
   - theme-customization
+topics:
+  - "Developer Tools"
+  - "Side Projects"
 ---
 
 ![Image title](frame.jpg)

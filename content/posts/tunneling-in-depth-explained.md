@@ -9,6 +9,9 @@ tags:
   - go
   - concurrency
   - functional-programming
+topics:
+  - "Infrastructure"
+  - "Side Projects"
 ---
 
 # Expose Localhost to the World: Self-Hosted Tunnel in Go

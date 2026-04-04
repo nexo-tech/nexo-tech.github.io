@@ -14,6 +14,9 @@ tags:
   - side-project
   - ssl
   - websocket
+topics:
+  - "Side Projects"
+  - "Infrastructure"
 ---
 
 > TL;DR: I built a lightweight, self-hosted HTTP tunnel that turns `localhost` into a public **HTTPS** URL. No paid plans, no secret black boxes. Just one Go binary, Caddy with wildcard TLS, and a $0/month Oracle Cloud VM. [GitHub repo](https://github.com/oleghq/microtunnel)

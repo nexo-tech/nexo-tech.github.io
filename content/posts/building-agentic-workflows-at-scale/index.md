@@ -12,6 +12,9 @@ tags:
   - orchestration
   - production-ai
   - distributed-systems
+topics:
+  - "AI & Agents"
+  - "Architecture"
 description: "Everyone's building AI agents. Almost nobody is running them in production. Here are five lessons from shipping agentic systems that actually work."
 keywords:
   - agentic workflows

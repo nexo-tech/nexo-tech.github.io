@@ -3,6 +3,11 @@ languageCode = 'en-us'
 title = 'oleg pustovit'
 copyright = "Oleg Pustovit"
 
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  topic = "topics"
+
 [services]
   [services.googleAnalytics]
     id = 'G-82NPJKSTQK'
@@ -39,6 +44,7 @@ target = 'assets/notwatching/hugo_stats.json'
 
 
 [params]
+images = ["images/og-default.png"]
 rss = true
 description = "Technical leadership, MVP development, and scalable infrastructure consulting for startups and founders. Hands-on expertise in Go, Kubernetes, system design, and cloud architecture."
 metaDescription = "Technical leadership, MVP development, and scalable infrastructure consulting for startups and founders. Hands-on expertise in Go, Kubernetes, system design, and cloud architecture."
