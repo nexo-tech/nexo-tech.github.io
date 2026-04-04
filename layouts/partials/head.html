@@ -53,3 +53,46 @@ absURL }}" /> <link rel="manifest" href="{{ "images/site.webmanifest" | absURL
 ` .Permalink .Rel .MediaType.Type $.Site.Title | safeHTML }} {{ end }} {{ end }}
 {{ if .Site.Config.Services.GoogleAnalytics.ID }} {{ template
 "_internal/google_analytics.html" . }} {{ end }}
+
+<!-- JSON-LD Structured Data -->
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Oleg Pustovit",
+  "url": "https://nexo.sh",
+  "jobTitle": "AI Systems Architect",
+  "description": "{{ .Site.Params.description }}",
+  "sameAs": [
+    "https://github.com/OlegHQ",
+    "https://x.com/nexo_v1",
+    "https://www.linkedin.com/in/opustovit/"
+  ],
+  "knowsAbout": ["AI", "Agentic Systems", "Go", "Rust", "Kubernetes", "System Design", "MVP Development"]
+}
+</script>
+{{ else if .IsPage }}
+{{ if eq .Section "posts" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ .Title }}",
+  "url": "{{ .Permalink }}",
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  {{ if .Lastmod }}"dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
+  "author": {
+    "@type": "Person",
+    "name": "Oleg Pustovit",
+    "url": "https://nexo.sh"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Oleg Pustovit"
+  },
+  "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}"
+}
+</script>
+{{ end }}
+{{ end }}

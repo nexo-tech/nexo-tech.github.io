@@ -51,6 +51,7 @@ title = "Oleg Pustovit – Technical Leadership & MVP Development for Startups"
 title = "[oleg pustovit]"
 homeTitle = "[oleg pustovit]"
 items = [
+  { text = "about", href = "/about", homeHref = "/about" },
   { text = "work", href = "/#services", homeHref = "#services" },
   { text = "writings", href = "/posts", homeHref = "#writings" },
   { text = "contact", href = "/#collaborate", homeHref = "#collaborate" }
@@ -66,7 +67,7 @@ link = "https://github.com/oleghq"
 
 [[params.social]]
 name = "email"
-link = "me@opustovit.com"
+link = "me@nexo.sh"
 
 [[params.social]]
 name = "x-twitter"
