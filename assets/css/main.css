@@ -9,17 +9,24 @@
 @import "./highlight.css";
 
 .highlight .chroma {
-  @apply py-2 px-4;
+  @apply py-2 px-3 text-[0.8125rem] leading-snug text-gray-900;
 }
 
 
+/* Transparent so the page tint shows through — no white/gray panel */
 .highlight div.chroma {
-  @apply bg-white;
+  @apply bg-transparent;
 }
 
 
+/* Keep line numbers snug against the code instead of a wide fixed column */
 td.lntd:first-child {
-  @apply w-10;
+  @apply w-auto pr-3;
+}
+
+.chroma .lnt,
+.chroma .ln {
+  @apply mr-0 text-gray-400 select-none;
 }
 
 #header-wrapper {

@@ -1,10 +1,10 @@
 {{- $label := print .Type " code snippet" -}}
-<figure class="relative my-8 border border-gray-100 overflow-hidden" role="figure" aria-label="{{- $label | plainify -}}">
-  <div class="flex items-center justify-between px-3 py-2 border-b border-gray-100">
+<figure class="relative my-8 border border-gray-200 overflow-hidden" role="figure" aria-label="{{- $label | plainify -}}">
+  <div class="flex items-center justify-between px-3 py-1.5 bg-gray-100 border-b border-gray-200 select-none">
     {{- with .Attributes.title -}}
-    <div class="text-sm font-bold text-gray-700">{{ . }}</div>
+    <div class="text-xs font-semibold uppercase tracking-wider text-gray-500">{{ . }}</div>
     {{- else -}}
-    <div class="text-sm font-bold text-gray-600">{{ .Type }}</div>
+    <div class="text-xs font-semibold uppercase tracking-wider text-gray-500">{{ .Type }}</div>
     {{- end -}}
     <div class="code-copy relative">
       <div class="code-copied absolute right-0 top-8 min-w-[132px] bg-black text-white text-xs px-2 py-1 opacity-0 transition-opacity duration-300 pointer-events-none">Copied to clipboard</div>
@@ -30,7 +30,7 @@
       <textarea class="hidden">{{ .Inner }}</textarea>
     </div>
   </div>
-  <div class="overflow-x-auto bg-white">
+  <div class="overflow-x-auto">
     {{- with transform.HighlightCodeBlock . -}} 
     {{ .Wrapped }}
     {{- end -}}

@@ -71,13 +71,22 @@
   
   /* Blockquotes */
   blockquote {
-    @apply pl-4 py-1 border-l-4 border-primary/30 bg-primary/5 italic my-6 text-primary/70;
+    @apply pl-4 py-3 border-l-4 border-primary/30 bg-primary/5 italic my-6 text-primary/70;
   }
   
   blockquote p {
     @apply text-lg;
   }
+
+  blockquote p:last-child {
+    @apply mb-0;
+  }
   
+  /* Inline code — monospace reads larger than the sans body at the same size, so scale it down */
+  :not(pre) > code {
+    @apply font-mono text-[0.875em] text-primary;
+  }
+
   /* Links */
   a {
     @apply text-primary font-medium underline decoration-primary/30 underline-offset-2 hover:decoration-primary transition-all;
