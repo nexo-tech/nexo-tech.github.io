@@ -10,6 +10,8 @@ copyright = "Oleg Pustovit"
 [markup]
 [markup.highlight]
 noClasses = false
+[markup.goldmark.renderer]
+unsafe = true
 style = 'catppuccin-latte'
 lineNos = true
 [markup.goldmark]

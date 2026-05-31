@@ -42,10 +42,18 @@ function setupTypewriter(el) {
 
 function moreScrollTriggers() {
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+    const collaborate = document.getElementById("collaborate");
+    const collaborateWrapper = document.getElementById("collaborate-wrapper");
+    const typewriterBig = document.querySelector(".typewriter-big");
+
+    if (!collaborate || !collaborateWrapper) {
+      return;
+    }
+
     // Content parallax effect (slower)
-    gsap.to("#collaborate", {
+    gsap.to(collaborate, {
       scrollTrigger: {
-        trigger: "#collaborate",
+        trigger: collaborate,
         start: "top bottom",
         end: "bottom top",
         scrub: true,
@@ -54,13 +62,12 @@ function moreScrollTriggers() {
       ease: "none",
     });
 
-    {
-      const el = document.querySelector(".typewriter-big");
-      const full = el.textContent.trim(); // grab full text
-      el.textContent = ""; // clear it
-      gsap.to(el, {
+    if (typewriterBig) {
+      const full = typewriterBig.textContent.trim(); // grab full text
+      typewriterBig.textContent = ""; // clear it
+      gsap.to(typewriterBig, {
         scrollTrigger: {
-          trigger: document.getElementById("collaborate-wrapper"),
+          trigger: collaborateWrapper,
           start: "top 40%", // fire when it scrolls into view
           toggleActions: "play reverse restart reverse", // play on enter, reverse on leave
         },
@@ -72,71 +79,75 @@ function moreScrollTriggers() {
 
     // Create a GSAP ScrollTrigger for the header color change
     ScrollTrigger.create({
-      trigger: document.getElementById("collaborate-wrapper"), //".bg-blue-600",
+      trigger: collaborateWrapper, //".bg-blue-600",
       start: "top 200px", // When the top of the blue section reaches 10% from the top
       end: "bottom 10%", // When the bottom of the blue section reaches 10% from the top
       onEnter: () => {
-        const header = document.getElementById("header-wrapper");
-        header.classList.add("in-blue-section");
+        document.getElementById("header-wrapper")?.classList.add("in-blue-section");
       },
       onLeave: () => {
-        const header = document.getElementById("header-wrapper");
-        header.classList.remove("in-blue-section");
+        document.getElementById("header-wrapper")?.classList.remove("in-blue-section");
       },
       onEnterBack: () => {
-        const header = document.getElementById("header-wrapper");
-        header.classList.add("in-blue-section");
+        document.getElementById("header-wrapper")?.classList.add("in-blue-section");
       },
       onLeaveBack: () => {
-        const header = document.getElementById("header-wrapper");
-        header.classList.remove("in-blue-section");
+        document.getElementById("header-wrapper")?.classList.remove("in-blue-section");
       },
     });
 
     const nameParts = document.querySelectorAll(".name-slide");
+    const nameSlideContainer = document.querySelector(".name-slide-container");
 
-    gsap.fromTo(
-      nameParts,
-      {
-        x: "120%",
-        opacity: 0,
-      },
-      {
-        scrollTrigger: {
-          trigger: ".name-slide-container",
-          start: "top 80%",
-          end: "top 40%",
-          scrub: 1,
-          toggleActions: "play none none reverse",
+    if (nameParts.length && nameSlideContainer) {
+      gsap.fromTo(
+        nameParts,
+        {
+          x: "120%",
+          opacity: 0,
         },
-        x: "0%",
-        opacity: 1,
-        stagger: 0.1,
-        ease: "power2.out",
-      }
-    );
+        {
+          scrollTrigger: {
+            trigger: nameSlideContainer,
+            start: "top 80%",
+            end: "top 40%",
+            scrub: 1,
+            toggleActions: "play none none reverse",
+          },
+          x: "0%",
+          opacity: 1,
+          stagger: 0.1,
+          ease: "power2.out",
+        }
+      );
+    }
 
-    gsap.fromTo(
-      ".intro-parallax-text",
-      { y: "-20%" },
-      {
-        scrollTrigger: {
-          trigger: ".intro-parallax-text",
-          start: "top 40%",
-          end: "bottom 80%",
-          scrub: 1,
+    const introParallaxText = document.querySelector(".intro-parallax-text");
+    if (introParallaxText) {
+      gsap.fromTo(
+        introParallaxText,
+        { y: "-20%" },
+        {
+          scrollTrigger: {
+            trigger: introParallaxText,
+            start: "top 40%",
+            end: "bottom 80%",
+            scrub: 1,
+          },
+          y: "0%", // Moves slower than scroll
+          ease: "none",
         },
-        y: "0%", // Moves slower than scroll
-        ease: "none",
-      }
-    );
+      );
+    }
   }
 }
 
 function runFooterAnimations() {
   const hero = document.getElementById("hero");
   const afterFooter = document.getElementById("after-footer");
-  afterFooter.style.height = (hero ? 250 : 50) + "px";
+  if (afterFooter) {
+    afterFooter.style.height = (hero ? 250 : 50) + "px";
+  }
 
   // Only run if GSAP and ScrollTrigger are loaded
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
@@ -185,7 +196,10 @@ function runFooterAnimations() {
     };
     const now = new Date();
     const kyivTime = now.toLocaleTimeString("en-US", options);
-    document.querySelector(".kyiv-time").textContent = ` ${kyivTime}`;
+    const kyivTimeElement = document.querySelector(".kyiv-time");
+    if (kyivTimeElement) {
+      kyivTimeElement.textContent = ` ${kyivTime}`;
+    }
   }
 
   // Update time immediately and then every minute
@@ -302,7 +316,11 @@ function initNavHighlight() {
 // Animate About Me section numbers
 function animateAboutMeNumbers() {
   const numbers = document.querySelectorAll(".number-slide");
-  const values = document.querySelectorAll(".values-section");
+  const values = document.querySelector(".values-section");
+  if (!numbers.length || !values || typeof ScrollTrigger === "undefined") {
+    return;
+  }
+
   numbers.forEach((number, index) => {
     // Set initial position (below the border)
     gsap.set(number, { y: "110%" });

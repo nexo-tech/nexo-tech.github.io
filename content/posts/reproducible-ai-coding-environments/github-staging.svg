@@ -1,0 +1,47 @@
+<svg viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="600" height="150" fill="#fff"/>
+
+  <text x="10" y="15" font-size="7" fill="#57606a">&gt; GITHUB AS REGISTRY, STAGING AS ISOLATION</text>
+
+  <text x="12" y="38" font-size="7" fill="#57606a">REMOTE SOURCE</text>
+  <rect x="12" y="46" width="130" height="42" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="20" y="61" font-size="8" fill="#2b2b2b">anthropics/skills/</text>
+  <text x="20" y="73" font-size="8" fill="#2b2b2b">skills/canvas-design</text>
+  <text x="20" y="83" font-size="6" fill="#57606a">branch|tag|semver|commit</text>
+
+  <line x1="142" y1="67" x2="178" y2="67" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="178,67 173,64 173,70" fill="#2b2b2b"/>
+
+  <text x="186" y="38" font-size="7" fill="#57606a">LOCAL CACHE</text>
+  <rect x="186" y="46" width="112" height="42" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="242" y="61" text-anchor="middle" font-size="7" fill="#2b2b2b">$AGENTPACK_HOME</text>
+  <rect x="203" y="68" width="78" height="10" rx="2" fill="#f97316" opacity="0.18"/>
+  <text x="242" y="76" text-anchor="middle" font-size="6" fill="#2b2b2b">content hash</text>
+
+  <line x1="298" y1="67" x2="336" y2="67" stroke="#f97316" stroke-width="1.2"/>
+  <polygon points="336,67 331,64 331,70" fill="#f97316"/>
+
+  <text x="344" y="38" font-size="7" fill="#57606a">INSTALL TARGET</text>
+  <rect x="344" y="46" width="132" height="42" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1.2"/>
+  <text x="352" y="60" font-size="7" fill="#fff" font-weight="600">$STAGING/plugins/...</text>
+  <text x="352" y="72" font-size="7" fill="#fff" font-weight="600">cursor-home/.cursor</text>
+  <text x="352" y="82" font-size="6" fill="#fff">opencode + codex homes</text>
+
+  <line x1="476" y1="67" x2="510" y2="67" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="510,67 505,64 505,70" fill="#2b2b2b"/>
+
+  <text x="518" y="38" font-size="7" fill="#57606a">LAUNCH</text>
+  <rect x="518" y="46" width="70" height="42" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="553" y="61" text-anchor="middle" font-size="7" fill="#2b2b2b">claude</text>
+  <text x="553" y="73" text-anchor="middle" font-size="7" fill="#2b2b2b">agent/codex</text>
+  <text x="553" y="83" text-anchor="middle" font-size="6" fill="#57606a">reads staging</text>
+
+  <text x="12" y="112" font-size="7" fill="#57606a">PROJECT REPOSITORY</text>
+  <rect x="12" y="120" width="464" height="18" rx="2" fill="none" stroke="#2b2b2b" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="20" y="132" font-size="7" fill="#2b2b2b">src/ content/ package.json README.md</text>
+  <text x="282" y="132" font-size="7" fill="#f97316" font-weight="600">not an install target</text>
+
+  <line x1="410" y1="88" x2="410" y2="118" stroke="#2b2b2b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="410" y1="118" x2="476" y2="118" stroke="#2b2b2b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="488" y="123" font-size="6" fill="#57606a">no writes</text>
+</svg>

@@ -114,7 +114,7 @@
   table td {
     @apply p-3 border-b border-primary/10 text-primary/80;
   }
-  
+
   /* Images */
   img {
     @apply max-w-full h-auto rounded-lg my-6 mx-auto;
@@ -172,6 +172,65 @@
 
 .markdown sub {
   @apply text-xs align-sub;
+}
+
+.asciinema-hero {
+  @apply mb-10 mt-[-0.5rem] w-full overflow-hidden border border-primary/10 bg-white;
+}
+
+.asciinema-hero__player {
+  @apply min-h-[160px] w-full bg-[#eff1f5];
+}
+
+.asciinema-hero__fallback {
+  @apply flex min-h-[160px] items-center justify-center gap-3 font-mono text-sm text-primary/70;
+}
+
+.asciinema-hero__dot {
+  @apply h-2 w-2 rounded-full bg-orange2;
+  animation: asciinema-pulse 1.2s ease-in-out infinite;
+}
+
+.asciinema-hero .ap-wrapper {
+  @apply m-0;
+}
+
+.asciinema-hero .ap-player {
+  @apply rounded-none border-0;
+}
+
+.ap-player.asciinema-player-theme-catppuccin-latte,
+.asciinema-player-theme-catppuccin-latte {
+  --term-color-foreground: #4c4f69;
+  --term-color-background: #eff1f5;
+  --term-color-0: #5c5f77;
+  --term-color-1: #d20f39;
+  --term-color-2: #40a02b;
+  --term-color-3: #df8e1d;
+  --term-color-4: #1e66f5;
+  --term-color-5: #ea76cb;
+  --term-color-6: #179299;
+  --term-color-7: #acb0be;
+  --term-color-8: #6c6f85;
+  --term-color-9: #de293e;
+  --term-color-10: #49af3d;
+  --term-color-11: #eea02d;
+  --term-color-12: #456eff;
+  --term-color-13: #fe85d8;
+  --term-color-14: #2d9fa8;
+  --term-color-15: #bcc0cc;
+}
+
+@keyframes asciinema-pulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .markdown abbr {

@@ -1,0 +1,85 @@
+<svg viewBox="0 0 600 272" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace">
+  <rect width="600" height="272" fill="#fff"/>
+
+  <text x="10" y="15" font-size="7" fill="#57606a">&gt; HOOKS AS INTERMEDIATE REPRESENTATION</text>
+
+  <!-- column headers -->
+  <text x="12" y="38" font-size="7" fill="#57606a">1. SOURCE MODEL</text>
+  <text x="168" y="38" font-size="7" fill="#57606a">2. NORMALIZE</text>
+  <text x="340" y="38" font-size="7" fill="#57606a">3. RENDER PER HARNESS</text>
+
+  <!-- connectors (behind all boxes) -->
+  <line x1="152" y1="95" x2="168" y2="95" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="168,95 163,92 163,98" fill="#2b2b2b"/>
+
+  <line x1="316" y1="68" x2="340" y2="68" stroke="#2b2b2b" stroke-width="1.2"/>
+  <polygon points="340,68 335,65 335,71" fill="#2b2b2b"/>
+
+  <line x1="242" y1="140" x2="242" y2="148" stroke="#2b2b2b" stroke-width="1" stroke-dasharray="3,2"/>
+  <polygon points="242,148 239,143 245,143" fill="#2b2b2b"/>
+
+  <!-- dispatch: bridge → gutter bus → partial harnesses -->
+  <line x1="316" y1="186" x2="328" y2="186" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4,2" stroke-linecap="round"/>
+  <line x1="328" y1="119" x2="328" y2="211" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4,2" stroke-linecap="round"/>
+  <line x1="328" y1="119" x2="340" y2="119" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4,2" stroke-linecap="round"/>
+  <polygon points="340,119 335,116 335,122" fill="#f97316"/>
+  <line x1="328" y1="165" x2="340" y2="165" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4,2" stroke-linecap="round"/>
+  <polygon points="340,165 335,162 335,168" fill="#f97316"/>
+  <line x1="328" y1="211" x2="340" y2="211" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4,2" stroke-linecap="round"/>
+  <polygon points="340,211 335,208 335,214" fill="#f97316"/>
+
+  <!-- 1. SOURCE -->
+  <rect x="12" y="50" width="140" height="90" rx="2" fill="#fff" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="24" y="66" font-size="8" fill="#2b2b2b">hooks/hooks.json</text>
+  <line x1="24" y1="74" x2="140" y2="74" stroke="#2b2b2b" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <text x="24" y="89" font-size="7" fill="#2b2b2b">event: PreToolUse</text>
+  <text x="24" y="101" font-size="7" fill="#2b2b2b">match: Edit|Grep</text>
+  <text x="24" y="113" font-size="7" fill="#2b2b2b">handler: command</text>
+  <text x="24" y="125" font-size="7" fill="#57606a">also: http, prompt, agent</text>
+
+  <!-- 2. NORMALIZE — IR -->
+  <rect x="168" y="50" width="148" height="90" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1.2"/>
+  <text x="182" y="66" font-size="8" fill="#fff" font-weight="600">agentpack hook IR</text>
+  <line x1="182" y1="74" x2="302" y2="74" stroke="#fff" stroke-opacity="0.7" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <text x="182" y="89" font-size="7" fill="#fff">claude_event</text>
+  <text x="182" y="101" font-size="7" fill="#fff">tool matcher / trigger</text>
+  <text x="182" y="113" font-size="7" fill="#fff">handler kind + payload</text>
+  <text x="182" y="125" font-size="6" fill="#fff">support: native | emulated | skip</text>
+
+  <!-- 2. NORMALIZE — bridge -->
+  <text x="242" y="156" text-anchor="middle" font-size="7" fill="#57606a">BRIDGE RUNTIME</text>
+  <rect x="168" y="160" width="148" height="52" rx="2" fill="#f97316" stroke="#f97316" stroke-width="1.2"/>
+  <text x="242" y="178" text-anchor="middle" font-size="8" fill="#fff" font-weight="600">agentpack hook-exec</text>
+  <text x="242" y="192" text-anchor="middle" font-size="7" fill="#fff">dispatch / command / http</text>
+  <text x="242" y="204" text-anchor="middle" font-size="6" fill="#fff">when no native handler exists</text>
+
+  <!-- runtime dispatch label (gutter, below bus — clear of all boxes) -->
+  <text x="318" y="218" font-size="5.5" fill="#57606a">runtime</text>
+  <text x="318" y="225" font-size="5.5" fill="#57606a">dispatch</text>
+
+  <!-- 3. RENDER — Claude -->
+  <rect x="340" y="50" width="248" height="36" rx="2" fill="#fff" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="352" y="64" font-size="8" fill="#2b2b2b">Claude</text>
+  <text x="432" y="64" font-size="7" fill="#57606a">native hooks.json</text>
+  <text x="352" y="76" font-size="6" fill="#57606a">canonical target, no loss</text>
+
+  <!-- 3. RENDER — partial harnesses -->
+  <text x="340" y="94" font-size="6" fill="#57606a">partial harnesses</text>
+
+  <rect x="352" y="100" width="224" height="38" rx="2" fill="#fff" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="364" y="114" font-size="8" fill="#2b2b2b">Cursor</text>
+  <text x="432" y="114" font-size="7" fill="#57606a">hooks + dispatch</text>
+  <text x="364" y="128" font-size="6" fill="#57606a">no Notification lifecycle</text>
+
+  <rect x="352" y="146" width="224" height="38" rx="2" fill="#fff" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="364" y="160" font-size="8" fill="#2b2b2b">OpenCode</text>
+  <text x="444" y="160" font-size="7" fill="#57606a">plugin hook</text>
+  <text x="364" y="174" font-size="6" fill="#57606a">some events degrade</text>
+
+  <rect x="352" y="192" width="224" height="38" rx="2" fill="#fff" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="364" y="206" font-size="8" fill="#2b2b2b">Codex</text>
+  <text x="432" y="206" font-size="7" fill="#57606a">hooks.json subset</text>
+  <text x="364" y="220" font-size="6" fill="#57606a">unsupported events diagnosed</text>
+
+  <text x="12" y="260" font-size="6" fill="#57606a">native where possible · emulated where useful · skipped when the lifecycle has no equivalent</text>
+</svg>
