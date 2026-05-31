@@ -69,9 +69,14 @@
     @apply mt-2 mb-0;
   }
   
+  /* First content block sits flush under the header (no stacked top margin) */
+  [itemprop="articleBody"] > :first-child {
+    @apply mt-0;
+  }
+
   /* Blockquotes */
   blockquote {
-    @apply pl-4 py-3 border-l-4 border-primary/30 bg-primary/5 italic my-6 text-primary/70;
+    @apply pl-4 py-0.5 border-l-[3px] border-primary my-6 text-primary/80;
   }
   
   blockquote p {
@@ -175,7 +180,7 @@
 }
 
 .asciinema-hero {
-  @apply mb-10 mt-[-0.5rem] w-full overflow-hidden border border-orange2 bg-white;
+  @apply my-8 w-full overflow-hidden border border-orange2 bg-white;
 }
 
 .asciinema-hero__player {
