@@ -137,7 +137,7 @@ agentpack sync
   <figcaption>The important distinction is the install target: GitHub is only the source, while `$STAGING` is what the agent CLI reads.</figcaption>
 </figure>
 
-When packages are downloaded from remote sources, you need to trust those sources, just like running `npm install` or executing a bash script downloaded via `curl`. To mitigate [supply chain attacks](https://www.paloaltonetworks.com/blog/cloud-security/npm-supply-chain-attack/) the exact versions are pinned in `pack.lock` to the latest commit at the time the package was added. You should still review what gets pulled into your staging environment.
+When packages are downloaded from remote sources, you need to trust those sources, just like running `npm install` or executing a bash script downloaded via `curl`. To mitigate [supply chain attacks](https://en.wikipedia.org/wiki/Supply_chain_attack) the exact versions are pinned in `pack.lock` to the latest commit at the time the package was added. You should still review what gets pulled into your staging environment.
 
 ### Design constraints
 
