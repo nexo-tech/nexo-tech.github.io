@@ -1,1 +1,5 @@
-{{ partial "asciinema-hero.html" .Page }}
+{{- /* Hero recording, driven by the page's front-matter params.asciinema */ -}}
+{{- with .Page.Params.asciinema -}}
+  {{- $opts := merge . (dict "page" $.Page "idprefix" "asciinema") -}}
+  {{- partial "asciinema-hero.html" $opts -}}
+{{- end -}}

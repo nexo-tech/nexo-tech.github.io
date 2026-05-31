@@ -1,76 +1,86 @@
-{{- with .Params.asciinema -}}
-  {{- $src := .src -}}
-  {{- $cast := $.Resources.GetMatch $src -}}
-  {{- if $cast -}}
-    {{- $id := printf "asciinema-%s" ($.Title | anchorize) -}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asciinema-player@latest/dist/bundle/asciinema-player.css">
-    <section class="asciinema-hero" aria-label="{{ .label | default "Terminal recording" }}">
-      <div id="{{ $id }}" class="asciinema-hero__player" data-cast-src="{{ $cast.RelPermalink }}">
-        <div class="asciinema-hero__fallback">
-          <span class="asciinema-hero__dot"></span>
-          <span>Loading terminal recording...</span>
-        </div>
+{{- /*
+  Shared asciinema player partial.
+  Expects a dict context with:
+    page          (required) the Page, used to resolve the cast resource + uniqueness
+    src           (required) cast filename, matched against the page bundle resources
+    idprefix      (optional) DOM id prefix; defaults to "asciinema"
+    label, cols, rows, autoPlay, loop, poster, speed, idleTimeLimit, theme (optional)
+  Both the hero shortcode (front-matter driven) and the inline {{< asciinema >}}
+  shortcode call this, so the player config + JS live in exactly one place.
+*/ -}}
+{{- $opts := . -}}
+{{- $page := $opts.page -}}
+{{- $src := $opts.src -}}
+{{- $cast := $page.Resources.GetMatch $src -}}
+{{- if $cast -}}
+  {{- $id := printf "%s-%s" ($opts.idprefix | default "asciinema") ($src | anchorize) -}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asciinema-player@latest/dist/bundle/asciinema-player.css">
+  <section class="asciinema-hero" aria-label="{{ $opts.label | default "Terminal recording" }}">
+    <div id="{{ $id }}" class="asciinema-hero__player" data-cast-src="{{ $cast.RelPermalink }}">
+      <div class="asciinema-hero__fallback">
+        <span class="asciinema-hero__dot"></span>
+        <span>Loading terminal recording...</span>
       </div>
-    </section>
-    <script>
-      window.agentpackAsciinemaInit = window.agentpackAsciinemaInit || function () {
-        document.querySelectorAll("[data-cast-src]").forEach(function (mount) {
-          if (mount.dataset.asciinemaReady) return;
+    </div>
+  </section>
+  <script>
+    window.agentpackAsciinemaInit = window.agentpackAsciinemaInit || function () {
+      document.querySelectorAll("[data-cast-src]").forEach(function (mount) {
+        if (mount.dataset.asciinemaReady) return;
 
-          if (!window.AsciinemaPlayer) {
-            mount.innerHTML = '<div class="asciinema-hero__fallback">Unable to load terminal player.</div>';
-            return;
-          }
-
-          mount.dataset.asciinemaReady = "true";
-          mount.innerHTML = "";
-
-          try {
-            window.AsciinemaPlayer.create(mount.dataset.castSrc, mount, {
-              fit: "width",
-              preload: true,
-              cols: {{ .cols | default 109 }},
-              rows: {{ .rows | default 14 }},
-              autoPlay: {{ .autoPlay | default false }},
-              loop: {{ .loop | default false }},
-              poster: {{ printf "%q" (.poster | default "npt:0:03") | safeJS }},
-              speed: {{ .speed | default 1 }},
-              idleTimeLimit: {{ .idleTimeLimit | default 2 }},
-              theme: {{ printf "%q" (.theme | default "asciinema") | safeJS }}
-            });
-          } catch (error) {
-            console.error("Failed to create Asciinema player", error);
-            mount.innerHTML = '<div class="asciinema-hero__fallback">Unable to play terminal recording.</div>';
-          }
-        });
-      };
-
-      window.agentpackAsciinemaLoadError = window.agentpackAsciinemaLoadError || function () {
-        document.querySelectorAll("[data-cast-src]").forEach(function (mount) {
+        if (!window.AsciinemaPlayer) {
           mount.innerHTML = '<div class="asciinema-hero__fallback">Unable to load terminal player.</div>';
-        });
-      };
+          return;
+        }
 
+        mount.dataset.asciinemaReady = "true";
+        mount.innerHTML = "";
+
+        try {
+          window.AsciinemaPlayer.create(mount.dataset.castSrc, mount, {
+            fit: "width",
+            preload: true,
+            cols: {{ $opts.cols | default 109 }},
+            rows: {{ $opts.rows | default 14 }},
+            autoPlay: {{ $opts.autoplay | default false }},
+            loop: {{ $opts.loop | default false }},
+            poster: {{ printf "%q" ($opts.poster | default "npt:0:03") | safeJS }},
+            speed: {{ $opts.speed | default 1 }},
+            idleTimeLimit: {{ $opts.idletimelimit | default 2 }},
+            theme: {{ printf "%q" ($opts.theme | default "asciinema") | safeJS }}
+          });
+        } catch (error) {
+          console.error("Failed to create Asciinema player", error);
+          mount.innerHTML = '<div class="asciinema-hero__fallback">Unable to play terminal recording.</div>';
+        }
+      });
+    };
+
+    if (window.AsciinemaPlayer) {
+      window.agentpackAsciinemaInit();
+    }
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/asciinema-player@latest/dist/bundle/asciinema-player.min.js"
+    onload="window.agentpackAsciinemaInit && window.agentpackAsciinemaInit()"
+    onerror="window.agentpackAsciinemaLoadError && window.agentpackAsciinemaLoadError()">
+  </script>
+  <script>
+    window.agentpackAsciinemaLoadError = window.agentpackAsciinemaLoadError || function () {
+      document.querySelectorAll("[data-cast-src]").forEach(function (mount) {
+        if (mount.dataset.asciinemaReady) return;
+        mount.innerHTML = '<div class="asciinema-hero__fallback">Unable to load terminal player.</div>';
+      });
+    };
+    window.setTimeout(function () {
       if (window.AsciinemaPlayer) {
         window.agentpackAsciinemaInit();
-      }
-    </script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/asciinema-player@latest/dist/bundle/asciinema-player.min.js"
-      onload="window.agentpackAsciinemaInit && window.agentpackAsciinemaInit()"
-      onerror="window.agentpackAsciinemaLoadError && window.agentpackAsciinemaLoadError()">
-    </script>
-    <script>
-      window.setTimeout(function () {
-        if (window.AsciinemaPlayer) {
-          window.agentpackAsciinemaInit();
-        } else {
-          const mount = document.getElementById({{ printf "%q" $id | safeJS }});
-          if (mount && !mount.dataset.asciinemaReady) {
-            mount.innerHTML = '<div class="asciinema-hero__fallback">Unable to load terminal player.</div>';
-          }
+      } else {
+        const mount = document.getElementById({{ printf "%q" $id | safeJS }});
+        if (mount && !mount.dataset.asciinemaReady) {
+          mount.innerHTML = '<div class="asciinema-hero__fallback">Unable to load terminal player.</div>';
         }
-      }, 3000);
-    </script>
-  {{- end -}}
+      }
+    }, 3000);
+  </script>
 {{- end -}}

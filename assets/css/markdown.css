@@ -175,7 +175,7 @@
 }
 
 .asciinema-hero {
-  @apply mb-10 mt-[-0.5rem] w-full overflow-hidden border border-primary/10 bg-white;
+  @apply mb-10 mt-[-0.5rem] w-full overflow-hidden border border-orange2 bg-white;
 }
 
 .asciinema-hero__player {

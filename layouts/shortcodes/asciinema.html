@@ -1,0 +1,12 @@
+{{- /* Inline recording: {{< asciinema src="foo.cast" loop="true" poster="npt:0:02" >}} */ -}}
+{{- $opts := dict "page" .Page "idprefix" "asciinema-inline" -}}
+{{- with .Get "src" -}}{{- $opts = merge $opts (dict "src" .) -}}{{- end -}}
+{{- with .Get "label" -}}{{- $opts = merge $opts (dict "label" .) -}}{{- end -}}
+{{- with .Get "cols" -}}{{- $opts = merge $opts (dict "cols" .) -}}{{- end -}}
+{{- with .Get "rows" -}}{{- $opts = merge $opts (dict "rows" .) -}}{{- end -}}
+{{- with .Get "autoPlay" -}}{{- $opts = merge $opts (dict "autoPlay" .) -}}{{- end -}}
+{{- with .Get "loop" -}}{{- $opts = merge $opts (dict "loop" .) -}}{{- end -}}
+{{- with .Get "poster" -}}{{- $opts = merge $opts (dict "poster" .) -}}{{- end -}}
+{{- with .Get "speed" -}}{{- $opts = merge $opts (dict "speed" .) -}}{{- end -}}
+{{- with .Get "theme" -}}{{- $opts = merge $opts (dict "theme" .) -}}{{- end -}}
+{{- partial "asciinema-hero.html" $opts -}}

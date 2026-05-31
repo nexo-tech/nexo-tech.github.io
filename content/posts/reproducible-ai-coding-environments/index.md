@@ -138,6 +138,10 @@ With adding more tools it becomes even more challenging to support. I typically 
 
 ### Modes: switching the agent’s working context
 
+{{< asciinema src="modes-tui.cast" label="agentpack mode TUI" poster="npt:0:02" loop="true" theme="catppuccin-latte" >}}
+
+> In the demo above I disable `skill-creator` package for the `frontend` mode. Claude Code launched with `--mode default` will list both skills, while `--mode frontend` will show only canvas-design one.
+
 Having a fully dynamic configurator allows me to **define modes** (a list of toggles for whether certain skills are available in a given mode). In a full-stack Python & React.js monorepo, I want to **toggle Python-specific skills off for a front-end-heavy refactoring job** and maybe add additional granular frontend-specific rules and guidance for that. With a dedicated TUI and pre-configured modes in the `agentpack.toml` manifest, it becomes easy to do.
 
 Mode is defined as three fields: a `base` (`all` means we have all plugins and skills toggled on, `none` is the opposite), `enable` and `disable` lists.
@@ -153,10 +157,7 @@ List values are defined as specific selectors with the following prefixes `packa
 
 To keep things easy to configure, I created a simple TUI, where modes can be defined interactively. All the changes are written to the `agentpack.toml` after saving.
 
-
 ### Hooks as an intermediate representation
-
-#### Claude Code’s hooks.json as the canonical hook model
 
 <figure>
   <img src="hooks-ir.svg" alt="Diagram showing Claude hooks parsed into agentpack hook IR and rendered to Cursor, OpenCode, and Codex hook surfaces">
