@@ -63,7 +63,7 @@ You will need:
 
 ### Server and application setup
 
-You’ll need to set up a VM. Here’s how you could set up a [free Oracle VM](https://nexo.sh/posts/setup-oracle-vm/), as I did to have more resources to play with. Alternatively, you can run a free-tier EC2 instance from Amazon, or an equivalent VM on another cloud provider.
+You’ll need to set up a VM. Here’s how you could set up a [free Oracle VM](https://olegpustovit.com/posts/setup-oracle-vm/), as I did to have more resources to play with. Alternatively, you can run a free-tier EC2 instance from Amazon, or an equivalent VM on another cloud provider.
 
 The next step is to build the binary for both the client and server by running:
 
